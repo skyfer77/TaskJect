@@ -49,21 +49,7 @@ The project was originally created as an internal task manager for tracking work
 - Azure Functions
 - GitHub Actions
 
-## Repository Structure
-
-```txt
-TaskJect/
-├── TaskJect.Web/          # Main web application
-├── Data/                  # Database context, repositories, migrations, data services
-├── Domain/                # Domain models, domain events and business logic
-├── AzureFunctions/        # Background jobs and scheduled functions
-├── .github/workflows/     # GitHub Actions workflows
-├── MappingConfig.cs
-├── TaskJect.sln
-└── README.md
-
-
-Main Modules
+### Main Modules
 TaskJect.Web
 
 Main web application responsible for:
@@ -113,3 +99,19 @@ Telegram — task and notification updates
 Gmail — email delivery
 Gumroad / WayForPay — payment and subscription flows
 Google Analytics — analytics tracking
+
+## Repository Structure
+
+```txt
+TaskJect/
+├── TaskJect.Web/          # Main web application
+├── Data/                  # Database context, repositories, migrations, data services
+├── Domain/                # Domain models, domain events and business logic
+├── AzureFunctions/        # Background jobs and scheduled functions
+├── .github/workflows/     # GitHub Actions workflows
+├── MappingConfig.cs
+├── TaskJect.sln
+└── README.md
+
+
+
