@@ -1,0 +1,65 @@
+﻿@using System.Globalization
+@{
+    var currentCulture = CultureInfo.CurrentCulture.Name;
+    var flag = currentCulture.StartsWith("uk") ? "uk_flag.jpg" : "us_flag.jpg";
+    var languageName = currentCulture.StartsWith("uk") ? "Українська" : "English";
+}
+<div class="header-element country-selector d-lg-flex d-none">
+    <a href="javascript:void(0);" class="header-link dropdown-toggle" data-bs-auto-close="outside" data-bs-toggle="dropdown">
+        <img src="~/images/flags/@flag" alt="@languageName" class="rounded-circle header-link-icon">
+    </a>
+    <ul class="main-header-dropdown dropdown-menu dropdown-menu-end padding-top-this">
+        <li>
+            <form asp-controller="Culture" asp-action="SetLanguage" method="post" asp-route-returnUrl="@Context.Request.Path">
+                <input type="hidden" name="culture" value="en" />
+                <button type="submit" class="dropdown-item d-flex align-items-center border-0 bg-transparent w-100 text-start">
+                    <span class="avatar avatar-xs lh-1 me-2">
+                        <img src="~/images/flags/us_flag.jpg" alt="English">
+                    </span>
+                    English
+                </button>
+            </form>
+        </li>
+        <li>
+            <form asp-controller="Culture" asp-action="SetLanguage" method="post" asp-route-returnUrl="@Context.Request.Path">
+                <input type="hidden" name="culture" value="uk" />
+                <button type="submit" class="dropdown-item d-flex align-items-center border-0 bg-transparent w-100 text-start">
+                    <span class="avatar avatar-xs lh-1 me-2">
+                        <img src="~/images/flags/uk_flag.jpg" alt="Українська">
+                    </span>
+                    Українська
+                </button>
+            </form>
+        </li>
+    </ul>
+</div>
+
+<div class="header-element country-selector d-lg-none d-flex">
+    <a href="javascript:void(0);" class="header-link dropdown-toggle" data-bs-auto-close="outside" data-bs-toggle="dropdown" data-bs-display="static">
+        <img src="~/images/flags/@flag" alt="@languageName" class="rounded-circle header-link-icon">
+    </a>
+    <ul class="main-header-dropdown dropdown-menu dropdown-menu-end padding-top-this" style="margin-top: 56px !important;">
+        <li>
+            <form asp-controller="Culture" asp-action="SetLanguage" method="post" asp-route-returnUrl="@Context.Request.Path">
+                <input type="hidden" name="culture" value="en" />
+                <button type="submit" class="dropdown-item d-flex align-items-center border-0 bg-transparent w-100 text-start">
+                    <span class="avatar avatar-xs lh-1 me-2">
+                        <img src="~/images/flags/us_flag.jpg" alt="English">
+                    </span>
+                    English
+                </button>
+            </form>
+        </li>
+        <li>
+            <form asp-controller="Culture" asp-action="SetLanguage" method="post" asp-route-returnUrl="@Context.Request.Path">
+                <input type="hidden" name="culture" value="uk" />
+                <button type="submit" class="dropdown-item d-flex align-items-center border-0 bg-transparent w-100 text-start">
+                    <span class="avatar avatar-xs lh-1 me-2">
+                        <img src="~/images/flags/uk_flag.jpg" alt="Українська">
+                    </span>
+                    Українська
+                </button>
+            </form>
+        </li>
+    </ul>
+</div>

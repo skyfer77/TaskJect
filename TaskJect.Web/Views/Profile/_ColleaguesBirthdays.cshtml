@@ -1,0 +1,34 @@
+﻿@using TaskJect.Web.Resources
+@using Domain.Database
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<SharedResources> Localizer
+@model IEnumerable<ApplicationUserLiteDto>
+@{
+    var countUser = Model.Count();
+}
+@if (Model.Any())
+{
+    <div class="card custom-card overflow-hidden">
+        <div class="d-sm-flex align-items-top p-4 border-bottom-0 birthdays-profile">
+            <div class="d-flex flex-column text-fixed-white">
+                <h5 class="fw-semibold op-9 mb-4 text-fixed-white">@Localizer["BirthdaysDuringMonth"]</h5>
+                @foreach (var user in Model)
+                {
+                    var isLastUser = user.Equals(Model.Last());
+                    <div class="d-flex flex-column @(countUser > 1 && !isLastUser ? "mb-3" : "")">
+                        <h6 class="fw-semibold op-9 mt-3 mb-3 text-fixed-white">@user.Name @user.Surname</h6>
+                        @{
+                            var birthday = user.Birthday;
+                            var day = birthday?.Day.ToString() ?? "--";
+                            var month = birthday?.ToString("MMM") ?? "--";
+                        }
+                        <p class="ecommerce-sales-calendar text-center mb-0">
+                            <span>@day</span>
+                            <span class="d-block fs-15 lh-1 fw-semibold">@month</span>
+                        </p>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+}

@@ -1,0 +1,29 @@
+﻿@using TaskJect.Web.Resources
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<SharedResources> Localizer
+<div class="modal fade" id="create-team" tabindex="-1" aria-labelledby="create-teamLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            @using (Html.BeginForm("CreateTeam", "Team", FormMethod.Post, new { id = "CreateTeam", @class = "was-validated" }))
+            {
+                <div class="modal-header">
+                    <h6 class="modal-title" id="create-teamLabel">@Localizer["CreateTeam"]</h6>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                </div>
+                <div class="modal-body px-4">
+                    <div class="row gy-3">
+                        <div class="col-xl-12">
+                            <label for="team-name" class="form-label">@Localizer["TeamName"]</label>
+                            <input type="text" class="form-control" id="CreateTeamName" name="Name" placeholder="@Localizer["EnterName"]" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sm btn-light" data-bs-dismiss="modal">@Localizer["Cancel"]</button>
+                    <button type="button" class="btn btn-sm btn-primary" onclick="CreateTeam()">@Localizer["Create"]</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>

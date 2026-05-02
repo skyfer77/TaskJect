@@ -1,0 +1,20 @@
+﻿@using TaskJect.Web.Resources
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<SharedResources> Localizer
+@model ServerResponse
+@{
+    Layout = "~/Views/Shared/_AccountLayout.cshtml";
+    ViewData["Title"] = "Login";
+}
+
+<div class="alert @(Model.IsSuccess ? "alert-success" : "alert-danger")" role="alert">
+    @Model.Message
+</div>
+<div class="row gy-3">
+    @if (Model.IsSuccess)
+    {
+        <div class="col-xl-12 d-grid mt-2">
+            <a href="@Url.Action("Login", "Account")" class="btn btn-lg btn-primary">@Localizer["GoToLogin"]</a>
+        </div>
+    }
+</div>

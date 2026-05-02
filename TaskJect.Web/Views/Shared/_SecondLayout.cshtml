@@ -1,0 +1,329 @@
+﻿@using TaskJect.Web.Common
+@using System.Text.Json
+@using TaskJect.Web.Enums
+@using TaskJect.Web.Resources
+@using Domain.Enums
+@using TaskJect.Web.Services
+@using Microsoft.Extensions.Localization
+@using System.Globalization
+@inject Microsoft.Extensions.Options.IOptions<GoogleAnalytics> GA
+@inject IStringLocalizer<SharedResources> Localizer
+@inject ILocalizationProvider LocalizationProvider
+@{
+    var translations = LocalizationProvider.GetAllTranslations();
+    var json = JsonSerializer.Serialize(translations);
+
+    var consent = Context.Request.Cookies["cookieConsent"];
+    var showBanner = string.IsNullOrEmpty(consent)
+        || (int.TryParse(consent, out int consentInt) && (CookieConsentType)consentInt == CookieConsentType.NecessaryOnly);
+
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="@CultureInfo.CurrentUICulture.TwoLetterISOLanguageName" dir="ltr" data-nav-layout="horizontal" data-nav-style="menu-click" data-menu-position="fixed" data-theme-mode="light">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>@Localizer["SeoTitle"]</title>
+    <meta name="description" content="@Localizer["SeoDescription"]" />
+    <meta name="keywords" content="@Localizer["SeoKeywords"]" />
+
+    <meta property="og:title" content="@Localizer["SeoTitle"]">
+    <meta property="og:description" content="@Localizer["SeoDescription"]">
+    <meta property="og:image" content="~/images/brand-logos/desktop-logo.png">
+    <meta property="og:url" content="https://taskject.com/">
+    <meta property="og:type" content="website">
+
+    <link rel="alternate" hreflang="en" href="https://taskject.com/" />
+    <link rel="alternate" hreflang="uk" href="https://taskject.com/?culture=uk" />
+
+    <!-- Bootstrap CSS -->
+    <link rel="icon" href="~/images/brand-logos/favicon.ico" type="image/x-icon">
+
+    <!-- Main Theme Js -->
+    <script src="~/js/main.js"></script>
+
+    <!--  jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+    <!-- Bootstrap Css -->
+    <link id="style" href="~/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Style Css -->
+    <link href="~/css/styles.min.css" rel="stylesheet">
+
+    <!-- Icons Css -->
+    <link href="~/css/icons.css" rel="stylesheet">
+
+    <!-- Node Waves Css -->
+    <link href="~/lib/node-waves/waves.min.css" rel="stylesheet">
+
+    <!-- Favicon -->
+    <link rel="icon" href="~/images/brand-logos/favicon.ico" type="image/x-icon">
+
+    <!-- Color Picker Css -->
+    <link rel="stylesheet" href="~/lib/flatpickr/flatpickr.min.css">
+    <link rel="stylesheet" href="@Url.Content("~/lib/@simonwep/pickr/themes/nano.min.css")">
+
+    @await RenderSectionAsync("HeadArea", required: false)
+
+    @if (GA.Value.Enabled)
+    {
+        <!-- Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=@GA.Value.MeasurementId"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', '@GA.Value.MeasurementId');
+        </script>
+    }
+</head>
+<body class="landing-body">
+    <div class="landing-page-wrapper">
+        <header class="app-header">
+            <div class="main-header-container container-fluid">
+                <div class="header-content-left">
+                    <div class="header-element">
+                        <div class="horizontal-logo">
+                            <a asp-controller="Home" asp-action="Index" class="header-logo">
+                                <img src="~/images/brand-logos/toggle-logo.png" alt="logo" class="toggle-logo">
+                                <img src="~/images/brand-logos/toggle-dark.png" alt="logo" class="toggle-dark">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="header-element">
+                        <a href="javascript:void(0);" class="sidemenu-toggle header-link" data-bs-toggle="sidebar">
+                            <span class="open-toggle">
+                                <i class="ri-menu-3-line fs-20"></i>
+                            </span>
+                        </a>
+                    </div>
+                </div>
+                <div class="header-content-right gap-2">
+                    <div class="d-flex align-items-center">
+                        <partial name="_SelectLanguage" />
+                    </div>
+                    <div class="btn-list d-flex align-items-center">
+                        @if (this.User.Identity.IsAuthenticated)
+                        {
+                            <a href="javascript:void(0);" class="btn btn-icon btn-primary p-0 d-flex align-items-center justify-content-center" id="mainHeaderProfileMobile" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false" width="40px" height="40px">
+                                @{
+                                    var avatarUrl = User.Claims.FirstOrDefault(c => c.Type == "avatar")?.Value
+                                        ?? Url.Content("~/images/default-avatars/default-avatar.png");
+                                }
+                                <img class="dynamic-avatar rounded-circle" src="@avatarUrl" alt="" width="32" height="32">
+                            </a>
+                            <ul class="main-header-dropdown dropdown-menu pt-0 mt-1 overflow-hidden header-profile-dropdown dropdown-menu-end" aria-labelledby="mainHeaderProfileMobile">
+                                <li>
+                                    <a class="dropdown-item d-flex" asp-controller="Profile" asp-action="Index">
+                                        <i class="ti ti-user-circle fs-18 me-2 op-7"></i>@Localizer["Profile"]
+                                    </a>
+                                </li>
+                                <li>
+                                    <form asp-action="Logout" asp-controller="Account" method="post" class="d-inline dropdown-item d-flex mb-0">
+                                        @Html.AntiForgeryToken()
+                                        <button type="submit" class="dropdown-item d-flex btn btn-link text-start p-0 m-0 border-0 bg-transparent">
+                                            <i class="ti ti-logout fs-18 me-2 op-7"></i>@Localizer["LogOut"]
+                                        </button>
+                                    </form>
+                                </li>
+                            </ul>
+                        }
+                        else
+                        {
+                            <a asp-controller="Account" asp-action="Login" class="btn btn-wave btn-primary">
+                                @Localizer["Start"]
+                            </a>
+                        }
+                    </div>
+                </div>
+            </div>
+        </header>
+        <aside class="app-sidebar sticky-pin sticky" id="sidebar">
+            <div class="container-xl">
+                <!-- Start::main-sidebar -->
+                <div class="main-sidebar">
+                    <!-- Start::nav -->
+                    <nav class="main-menu-container nav nav-pills sub-open">
+                        <div class="landing-logo-container">
+                            <div class="horizontal-logo">
+                                <a asp-controller="Home" asp-action="Index" class="header-logo">
+                                    <img src="~/images/brand-logos/desktop-logo.png" alt="logo" class="desktop-logo">
+                                    <img src="~/images/brand-logos/desktop-white.png" alt="logo" class="desktop-white">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="slide-left" id="slide-left"><svg xmlns="http://www.w3.org/2000/svg" fill="#7b8191" width="24" height="24" viewBox="0 0 24 24"> <path d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"></path> </svg></div>
+                        <ul class="main-menu">
+                            <!-- Start::slide -->
+                            <li class="slide">
+                                <a class="side-menu__item" asp-controller="Home" asp-action="Index">
+                                    <span class="side-menu__label">@Localizer["Home"]</span>
+                                </a>
+                            </li>
+                            <!-- End::slide -->
+                            <!-- Start::slide -->
+                            <li class="slide">
+                                <a asp-controller="ContactUs" asp-action="Index" class="side-menu__item">
+                                    <span class="side-menu__label">@Localizer["ContactUs"]</span>
+                                </a>
+                            </li>
+                            <!-- End::slide -->
+                            <!-- Start::slide -->
+                            <li class="slide">
+                                <a asp-controller="FAQ" asp-action="Index" class="side-menu__item">
+                                    <span class="side-menu__label">@Localizer["FAQ"]</span>
+                                </a>
+                            </li>
+                            <!-- End::slide -->
+                        </ul>
+                        <div class="slide-right" id="slide-right"><svg xmlns="http://www.w3.org/2000/svg" fill="#7b8191" width="24" height="24" viewBox="0 0 24 24"> <path d="M10.707 17.707 16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"></path> </svg></div>
+                        <div class="d-lg-flex d-none">
+                            <div class="d-flex justify-content-center align-items-center px-3">
+                                <partial name="_SelectLanguage" />
+                            </div>
+                            <div class="btn-list d-lg-flex d-none mt-lg-2 mt-xl-0 mt-0">
+                                @if (this.User.Identity.IsAuthenticated)
+                                {
+                                    <a href="javascript:void(0);" class="btn btn-wave btn-primary p-1" id="mainHeaderProfile" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+                                        <div class="d-flex align-items-center m-0">
+                                            <div class="me-sm-2 mb-0">
+                                                @{
+                                                    var avatarUrl = User.Claims.FirstOrDefault(c => c.Type == "avatar")?.Value
+                                                    ?? Url.Content("~/images/default-avatars/default-avatar.png");
+                                                }
+                                                <img class="dynamic-avatar rounded-circle" src="@avatarUrl" alt="" width="32" height="32">
+                                            </div>
+                                            <div class="d-sm-block d-none mb-0">
+                                                <p class="fw-semibold mb-0 lh-1">@User.Identity.Name</p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <ul class="main-header-dropdown dropdown-menu pt-0 mt-2 overflow-hidden header-profile-dropdown dropdown-menu-end" aria-labelledby="mainHeaderProfile">
+                                        <li><a class="dropdown-item d-flex" asp-controller="Profile" asp-action="Index" asp-route-id=""><i class="ti ti-user-circle fs-18 me-2 op-7"></i>@Localizer["Profile"]</a></li>
+                                        <li>
+                                            <form asp-action="Logout" asp-controller="Account" method="post" class="d-inline dropdown-item d-flex mb-0">
+                                                @Html.AntiForgeryToken()
+                                                <button type="submit" class="dropdown-item d-flex btn btn-link text-start p-0 m-0 border-0 bg-transparent">
+                                                    <i class="ti ti-logout fs-18 me-2 op-7"></i>@Localizer["LogOut"]
+                                                </button>
+                                            </form>
+                                        </li>
+                                    </ul>
+                                }
+                                else
+                                {
+                                    <a asp-controller="Account" asp-action="Login" class="btn btn-wave btn-primary">
+                                        @Localizer["Start"]
+                                    </a>
+                                }
+                            </div>
+                        </div>
+                    </nav>
+                    <!-- End::nav -->
+                </div>
+                <!-- End::main-sidebar -->
+            </div>
+        </aside>
+        <div class="main-content landing-main px-0">
+            @RenderBody()
+        </div>
+        <div class="mt-auto py-3 bg-white text-muted footer-box">
+            <partial name="_FooterContent" />
+        </div>
+    </div>
+    <div class="scrollToTop">
+        <span class="arrow"><i class="ri-arrow-up-s-fill fs-20"></i></span>
+    </div>
+    <div id="responsive-overlay"></div>
+    <style>
+        .top-radius {
+            border-top-left-radius: 1rem;
+            border-top-right-radius: 1rem;
+        }
+        .swiper-slide img {
+            max-height: 550px;
+            object-fit: contain;
+        }
+
+        .swiper-thumbs .swiper-slide img {
+            max-height: 100px;
+            object-fit: contain;
+        }
+
+        .country-selector .header-link img {
+            padding: .25rem;
+        }
+
+        .dropdown-toggle::after {
+            display: none;
+        }
+
+        .padding-top-this.show {
+            margin-top: 16.2px !important;
+        }
+
+        .footer-box {
+            box-shadow: 0 0.25rem 1rem var(--black-1);
+        }
+
+        html, body {
+            scrollbar-width: auto !important;
+        }
+
+        html::-webkit-scrollbar,
+        body::-webkit-scrollbar {
+            display: initial !important;
+            width: 16px !important;
+            background: inherit !important;
+        }
+
+        html {
+            scrollbar-width: thin;
+            scrollbar-color: #888 transparent;
+        }
+
+        html::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+
+        html::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        html::-webkit-scrollbar-thumb {
+            background-color: #888;
+            border-radius: 3px;
+        }
+
+        html::-webkit-scrollbar-thumb:hover {
+            background-color: #555;
+        }
+    </style>
+
+    <script>
+        window.translations = @Html.Raw(json);
+    </script>
+
+    @if (showBanner)
+    {
+        <partial name="_CookieBanner" />
+    }
+
+    <script src="~/js/custom_js/utils/cookiesAccepted.js" charset="utf-8"></script>
+    <script src="~/js/custom_js/Landing/scroll-arrow-top.js"></script>
+
+    <script src="~/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Defaultmenu JS -->
+    <script src="~/js/defaultmenu.min.js"></script>
+
+    <script src="~/lib/node-waves/waves.min.js"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

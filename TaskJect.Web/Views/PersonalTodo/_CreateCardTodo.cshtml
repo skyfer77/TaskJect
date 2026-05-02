@@ -1,0 +1,22 @@
+﻿@using TaskJect.Web.Resources
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<SharedResources> Localizer
+
+<div class="col-xxl-4 unsaved-todo">
+    <div class="card custom-card">
+        <div class="card-header align-items-center">
+            <div class="flex-fill">
+                <textarea class="form-control new-title-input todo-title textarea-no-resize" rows="1"
+                          placeholder="@Localizer["NewTodolist"]" maxlength="200" onkeydown="saveNewTodoTitleOnEnter(event, this)"></textarea>
+            </div>
+            <div class="align-self-start">
+                <button type="button" class="btn btn-sm btn-outline-success btn-icon" onclick="saveNewTodoTitleButton(this)">
+                    <i class="bi bi-check2 align-middle"></i>
+                </button>
+                <button type="button" class="btn btn-sm btn-outline-danger btn-icon" onclick="removeUnsavedTodo(this)">
+                    <i class="bi bi-x-lg align-middle"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

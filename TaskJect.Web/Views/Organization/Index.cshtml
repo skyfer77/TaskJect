@@ -1,0 +1,288 @@
+﻿@using System.Globalization
+@using TaskJect.Web.Services
+@using TaskJect.Web.Resources
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<SharedResources> Localizer
+@model OrganizationInfo
+@{
+    var maxUser = Model.TariffPlan.MaxUsers;
+    var countUser = Model.Users.Count();
+    var accessRole = User.IsInRole("Admin") || User.IsInRole("God") || User.IsInRole("TeamLead");
+}
+@section HeadArea {
+    <link href="~/css/NewStyles.css" rel="stylesheet">
+    <link rel="stylesheet" href="~/lib/gridjs/theme/mermaid.min.css">
+    <link rel="stylesheet" href="~/lib/quill/quill.snow.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css">
+}
+
+<!-- Page Header -->
+<div class="d-md-flex d-block align-items-center justify-content-between my-2 page-header-breadcrumb">
+</div>
+<!-- Page Header Close -->
+<!-- Start::row-1 -->
+<div class="row" id="my-organization">
+    <div class="col-xxl-4 col-xl-12">
+        <div class="card custom-card overflow-hidden" id="organization-card">
+            <div class="card-body p-0">
+                <div class="d-sm-flex align-items-top p-4 border-bottom-0 main-profile-cover">
+                    <div class="flex-fill main-profile-info">
+                        @{
+                            var idOrgnization = Model.Organization.OrganizationId;
+                        }
+                        <div class="d-flex align-items-center justify-content-between">
+                            <h3 class="fw-semibold mb-1 text-fixed-white">@Model.Organization.Name</h3>
+                            @if (accessRole)
+                            {
+                                <button class="btn btn-light btn-wave" onclick="Edit('@idOrgnization')">
+                                    <i class="ri-edit-line me-1 align-middle d-inline-block"></i>@Localizer["Edit"]
+                                </button>
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="p-4">
+                    <p class="fs-15 mb-2 me-4 fw-semibold">@Localizer["Information"]:</p>
+                    <div class="text-muted">
+                        <p class="mb-2">
+                            <span class="avatar avatar-sm avatar-rounded me-2 bg-light text-muted">
+                                <i class="ri-mail-line align-middle fs-14"></i>
+                            </span>
+                            @Model.Organization.Email
+                        </p>
+                        <p class="mb-2">
+                            <span class="avatar avatar-sm avatar-rounded me-2 bg-light text-muted">
+                                <i class="ri-phone-line align-middle fs-14"></i>
+                            </span>
+                            @Model.Organization.PhoneNumber
+                        </p>
+                        <p class="mb-2">
+                            <span class="avatar avatar-sm avatar-rounded me-2 bg-light text-muted">
+                                <i class="las la-calendar-day align-middle fs-14"></i>
+                            </span>
+                            @Model.Organization.RegistrationDate.ToString("dd MMMM yyyy", System.Globalization.CultureInfo.CurrentCulture)
+                        </p>
+                    </div>
+                    @if (ViewBag.HasGitHubIntegration)
+                    {
+                        <div class="pt-2 border-top border-block-top-dashed">
+                            <p class="fs-15 mb-2 me-4 fw-semibold">@Localizer["Integrations"]:</p>
+                            @if (Model.Organization.GitHubInstallationId != null && accessRole)
+                            {
+                                <button type="button"
+                                        class="btn btn-danger btn-sm btn-wave waves-effect waves-light"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#unlink-github">
+                                    <i class="ri-delete-bin-line"></i>
+                                    @Localizer["UnlinkGitHub"]
+                                </button>
+                            }
+                            else
+                            {
+                                <a asp-controller="GitHub" asp-action="Install" target="_blank" class="btn btn-success btn-sm btn-wave waves-effect waves-light">
+                                    <i class="bi bi-link"></i>
+                                    @Localizer["LinkToGitHub"]
+                                </a>
+                            }
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <partial name="_TariffPlan" model="Model" />
+    <div class="col-xxl-5 col-xl-12" id="table-organization-user">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card custom-card">
+                    <div class="card-header justify-content-between">
+                        <span class="fs-5 fw-semibold">@Localizer["Members"]</span>
+                        @if (countUser < maxUser && accessRole)
+                        {
+                            <div>
+                                <button class="btn btn-sm btn-primary-light" data-bs-toggle="modal"
+                                        data-bs-target="#add-user">
+                                    @Localizer["AddUser"]<i class="ri-add-line ms-1 align-middle"></i>
+                                </button>
+                            </div>
+                        }
+                    </div>
+                    @if (accessRole)
+                    {
+                        <div class="card-body p-0">
+                            <div class="table-responsive" id="user-in-organization" style="overflow: visible">
+                                <table class="table">
+                                    <thead class="bg-light">
+
+                                        <tr>
+                                            <th scope="col">@Localizer["User"]</th>
+                                            <th scope="col">@Localizer["Roles"]</th>
+                                            <th scope="col">@Localizer["Action"]</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var user in Model.Users)
+                                        {
+                                            <tr>
+                                                <th scope="row">
+                                                    <div class="d-flex align-items-center">
+                                                        <div class="me-2">
+                                                            <span class="avatar avatar-rounded">
+                                                                <img class="dynamic-avatar" data-name="@user.Name" src="~/images/default-avatars/default-avatar.png" alt="">
+                                                            </span>
+                                                        </div>
+                                                        <div>
+                                                            <span class="d-block fw-semibold">@user.Name @user.Surname</span>
+                                                            <span class="d-block fs-12 text-muted">@user.Email</span>
+                                                        </div>
+                                                    </div>
+                                                </th>
+                                                <td>
+                                                    @if (user.RoleInOrganization == TaskJect.Web.Enums.OrganizationRolesView.TeamLead)
+                                                    {
+                                                        @EnumHelper.GetEnumDisplayName((TaskJect.Web.Enums.OrganizationRolesView)user.RoleInOrganization)
+                                                    }
+                                                    else
+                                                    {
+                                                        <select id="choices-user-oraganization-role" class="choices-multiple-remove-button4" style="z-index: 1050">
+                                                            @{
+                                                                var hasTeamLead = Model.Users.Any(u => u.RoleInOrganization == TaskJect.Web.Enums.OrganizationRolesView.TeamLead);
+                                                            }
+                                                            @foreach (var role in TaskJect.Web.Enums.OrganizationRolesView.GetValues(typeof(TaskJect.Web.Enums.OrganizationRolesView)))
+                                                            {
+                                                                if (role.ToString() == "TeamLead" && hasTeamLead)
+                                                                {
+                                                                    continue;
+                                                                }
+
+                                                                if (user.RoleInOrganization == (TaskJect.Web.Enums.OrganizationRolesView)role)
+                                                                {
+                                                                    <option value="@Convert.ToInt32(role)" selected>
+                                                                        @EnumHelper.GetEnumDisplayName((TaskJect.Web.Enums.OrganizationRolesView)role)
+                                                                    </option>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <option value="@Convert.ToInt32(role)">
+                                                                        @EnumHelper.GetEnumDisplayName((TaskJect.Web.Enums.OrganizationRolesView)role)
+                                                                    </option>
+                                                                }
+                                                            }
+                                                        </select>
+                                                    }
+                                                </td>
+                                                <td>
+                                                    @if (user.RoleInOrganization != TaskJect.Web.Enums.OrganizationRolesView.TeamLead)
+                                                    {
+                                                        <div class="hstack gap-2 fs-15">
+                                                            <a aria-label="anchor" href="javascript:void(0);" class="btn btn-icon btn-sm btn-danger-transparent rounded-pill"
+                                                               data-bs-toggle="modal" data-bs-target="#delete-user-row"
+                                                               data-todo='{"id":"@user.Id", "name": "@user.Name", "surname": "@user.Surname"}'>
+                                                                <i class="ri-delete-bin-line"></i>
+                                                            </a>
+                                                        </div>
+                                                    }
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="card-body p-0">
+                            <div class="table-responsive" id="user-in-organization">
+                                <table class="table">
+                                    <thead class="bg-light">
+                                        <tr>
+                                            <th scope="col" style="width:50% ; text-align:center;">@Localizer["User"]</th>
+                                            <th scope="col" style="width:50% ; text-align:center;">@Localizer["Roles"]</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody style="text-align:center;">
+                                        @foreach (var user in Model.Users)
+                                        {
+                                            <tr>
+                                                <th scope="row" style="text-align: center;">
+                                                    <div class="d-flex align-items-center justify-content-center">
+                                                        <div class="me-2" style="display: flex; justify-content: flex-end; ">
+                                                            <span class="avatar avatar-rounded" style="margin-right:8px;">
+                                                                <img class="dynamic-avatar" data-name="@user.Name" src="~/images/default-avatars/default-avatar.png" alt="">
+                                                            </span>
+                                                        </div>
+                                                        <div style="text-align: left; width: 150px;">
+                                                            <span class="d-block fw-semibold">@user.Name @user.Surname</span>
+                                                            <span class="d-block fs-12 text-muted">@user.Email</span>
+                                                        </div>
+                                                    </div>
+                                                </th>
+                                                <td>
+                                                    @EnumHelper.GetEnumDisplayName((TaskJect.Web.Enums.OrganizationRolesView)user.RoleInOrganization)
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--End::row-1 -->
+<!-- Start::modal -->
+<div id="modal-window"></div>
+<partial name="_EditOrganization" model="Model.Organization" />
+<partial name="_AddUser" />
+<partial name="_DeleteUser" />
+<partial name="_ContactForm" model="Model.Organization" />
+@if (Model.Organization.GitHubInstallationId != null && accessRole)
+{
+    <partial name="_ConfirmUnlinkGitHubModalWindow" />
+}
+
+<style>
+    .was-validated .form-control:valid {
+        border-color: var(--input-border);
+        background-image: none;
+    }
+
+        .was-validated .form-control:valid:focus {
+            border-color: var(--input-border);
+            background-image: none;
+        }
+
+    .choices-multiple-remove-button4 {
+        visibility: hidden;
+        opacity: 0;
+    }
+</style>
+<!-- End::modal -->
+
+<script>
+    window.currentCulture = "@CultureInfo.CurrentCulture.Name";
+</script>
+
+@section Scripts {
+    <!-- Quill Editor JS -->
+    <script src="~/lib/quill/quill.min.js"></script>
+
+    <!-- Form Validation JS -->
+    <script src="~/js/validation.js"></script>
+
+    <script src="~/js/custom_js/utils/modalWindowLoad.js"></script>
+
+    <script src="~/js/custom_js/Organization/tariffPlan.js"></script>
+    <script src="~/js/custom_js/Organization/organization.js"></script>
+    <script src="~/js/custom_js/Organization/addUser.js"></script>
+
+    <script src="~/js/default-avatar.js"></script>
+
+    <script src="~/js/custom_js/Organization/userManager.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
+}
+

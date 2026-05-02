@@ -1,0 +1,128 @@
+﻿@using TaskJect.Web.Resources
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<SharedResources> Localizer
+@{
+    ViewData["Title"] = "Contact us";
+    Layout = "~/Views/Shared/_SecondLayout.cshtml";
+}
+@section HeadArea
+{
+    <link rel="stylesheet" href="~/css/NewStyles.css">
+}
+<section class="section section-bg pb-0 section-body" @*style="min-height: calc(100vh - 14rem);"*@>
+<!-- Start::row-1 -->
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-xl-8">
+                <div class="card custom-card">
+                    <div class="card-body p-0">
+                        <div class="p-4 d-flex align-items-center text-fixed-white bg-primary h5 mb-0 top-radius">
+                            <span class="avatar avatar-md me-3">
+                                <img src="~/images/brand-logos/toggle-white.png" alt="logo" class="toggle-logo">
+                            </span>  @Localizer["ContactUs"]
+                        </div>
+                        <div class="p-4 pb-0 text-muted">
+                            <div class="mb-0">
+                                <p class="h6 text-muted mb-2">@Localizer["Email"]: <span class="text-primary"> support@taskject.com</span></p>
+                                <p class="h6 text-muted mb-2">@Localizer["Number"]: <span class="text-primary"> +380667353774</span></p>
+                                <p class="h6 text-muted mb-0">@Localizer["Adress"]: <span class="text-primary"> @Localizer["BazhanaAvenue10AKyiv"]</span></p>
+                            </div>
+                        </div>
+                        <div class="p-4 text-muted">
+                            <p class="h5 op-7"><strong>@Localizer["SocialNetwork"]</strong></p>
+                            <div class="mb-0">
+                                <p class="h6 text-muted mb-2">
+                                    Linkedin:
+                                    <a href="https://www.linkedin.com/company/bytebusters2022/" target="_blank" rel="noopener noreferrer">
+                                        <img src="~/images/apps/linkedin.png" class="icon-sosial" alt="linkedin">
+                                    </a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<!--End::row-1 -->
+</section>
+<!-- Start:: Section2 -->
+<section class="section section-bg pb-0 section-body mt-0 pt-0" id="contact">
+    <div class="container text-center">
+        <div class="row justify-content-center">
+            <div class="col-xl-8">
+                <div class="card custom-card">
+                    <div class="card-body">
+                        <h4 class="fw-semibold mt-3 mb-2">@Localizer["FeelFreeReachOutUs"]!</h4>
+                        <div class="row justify-content-center">
+                            <div class="col-xl-9">
+                                <p class="text-muted fs-15 mb-3 fw-normal">@Localizer["ViaTheFormBelow"]</p>
+                            </div>
+                        </div>
+                        <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-18 col-sm-18">
+                            <div class="card custom-card  overflow-hidden section-bg border overflow-hidden shadow-none">
+                                <div class="card-body" style="padding: 1.4rem">
+                                    <div class="row gy-3 mt-2 px-3">
+                                        <div class="col-xl-4">
+                                            <div class="row gy-3 text-start">
+                                                <div class="col-xl-12">
+                                                    <label for="contact-address-name" class="form-label ">@Localizer["FullName"]:</label>
+                                                    <input type="text" class="form-control " id="contact-address-name" placeholder="@Localizer["EnterName"]">
+                                                    <div class="invalid-feedback">
+                                                        @Localizer["PleaseEnterFullName"].
+                                                    </div>
+                                                </div>
+                                                <div class="col-xl-12">
+                                                    <label for="contact-address-phone" class="form-label ">@Localizer["Phone"]:</label>
+                                                    <input type="text" class="form-control " id="contact-address-phone" placeholder="@Localizer["EnterPhone"]">
+                                                    <div class="invalid-feedback">
+                                                        @Localizer["PleaseEnterPhoneNumber"].
+                                                    </div>
+                                                </div>
+                                                <div class="col-xl-12">
+                                                    <label for="contact-address-email" class="form-label ">@Localizer["EmailAddress"]:</label>
+                                                    <input type="text" class="form-control " id="contact-address-email" placeholder="@Localizer["EnterEmail"]">
+                                                    <div class="invalid-feedback">
+                                                        @Localizer["PleaseEnterCorrectEmail"].
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-8 text-start">
+                                            <label for="contact-address-message" class="form-label ">@Localizer["Message"]:</label>
+                                            <textarea class="form-control " id="contact-address-message" rows="8"></textarea>
+                                            <div class="invalid-feedback">
+                                                @Localizer["PleaseEnterMessage"].
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-12">
+                                            <div class="d-flex  mt-4 ">
+                                                <div class="ms-auto">
+                                                    <button class="btn btn-primary  btn-wave" id="send-message">@Localizer["SendMessage"]</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <style>
+        .btn-close {
+            padding: 0 !important;
+        }
+    </style>
+    <!-- Modal window -->
+    <partial name="_Confirmed" />
+    <partial name="_Warning" />
+    <!-- Modal window -->
+</section>
+<!-- End:: Section-2 -->
+@section Scripts
+{
+    <script src="~/js/custom_js/Landing/contact-us.js"></script>
+}

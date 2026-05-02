@@ -1,0 +1,48 @@
+﻿@using TaskJect.Web.Resources
+@using Domain.Database
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<SharedResources> Localizer
+@model OrganizationDto
+
+<div class="modal fade" id="edit-organization" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            @using (Html.BeginForm("EditOrganizationName", "Organization", FormMethod.Post, new { id = "EditOrganization", @class = "was-validated" }))
+            {
+                <div class="modal-header">
+                    <h6 class="modal-title" id="create-teamLabel">@Localizer["EditOrganization"]</h6>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body px-4">
+                    <div class="row gy-3">
+                        <div class="col-xl-12">
+                            <input type="hidden" id="Id" name="OrganizationId" value="@Model.OrganizationId" />
+                            <label for="organization-name" class="form-label">@Localizer["OrganizationName"]</label>
+                            <input type="text" class="form-control" id="EditOrganizationName" name="Name" value="@Model.Name" placeholder="@Localizer["EnterName"]" required>
+                        </div>
+                        <div class="col-xl-12">
+                            <label for="input-email" class="form-label">@Localizer["Email"]</label>
+                            <input type="email" class="form-control" id="EditOrganizationEmail" name="Email" value="@Model.Email" placeholder="Email@xyz.com">
+                        </div>
+                        <div class="invalid-feedback" id="error-email">
+                            @Localizer["PleaseEnterEmail"].
+                        </div>
+                        <div class="col-xl-12">
+                            <label for="input-tel" class="form-label">@Localizer["PhoneNumber"]</label>
+                            <input type="text" class="form-control" id="EditOrganizationPhone" name="PhoneNumber" value="@Model.PhoneNumber" placeholder="+380-099-999-99-99">
+                        </div>
+                        <div class="invalid-feedback" id="error-phone">
+                            @Localizer["PhoneNumber"].
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">@Localizer["Cancel"]</button>
+                    <button type="button" class="btn btn-primary" onclick="EditOrganization()">@Localizer["Save"]</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>

@@ -1,0 +1,215 @@
+﻿﻿@using TaskJect.Web.Resources
+@using TaskJect.Web.Services
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<SharedResources> Localizer
+@model OverviewTaskModel
+@functions {
+    public string FormatFileSize(long sizeInBytes)
+    {
+        if (sizeInBytes < 1024)
+            return $"{sizeInBytes} bytes";
+        else if (sizeInBytes < 1024 * 1024)
+            return $"{(sizeInBytes / 1024.0):N1} KB";
+        else
+            return $"{(sizeInBytes / 1024.0 / 1024.0):N1} MB";
+    }
+}
+<div class="modal fade" id="overview-task" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title">@Localizer["OverviewTask"]</h6>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+            @if (Model.GitHubIntegration
+            && !string.IsNullOrEmpty(Model.Task.GitHubRepoName)
+            && !string.IsNullOrEmpty(Model.Task.GitHubOwner)
+            && (Model.Task.GitHubIssueNumber.HasValue || !string.IsNullOrEmpty(Model.Task.GitHubBranch)) && ViewBag.HasGitHubIntegration)
+            {
+                <div id="extra-panel" class="collapse">
+                    <div class="extra-panel px-3 py-2">
+                        <div>
+                            @if (Model.Task.GitHubIssueNumber.HasValue)
+                            {
+                                <div class="d-flex align-items-center">
+                                    <i class="bi bi-exclamation-circle-fill text-danger me-2"></i>
+                                    <span class="fw-semibold">@Localizer["Issue"]: #@Model.Task.GitHubIssueNumber</span>
+                                </div>
+                            }
+                            @if (!string.IsNullOrEmpty(Model.Task.GitHubBranch))
+                            {
+                                <div class="d-flex align-items-center">
+                                    <i class="bi bi-git me-2"></i>
+                                    <span class="fw-semibold">@Model.Task.GitHubRepoName</span>/<span class="text-muted">@Model.Task.GitHubBranch</span>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+            <div class="modal-body px-4">
+                @if (Model.GitHubIntegration
+                && !string.IsNullOrEmpty(Model.Task.GitHubRepoName)
+                && !string.IsNullOrEmpty(Model.Task.GitHubOwner)
+                && (Model.Task.GitHubIssueNumber.HasValue || !string.IsNullOrEmpty(Model.Task.GitHubBranch)) && ViewBag.HasGitHubIntegration)
+                {
+                    <button type="button"
+                            class="toggle-btn btn btn-primary btn-icon btn-sm"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#extra-panel"
+                            aria-expanded="false"
+                            aria-controls="extra-panel">
+                        <i class="bi bi-github"></i>
+                    </button>
+                }
+                <div class="d-flex align-items-center justify-content-between mb-4">
+                    <h5 class="fw-semibold task-title">
+                        @Model.Task.Title
+                    </h5>
+                    <div class="text-muted task-description" id="desc">
+                        @if (Model.Task.IsAgreedOverdue)
+                        {
+                            <u><b>@Localizer["AgreedOverdue"]</b></u>
+                        }
+                    </div>
+                </div>
+                @if (Model.Task.Description != "<p><br></p>")
+                {
+                    <div class="text-muted task-description" id="desc">
+                        <b>@Localizer["Description"]:</b><br />
+                        @Html.Raw(System.Net.WebUtility.HtmlDecode(@Model.Task.Description))
+                    </div>
+                }
+                @if (Model.OrganizationFiles != null && Model.OrganizationFiles.Any())
+                {
+                    <div class="col-xl-12">
+                        <label class="form-label">@Localizer["Files"]</label>
+                        <div class="file-list">
+                            @foreach (var file in Model.OrganizationFiles)
+                            {
+                                <div class="px-3 py-1 mb-2 border-none rounded-3 shadow d-flex justify-content-between align-items-center bg-primary">
+                                    <div class="me-3" style="max-width: 75%;">
+                                        <div class="d-flex align-items-center">
+                                            <i class="bi bi-file-earmark me-2 text-fixed-white"></i>
+                                            <span class="fw-semibold text-fixed-white text-truncate d-inline-block" style="max-width: 100%;" title="@file.FileName">
+                                                @file.FileName
+                                            </span>
+                                        </div>
+                                        <div class="text-muted text-fixed-white small ms-4" style="opacity: 0.7;">
+                                            @FormatFileSize(file.Size)
+                                        </div>
+                                    </div>
+                                    <a class="btn btn-sm text-fixed-white border-light" href="@Url.Action("DownloadFile", "Task", new { id = file.Id })">
+                                        <i class="bi bi-download me-1"></i> @Localizer["Download"]
+                                    </a>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                }
+                @if (Model.Task.Status == TaskJect.Web.Enums.TaskStatusView.OnReview ||
+                Model.Task.Status == TaskJect.Web.Enums.TaskStatusView.Done ||
+                Model.Task.Status == TaskJect.Web.Enums.TaskStatusView.Archived)
+                {
+                    if (Model.Task.PerformanceNote != "<p><br></p>" && !string.IsNullOrEmpty(Model.Task.PerformanceNote))
+                    {
+                        <div class="text-muted task-description" id="desc">
+                            <b>@Localizer["PerformanceNote"]:</b><br />
+                            @Html.Raw(System.Net.WebUtility.HtmlDecode(@Model.Task.PerformanceNote))
+                        </div>
+                    }
+                }
+            </div>
+            <div class="modal-footer newover justify-content-center">
+                <div class="d-flex align-items-center justify-content-between gap-4 flex-wrap">
+                    <div>
+                        <span class="d-block text-muted fs-12">@Localizer["AssignedBy"]</span>
+                        <div class="d-flex align-items-center">
+                            <span class="d-block fs-14 fw-semibold badge bg-light text-default">
+                                @{
+                                    if (Model.Task.User == null)
+                                    {
+                                        @string.Empty
+                                        ;
+                                    }
+                                    else
+                                    {
+                                        @Model.Task.User.Name @Model.Task.User.Surname
+                                    }
+                                }
+                            </span>
+                        </div>
+                    </div>
+
+                    @if (Model.Task.Status != TaskJect.Web.Enums.TaskStatusView.Done &&
+                    Model.Task.Status != TaskJect.Web.Enums.TaskStatusView.OnReview)
+                    {
+                        <div>
+                            <span class="d-block text-muted fs-12">@Localizer["AssignedDate"]</span>
+                            <span class="d-block fs-14 fw-semibold">
+                                @(Model.Task.StartDate.HasValue
+                                    ? Model.Task.StartDate.Value.ToString("dd,MMM yyyy", System.Globalization.CultureInfo.CurrentCulture)
+                                    : "")
+                            </span>
+                        </div>
+                    }
+
+                    <div>
+                        <span class="d-block text-muted fs-12">@Localizer["DueDate"]</span>
+                        <span class="d-block fs-14 fw-semibold">
+                            @(Model.Task.EndDate.HasValue
+                                ? Model.Task.EndDate.Value.ToString("dd,MMM yyyy", System.Globalization.CultureInfo.CurrentCulture)
+                                : "")
+                        </span>
+                    </div>
+                    @if (Model.Task.Status == TaskJect.Web.Enums.TaskStatusView.Done)
+                    {
+                        <div>
+                            <span class="d-block text-muted fs-12">@Localizer["CompletedDate"]</span>
+                            <span class="d-block fs-14 fw-semibold">
+                                @(Model.Task.ComplitedDate.HasValue
+                                    ? Model.Task.ComplitedDate.Value.ToString("dd,MMM yyyy", System.Globalization.CultureInfo.CurrentCulture)
+                                    : "")
+                            </span>
+                        </div>
+                    }
+                    @if (Model.Task.Status == TaskJect.Web.Enums.TaskStatusView.Done ||
+                    Model.Task.Status == TaskJect.Web.Enums.TaskStatusView.OnReview)
+                    {
+                        <div>
+                            <span class="d-block text-muted fs-12">@Localizer["ReviewDate"]</span>
+                            <span class="d-block fs-14 fw-semibold">
+                                @(Model.Task.ReviewDate.HasValue
+                                    ? Model.Task.ReviewDate.Value.ToString("dd,MMM yyyy", System.Globalization.CultureInfo.CurrentCulture)
+                                    : "")
+                            </span>
+                        </div>
+                    }
+                    <div>
+                        <span class="d-block text-muted fs-12">@Localizer["Priority"]</span>
+                        <span class="d-block fs-14 fw-semibold" name="@Model.Task.Priority-over">
+                            @EnumHelper.GetEnumDisplayName((TaskJect.Web.Enums.PriorityView)Model.Task.Priority)
+                        </span>
+                    </div>
+                    <div>
+                        <span class="d-block text-muted fs-12">@Localizer["Complexity"]</span>
+                        <span class="d-block fs-14 fw-semibold badge bg-light text-default">
+                            @Model.Task.Complexity
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    /*.overview {
+            --bs-modal-width: 830px;
+        }*/
+
+    .newover {
+        flex-wrap: nowrap;
+        justify-content: space-around;
+    }
+</style>

@@ -1,0 +1,179 @@
+﻿@using System.Globalization
+@using TaskJect.Web.Enums
+@using TaskJect.Web.Resources
+@using TaskJect.Web.Services
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<SharedResources> Localizer
+@model TodoPageViewModel
+@{
+    ViewBag.Title = "Todo";
+}
+@section HeadArea {
+    <style>
+        .break-word-normal {
+            word-break: break-word;
+            white-space: normal;
+            max-width: 300px;
+        }
+
+        .textarea-no-resize {
+            resize: none;
+            overflow: hidden;
+        }
+
+        .todo-title {
+            max-width: 100%;
+        }
+
+        .group-btn-vertical {
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: center;
+            position: relative;
+            display: inline-flex;
+            vertical-align: middle;
+        }
+
+        .form-check-input:checked ~ label .task-text {
+            text-decoration: line-through;
+            opacity: 0.6;
+        }
+
+        .completed-title-todo {
+            text-decoration: line-through;
+            opacity: 0.6;
+        }
+
+        .progress-bar-todo {
+            transition: width 0.35s ease-in-out;
+            border-radius: 0.625rem;
+            position: relative;
+        }
+
+        .table th, .table td {
+            font-size: 0.75rem !important;
+        }
+
+        .bt-none {
+            border-top-style: none;
+        }
+
+        .choices__inner {
+            width: auto !important;
+        }
+
+        #extra-panel {
+            border-block-end: 1px solid var(--default-border);
+        }
+
+        .toggle-btn {
+            position: absolute;
+            top: 0px;
+            right: 0.75rem;
+            z-index: 10;
+            border-radius: 0 0 .5rem .5rem !important;
+            font-size: 14px !important;
+            line-height: 1;
+            transition: all 0.3s ease;
+            border-top: none;
+        }
+    </style>
+}
+<!-- Page Header -->
+<div class="d-md-flex d-block align-items-center justify-content-between my-4 page-header-breadcrumb">
+    <h1 class="page-title fw-semibold fs-18 mb-0">@Localizer["Todos"]</h1>
+</div>
+<!-- Page Header Close -->
+
+<!-- Start::row-1 -->
+<div class="row">
+    <div class="col-xl-12">
+        <div class="card custom-card">
+            <div class="card-body p-3">
+                <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
+                    <div class="d-flex flex-wrap gap-1">
+                        <button type="button" class="btn btn-primary me-2" onclick="addNewTodoCard(this)">
+                            <i class="ri-add-line me-1 fw-semibold align-middle"></i>
+                            @Localizer["NewList"]
+                        </button>
+                        <select class="form-control" name="sort-todo" id="sort-todo" data-type="select-one" onchange="sortTodo()">
+                            <option value="new-created">@Localizer["NewCreatedAt"]</option>
+                            <option value="old-created">@Localizer["OldCreatedAt"]</option>
+                            <option value="new-updated">@Localizer["NewUpdatedAt"]</option>
+                            <option value="old-updated">@Localizer["OldUpdatedAt"]</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End::row-1 -->
+
+<!-- Start::row-2 -->
+<div class="row">
+    <div class="col-xxl-9">
+        <div class="row" id="todo-cards-container">
+            @foreach (var todo in Model.PersonalTodos)
+            {
+                <partial name="_CardTodo" model="@todo" />
+            }
+        </div>
+    </div>
+    <div class="col-xxl-3">
+        <div class="card custom-card">
+            <div class="card-header">
+                <div class="card-title">
+                    @Localizer["Tasks"] (@Localizer["TopTen"])
+                </div>
+            </div>
+            <div class="card-body px-0 py-0 pb-2">
+                <div class="table-responsive">
+                    <table id="datatable-basic" class="table text-nowrap table-bordered bt-none">
+                        <thead>
+                            <tr>
+                                <th scope="col">@Localizer["Task"]</th>
+                                <th scope="col">@Localizer["Deadline"]</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var task in Model.Tasks)
+                            {
+                                <tr>
+                                    <td class="break-word-normal p-2">
+                                        @{ var taskId = task.ID;}
+                                        <a role="button" class="text-primary text-decoration-underline" aria-label="anchor" onclick="Overview('@taskId')">
+                                            <span class="fw-semibold table-word-wrap-column">@task.Title</span>
+                                        </a>
+                                    </td>
+                                    <td class="p-2">
+                                        @(task.EndDate.HasValue
+                                            ? task.EndDate.Value.ToString("dd MMM yyyy", System.Globalization.CultureInfo.CurrentCulture)
+                                            : "")
+                                    </td>
+                                </tr>
+                            }
+                    </tbody>
+                </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--End::row-2 -->
+<div id="modal-window"></div>
+
+<partial name="_DeleteTodo" />
+<partial name="_DeleteTodoTask" />
+
+<script>
+    window.currentCulture = "@CultureInfo.CurrentCulture.Name";
+</script>
+@section Scripts{
+    <script src="~/lib/masonry/masonry.pkgd.min.js"></script>
+
+    <script src="~/js/custom_js/utils/modalWindowLoad.js"></script>
+
+    <script src="~/js/custom_js/PersonalTodo/personalTodo.js"></script>
+    <script src="~/js/custom_js/PersonalTodo/personalTask.js"></script>
+}     

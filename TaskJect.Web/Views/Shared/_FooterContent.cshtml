@@ -1,0 +1,81 @@
+﻿@using TaskJect.Web.Resources
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<SharedResources> Localizer
+<div class="container">
+    <div class="flex-grow-1 row row-cols-1 row-cols-sm-2 row-cols-md-5 p-3 d-flex justify-content-center fs-15">
+        <div class="col-6 col-sm-3">
+            <div class="img-logo mb-3">
+                <a asp-controller="Home" asp-action="Index" class="header-logo">
+                    <img src="~/images/brand-logos/desktop-logo.png" alt="logo" class="desktop-logo">
+                    <img src="~/images/brand-logos/desktop-dark.png" alt="logo" class="desktop-dark">
+                </a>
+            </div>
+            <div>
+                <a href="https://www.linkedin.com/company/bytebusters2022/" target="_blank" rel="noopener noreferrer">
+                    <img src="~/images/apps/linkedin.png" class="icon-sosial" alt="linkedin">
+                </a>
+            </div>
+        </div>
+        <div class="col-6 col-sm-3">
+            <ul class="text-muted list-group list-unstyled">
+                <li class="mb-1">
+                    <a asp-controller="Home" asp-action="Index">
+                        <span class="text-muted">@Localizer["Home"]</span>
+                    </a>
+                </li>
+                <li class="mb-1">
+                    <a asp-controller="ContactUs" asp-action="Index">
+                        <span class="text-muted">@Localizer["ContactUs"]</span>
+                    </a>
+                </li>
+                <li class="mb-1">
+                    <a asp-controller="FAQ" asp-action="Index">
+                        <span class="text-muted">@Localizer["FAQ"]</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="col-6 col-sm-3">
+            <ul class="text-muted list-group list-unstyled">
+                <li class="mb-1">
+                    <a asp-controller="PrivacyPolicy" asp-action="Index">
+                        <span class="text-muted">@Localizer["PrivacyPolicy"]</span>
+                    </a>
+                </li>
+                <li class="mb-1">
+                    <a asp-controller="RefundPolicy" asp-action="Index">
+                        <span class="text-muted">@Localizer["RefundPolicy"]</span>
+                    </a>
+                </li>
+                <li class="mb-1">
+                    <a asp-controller="TermsServices" asp-action="Index">
+                        <span class="text-muted">@Localizer["TermsOfServices"]</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+		<div class="col-6 col-sm-3">
+			<ul class="text-muted list-group list-unstyled">
+                <li class="mb-1">
+                    <a href="https://fazier.com/launches/taskject" target="_blank"><img src="https://fazier.com/api/v1/public/badges/embed_image.svg?launch_id=6178&badge_type=daily&theme=light" width="224" alt="Fazier badge" /></a>
+                </li>
+				<li class="mb-1">
+					<a href="https://startupfa.me/s/taskject?utm_source=taskject.com" target="_blank"><img src="https://startupfa.me/badges/featured-badge-small.webp" alt="TaskJect - Featured on Startup Fame" width="224" height="36" /></a>
+				</li>
+			</ul>
+		</div>
+    </div>
+</div>
+<div class="d-flex justify-content-center nowrap border-top pt-3 fs-14">
+    <div class="">
+        <span class="text-muted fs-14">
+        @Localizer["Copyright"] © <span id="year">@DateTime.Now.Year</span> <a asp-controller="Home" asp-action="Index" class="text-primary fw-semibold"><u>taskject</u></a>.
+        @Localizer["AllRightsReserved"]</span>
+    </div>
+</div>
+<style>
+    .icon-sosial {
+        height: 1.4rem;
+    }
+</style>

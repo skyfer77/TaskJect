@@ -1,0 +1,567 @@
+﻿@model TaskJect.Web.Models.Finance.FinanceViewModel
+@{
+    ViewBag.Title = "Finance";
+}
+@section HeadArea {
+    <link href="~/css/NewStyles.css" rel="stylesheet">
+
+    
+
+    <!-- FlatPickr CSS -->
+    <link rel="stylesheet" href="~/lib/flatpickr/flatpickr.min.css">
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.3.0/css/responsive.bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.2.3/css/buttons.bootstrap5.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/select/1.7.0/css/select.dataTables.min.css">
+
+}
+
+<div class="container-fluid">
+    <!-- Start:: row-2 -->
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="card custom-card">
+                <div class="card-header justify-content-between">
+                    <div class="card-title d-flex justify-content-between">
+                        Incomes &nbsp;
+                        <div id="sumIncomes"> </div>
+                    </div>
+                    
+                    <div class="d-sm-flex">
+                        <div class="btn-group me-2">
+                            <a aria-label="anchor" href="javascript:void(0)" class="btn btn-primary btn-sm btn-wave waves-effect waves-light"
+                               data-bs-toggle="modal" data-bs-target="#create-income">
+                                <i class="ri-add-line align-middle me-1 fw-semibold"></i>Add New
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive" id="income-table">
+                        <table class="table text-nowrap table-bordered" id="datatable-basic">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Source income</th>
+                                    <th scope="col">Period</th>
+                                    <th scope="col">Start date</th>
+                                    <th scope="col">End date</th>
+                                    <th scope="col">Amount</th>
+                                    <th scope="col">Project</th>
+                                    <th scope="col">Note</th>
+                                    <th scope="col">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    foreach(var income in Model.Incomes)
+                                    {
+                                        string name = "";
+                                        if (Model.Projects.Count != 0 && income.ProjectId != null)
+                                        {
+                                            var projectModel = Model.Projects.FirstOrDefault(x => x.Id == income.ProjectId);
+                                            name = projectModel == null ? "unknown project" : projectModel.Name;
+                                        }
+                                        <tr>
+                                        <td>@income.IncomeSourceType</td>
+                                        <td id="period">@income.PeriodType</td>
+                                        <td>@income.IncomingDate</td>
+                                        <td>@income.EndDate</td>
+                                        <td>@income.Amount</td>
+                                        <td>@name</td>
+                                        <td>@income.Note</td>
+                                        <td>
+                                            @{
+                                                var id = income.Id;
+
+                                                if (income.PeriodType != TaskJect.Web.Enums.PeriodType.Once)
+                                                {
+                                                    <a asp-controller="Finance" asp-action="OverviewIncome" asp-route-id="@id" class="btn btn-sm btn-info-light btn-icon">
+                                                        <i class="ri-eye-line mb-1 align-middle"></i>
+                                                    </a>
+                                                }
+                                            }
+                                        <a class="btn btn-sm btn-warning-light btn-icon" aria-label="anchor" href="javascript:void(0);" onclick="EditIncome('@id')" data-bs-target="#edit-income-row">
+                                                    <i class="ri-edit-line mb-1 align-middle"></i>
+                                        </a>
+                                        <a class="btn btn-sm btn-danger-light btn-icon" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#delete-income-row"
+                                               data-todo='{"id":"@id"}'><i class="ri-delete-bin-6-line mb-1 align-middle"></i>
+                                        </a>
+                                        </td>
+                                    </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <!-- Start:: row-2 -->
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="card custom-card">
+                <div class="card-header justify-content-between">
+                    <div class="card-title  d-flex justify-content-between">
+                        Costs &nbsp;
+                        <div id="sumCost"> </div>
+                    </div>
+                    
+                    <div class="d-sm-flex">
+                        <div class="btn-group me-2">
+                            <a aria-label="anchor" href="javascript:void(0)" class="btn btn-primary btn-sm btn-wave waves-effect waves-light"
+                               data-bs-toggle="modal" data-bs-target="#create-cost">
+                                <i class="ri-add-line align-middle me-1 fw-semibold"></i>Add New
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive" id="cost-table">
+                        <table class="table text-nowrap table-bordered" id="datatable-basic1">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Cost target</th>
+                                    <th scope="col">Period</th>
+                                    <th scope="col">Start date</th>
+                                    <th scope="col">End date</th>
+                                    <th scope="col">Amount</th>
+                                    <th scope="col">User</th>
+                                    <th scope="col">Project</th>
+                                    <th scope="col">Note</th>
+                                    <th scope="col">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var cost in Model.Costs)
+                                {
+                                    string nameProjectCost = "";
+                                    string user = "";
+                                    if (Model.Projects.Count != 0 && cost.ProjectId != null)
+                                    {
+                                        var nameProject = Model.Projects.FirstOrDefault(x => x.Id == cost.ProjectId);
+                                        nameProjectCost = nameProject.Name;
+                                    }
+                                    if (Model.Users.Count != 0 && cost.UserId != null)
+                                    {
+                                        var nameUser = Model.Users.FirstOrDefault(x => x.UserId == cost.UserId);
+                                        if(nameUser != null)
+                                        {
+                                            user = nameUser.UserName + " " + nameUser.UserSurname;
+                                        }
+                                    }
+                                    <tr>
+                                        <td>@cost.CostTargetType</td>
+                                        <td>@cost.PeriodType</td>
+                                        <td>@cost.CostDate</td>
+                                        <td>@cost.EndDate</td>
+                                        <td>@cost.Amount</td>
+                                        <td>@user</td>
+                                        <td>@nameProjectCost</td>
+                                        <td>@cost.Note</td>
+                                        <td>
+                                            @{
+                                                var id = cost.Id;
+                                            
+                                                if(cost.PeriodType != TaskJect.Web.Enums.PeriodType.Once){
+                                                    <a asp-controller="Finance" asp-action="OverviewCost" asp-route-id="@cost.Id" class="btn btn-sm btn-info-light btn-icon">
+                                                        <i class="ri-eye-line mb-1 align-middle"></i>
+                                                    </a>
+                                                }
+                                            }
+                                            <a class="btn btn-sm btn-warning-light btn-icon" aria-label="anchor" href="javascript:void(0);" onclick="EditCost('@id')" data-bs-target="#edit-cost-row">
+                                                <i class="ri-edit-line mb-1 align-middle"></i>
+                                            </a>
+                                            <a class="btn btn-sm btn-danger-light btn-icon" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#delete-cost-row"
+                                           data-todo='{"id":"@id"}'>
+                                                <i class="ri-delete-bin-6-line mb-1 align-middle"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Start::add income modal -->
+<partial name="_CreateIncome" model="Model.Projects"/>
+<!-- End::add income modal -->
+@{
+    var createCost = new TaskJect.Web.Models.Finance.CreateCost()
+    {
+        Projects = Model.Projects,
+        Users = Model.Users
+    };
+}
+<!-- Start::add cost modal -->
+<partial name="_CreateCost" model="createCost" />
+<!-- End::add cost modal -->
+<!-- Start:: modal -->
+<div id="modal-window"></div>
+<!-- End:: modal -->
+<!-- Start::delete income modal -->
+<partial name="_DeleteIncomeRow" />
+<!-- End::delete income modal -->
+<!-- Start::delete cost modal -->
+<partial name="_DeleteCostRow" />
+<!-- End::delete cost modal -->
+<style>
+
+</style>
+<script>
+    function incomeAmount() {
+        var sum = 0;
+        $('#datatable-basic').DataTable().rows().every(function () {
+            var data = this.data();
+            sum += parseFloat(data[4]); // Assuming the value is in the second column
+        });
+
+        // Display sum in the div
+        $('#sumIncomes').text('Total Amount: ' + sum);
+    }
+
+    function costAmount() {
+        var sum = 0;
+        $('#datatable-basic1').DataTable().rows().every(function() {
+        var data = this.data();
+        sum += parseFloat(data[4]); // Assuming the value is in the second column
+    });
+
+        // Display sum in the div
+        $('#sumCost').text('Total Amount: ' + sum);
+    }
+    //Set value delete income id 
+    $(document).on("click", '[data-bs-target="#delete-income-row"]', function () {
+        var item = $(this).data('todo');
+        var obj = Object.getOwnPropertyDescriptors(item);
+        document.getElementById('IdIncome').value = obj.id.value;
+    });
+
+    //Set value delete cost id
+    $(document).on("click", '[data-bs-target="#delete-cost-row"]', function () {
+        var item = $(this).data('todo');
+        var obj = Object.getOwnPropertyDescriptors(item);
+        document.getElementById('IdCost').value = obj.id.value;
+    });
+
+    function incomeTable(){
+        $('#datatable-basic').DataTable({
+            language: {
+                searchPlaceholder: 'Search...',
+                sSearch: '',
+            },
+            pageLength: 10,
+            "bLengthChange": false,
+            pagingType: 'full_numbers',
+            info: true,
+            order: [[2, 'desc']],
+            columnDefs: [
+                { type: 'de_datetime', targets: 2 },
+                { type: 'de_datetime', targets: 3 },
+                {
+                    bSortable: false,
+                    aTargets: [-1]
+                }
+            ],
+        });
+    }
+
+    function costTable(){
+        $('#datatable-basic1').DataTable({
+            language: {
+                searchPlaceholder: 'Search...',
+                sSearch: '',
+            },
+            pageLength: 10,
+            "bLengthChange": false,
+            pagingType: 'full_numbers',
+            info: true,
+            order: [[2, 'desc']],
+            columnDefs: [
+                { type: 'de_datetime', targets: 2 },
+                { type: 'de_datetime', targets: 3 },
+                {
+                    bSortable: false,
+                    aTargets: [-1]
+                }
+            ],
+        });
+    }
+    // basic datatable icome
+    $(document).ready(function () {
+        // basic datatable icome
+        incomeTable()
+        // basic datatable cost
+        costTable()
+        incomeAmount();
+        costAmount()
+    });
+    
+    function validAmount(amount, id){
+        var error = document.getElementById(id);
+        var regex = /^-?\d+(?:\.\d+)?$/
+        if (!regex.test(amount)) {
+            $("#" + id).css("display", "block");
+            error.innerHTML = "Invalid amount number.";
+            return false;
+        }
+        $("#" + id).css("display", "none");
+        return true;
+    }
+    function validEndDAte(endDate, id) {
+        var error = document.getElementById(id);
+        if (endDate === '') {
+            $("#" + id).css("display", "block");
+            error.innerHTML = "Invalid end date.";
+            return false;
+        }
+        $("#" + id).css("display", "none");
+        return true;
+    }
+    //Get model new income in controller
+    function createIncome() {
+        var amount = document.getElementById("Amount");
+        var endDate = document.getElementById("targetDate1");
+        if (validAmount(amount.value, "error-amount") && validEndDAte(endDate.value, "error-endDate")) {
+            $("#create-income").modal('toggle');
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("CreateIncome", "Finance")",
+                data: $("#CreateIncome").serialize(),
+                success: function (response) {
+                    multipleCancelButton.setChoiceByValue("")
+                    multipleCancelButton1.setChoiceByValue("0")
+                    multipleCancelButton2.setChoiceByValue("0")
+                    $('#Amount').val('');
+                    $('#targetDate1').val('');
+                    $('#floatingTextarea').val('');
+                    if (response.success === 0) {
+                        window.location.href = '@Url.Action("Error", "Finance")';
+                    }
+                    else if (response.isSuccess) {
+                        $("#income-table").load(window.location.href + " #income-table", function (data) {
+                            incomeTable()
+                            incomeAmount();
+                            createIncomeDate()
+                            costAmount()
+                        });
+                        document.getElementById("responseTextCon").innerHTML = response.message;
+                        $("#confirmed").modal('show');
+                    } else {
+                        document.getElementById("responseTextWar").innerHTML = response.message;
+                        $("#warning").modal('show');
+                    }
+                }
+            });
+        }
+    }
+    
+    //View modal edit income get project name 
+    function EditIncome(id) {
+        $.ajax({
+            type: "POST",
+            url: "/Finance/EditIncome/",
+            data: { id: id },
+            success: function (response) {
+                $("#modal-window").html(response);
+                $("#edit-income-row").modal('show');
+            }
+        });
+    }
+    //Set update  income in controller
+    function editIncomeRow() {
+        var amount = document.getElementById("AmountEdit");
+        var endDate = document.getElementById("targetDate3");
+        if (validAmount(amount.value, "error-amount-edit") && validEndDAte(endDate.value, "error-endDate-edit")) {
+            $("#edit-income-row").modal('toggle');
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("UpdateIncome", "Finance")",
+                data: $("#EditIncomeRow").serialize(),
+                success: function (response) {
+                    if (response.success === 0) {
+                        window.location.href = '@Url.Action("Error", "Finance")';
+                    }
+                    else if (response.isSuccess) {
+                        //window.location.reload();
+                        $("#income-table").load(window.location.href + " #income-table", function (data) {
+                            incomeTable()
+                            incomeAmount()
+                            createIncomeDate()
+                            costAmount()
+                        });
+                        document.getElementById("responseTextCon").innerHTML = response.message;
+                        $("#confirmed").modal('show');
+                    } else {
+                        document.getElementById("responseTextWar").innerHTML = response.message;
+                        $("#warning").modal('show');
+                    }
+                }
+            });
+        }
+    }
+    //Delete income by id income
+    function DeleteIncome() {
+        $("#delete-income-row").modal('toggle');
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("DeleteIncome", "Finance")",
+            data: $("#DeleteIncomeRow").serialize(),
+            success: function (response) {
+                if (response.success === 0) {
+                    window.location.href = '@Url.Action("Error", "Finance")';
+                }
+                else if (response.isSuccess) {
+                    $("#income-table").load(window.location.href + " #income-table", function (data) {
+                        incomeTable()
+                        incomeAmount()
+                        createIncomeDate()
+                        costAmount()
+                    });
+                    document.getElementById("responseTextCon").innerHTML = response.message;
+                    $("#confirmed").modal('show');
+                } else {
+                    document.getElementById("responseTextWar").innerHTML = response.message;
+                    $("#warning").modal('show');
+                }
+            }
+        });
+    }
+
+    //Get model new cost in controller
+    function createCost() {
+        var amount = document.getElementById("AmountCost");
+        var endDate = document.getElementById("targetDate4");
+        if (validAmount(amount.value, "error-amount-cost") && validEndDAte(endDate.value, "error-endDate-cost")) {
+            $("#create-cost").modal('toggle');
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("CreateCost", "Finance")",
+                data: $("#CreateCost").serialize(),
+                success: function (response) {
+                    multipleCancelButtonCost.setChoiceByValue("")
+                    multipleCancelButtonCost1.setChoiceByValue("")
+                    multipleCancelButton5.setChoiceByValue("0")
+                    multipleCancelButton6.setChoiceByValue("0")
+                    $('#AmountCost').val('');
+                    $('#targetDate4').val('');
+                    $('#floatingTextareaCost').val('');
+                    if (response.success === 0) {
+                        window.location.href = '@Url.Action("Error", "Finance")';
+                    }
+                    else if (response.isSuccess) {
+                        $("#cost-table").load(window.location.href + " #cost-table", function (data) {
+                            createCostDate()
+                            incomeAmount()
+                            costTable()
+                            costAmount()
+                        });
+                        document.getElementById("responseTextCon").innerHTML = response.message;
+                        $("#confirmed").modal('show');
+                    } else {
+                        document.getElementById("responseTextWar").innerHTML = response.message;
+                        $("#warning").modal('show');
+                    }
+                }
+            });
+        }
+    }
+    //View modal edit income get project name
+    function EditCost(id) {
+        $.ajax({
+            type: "POST",
+            url: "/Finance/EditCost/",
+            data: { id: id },
+            success: function (response) {
+                $("#modal-window").html(response);
+                $("#edit-cost-row").modal('show');
+            }
+        });
+    }
+    //Set update  income in controller
+    function editCostRow() {
+        var amount = document.getElementById("AmountCostEdit");
+        var endDate = document.getElementById("targetDate6");
+        if (validAmount(amount.value, "error-amount-cost-edit") && validEndDAte(endDate.value, "error-endDate-cost-edit")) {
+            $("#edit-cost-row").modal('toggle');
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("UpdateCost", "Finance")",
+                data: $("#EditCostRow").serialize(),
+                success: function (response) {
+                    if (response.success === 0) {
+                        window.location.href = '@Url.Action("Error", "Finance")';
+                    }
+                    else if (response.isSuccess) {
+                        $("#cost-table").load(window.location.href + " #cost-table", function (data) {
+                            createCostDate()
+                            incomeAmount()
+                            costTable()
+                            costAmount()
+                        });
+                        document.getElementById("responseTextCon").innerHTML = response.message;
+                        $("#confirmed").modal('show');
+                    } else {
+                        document.getElementById("responseTextWar").innerHTML = response.message;
+                        $("#warning").modal('show');
+                    }
+                }
+            });
+        }
+    }
+    //Delete cost by id cost
+    function DeleteCost() {
+        $("#delete-cost-row").modal('toggle');
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("DeleteCost", "Finance")",
+            data: $("#DeleteCostRow").serialize(),
+            success: function (response) {
+                if (response.success === 0) {
+                    window.location.href = '@Url.Action("Error", "Finance")';
+                }
+                else if (response.isSuccess) {
+                    $("#cost-table").load(window.location.href + " #cost-table", function (data) {
+                        createCostDate()
+                        incomeAmount()
+                        costTable()
+                        costAmount()
+                    });
+                    document.getElementById("responseTextCon").innerHTML = response.message;
+                    $("#confirmed").modal('show');
+                } else {
+                    document.getElementById("responseTextWar").innerHTML = response.message;
+                    $("#warning").modal('show');
+                }
+            }
+        });
+    }
+</script>
+@section Scripts{
+    <!-- Datatables Cdn -->
+    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.3.0/js/dataTables.responsive.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.print.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.6/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.html5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdn.datatables.net/select/1.7.0/js/dataTables.select.min.js"></script>
+    <script src="https://cdn.datatables.net/plug-ins/2.0.2/sorting/date-de.js"></script>
+
+    <!-- Flat Picker JS -->
+    <script src="~/lib/flatpickr/flatpickr.min.js"></script>
+
+    <!-- Form Validation JS -->
+    <script src="~/js/validation.js"></script>
+}  

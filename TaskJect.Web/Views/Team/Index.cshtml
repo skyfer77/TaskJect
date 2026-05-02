@@ -1,0 +1,292 @@
+﻿@using System.Globalization
+@using TaskJect.Web.Services
+@using TaskJect.Web.Resources
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<SharedResources> Localizer
+@model TeamPageModel
+@{
+    ViewBag.Title = "Team";
+}
+@section HeadArea {
+    <link href="~/css/NewStyles.css" rel="stylesheet">
+}
+<div class="row mt-4 h-100">
+    <div class="col-xl-9">
+        <div class="team-members" id="team-members">
+            <div class="row" id="members-view">
+                <div class="col-xl-12" >
+                    <div class="card custom-card">
+                        <div class="card-body">
+                            <div class="team-header">
+                                <div class="d-flex flex-wrap align-items-center justify-content-between">
+                                    <div class="h5 fw-semibold mb-0">@Localizer["Team"]</div>
+                                    <div class="d-flex align-items-center">
+                                        <div class="input-group">
+                                            <input type="search" class="form-control bg-light border-0" placeholder="@Localizer["Search"]" data-search>
+                                        </div>
+                                        <script>
+                                            //Search member for name or email
+                                            $(document).ready(function () {
+                                                const searchInput = document.querySelector("[data-search]");
+                                                const project = document.querySelectorAll("[data-member-container]");
+
+                                                searchInput.addEventListener("input", e => {
+                                                    const value = e.target.value.toLowerCase()
+                                                    project.forEach((element) => {
+                                                        const memberNames = element.querySelector("[data-name-member]");
+                                                        const emiles = element.querySelector("[data-emile-member]");
+                                                        var memberName = memberNames.innerText.toLowerCase().includes(value);
+                                                        var emile = emiles.innerText.toLowerCase().includes(value);
+                                                        element.classList.toggle("hide", !memberName && !emile)
+                                                    })
+                                                })
+                                            });
+                                        </script>
+                                        <style>
+                                            .hide {
+                                                display: none;
+                                            }
+                                        </style>
+                                    </div>
+                                </div>
+                            </div> 
+                        </div>
+                    </div>
+                </div>
+                @{
+                    var maxUsers = ViewBag.maxUsers;
+                    var countUsers = Model.Users.Count;
+                    var remainingSlots = maxUsers - countUsers;
+                    var countCard = countUsers >= maxUsers ? countUsers : countUsers + 1;
+
+                    var result = "0 " + Localizer["Days"];
+                }
+                <input type="hidden" value="@countCard" id="countCard"/>
+                @foreach (var user in Model.Users)
+                {
+                    if (user.RegistrationDate.HasValue)
+                    {
+                        var registrationDate = user.RegistrationDate.Value.Date;
+                        var now = DateTime.Now.Date;
+
+                        var totalMonths = ((now.Year - registrationDate.Year) * 12) + now.Month - registrationDate.Month;
+                        if (now.Day < registrationDate.Day)
+                        {
+                            totalMonths--;
+                        }
+
+                        var years = totalMonths / 12;
+                        var months = totalMonths % 12;
+                        var days = (now - registrationDate.AddMonths(totalMonths)).Days;
+
+                        if (years >= 1)
+                        {
+                            var totalYearsDecimal = years + (months / 12.0);
+                            var roundedYears = Math.Round(totalYearsDecimal, 1);
+
+                            if (roundedYears == 1.0)
+                                result = "1 " + Localizer["Year"];
+                            else
+                                result = roundedYears.ToString("0.#") + " " + Localizer["Years"];
+                        }
+                        else
+                        {
+                            var parts = new List<string>();
+                            if (months > 0)
+                                parts.Add(months + " " + (months == 1 ? Localizer["Month"] : Localizer["Months"]));
+                            if (months == 0 || days > 0)
+                                parts.Add(days + " " + (days == 1 ? Localizer["Day"] : Localizer["Days"]));
+
+                            result = string.Join(" ", parts);
+                        }
+                    }
+                    <div class="col-xxl-4 col-xl-6 col-lg-6 col-md-6 col-sm-12" data-member-container>
+                        <div class="card custom-card team-member-card">
+                            <div class="teammember-cover-image">
+                                <img src="~/images/media/team-covers/1.jpg" class="card-img-top" alt="...">
+                                <span class="avatar avatar-xxl avatar-rounded" style="width: 4.5rem;height: 4.5rem;inset-block-start: 13%;">
+                                    <img class="dynamic-avatar" data-name="@user.Name" src="~/images/default-avatars/default-avatar.png" alt="">
+                                </span>
+                                <a asp-controller="Profile" asp-action="Index" asp-route-id="@user.Id" class="team-member-star text-warning"><i class="ri-eye-line fs-16"></i></a>
+                            </div>
+                            <div class="card-body p-0"> 
+                                <div class="d-flex flex-wrap align-item-center mt-sm-0 mt-5 justify-content-between border-bottom border-block-end-dashed p-3">
+                                    <div class="flex-fill" style="text-align: center !important">
+                                        <p class="mb-0 fw-semibold fs-16 text-truncate">
+                                            <a href="javascript:void(0);" data-name-member>@user.Name @user.Surname</a>
+                                        </p>
+                                        <p class="mb-0 fs-12 text-muted text-break" data-emile-member>@user.Email</p>
+                                    </div>
+                                </div>
+                                <div class="team-member-stats d-sm-flex justify-content-evenly">
+                                    <div class="text-center p-3 my-auto">
+                                        <p class="fw-semibold mb-0">@Localizer["MemberSince"]</p>
+                                        <span class="text-muted fs-12">@result</span>
+                                    </div>
+                                    <div class="text-center p-3 my-auto">
+                                        <p class="fw-semibold mb-0">@Localizer["CompletedTasks"]</p>
+                                        <span class="text-muted fs-12">@(Model.UsersWithCompletedTasks.ContainsKey(user.Id) ?Model.UsersWithCompletedTasks[user.Id].SumCountTask : 0)</span>
+                                    </div>
+                                    <div class="text-center p-3 my-auto">
+                                        <p class="fw-semibold mb-0">@Localizer["Position"]</p>
+                                        <span class="text-muted fs-12">
+                                            @EnumHelper.GetEnumDisplayName((TaskJect.Web.Enums.OrganizationRolesView)user.RoleInOrganization)
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+                @if(this.User.Identity.IsAuthenticated && (this.User.IsInRole("Admin") 
+                    || this.User.IsInRole("God") || this.User.IsInRole("TeamLead")))
+                {
+                    if (remainingSlots > 0)
+                    {
+                        <div class="col-xxl-4 col-xl-6 col-lg-6 col-md-6 col-sm-12" data-member-container>
+                            <div class="card custom-card team-member-card text-center d-flex align-items-center justify-content-center" style="border: 2px dashed; background:none;">
+                                <button type="button" class="btn btn-outline-primary btn-lg" data-bs-toggle="modal" data-bs-target="#create-user" style="border: none; width: 100%; height: 192.8px; border-radius: 0;">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" fill="none" stroke="currentColor" stroke-width="0.5" class="bi bi-plus-lg" viewBox="0 0 16 16">
+                                        <path d="M8 2v12M2 8h12" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 mb-3">
+            <div class="team-groups card custom-card h-100">
+                <div class="card-header d-flex align-items-center justify-content-between">
+                    <h6 class="fw-semibold mb-0">@Localizer["Teams"]</h6>
+                    @if (this.User.Identity.IsAuthenticated && (this.User.IsInRole("Admin")
+                        || this.User.IsInRole("God") || this.User.IsInRole("TeamLead")))
+                    {
+                        <div>
+                            <button class="btn btn-sm btn-primary-light" data-bs-toggle="modal"
+                                data-bs-target="#create-team">
+                                @Localizer["CreateTeam"]<i class="ri-add-line ms-1 align-middle"></i>
+                            </button>
+                        </div>
+                    }
+                </div>
+                <div class="card-body p-0">
+                    <div class="teams-nav overflow-auto" id="teams-nav" data-simplebar="init">
+                        <ul class="list-unstyled mt-2" style="min-height: 9rem;">
+                            @foreach (var team in Model.TeamsWithUsers)
+                            {
+                                <li class="pb-0">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="fs-10 fw-semibold mb-2 text-muted" style="text-transform: uppercase;">@team.Key.Name</div>
+                                        @if(this.User.Identity.IsAuthenticated && (this.User.IsInRole("Admin") 
+                                            || this.User.IsInRole("God") || this.User.IsInRole("TeamLead")))
+                                        {
+                                            var id = team.Key.Id;
+
+                                            <button class="btn btn-icon btn-sm btn-light btn-wave waves-effect waves-light" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <i class="ti ti-dots-vertical fs-18"></i>
+                                            </button>
+                                            <ul class="dropdown-menu">
+                                                <li style="padding: 0 0;"><a class="dropdown-item" href="javascript:void(0);" onclick="Edit('@id')">@Localizer["EditTeam"]</a></li>
+                                                <li style="padding: 0 0;">
+                                                    <a class="dropdown-item" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#delete-team"
+                                                       data-todo='{"idTeam":"@team.Key.Id","titleTeam":"@team.Key.Name"}'>@Localizer["DeleteTeam"]</a>
+                                                </li>
+                                            </ul>
+                                        }
+                                        
+                                    </div>
+                                </li>
+                                foreach (var user in team.Value)
+                                {
+                                    <li>
+                                        <a href="javascript:void(0);">
+                                            <div class="d-flex align-items-center">
+                                                <div class="me-2 d-flex align-items-center">
+                                                    <span class="avatar avatar-sm avatar-rounded">
+                                                        <img class="dynamic-avatar" data-name="@user.Name" src="~/images/default-avatars/default-avatar.png" alt="">
+                                                    </span>
+                                                </div>
+                                                <div class="flex-fill">
+                                                    <span>@user.Name @user.Surname</span>
+                                                </div>
+                                                @if(this.User.Identity.IsAuthenticated && (this.User.IsInRole("Admin") 
+                                                    || this.User.IsInRole("God") || this.User.IsInRole("TeamLead")))
+                                                {
+                                                    <div>
+                                                        @{
+                                                            var name = user.Name + " " + user.Surname;
+                                                        }
+                                                        <span class="fs-10 fw-semibold text-muted">
+                                                            <button class="btn btn-icon btn-sm btn-danger-light btn-wave" data-bs-toggle="modal"
+                                                            data-bs-target="#delete-member-on-team" data-todo-member='{"memberId":"@user.Id", "teamID":"@team.Key.Id","teamName":"@team.Key.Name", "memberName":"@name"}'>
+                                                                <i class="ri-delete-bin-4-line"></i>
+                                                            </button>
+                                                        </span>
+                                                    </div>
+                                                }
+                                            </div>
+                                        </a>
+                                    </li>
+                                }
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+ 
+<!-- Start:: members modals -->
+
+<!-- Start:: create team ui modal -->
+    <partial name="_CreateTeam" />
+<!-- End:: create team ui modal -->
+<!-- Start::team modal -->
+    <div id="modal-window"></div>
+<!-- End::team modal -->
+<!-- Start::delete team modal -->
+    <partial name="_DeleteTeam" />
+<!-- End::delete team modal -->
+<!-- Start::delete member on team modal -->
+    <partial name="_DeleteMemberOnTeam" />
+<!-- End::delete member on team modal -->
+<!-- Start::add member modal -->
+    <partial name="_AddMember" />
+<!-- End:: add member modal -->
+
+<!-- End:: members modals -->
+
+<style>
+    .was-validated .form-control:valid {
+        border-color: var(--input-border);
+        background-image: none;
+    }
+
+    .was-validated .form-control:valid:focus {
+        border-color: var(--input-border);
+        background-image: none;
+    }
+</style>
+<script>
+    window.currentCulture = "@CultureInfo.CurrentCulture.Name";
+</script>
+@section Scripts{
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="~/js/select2.js"></script>
+
+    <!-- Internal Team JS -->
+    <script src="~/js/team.js"></script>
+
+    <!-- Form Validation JS -->
+    <script src="~/js/validation.js"></script>
+
+    <script src="~/js/custom_js/utils/modalWindowLoad.js"></script>
+
+    <script src="~/js/custom_js/Team/team.js"></script>
+    <script src="~/js/custom_js/Team/createUser.js"></script>
+    <script src="~/js/default-avatar.js"></script>
+}

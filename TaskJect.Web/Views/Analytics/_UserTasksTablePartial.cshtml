@@ -1,0 +1,90 @@
+﻿@using TaskJect.Web.Resources
+@using Domain.Database
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<SharedResources> Localizer
+@model List<AnalyticsUserDetils>
+@{
+    var projects = ViewData["Projects"] as Dictionary<Guid, string>;
+}
+
+<table id="datatable-user-tasks" class="table table-bordered text-nowrap w-100">
+    <thead>
+        <tr>
+            <th><i class="ri-hashtag"></i></th>
+            <th>@Localizer["TaskName"]</th>
+            <th>@Localizer["ProjectName"]</th>
+            <th>@Localizer["TaskPoint"]</th>
+            <th>@Localizer["ActualHours"]</th>
+            <th>@Localizer["DueDate"]</th>
+            <th>@Localizer["CompletedDate"]</th>
+            <th style="max-width:50px">@Localizer["InTime"]</th>
+        </tr>
+    </thead>
+    <tbody id="tasks-table" style="text-align: center !important;">
+        @foreach (var task in Model)
+        {
+            var totalMinutes = (task.ActualHours) * 60 + (task.ActualMinutes);
+            <tr>
+                <td>@(Model.IndexOf(task) + 1)</td>
+                <td>
+                    @{
+                        var url = Url.Action("Index", "Task", new { ProjectId = task.ProjectID, taskId = task.ID });
+                    }
+                    <a href="@url" class="link-primary">
+                        <span class="table-word-wrap-column">@task.Title</span>
+                    </a>
+                </td>
+                <td>
+                    @projects.FirstOrDefault(x => x.Key == task.ProjectID).Value
+                </td>
+                <td>
+                    @task.Complexity
+                </td>
+                <td>
+                    @if (totalMinutes > 0)
+                    {
+                        <span data-order="@totalMinutes">@($"{task.ActualHours}{Localizer["h"]} {task.ActualMinutes}{Localizer["m"]}")</span>
+                    }
+                </td>
+                <td>
+                    @task.EndDate
+                </td>
+                <td>
+                    @task.ComplitedDate
+                </td>
+                <td>
+                    @if(!task.IsAgreedOverdue)
+                    {
+                        @Html.Raw(task.ComplitedDate.HasValue && task.EndDate.HasValue && task.ComplitedDate.Value.Date > task.EndDate.Value.Date ?
+                                 "<span data-export-value='false' class='badge bg-danger-transparent' style='font-size: 15px;'><i class='ri-close-fill align-middle'></i></span>" :
+                                 "<span data-export-value='true' class='badge bg-success-transparent' style='font-size: 15px;'><i class='ri-check-fill align-middle'></i></span>")
+                    }
+                    else{
+                        @Html.Raw("<span data-export-value='true' class='badge bg-success-transparent' style='font-size: 15px;'><i class='ri-check-fill align-middle'></i></span>")
+                        ;
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@{
+    var totalTasks = TempData["TotalTasks"] ?? 0;
+    var totalPoints = TempData["TotalPoints"] ?? 0;
+    var totalTimes = TempData["TotalTimes"] ?? $"0{Localizer["h"]} 0{Localizer["m"]}";
+    var dateTo = TempData["DateTo"] ?? "";
+}
+<div id="total-data"
+     data-total-tasks="@totalTasks"
+     data-total-points="@totalPoints"
+     data-total-times="@totalTimes"
+     data-date-to="@dateTo">
+</div>
+<div id="task-data" data-tasks='@Html.Raw(Json.Serialize(Model))'></div>
+<script>
+    $(document).ready(function () {
+        $('#datatable-user-tasks thead th').each(function () {
+            this.style.setProperty('text-align', 'center', 'important');
+        });
+    });
+</script>

@@ -1,0 +1,93 @@
+﻿@using TaskJect.Web.Resources
+@using Domain.Database
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<SharedResources> Localizer
+@model PersonalTodoDto
+@{
+    var total = Model.Tasks.Count();
+    var completed = Model.Tasks.Count(t => t.IsDone == true);
+    var widthPercent = total != 0 ? (completed * 100 / total) : 0;
+}
+<div class="col-xxl-4"
+     data-todo-id="@Model.Id"
+     data-created-at="@Model.CreatedAt.ToString("o")"
+     data-updated-at="@Model.UpdatedAt.ToString("o")">
+    <div class="card custom-card">
+        <div class="card-header px-3">
+            <div class="d-flex justify-content-between align-items-center flex-nowrap w-100">
+                <div class="flex-fill w-100">
+                    <p class="fw-semibold fs-14 d-block todo-title mb-0 editable-title break-word-normal
+                            @(completed == total && total != 0 ? "completed-title-todo" : "" )"
+                       data-title onclick="editTitleText(this)">
+                        @Model.Title
+                    </p>
+                    <textarea class="form-control title-input todo-title textarea-no-resize d-none" rows="1" name="Title"
+                              onblur="if (!saveTriggeredByEnter) saveTitleEdit(this)"
+                              onkeydown="saveTitleEditOnEnter(event, this)"
+                              maxlength="200">@Model.Title</textarea>
+                </div>
+                <div class="align-self-start ms-2">
+                    <button type="button" class="btn btn-sm btn-outline-danger btn-icon" 
+                        data-bs-toggle="modal"
+                        data-bs-target="#delete-todo">
+                        <i class="bi bi-trash align-middle"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="w-100">
+                <span class="text-muted d-block fs-12 d-flex justify-content-between mb-1">
+                    <span>
+                        <strong class="text-default">
+                            <span class="completed-count">@completed</span> / <span class="total-count">@Model.Tasks.Count</span>
+                        </strong>
+                        @Localizer["TasksCompleted"]
+                    </span>
+                    <span class="todo-badge-container">
+                        @if (completed == total && total != 0)
+                        {
+                            <span class="badge bg-success-transparent ms-1">@Localizer["Completed"]</span>
+                        }
+                    </span>
+                </span>
+                <div class="progress progress-xs" role="progressbar" aria-valuenow="@completed" aria-valuemin="0" aria-valuemax="@total">
+                    <div class="progress-bar-todo progress-bar-striped bg-primary" style="width: @widthPercent%"></div>
+                </div>
+            </div>
+        </div>
+        <div class="card-body p-0">
+            <ul class="list-group list-group-flush">
+                @foreach (var task in Model.Tasks.OrderBy(t => t.SortOrder))
+                {
+                    <partial name="_LiTodoTaskPartial" model="@task" />
+                }
+                <li class="list-group-item d-flex justify-content-between align-items-center py-1 px-3 add-task">
+                    <div class="w-100">
+                        <textarea class="form-control new-task-input textarea-no-resize" rows="1" maxlength="500"
+                                  placeholder="@Localizer["NewTask"]"
+                                  onkeydown="addNewTaskOnEnter(event, this, '@Model.Id')"></textarea>
+                    </div>
+                    <div class="group-btn-vertical ms-2">
+                        <button type="button" class="btn btn-sm btn-success btn-icon d-flex align-items-center justify-content-center"
+                                onclick="addNewTask(this, '@Model.Id')">
+                            <i class="bi bi-plus-lg align-middle"></i>
+                        </button>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="card-footer d-flex align-items-center justify-content-between px-3">
+            <div>
+                <span class="text-muted fs-11 d-block">@Localizer["Created"]:</span>
+                <span class="fw-semibold d-block">
+                    @Model.CreatedAt.ToString("dd MMM yyyy", System.Globalization.CultureInfo.CurrentCulture)
+                </span>
+            </div>
+            <div class="text-end">
+                <span class="text-muted fs-11 d-block">@Localizer["LastUpdate"]:</span>
+                <span class="fw-semibold d-block updated-at">
+                    @Model.UpdatedAt.ToString("dd MMM yyyy", System.Globalization.CultureInfo.CurrentCulture)
+                </span>
+            </div>
+        </div>
+    </div>
+</div>

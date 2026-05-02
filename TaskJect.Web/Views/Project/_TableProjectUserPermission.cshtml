@@ -1,0 +1,75 @@
+﻿@using TaskJect.Web.Resources
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<SharedResources> Localizer
+@model List<ProjectPermissionForUser>
+
+@{
+    var canEdit = ViewBag.HasProjectAccessControl && (User.IsInRole("Moderator") || User.IsInRole("Admin") || User.IsInRole("God")
+                  || User.IsInRole("TeamLead") || ViewBag.IsProjectManager);
+    var indexEditingRow = 0;
+}
+
+<table class="table text-nowrap table-bordered" id="permissionsTable">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>@Localizer["Users"]</th>
+            <th>@Localizer["CanCreate"]</th>
+            <th>@Localizer["CanEdit"]</th>
+            <th>@Localizer["CanDelete"]</th>
+            <th>@Localizer["CanAssign"]</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (int i = 0; i < Model.Count; i++)
+        {
+            var rowIsManager = Model[i].IsProjectManager
+            || Model[i].Role.Contains("Admin")
+            || Model[i].Role.Contains("God")
+            || Model[i].Role.Contains("TeamLead");
+
+            var canEditRow = canEdit && !rowIsManager;
+            <tr>
+                <td></td>
+                <td>
+                    @Model[i].UserName @Model[i].UserSurname
+                    <input type="hidden" name="ProjectUserPermissions[@indexEditingRow].UserId" value="@Model[i].ProjectUserPermission.UserId" />
+                    <input type="hidden" name="ProjectUserPermissions[@indexEditingRow].ProjectId" value="@Model[i].ProjectUserPermission.ProjectId" />
+                </td>
+                @foreach (var permission in new[] { "CanCreateTask", "CanEditTask", "CanDeleteTask", "CanAssignUsers" })
+                {
+
+                    <td>
+                        @if (canEditRow)
+                        {
+                            
+                            var isChecked = (bool)Model[i].ProjectUserPermission
+                            .GetType()
+                            .GetProperty(permission)
+                            ?.GetValue(Model[i].ProjectUserPermission);
+
+                            <input class="form-check-input" type="checkbox"
+                                   name="ProjectUserPermissions[@indexEditingRow].@permission"
+                                   value="true" @(isChecked ? "checked" : "") />
+                            <input type="hidden" name="ProjectUserPermissions[@indexEditingRow].@permission" value="false" />
+                        }
+                        else
+                        {
+                            var isChecked = (bool)Model[i].ProjectUserPermission
+                            .GetType()
+                            .GetProperty(permission)
+                            ?.GetValue(Model[i].ProjectUserPermission);
+
+                            <input class="form-check-input" type="checkbox" value="true"
+                            @(isChecked ? "checked" : "") disabled />
+
+                            <input type="hidden" name="ProjectUserPermissions[@indexEditingRow].@permission" value="true" />
+                        }
+                    </td>
+                }
+            </tr>
+
+            indexEditingRow++;
+        }
+    </tbody>
+</table>

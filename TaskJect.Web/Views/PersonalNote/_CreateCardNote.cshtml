@@ -1,0 +1,24 @@
+﻿@using TaskJect.Web.Resources
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<SharedResources> Localizer
+
+<div class="card custom-card" id="unsaved-note">
+    <div class="card-header align-items-center">
+        <div class="flex-fill">
+            <textarea class="form-control new-title-input note-title textarea-no-resize mb-3" rows="1"
+                      placeholder="@Localizer["NewNoteTitle"]" maxlength="256" 
+                      onkeydown="saveNewNoteOnEnter(event, this)"></textarea>
+            <textarea class="form-control new-text-input note-title textarea-no-resize" rows="1"
+                      placeholder="@Localizer["NewNoteText"]" 
+                      onkeydown="saveNewNoteOnEnter(event, this)"></textarea>
+        </div>
+        <div class="align-self-start">
+            <button type="button" class="btn btn-sm btn-outline-success btn-icon" onclick="saveNewNoteButton(this)">
+                <i class="bi bi-check2 align-middle"></i>
+            </button>
+            <button type="button" class="btn btn-sm btn-outline-danger btn-icon" onclick="removeUnsavedNote(this)">
+                <i class="bi bi-x-lg align-middle"></i>
+            </button>
+        </div>
+    </div>
+</div>

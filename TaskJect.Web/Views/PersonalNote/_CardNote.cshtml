@@ -1,0 +1,81 @@
+﻿@using TaskJect.Web.Resources
+@using TaskJect.Web.Services
+@using Domain.Database
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<SharedResources> Localizer
+@model PersonalNoteDto
+
+@{
+    string Truncate(string text, int length)
+    {
+        if (string.IsNullOrEmpty(text))
+        {
+            return text;
+        }
+
+        return text.Length > length ? text.Substring(0, length) + "..." : text;
+    }
+
+    string collapseId = $"collapse_{Model.Id}";
+    string headingId = $"heading_{Model.Id}";
+}
+
+<div class="accordion-item accordion-note" 
+    data-note-id="@Model.Id" 
+    data-created-at="@Model.CreatedAt.ToString("o")"
+    data-updated-at="@Model.UpdatedAt.ToString("o")">
+    <div class="accordion-header position-relative" id="@headingId" style="width: 100%;">
+        <button class="accordion-button collapsed preview-btn" type="button"
+                data-bs-toggle="collapse" data-bs-target="#@collapseId"
+                aria-expanded="false" aria-controls="@collapseId"
+                style="width: 100%; text-align: left; padding-right: 90px;">
+            <div class="text d-flex flex-column">
+                <span class="title short fs-14 mb-2">@Truncate(Model.Title, 128)</span>
+                <span class="title full" style="display: none;">@Model.Title</span>
+                <span class="body-preview hidden" style="font-weight: 400;">@Truncate(Model.Text, 128)</span>
+            </div>
+        </button>
+        <div class="accordion-textarea d-flex align-items-center ps-3 d-none">
+            <textarea class="form-control title-input note-title textarea-no-resize " rows="1" name="Title"
+                      onblur="if (!saveTriggeredByEnter) saveTitleEdit(this)"
+                      onkeydown="saveTitleEditOnEnter(event, this)"
+                      placeholder="@Localizer["NewNoteTitle"]"
+                      maxlength="256">@Model.Title</textarea>
+        </div>
+
+        <div class="right-controls position-absolute flex-column"
+             style="top: 50%; right: 10px; transform: translateY(-50%); display: flex; align-items: center; gap: 8px; z-index: 10;">
+            <div>
+                <button type="button" class="btn btn-sm btn-outline-primary" onclick="editTitle('@Model.Id')">
+                    <i class="bi bi-pencil"></i>
+                </button>
+                <button type="button" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#delete-note">
+                    <i class="bi bi-trash"></i>
+                </button>
+            </div>
+            <span class="badge bg-light text-muted">@Model.CreatedAt.ToString("dd MMM yyyy", System.Globalization.CultureInfo.CurrentCulture)</span>
+        </div>
+    </div>
+
+    <div id="@collapseId" class="accordion-collapse collapse" aria-labelledby="@headingId">
+        <div class="accordion-body">
+            <div class="text-with-btn-wrapper position-relative" style="@(Model.Text == null ? "display: none;" : "")">
+                <span class="d-inline-block pe-5" note-text style="vertical-align: middle;min-height: 28px;" onclick="editText('@Model.Id')">
+                    @Model.Text
+                </span>
+                <button type="button"
+                        class="btn btn-sm btn-outline-primary btn-icon position-absolute top-0 end-0"
+                        onclick="editText('@Model.Id')">
+                    <i class="bi bi-pencil align-middle"></i>
+                </button>
+            </div>
+            <div class="edit-text-wrapper d-flex align-items-center gap-2 mt-2 @(Model.Text == null ? "" : "d-none")">
+                <textarea class="form-control text-input textarea-no-resize"
+                          onblur="if (!saveNewTextTriggeredByEnter) saveTextEdit(this)"
+                          onkeydown="saveTextEditOnEnter(event, this)"
+                          placeholder="@Localizer["NewNoteText"]"
+                          name="Text" rows="1">@Model.Text</textarea>
+            </div>
+        </div>
+    </div>
+</div>

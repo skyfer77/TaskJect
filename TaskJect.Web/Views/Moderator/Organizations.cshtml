@@ -1,0 +1,133 @@
+﻿@using System.Globalization
+@using TaskJect.Web.Resources
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<SharedResources> Localizer
+@model IEnumerable<OrganizationViewModel>
+@{
+    ViewBag.Title = "Organizations";
+}
+@section HeadArea {
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.3.0/css/responsive.bootstrap.min.css">
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="card custom-card">
+                <div class="card-body ">
+                    <div class="d-md-flex d-block flex-wrap align-items-center justify-content-between">
+                        <div class="card-title fw-semibold fs-18 mb-0">@Localizer["Organizations"]</div>
+                        <div class="d-sm-flex">
+                            <div class="btn-group me-2">
+                                <a aria-label="anchor" href="javascript:void(0)" class="btn btn-primary btn-sm btn-wave waves-effect waves-light"
+                                   data-bs-toggle="modal" data-bs-target="#create-organization">
+                                    <i class="ri-add-line align-middle me-1 fw-semibold"></i>@Localizer["InviteNewOrganization"]
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-12">
+            <div class="card custom-card">
+                <div class="card-body">
+                    <div class="table-responsive" id="organization-table">
+                        <table class="table text-nowrap table-bordered" id="datatable-basic">
+                            <thead>
+                                <tr>
+                                    <th scope="col">S.No</th>
+                                    <th scope="col">@Localizer["Name"]</th>
+                                    <th scope="col">@Localizer["Registration Date"]</th>
+                                    <th scope="col">@Localizer["Count"] <br> @Localizer["OfParticipants"]</th>
+                                    <th scope="col">@Localizer["TariffPlan"]</th>
+                                    <th scope="col">@Localizer["TariffEndDate"]</th>
+                                    <th scope="col">@Localizer["TeamLeadEmail"]</th>
+                                    <th scope="col">@Localizer["Actions"]</th>
+                                </tr>
+                            </thead>
+                            <tbody style="text-align: center;">
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td></td>
+                                        <td class="break-word-normal" style="text-decoration: underline;"><a asp-action="UsersOrganization" asp-controller="Moderator" asp-route-organizationId="@item.Id">@item?.Name</a></td>
+                                        <td data-order="@item?.RegistrationDate.ToString("yyyy-MM-dd")">
+                                            @item?.RegistrationDate.ToString("dd MMMM yyyy", CultureInfo.CurrentCulture)
+                                        </td>
+                                        <td>@item?.CountOfParticipants</td>
+                                        <td>@item?.CurrentPlanCode</td>
+                                        <td data-order="@item?.CurrentPlanDateTo.ToString("yyyy-MM-dd")">
+                                            @item?.CurrentPlanDateTo.ToString("dd MMMM yyyy", CultureInfo.CurrentCulture)
+                                        </td>
+                                        <td>@item?.TeamLead?.Email</td>
+                                        <td>
+                                            @{
+                                                var id = item.Id;
+                                                var dateTo = item.CurrentPlanDateTo;
+                                                var tariffName = item.CurrentPlanCode;
+                                                <a class="btn btn-sm btn-primary-light btn-icon" href="javascript:void(0);" onclick="loadTariffModal('@id', '@dateTo.ToString("yyyy-MM-dd")', '@tariffName')" title="@Localizer["UpdateTariffPlan"]">
+                                                    <i class="ri-pencil-line mb-1 align-middle"></i>
+                                                </a>
+                                                <a class="btn btn-sm btn-info-light btn-icon" asp-action="HistoryPlans" asp-controller="Moderator" asp-route-organizationId="@item.Id" title="@Localizer["ViewHistoryPlans"]">
+                                                    <i class="ri-time-line mb-1 align-middle"></i>
+                                                </a>
+                                                if (item.LockoutEnabled)
+                                                {
+                                                    <a class="btn btn-sm btn-success-light btn-icon" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#unlockout-organization-row"
+                                                       data-todo='{"id":"@id"}' title="@Localizer["UnblockAllUsersOrganization"]">
+                                                        <i class="ri-lock-unlock-line mb-1 align-middle"></i>
+                                                    </a>
+                                                }
+                                                else
+                                                {
+                                                    <a class="btn btn-sm btn-danger-light btn-icon" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#lockout-organization-row"
+                                                       data-todo='{"id":"@id"}' title="@Localizer["BlockAllUsersOrganization"]">
+                                                        <i class="ri-lock-line mb-1 align-middle"></i>
+                                                    </a>
+                                                }
+                                            }
+                                            <a class="btn btn-sm btn-danger-light btn-icon" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#delete-organization-row"
+                                                data-todo='{"id":"@item.Id", "name": "@item.Name"}'>
+                                                <i class="ri-delete-bin-6-line mb-1 align-middle"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="modal-container"></div>
+<partial name="_LockoutOrganization" />
+<partial name="_UnLockoutOrganization" />
+<partial name="_DeleteOrganization" />
+<partial name="_CreateOrganization" />
+<style>
+    .break-word-normal {
+        word-break: break-word;
+        white-space: normal;
+        max-width: 300px;
+    }
+</style>
+<script>
+    window.currentCulture = "@CultureInfo.CurrentCulture.Name";
+</script>
+
+@section Scripts{
+    <!-- Datatables Cdn -->
+    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
+
+    <script src="~/lib/flatpickr/flatpickr.min.js"></script>
+    <script src="~/lib/flatpickr/l10n/uk.js"></script>
+    <script src="~/js/custom_js/utils/dataTableLocalization.js"></script>
+    <script src="~/js/custom_js/utils/formatString.js"></script>
+    <script src="~/js/custom_js/Moderator/organizations.js"></script>
+    <script src="~/js/custom_js/Moderator/inviteOrganization.js"></script>
+}  

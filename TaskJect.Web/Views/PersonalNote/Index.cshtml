@@ -1,0 +1,136 @@
+﻿@using System.Globalization
+@using TaskJect.Web.Enums
+@using TaskJect.Web.Resources
+@using TaskJect.Web.Services
+@using Domain.Database
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<SharedResources> Localizer
+@model IEnumerable<PersonalNoteDto>
+@{
+    ViewBag.Title = "Note";
+}
+@section HeadArea {
+    <style>
+        .break-word-normal {
+            word-break: break-word;
+            white-space: normal;
+            max-width: 300px;
+        }
+
+        .textarea-no-resize {
+            resize: none;
+            overflow: hidden;
+        }
+
+        .note-title {
+            max-width: 100%;
+        }
+
+        .completed-title-todo {
+            text-decoration: line-through;
+            opacity: 0.6;
+        }
+
+        .bt-none {
+            border-top-style: none;
+        }
+
+        .choices__inner {
+            width: auto !important;
+        }
+
+        .accordion-note {
+            border-inline-start: .25rem solid var(--primary03);
+        }
+
+        /* .preview-btn .title,
+        .preview-btn .body-preview {
+            display: inline;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .preview-btn.collapsed .title {
+            max-width: 50%;
+        }
+
+        .preview-btn.collapsed .body-preview {
+            max-width: 50%; 
+            opacity: 0.7;
+        } */
+
+        /* .preview-btn:not(.collapsed) .body-preview {
+            display: none; 
+        } */
+        .title{
+            font-weight:600;
+        }
+        .body-preview {
+            opacity: 1;
+            max-height: 100px; /* регулюй висоту */
+            overflow: hidden;
+            transition: opacity 0.3s ease, max-height 0.3s ease;
+        }
+
+        .accordion-button {
+            padding-right: 100px; /* щоб текст не заходив під кнопки */
+            min-height:75px;
+        }
+
+        .accordion-textarea{
+            padding-right: 100px;
+            min-height: 75px;
+        }
+    </style>
+}
+<!-- Page Header -->
+<div class="d-md-flex d-block align-items-center justify-content-between my-4 page-header-breadcrumb">
+    <h1 class="page-title fw-semibold fs-18 mb-0">@Localizer["NoteList"]</h1>
+</div>
+<!-- Page Header Close -->
+<!-- Start::row-1 -->
+<div class="row">
+    <div class="col-xl-12">
+        <div class="card custom-card">
+            <div class="card-body p-3">
+                <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
+                    <div class="d-flex flex-wrap gap-1">
+                        <button type="button" class="btn btn-primary me-2" onclick="addNewNoteCard(this)">
+                            <i class="ri-add-line me-1 fw-semibold align-middle"></i>
+                            @Localizer["NewNote"]
+                        </button>
+                        <select class="form-control" name="sort-note" id="sort-note" data-type="select-one" onchange="sortNote()">
+                            <option value="new-created">@Localizer["NewCreatedAt"]</option>
+                            <option value="old-created">@Localizer["OldCreatedAt"]</option>
+                            <option value="new-updated">@Localizer["NewUpdatedAt"]</option>
+                            <option value="old-updated">@Localizer["OldUpdatedAt"]</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End::row-1 -->
+<!-- Start::row-2 -->
+<div class="row justify-content-center mb-4">
+    <div class="col-xxl-8 col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <div class="accordion accordionicon-none accordions-items-seperate" id="note-cards-container">
+            @foreach (var note in Model)
+            {
+                <partial name="_CardNote" model="@note" />
+            }
+        </div>
+    </div>
+</div>
+<!--End::row-2 -->
+
+<partial name="_DeleteNote" />
+
+<script>
+    window.currentCulture = "@CultureInfo.CurrentCulture.Name";
+</script>
+@section Scripts {
+    <script src="~/js/custom_js/PersonalNote/personalNote.js"></script>
+}     

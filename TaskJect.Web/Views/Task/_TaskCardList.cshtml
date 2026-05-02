@@ -1,0 +1,6 @@
+﻿@model IEnumerable<TaskView>
+
+@foreach (var task in Model)
+{
+    @await Html.PartialAsync("_TaskCard", task)
+}

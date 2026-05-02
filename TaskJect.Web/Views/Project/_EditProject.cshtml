@@ -1,0 +1,225 @@
+﻿﻿@using TaskJect.Web.Enums
+@using TaskJect.Web.Services
+@using TaskJect.Web.Resources
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<SharedResources> Localizer
+@model EditProjectModel
+@{
+    var serializedFiles = Newtonsoft.Json.JsonConvert.SerializeObject(Model.OrganizationFiles.Select(f => new
+    {
+        source = f.Id.ToString(), // просто унікальний Id файлу — НЕ URL!
+        options = new
+        {
+            type = "limbo",
+            file = new
+            {
+                name = f.FileName,
+                size = f.Size,
+                type = f.ContentType
+            }
+        }
+    }));
+}
+
+<div class="modal fade" id="edit-project" tabindex="-1" aria-hidden="true" style="--bs-modal-width: 950px;">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            @using (Html.BeginForm("Edit", "Project", FormMethod.Post, new { id = "EditProject", @class = "was-validated" }))
+            {
+                <div class="modal-header">
+                    <h6 class="modal-title">@Localizer["EditProject"]</h6>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                </div>
+                <div class="modal-body px-4">
+                    <div class="row gy-2">
+                        <input type="hidden" id="ProjectId" name="Project.ID" value="@Model.Project.ID" />
+                        <input type="hidden" name="Project.DateAdd" value="@Model.Project.DateAdd" />
+                        <input type="hidden" name="Project.DateEdit" value="@Model.Project.DateEdit" />
+                        <div class="col-xl-4">
+                            <label for="Title" class="form-label">@Localizer["ProjectName"]:</label>
+                            <input name="Project.Title" type="text" class="form-control" id="Title" placeholder="@Localizer["EnterProjectName"]" value="@Model.Project.Title" style="line-height: 1.9;" required>
+                            <div class="invalid-feedback">
+                                @Localizer["PleaseEnterProjectName"].
+                            </div>
+                        </div>
+                        <div class="col-xl-4">
+                            <label class="form-label">@Localizer["Priority"]:</label>
+                            @{
+                                var values1 = Enum.GetValues(typeof(PriorityView));
+                            }
+                            <select class="form-control" data-trigger name="Project.Priority" id="choices-multiple-button2">
+                                @foreach (var item in values1)
+                                {
+                                    if (item.Equals(Model.Project.Priority))
+                                    {
+                                        <option value="@item" selected>@EnumHelper.GetEnumDisplayName((PriorityView)item)</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@item">@EnumHelper.GetEnumDisplayName((PriorityView)item)</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                        <div class="col-xl-4">
+                            <label for="input-label1" class="form-label">@Localizer["Client"] / @Localizer["Stakeholder"]:</label>
+                            <input name="Project.Client" type="text" class="form-control" id="input-label1" placeholder="@Localizer["EnterClientName"]" style="line-height: 1.9;" value="@Model.Project.Client">
+                        </div>
+                        <div class="col-xl-12">
+                            <label class="form-label">@Localizer["ProjectDescription"]:</label>
+                            <input type="hidden" id="Description" name="Project.Description" value="" />
+                            <div id="project-descriptioin-editor">
+                                @Html.Raw(System.Net.WebUtility.HtmlDecode(@Model.Project.Description))
+                            </div>
+                        </div>
+                        <div class="col-xl-4">
+                            <label class="form-label">@Localizer["StartDate"]:</label>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-text text-muted"> <i class="ri-calendar-line"></i> </div>
+                                    <input name="Project.StartDate" type="text" class="form-control" id="targetDateStart" placeholder="@Localizer["ChooseDateTime"]" value="@String.Format($"{Model.Project.StartDate:yyyy-MM-dd HH:mm}")">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4">
+                            <label class="form-label">@Localizer["EndDate"]:</label>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-text text-muted"> <i class="ri-calendar-line"></i> </div>
+                                    <input name="Project.EndDate" type="text" class="form-control" id="targetDateEnd" placeholder="@Localizer["ChooseDateTime"]" value="@String.Format($"{Model.Project.EndDate:yyyy-MM-dd HH:mm}")">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4">
+                            <label class="form-label">@Localizer["Status"]:</label>
+                            @{
+                                var values = Enum.GetValues(typeof(TaskJect.Web.Enums.TaskStatusView));
+                            }
+                            <select class="form-control" data-trigger name="Project.Status" id="choices-multiple-button1">
+                                @foreach (var item in values)
+                                {
+                                    if ((TaskJect.Web.Enums.TaskStatusView)item == (TaskJect.Web.Enums.TaskStatusView)(Model.Project.Status))
+                                    {
+                                        <option value="@item" selected>@EnumHelper.GetEnumDisplayName((TaskJect.Web.Enums.TaskStatusView)item)</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@item">@EnumHelper.GetEnumDisplayName((TaskJect.Web.Enums.TaskStatusView)item)</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                        <div class="col-xl-6">
+                            <label class="form-label">@Localizer["Team"]</label>
+                            <div class="form-group">
+                                <div class="accordion accordion-primary" id="accordionPrimaryExample">
+                                    @foreach (var team in Model.TeamsWithMembers)
+                                    {
+                                        <div class="accordion-item">
+                                            @{
+                                                string expended = "false", collapsed = "false collapsed", show = "";
+                                                if (Model.Project.TeamId == team.Key.Id)
+                                                {
+                                                    show = "show";
+                                                    expended = "true";
+                                                    collapsed = "";
+                                                }
+                                            }
+                                            <h2 class="accordion-header" id="headingPrimary_@team.Key.Id">
+                                                <button name="@team.Key.Id" id="@team.Key.Id" class="accordion-button @collapsed" type="button" data-bs-toggle="collapse"
+                                                        data-bs-target="#collapsePrimary_@team.Key.Id" aria-expanded="@expended"
+                                                        aria-controls="collapsePrimary_@team.Key.Id" onclick="addInfo()" data-accordion-team>
+                                                    @team.Key.Name
+                                                </button>
+                                            </h2>
+                                            <div id="collapsePrimary_@team.Key.Id" class="accordion-collapse collapse @show"
+                                                 aria-labelledby="headingPrimary_@team.Key.Id"
+                                                 data-bs-parent="#accordionPrimaryExample">
+                                                <div class="accordion-body">
+                                                    <div class="bd-example mb-3">
+                                                        <div class="d-flex flex-wrap mb-3">
+                                                            @foreach (var member in team.Value)
+                                                            {
+                                                                <li class="team-member-item d-flex" style="flex: 1 1 45%; padding: 8px; margin-right: 10px; box-sizing: border-box;">
+                                                                    <a href="@Url.Action("Index", "Profile", new { id = member.Id })">
+                                                                        <div class="d-flex align-items-center">
+                                                                            <span class="avatar avatar-sm lh-1">
+                                                                                <img class="dynamic-avatar" data-name="@member.Name" src="~/images/default-avatars/default-avatar.png" alt="">
+                                                                            </span>
+                                                                            <div class="ms-3 lh-1">
+                                                                                <span class="fw-semibold fs-7" style="font-size: 0.75rem;">@member.Name @member.Surname</span>
+                                                                                <span class="d-block text-muted mt-1" style="font-size: 0.65rem;">
+                                                                                    @EnumHelper.GetEnumDisplayName((OrganizationRolesView)member.RoleInOrganization)
+                                                                                </span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </a>
+                                                                </li>
+                                                            }
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                    <input type="hidden" id="TeamId" name="Project.TeamId" value="" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-6">
+                            <div class="row mb-2">
+                                <div class="@(ViewBag.HasGitHubIntegration && ViewBag.IsSetGitRepo ? "col-xl-6": "col-xl-12")">
+                                    <label for="Manager" class="form-label">@Localizer["ProjectManager"]:</label>
+                                    <select class="js-example-placeholder-single js-states form-select mb-3" data-trigger id="ManagerID" name="Project.ManagerID" data-manager="@Model.Project.ManagerID">
+                                    </select>
+                                </div>
+                                @if (ViewBag.HasGitHubIntegration && ViewBag.IsSetGitRepo)
+                                {
+                                    <div class="col-xl-6">
+                                        <label class="form-label">
+                                            @Localizer["GitHubSelectRepository"]
+                                            <span class="text-danger" id="git-tooltip" data-bs-toggle="tooltip" data-bs-custom-class="tooltip-danger"
+                                                  title="@Localizer["Warning"]: @Localizer["IfYouChangeRepositoryAllTasksUunlinked"]. @Localizer["ThisActionCannotUndone"].">
+                                                <i class="las la-exclamation-circle fs-17"></i>
+                                            </span>
+                                        </label>
+                                        <div id="repo-container">
+                                            <div id="select-repo" data-project-id="@Model.Project.ID"></div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                            @if (ViewBag.HasProjectAccessControl)
+                            {
+                                <label class="form-label">@Localizer["UserPermissions"]</label>
+                                <div class="row">
+                                    <div class="card-body p-0 table-responsive" id="permissionsContainer" style="overflow-y: auto; max-height: 26rem;">
+                                        @await Html.PartialAsync("_TableProjectUserPermission", Model.PermissionsUsers)
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                        <div class="col-xl-12">
+                            <label for="text-area" class="form-label">@Localizer["Attachments"]</label>
+                            <div class="card-body">
+                                <input type="file" class="multiple-filepond" name="files" multiple data-preloaded-files='@Html.Raw(serializedFiles)'
+                                       data-allow-reorder="true" data-max-file-size="30MB">
+                            </div>
+                            <input type="hidden" id="filesToDelete" name="filesToDelete" value="" />
+                            <div class="invalid-feedback" id="error-files">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light"
+                            data-bs-dismiss="modal">
+                        @Localizer["Cancel"]
+                    </button>
+                    <button type="button" class="btn btn-primary" onclick="editProject()">@Localizer["Save"]</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>

@@ -1,0 +1,27 @@
+﻿@using Domain.Database
+@model IEnumerable<NotificationDto>
+
+@foreach (var notification in Model)
+{
+	var id = notification.Id;
+
+	<li class="dropdown-item @(notification.IsReviewed ? "" : "not-reviewed")" onmouseenter="reviewed(this,'@id')">
+		<div class="d-flex align-items-start">
+			<div class="pe-2">
+				<span class="avatar avatar-md bg-primary-transparent avatar-rounded"><i class="bi bi-clock-history fs-18"></i></span>
+			</div>
+			<div class="flex-grow-1 d-flex align-items-center justify-content-between">
+				<div>
+					<p class="mb-0 fw-semibold">@notification.Title</p>
+					<span class="text-muted fw-normal fs-12 header-notification-text">@Html.Raw(notification.Description)</span>
+					<p class="time-ago text-muted fw-normal fs-12 mt-2 mb-0" data-created="@notification.Created.ToString("o")"></p>
+				</div>
+				<div>
+					<button class="min-w-fit-content text-muted mx-1 item-notification-close btn-nostyle" onclick="deleteNotification(this,'@id')">
+						<i class="ti ti-x fs-16"></i>
+					</button>
+				</div>
+			</div>
+		</div>
+	</li>
+}

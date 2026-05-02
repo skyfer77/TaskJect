@@ -1,0 +1,129 @@
+﻿@model IEnumerable<TaskJect.Web.Models.Finance.ProjectModel>
+
+<div class="modal fade" id="create-income" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            @using (Html.BeginForm("CreateIncome", "Finance", FormMethod.Post, new { id = "CreateIncome" }))
+            {
+                <div class="modal-header">
+                    <h6 class="modal-title">Create Income</h6>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <input type="hidden" id="IncomingDate" name="IncomingDate" value="@DateTime.Now" />
+                <div class="modal-body px-4">
+                    <div class="row gy-2">
+                        <div class="col-xl-12">
+                            <label class="form-label">Project</label>
+                            <select class="form-control" name="ProjectId" id="choices-multiple-remove-button1">
+                                <option value="">Select project</option>
+                                @foreach (var project in Model)
+                                {
+                                    <option value="@project.Id"> @project.Name </option>
+                                }
+                            </select>
+                        </div>
+                        
+                        <div class="col-xl-6">
+                            <label class="form-label">Income Source</label>
+                            <select class="form-control" name="IncomeSourceType" id="choices-multiple-remove-button2" asp-items="Html.GetEnumSelectList<TaskJect.Web.Enums.IncomeSourceType>()">
+                            </select>
+                        </div>
+                        <div class="col-xl-6">
+                            <label class="form-label">Priority</label>
+                            <select class="form-control" name="PeriodType" id="choices-multiple-remove-button3" asp-items="Html.GetEnumSelectList<TaskJect.Web.Enums.PeriodType>()">
+                            </select>
+                        </div>
+                        <div class="col-xl-6">
+                            <label for="Amount" class="form-label">Amount</label>
+                            <input type="text" name="sum" class="form-control" id="Amount" placeholder="Amount" />
+                            <div class="invalid-feedback" id="error-amount">
+                                Please enter a amount.
+                            </div>
+                        </div>
+                        <div class="col-xl-6">
+                            <label class="form-label">End Date</label>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-text text-muted"> <i class="ri-calendar-line"></i> </div>
+                                    <input type="text" name="EndDate" class="form-control" id="targetDate1" placeholder="Choose date and time">
+                                </div>
+                            </div>
+                            <div class="invalid-feedback" id="error-endDate">
+                                Please enter a end date.
+                            </div>
+                        </div>
+                        
+                        <div class="col-xl-12">
+                            <label class="form-label">Short Note</label>
+                            <textarea class="form-control" name="Note" placeholder="Short Note here" id="floatingTextarea"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light"
+                        data-bs-dismiss="modal">
+                        Cancel
+                    </button>
+                    <button type="button" class="btn btn-primary" onclick="createIncome()">Add Income</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<script>
+    /* multi select with remove button */
+    const multipleCancelButton = new Choices(
+        '#choices-multiple-remove-button1',
+        {
+            allowHTML: true,
+            removeItemButton: true,
+        }
+    );
+    const multipleCancelButton1 = new Choices(
+        '#choices-multiple-remove-button2',
+        {
+            allowHTML: true,
+        }
+    );
+    const multipleCancelButton2 = new Choices(
+        '#choices-multiple-remove-button3',
+        {
+            allowHTML: true,
+        }
+    );
+
+    function createIncomeDate(){
+        var dateIncome = '@String.Format($"{DateTime.Now:yyyy-MM-dd HH:mm}")';
+        var periodTIncome = document.getElementById('choices-multiple-remove-button3');
+        if (periodTIncome.value === '0') {
+            $("#targetDate1").val(dateIncome)
+        }
+        else {
+            $("#targetDate1").val('')
+        }
+        periodTIncome.addEventListener("change", e => {
+            if (periodTIncome.value === '0') {
+                $("#targetDate1").val(dateIncome)
+            }
+            else {
+                $("#targetDate1").val('')
+            }
+        })
+    }
+
+    $(document).ready(function () {
+        //Date picker
+        flatpickr("#targetDate1", {
+            enableTime: true,
+            dateFormat: "Y-m-d H:i",
+            time_24hr: true,
+        });
+        
+        createIncomeDate()
+    });
+    /* TargetDate Picker */
+    
+</script>
+

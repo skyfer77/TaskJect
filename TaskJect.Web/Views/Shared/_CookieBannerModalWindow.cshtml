@@ -1,0 +1,89 @@
+﻿@using TaskJect.Web.Resources
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<SharedResources> Localizer
+<div id="cookieModal" class="modal fade" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title">@Localizer["CustomiseConsentPreferences"]</h6>
+                <button type="button" class="btn-close  ms-auto" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="text-start px-3 pb-0">
+                    <p class="text-cookies-desc">
+                        @Localizer["WeUseCookiesHelpYouNavigateEfficiently"]
+                    </p>
+                    <p class="text-cookies-desc">
+                        @Localizer["TheCookiesThatCategorisedNecessary"]
+                    </p>
+                    <p class="text-cookies-desc">
+                        @Localizer["YouCanChooseEnableDisableSome"]
+                    </p>
+                </div>
+                <div class="accordion" id="accordionExample">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingOne">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseOne" aria-expanded="true"
+                                    aria-controls="collapseOne">
+                                <span class="d-flex justify-content-between" style="width: 100%;padding-right: 1rem;">
+                                    <span>@Localizer["Necessary"]</span>
+                                    <span class="text-success">@Localizer["AlwaysActive"]</span>
+                                </span>
+                            </button>
+                        </h2>
+                        <div id="collapseOne" class="accordion-collapse collapse"
+                             aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                <div id="necessaryCookies"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header d-flex justify-content-between align-items-center" id="headingTwo">
+                            <button class="accordion-button collapsed" type="button"
+                                    data-bs-toggle="collapse" data-bs-target="#collapseTwo"
+                                    aria-expanded="false" aria-controls="collapseTwo">
+                                <span class="d-flex justify-content-between" style="width: 100%;padding-right: 1rem;">
+                                    <span>@Localizer["Functional"]</span>
+                                    <span class="form-check form-check-lg form-switch">
+                                        <input class="form-check-input" type="checkbox" role="switch" id="switch-lg">
+                                    </span>
+                                </span>
+                            </button>
+                        </h2>
+                        <div id="collapseTwo" class="accordion-collapse collapse"
+                             aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                <div id="functionalCookies"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer btns">
+                <button class="btn btn-secondary btn-cookies" onclick="rejectCookies(true)" aria-label="@Localizer["RejectAll"]" data-cky-tag="detail-reject-button"> @Localizer["RejectAll"] </button>
+                <button class="btn btn-secondary btn-cookies" onclick="customCookies()" aria-label="@Localizer["SaveMyPreferences"]" data-cky-tag="detail-save-button"> @Localizer["SaveMyPreferences"] </button>
+                <button class="btn btn-secondary btn-cookies" onclick="acceptCookies(true)" aria-label="@Localizer["AcceptAll"]" data-cky-tag="detail-accept-button"> @Localizer["AcceptAll"] </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .btns{
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .btn-cookies {
+        flex: auto;
+    }
+
+    .text-cookies-desc{
+        font-size: 0.9rem;
+    }
+</style>

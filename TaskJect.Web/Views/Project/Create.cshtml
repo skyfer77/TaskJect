@@ -1,0 +1,382 @@
+﻿@using System.Globalization
+@using TaskJect.Web.Enums
+@using TaskJect.Web.Services
+@using TaskJect.Web.Resources
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<SharedResources> Localizer
+@model CreateProjectPageModel
+@{
+    ViewBag.Title = "Create project";
+}
+@section HeadArea {
+    <link href="~/css/NewStyles.css" rel="stylesheet">
+    <!-- Prism CSS -->
+    <link rel="stylesheet" href="~/lib/prismjs/themes/prism-coy.min.css">
+
+    <link rel="stylesheet" href="~/lib/quill/quill.snow.css">
+    <link rel="stylesheet" href="~/lib/quill/quill.bubble.css">
+
+    <link rel="stylesheet" href="~/lib/filepond/filepond.min.css">
+    <link rel="stylesheet" href="~/lib/filepond-plugin-image-preview/filepond-plugin-image-preview.min.css">
+    <link rel="stylesheet" href="~/lib/filepond-plugin-image-edit/filepond-plugin-image-edit.min.css">
+    <link rel="stylesheet" href="~/lib/filepond-plugin-get-file/filepond-plugin-get-file.min.css">
+
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet">
+
+    <!--Permissions table-->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.3.0/css/responsive.bootstrap.min.css">
+}
+<!-- Page Header -->
+<div class="d-md-flex d-block align-items-center justify-content-between my-4 page-header-breadcrumb">
+    <h1 class="page-title fw-semibold fs-18 mb-0">@Localizer["CreateProject"]</h1>
+    <div class="ms-md-1 ms-0">
+        <nav>
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item"><a asp-controller="Project" asp-action="Index">@Localizer["Projects"]</a></li>
+                <li class="breadcrumb-item active" aria-current="page">@Localizer["CreateProject"]</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+<!-- Page Header Close -->
+<!-- Start::row-1 -->
+<div class="row">
+    <div class="col-xl-12">
+        @using (Html.BeginForm("Create", "Project", FormMethod.Post, new { id = "CreateProject", @class = "was-validated" }))
+        {
+            <input type="hidden" name="Project.ID" value="@Guid.NewGuid()" />
+            <div class="card custom-card">
+                <div class="card-header">
+                    <div class="card-title">
+                        @Localizer["CreateProject"]
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row gy-3">
+                        <div class="col-xl-4">
+                            <label for="validationDefault01" class="form-label">@Localizer["ProjectName"]:</label>
+                            <input name="Project.Title" type="text" class="form-control" id="Title" placeholder="@Localizer["EnterProjectName"]" required>
+                            <div class="invalid-feedback">
+                                @Localizer["PleaseEnterProjectName"].
+                            </div>
+                        </div>
+                        <div class="col-xl-4">
+                            <label class="form-label">@Localizer["Priority"]:</label>
+                            <select class="form-control" data-trigger name="Project.Priority" id="choices-single-default" asp-items="Html.GetEnumSelectList<TaskJect.Web.Enums.PriorityView>()">
+                                <option value="@TaskJect.Web.Enums.PriorityView.Medium">@Localizer["SelectPriority"]</option>
+                            </select>
+                        </div>
+                        <div class="col-xl-4">
+                            <label for="input-label1" class="form-label">@Localizer["Client"] / @Localizer["Stakeholder"]:</label>
+                            <input name="Project.Client" type="text" class="form-control" id="input-label1" placeholder="@Localizer["EnterClientName"]">
+                        </div>
+                        <div class="col-xl-12">
+                            <label class="form-label">@Localizer["ProjectDescription"]:</label>
+                            <input type="hidden" id="Description" name="Project.Description" value="" />
+                            <div id="project-descriptioin-editor">
+                            </div>
+                        </div>
+                        <div class="col-xl-4">
+                            <label class="form-label">@Localizer["StartDate"]:</label>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-text text-muted"> <i class="ri-calendar-line"></i> </div>
+                                    <input name="Project.StartDate" type="text" class="form-control" id="startDate" placeholder="@Localizer["ChooseDateTime"]" value="@String.Format($"{DateTime.Now:yyyy-MM-dd HH:mm}")">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4">
+                            <label class="form-label">@Localizer["EndDate"]:</label>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-text text-muted"> <i class="ri-calendar-line"></i> </div>
+                                    <input name="Project.EndDate" type="text" class="form-control" id="endDate" placeholder="@Localizer["ChooseDateTime"]">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4">
+                            <label class="form-label">@Localizer["Status"]:</label>
+                            @{
+                                var values = Enum.GetValues(typeof(TaskJect.Web.Enums.TaskStatusView));
+                            }
+                            <select class="form-control" data-trigger name="Project.Status" id="choices-single-default1">
+                                @foreach (var item in values)
+                                {
+                                    if ((TaskJect.Web.Enums.TaskStatusView)item == TaskJect.Web.Enums.TaskStatusView.InProgress)
+                                    {
+                                        <option value="@item" selected>@EnumHelper.GetEnumDisplayName((TaskJect.Web.Enums.TaskStatusView)item)</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@item">@EnumHelper.GetEnumDisplayName((TaskJect.Web.Enums.TaskStatusView)item)</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                        <div class="col-xl-6">
+                            <label class="form-label">@Localizer["Team"]</label>
+                            <div class="form-group">
+                                <div class="accordion accordion-primary" id="accordionPrimaryExample">
+                                    @if (Model?.TeamWithUsers != null && Model.TeamWithUsers.Any() && Model.TeamWithUsers.FirstOrDefault().Key != null)
+                                    {
+                                        var first = Model.TeamWithUsers.FirstOrDefault().Key;
+                                        @foreach (var team in Model.TeamWithUsers)
+                                        {
+                                            <div class="accordion-item">
+                                                @{
+                                                    string expended = "false", collapsed = "false collapsed", show = "";
+                                                    if (first == team.Key)
+                                                    {
+                                                        show = "show";
+                                                        expended = "true";
+                                                        collapsed = "";
+                                                    }
+                                                }
+                                                <h2 class="accordion-header" id="headingPrimary_@team.Key.Id">
+                                                    <button name="@team.Key.Id" 
+                                                    id="@team.Key.Id" 
+                                                    class="accordion-button @collapsed" 
+                                                    type="button" 
+                                                    data-bs-toggle="collapse"
+                                                    data-bs-target="#collapsePrimary_@team.Key.Id" 
+                                                    aria-expanded="@expended"
+                                                    aria-controls="collapsePrimary_@team.Key.Id" 
+                                                    data-accordion-team>
+                                                        @team.Key.Name
+                                                    </button>
+                                                </h2>
+                                                <div id="collapsePrimary_@team.Key.Id" class="accordion-collapse collapse @show"
+                                                aria-labelledby="headingPrimary_@team.Key.Id"
+                                                data-bs-parent="#accordionPrimaryExample">
+                                                    <div class="accordion-body">
+                                                        <div class="bd-example mb-3">
+                                                            <div class="team-members-container mb-3">
+                                                                @foreach (var member in team.Value)
+                                                                {
+                                                                    <li class="team-member-item">
+                                                                        <a href="@Url.Action("Index", "Profile", new { id = member.Id })">
+                                                                            <div class="d-flex align-items-center">
+                                                                                <span class="avatar avatar-lg lh-1">
+                                                                                    <img class="dynamic-avatar" data-name="@member.Name" src="~/images/default-avatars/default-avatar.png" alt="">
+                                                                                </span>
+                                                                                <div class="ms-3 lh-1">
+                                                                                    <span class="fw-semibold fs-6">@member.Name @member.Surname</span>
+                                                                                    <span class="d-block text-muted mt-1" style="font-size: 0.75rem;">
+                                                                                        @EnumHelper.GetEnumDisplayName((OrganizationRolesView)member.RoleInOrganization)
+                                                                                    </span>
+                                                                                </div>
+                                                                            </div>
+                                                                        </a>
+                                                                    </li>
+                                                                }
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+                                    }
+                                    <input type="hidden" id="TeamId" name="Project.TeamId" value="" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-6">
+                            <div class="row mb-2">
+                                <div class="@(ViewBag.IsSetGitRepo ? "col-xl-6": "col-xl-12")">
+                                    <label for="Manager" class="form-label">@Localizer["ProjectManager"]:</label>
+                                    <select id="ManagerID" name="Project.ManagerID" class="form-select" required>
+                                    </select>
+                                    <div id="ManagerID-error" class="invalid-feedback">
+                                        @Localizer["PleaseSelectProjectManager"].
+                                    </div>
+                                </div>
+                                @if (ViewBag.IsSetGitRepo)
+                                {
+                                    <div class="col-xl-6">
+                                        <label class="form-label">
+                                            @Localizer["GitHubSelectRepository"]
+                                            <span class="text-danger" id="git-tooltip" data-bs-toggle="tooltip" data-bs-custom-class="tooltip-danger"
+                                                  title="@Localizer["Warning"]: @Localizer["IfYouChangeRepositoryAllTasksUunlinked"]. @Localizer["ThisActionCannotUndone"].">
+                                                <i class="las la-exclamation-circle fs-17"></i>
+                                            </span>
+                                        </label>
+                                        <div id="repo-container">
+                                            <div id="select-repo" data-project-id="@Guid.Empty"></div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                            @if (ViewBag.HasProjectAccessControl)
+                            {
+                                <label class="form-label mt-3">@Localizer["UserPermissions"]</label>
+                                <div class="row">
+                                    <div class="card-body p-0 table-responsive" id="permissionsContainer" style="overflow-y: auto; max-height: 26rem;">
+                                        @await Html.PartialAsync("_TableProjectUserPermission", Model.PermissionsUsers)
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                        @*<div class="col-xl-6">
+                            <label class="form-label">Tags</label>
+                            <input class="form-control" id="choices-text-unique-values" type="text" value="Marketing, Sales, Development, Design, Research" placeholder="This is a placeholder">
+                        </div>*@
+                        <div class="col-xl-12">
+                            <label class="form-label">@Localizer["Attachments"]</label>
+                            <input type="file" class="multiple-filepond" name="files" multiple data-allow-reorder="true" data-max-file-size="30MB">
+                            <div class="invalid-feedback" id="error-files">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button class="btn btn-primary-light btn-wave ms-auto float-end" type="button" onclick="CreateProject()">@Localizer["CreateProject"]</button>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+@if (ViewBag.NoTeams != null && ViewBag.NoTeams == true)
+{
+    <div id="noTeamsModal" class="modal fade show" tabindex="-1" role="dialog" style="align-items: center; justify-content: center; z-index: 1050">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content border-warning">
+                <div class="modal-header bg-warning text-dark">
+                    <h5 class="modal-title">@Localizer["Warning"]</h5>
+                </div>
+                <div class="modal-body">
+                    <p>@Localizer["ToCreateProject"].</p>
+                </div>
+                <div class="modal-footer">
+                    <a href="@Url.Action("Index", "Team")" class="btn btn-warning">@Localizer["CreateTeam"]</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+<style>
+    .form-control.is-invalid, .was-validated .form-control:invalid {
+        background-image: none;
+        border-color: var(--input-border);
+    }
+
+    .form-control.is-invalid, .was-validated .form-control:invalid:focus {
+        background-image: none;
+        border-color: var(--input-border);
+        box-shadow: none;
+    }
+
+    .form-control.is-valid, .was-validated .form-control:valid {
+        background-image: none;
+        border-color: var(--input-border);
+    }
+
+    .form-control.is-valid, .was-validated .form-control:valid:focus {
+        background-image: none;
+        border-color: var(--input-border);
+    }
+
+    .form-check-input:valid ~ .form-check-label{
+        color: var(--default-text-color) !important;
+    }
+    .form-check-input:valid:checked{
+        background-color: var(--primary-color) !important;
+        border-color: var(--primary-color) !important;
+    }
+    .form-check-input:valid{
+        border-color: var(--default-text-color) !important;
+    }
+    .team-members-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 15px;
+    }
+    .team-member-item {
+        min-width: 200px;
+        list-style-type: none;
+    }
+    .avatar-lg {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+    }
+    .form-control {
+        padding: .5rem .75rem !important
+    }
+</style>
+<script>
+    window.currentCulture = "@CultureInfo.CurrentCulture.Name";
+</script>
+<!--End::row-1 -->
+@section Scripts{
+    <!-- Quill Editor JS -->
+    <script src="~/lib/quill/quill.min.js"></script>
+
+    <!-- Filepond JS -->
+    <script src="~/lib/filepond/filepond.min.js"></script>
+    <script src="~/lib/filepond-plugin-image-preview/filepond-plugin-image-preview.min.js"></script>
+    <script src="~/lib/filepond-plugin-image-exif-orientation/filepond-plugin-image-exif-orientation.min.js"></script>
+    <script src="~/lib/filepond-plugin-file-validate-size/filepond-plugin-file-validate-size.min.js"></script>
+    <script src="~/lib/filepond-plugin-file-encode/filepond-plugin-file-encode.min.js"></script>
+    <script src="~/lib/filepond-plugin-image-edit/filepond-plugin-image-edit.min.js"></script>
+    <script src="~/lib/filepond-plugin-file-validate-type/filepond-plugin-file-validate-type.min.js"></script>
+    <script src="~/lib/filepond-plugin-file-validate-type/filepond-plugin-file-validate-type.min.js"></script>
+    <script src="~/lib/filepond-plugin-image-crop/filepond-plugin-image-crop.min.js"></script>
+    <script src="~/lib/filepond-plugin-image-resize/filepond-plugin-image-resize.min.js"></script>
+    <script src="~/lib/filepond-plugin-image-transform/filepond-plugin-image-transform.min.js"></script>
+    <script src="~/lib/filepond-plugin-get-file/filepond-plugin-get-file.min.js"></script>
+
+    <!-- Fileupload JS -->
+    <script src="~/js/custom_js/utils/fileUpload.js"></script>
+    <!-- GitHub JS -->
+    <script src="~/js/custom_js/GitHub/selectRepo.js"></script>
+    <!-- Flat Picker JS -->
+    <script src="~/lib/flatpickr/flatpickr.min.js"></script>
+    <script src="~/lib/flatpickr/l10n/uk.js"></script>
+
+    <!-- Form Validation JS -->
+    <script src="~/js/validation.js"></script>
+
+    <script src="~/js/custom_js/utils/valideteFormElement.js"></script>
+
+    <!-- Create Project JS -->
+    <script src="~/js/create-project.js" charset="utf-8"></script>
+
+    <!-- Prism JS -->
+    <script src="~/lib/prismjs/prism.js" charset="utf-8"></script>
+    <script src="~/js/prism-custom.js" charset="utf-8"></script>
+
+    <!-- Select2 Cdn -->
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    <!-- Internal Select-2.js -->
+    @* <script src="~/js/select2.js" charset="utf-8"></script> *@
+
+    @if (ViewBag.HasProjectAccessControl)
+    {
+        <!--Permissions table-->
+        <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
+
+        <script src="~/js/custom_js/utils/dataTableLocalization.js"></script>
+        <script src="~/js/custom_js/utils/formatString.js"></script>
+
+        <script src="~/js/custom_js/Project/tablePermissionsUser.js"></script>
+    }
+
+    <!-- Create Project -->
+    <script src="~/js/custom_js/Project/createProject.js"></script>
+
+    <script src="~/js/default-avatar.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var modal = document.getElementById("noTeamsModal");
+            if (modal) {
+                modal.style.display = "block";
+            }
+        });
+    </script>
+    
+
+}

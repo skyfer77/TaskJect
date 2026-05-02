@@ -1,0 +1,414 @@
+﻿﻿@using System.Security.Claims;
+@using TaskJect.Web.Services
+@using TaskJect.Web.Resources
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<SharedResources> Localizer
+@model DetailsTaskViewModel
+@{
+    var taskStatuses = new[]
+    {
+        TaskJect.Web.Enums.TaskStatusView.OnReview,
+        TaskJect.Web.Enums.TaskStatusView.Done,
+        TaskJect.Web.Enums.TaskStatusView.Archived
+    };
+
+    var serializedFiles = Newtonsoft.Json.JsonConvert.SerializeObject(Model.TaskEditModel.OrganizationFiles.Select(f => new
+    {
+        source = f.Id.ToString(), // просто унікальний Id файлу — НЕ URL!
+        options = new
+        {
+            type = "limbo",
+            file = new
+            {
+                name = f.FileName,
+                size = f.Size,
+                type = f.ContentType
+            }
+        }
+    }));
+
+    var integGitHub = Model.GitHubViewModel.IsGitHubIntegration;
+
+    var grantAccessRole = this.User.IsInRole("Admin") || this.User.IsInRole("God") || this.User.IsInRole("TeamLead") || ViewBag.IsProjectManager;
+}
+@functions {
+    public string FormatFileSize(long sizeInBytes)
+    {
+        if (sizeInBytes < 1024)
+            return $"{sizeInBytes} bytes";
+        else if (sizeInBytes < 1024 * 1024)
+            return $"{(sizeInBytes / 1024.0):N1} KB";
+        else
+            return $"{(sizeInBytes / 1024.0 / 1024.0):N1} MB";
+    }
+}
+<div class="modal fade" id="details-task" tabindex="-1" aria-hidden="true" style="--bs-modal-width: 880px;">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            @using (Html.BeginForm("Edit", "Task", FormMethod.Post, new { id = "EditTask", @class = "was-validated" }))
+            {
+                <div class="modal-header">
+                    <h6 class="modal-title">@Localizer["DetailsTask"]</h6>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                </div>
+                <div class="modal-body row p-0">
+                    <div class="col-xxl-9" style="border-right: solid 1px var(--default-border); padding: 1rem 1.5rem !important; padding-right: 1rem !important;">
+                        <div class="row gy-2">
+                            <input type="hidden" id="ProjectID" name="ProjectID" value="@Model.TaskEditModel.Task.ProjectID" />
+                            <input type="hidden" id="ID" name="ID" value="@Model.TaskEditModel.Task.ID" />
+                            <input type="hidden" id="DateAdd" name="DateAdd" value="@Model.TaskEditModel.Task.DateAdd" />
+                            <input type="hidden" id="DateEdit" name="DateEdit" value="@Model.TaskEditModel.Task.DateEdit" />
+                            <input type="hidden" id="ComplitedDate" name="ComplitedDate" value="@Model.TaskEditModel.Task.ComplitedDate" />
+                            <input type="hidden" id="ReviewDate" name="ReviewDate" value="@Model.TaskEditModel.Task.ReviewDate" />
+                            <input type="hidden" id="isAdminOrGod" value='@Html.Raw(Json.Serialize(User.IsInRole("Admin") || User.IsInRole("God")))' />
+                            <input type="hidden" id="canEditTask" value='@Html.Raw(Json.Serialize(Model.Permissions?.CanEditTask == true))' />
+                            <input type="hidden" id="canSetAssignments" value='@Html.Raw(Json.Serialize(Model.Permissions?.CanAssignUsers == true))' />
+                            <input type="hidden" id="statusToCheck" value='@Html.Raw(Json.Serialize(Model.TaskEditModel.Task.Status))' />
+                            <input type="hidden" id="isStatus" value='@Html.Raw(Json.Serialize(taskStatuses))' />
+                            <input type="hidden" id="CreatedByUserId" name="CreatedByUserId" value="@Model.TaskEditModel.Task.CreatedByUserId" />
+                            <div class="col-xl-12 mb-2">
+                                @{
+                                    if (Model.Permissions?.CanEditTask == true || grantAccessRole)
+                                    {
+                                        <label for="title" class="form-label">@Localizer["TaskName"]</label>
+                                        <input type="text" name="Title" class="form-control" id="title" value="@Model.TaskEditModel.Task.Title" placeholder="@Localizer["TaskName"]" required />
+                                        <div class="invalid-feedback" id="error-title"></div>
+                                    }
+                                    else
+                                    {
+                                        <input type="hidden" name="Title" id="title" value="@Model.TaskEditModel.Task.Title" />
+                                        <h6 class="fw-semibold">
+                                            @Model.TaskEditModel.Task.Title
+                                        </h6>
+                                    }
+                                }
+                            </div>
+
+                            <div class="col-xl-12">
+                                <label for="text-area" class="form-label">@Localizer["TaskDescription"]</label>
+                                <div>
+                                    <input type="hidden" id="Description1" name="Description" value="" />
+                                    <div id="task-descriptioin-editor1">
+                                        @Html.Raw(System.Net.WebUtility.HtmlDecode(Model.TaskEditModel.Task.Description))
+                                    </div>
+                                </div>
+                            </div>
+                            @if (Model.Permissions?.CanEditTask == true || grantAccessRole)
+                            {
+                                <div class="col-xl-12">
+                                    <label for="text-area" class="form-label">@Localizer["Files"]</label>
+                                    <div class="card-body">
+                                        <input type="file" class="multiple-filepond" name="files" multiple data-preloaded-files='@Html.Raw(serializedFiles)'
+                                               data-allow-reorder="true" data-max-file-size="30MB">
+                                    </div>
+                                    <input type="hidden" id="filesToDelete" name="filesToDelete" value="" />
+                                    <div class="invalid-feedback" id="error-files">
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+                                @if (Model.TaskEditModel.OrganizationFiles != null && Model.TaskEditModel.OrganizationFiles.Any())
+                                {
+                                    <div class="col-xl-12">
+                                        <label class="form-label">@Localizer["Files"]</label>
+                                        <div class="file-list">
+                                            @foreach (var file in Model.TaskEditModel.OrganizationFiles)
+                                            {
+                                                <div class="px-3 py-1 mb-2 border-none rounded-3 shadow d-flex justify-content-between align-items-center bg-primary">
+                                                    <div class="me-3" style="max-width: 75%;">
+                                                        <div class="d-flex align-items-center">
+                                                            <i class="bi bi-file-earmark me-2 text-fixed-white"></i>
+                                                            <span class="fw-semibold text-fixed-white text-truncate d-inline-block" style="max-width: 100%;" title="@file.FileName">
+                                                                @file.FileName
+                                                            </span>
+                                                        </div>
+                                                        <div class="text-muted text-fixed-white small ms-4" style="opacity: 0.7;">
+                                                            @FormatFileSize(file.Size)
+                                                        </div>
+                                                    </div>
+                                                    <a class="btn btn-sm text-fixed-white border-light" href="@Url.Action("DownloadFile", "Task", new { id = file.Id })">
+                                                        <i class="bi bi-download me-1"></i> @Localizer["Download"]
+                                                    </a>
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                }
+                            }
+                            @if (grantAccessRole)
+                            {
+                                <div class="col-xl-12">
+                                    <label for="text-area" class="form-label">@Localizer["PerformanceNotes"]</label>
+                                    <div>
+                                        <input type="hidden" id="Description2" name="PerformanceNote" value="" />
+                                        <div id="task-descriptioin-editor2">
+                                            @Html.Raw(System.Net.WebUtility.HtmlDecode(Model.TaskEditModel.Task.PerformanceNote))
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <div class="col-xxl-3" style="padding-left: 1rem !important; padding: 1rem 1.5rem;">
+                        <div class="col-xl-12 mb-2">
+                            <label for="choices-multiple-remove-button4" class="form-label">@Localizer["Status"]</label>
+                            @if (Model.Permissions?.CanEditTask == true || grantAccessRole)
+                            {
+                                var values = Enum.GetValues(typeof(TaskJect.Web.Enums.TaskStatusView));
+                                <select class="form-control" name="Status" id="choices-multiple-remove-button4">
+                                    @foreach (var item in values)
+                                    {
+                                        if (item.Equals(Model.TaskEditModel.Task.Status))
+                                        {
+                                            <option value="@item" selected>@EnumHelper.GetEnumDisplayName((TaskJect.Web.Enums.TaskStatusView)item)</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@item">@EnumHelper.GetEnumDisplayName((TaskJect.Web.Enums.TaskStatusView)item)</option>
+                                        }
+                                    }
+                                </select>
+                            }
+                            else
+                            {
+                                <input type="hidden" name="Status" value="@Model.TaskEditModel.Task.Status" />
+                                <span class="d-block fs-14 fw-semibold badge" name="@Model.TaskEditModel.Task.Status">@EnumHelper.GetEnumDisplayName((TaskJect.Web.Enums.TaskStatusView)Model.TaskEditModel.Task.Status)</span>
+                            }
+                        </div>
+                        <div class="col-xl-12 mb-2">
+                            <label for="task-id" class="form-label">@Localizer["Complexity"]</label>
+                            @if (Model.Permissions?.CanEditTask == true || grantAccessRole)
+                            {
+                                <input type="text" name="Complexity" class="form-control" id="input-complexity" placeholder="@Localizer["EnterComplexity"]" autocomplete="off" value="@Model.TaskEditModel.Task.Complexity" />
+                                <div class="invalid-feedback" id="error-complexity"></div>
+                            }
+                            else
+                            {
+                                <input type="hidden" name="Complexity" value="@Model.TaskEditModel.Task.Complexity" />
+                                <span class="d-block fs-14 fw-semibold badge bg-light text-default">@Model.TaskEditModel.Task.Complexity</span>
+                            }
+                        </div>
+                        <div class="col-xl-12 mb-2">
+                            <label class="form-label">@Localizer["AssignedTo"]</label>
+                            @{
+                                if (Model.Permissions?.CanAssignUsers == true || grantAccessRole)
+                                {
+                                    <select class="form-control" name="AssigneeID" id="choices-multiple-remove-button5">
+                                        @if (Model.TaskEditModel.Task.User == null)
+                                        {
+                                            <option value="">@Localizer["SelectMember"]</option>
+                                            foreach (var user in Model.TaskEditModel.Users)
+                                            {
+                                                <option value="@user.Id"> @(user.Name) @(user.Surname) </option>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            var userTask = Model.TaskEditModel.Users
+                                            .FirstOrDefault(x => x.Id == Model.TaskEditModel.Task.User.Id);
+                                            <option value="">@Localizer["SelectMember"]</option>
+
+                                            foreach (var user in Model.TaskEditModel.Users)
+                                            {
+                                                if (userTask.Id == user.Id)
+                                                {
+                                                    <option value="@user.Id" selected> @(user.Name) @(user.Surname) </option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="@user.Id"> @(user.Name) @(user.Surname) </option>
+                                                }
+                                            }
+                                        }
+                                    </select>
+                                }
+                                else
+                                {
+                                    if (Model.TaskEditModel.Task.User != null)
+                                    {
+                                        <input type="hidden" name="AssigneeID" value="@Model.TaskEditModel.Task.User.Id" />
+                                        <span class="d-block fs-14 fw-semibold badge bg-light text-default">@Model.TaskEditModel.Task.User.Name @Model.TaskEditModel.Task.User.Surname</span>
+                                    }
+                                }
+                            }
+                        </div>
+                        <div class="col-xl-12 mb-2">
+                            <label class="form-label">@Localizer["Priority"]</label>
+                            @{
+                                if (Model.Permissions?.CanEditTask == true || grantAccessRole)
+                                {
+                                    var values1 = Enum.GetValues(typeof(TaskJect.Web.Enums.PriorityView));
+
+                                    <select class="form-control" name="Priority" id="choices-multiple-remove-button6">
+                                        @foreach (var item in values1)
+                                        {
+                                            if (item.Equals(Model.TaskEditModel.Task.Priority))
+                                            {
+                                                <option value="@item" selected>@EnumHelper.GetEnumDisplayName((TaskJect.Web.Enums.PriorityView)item)</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="@item">@EnumHelper.GetEnumDisplayName((TaskJect.Web.Enums.PriorityView)item)</option>
+                                            }
+                                        }
+                                    </select>
+                                }
+                                else
+                                {
+                                    <input type="hidden" name="Priority" value="@Model.TaskEditModel.Task.Priority" />
+                                    <span class="d-block fs-14 fw-semibold" name="@Model.TaskEditModel.Task.Priority-over">
+                                        @EnumHelper.GetEnumDisplayName((TaskJect.Web.Enums.PriorityView)Model.TaskEditModel.Task.Priority)
+                                    </span>
+                                }
+                            }
+                        </div>
+                        <div class="col-xl-12 mb-2">
+                            <label class="form-label">@Localizer["StartDate"]</label>
+                            <div class="form-group">
+                                @if (Model.Permissions?.CanEditTask == true || grantAccessRole)
+                                {
+                                    <div class="input-group">
+                                        <input type="text" name="StartDate" class="form-control" id="targetDateStart" placeholder="@Localizer["ChooseDate"]" value="@String.Format($"{Model.TaskEditModel.Task.StartDate:yyyy-MM-dd HH:mm}")">
+                                        <div class="input-group-text text-muted"> <i class="ri-calendar-line"></i> </div>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <input type="hidden" name="StartDate" value="@String.Format($"{Model.TaskEditModel.Task.StartDate:yyyy-MM-dd HH:mm}")" />
+                                    <span class="d-block fs-14 fw-semibold badge bg-primary-transparent">
+                                        @(Model.TaskEditModel.Task.StartDate.HasValue
+                                            ? Model.TaskEditModel.Task.StartDate.Value.ToString("dd MMMM yyyy", System.Globalization.CultureInfo.CurrentCulture)
+                                            : "")
+                                    </span>
+                                }
+                            </div>
+                        </div>
+                        <div class="col-xl-12 mb-2">
+                            <label class="form-label">@Localizer["Deadline"]</label>
+                            <div class="form-group">
+                                @if (Model.Permissions?.CanEditTask == true || grantAccessRole)
+                                {
+                                    <div class="input-group">
+                                        <input type="text" name="EndDate" class="form-control" id="targetDateEnd" placeholder="@Localizer["ChooseDate"]" value="@String.Format($"{Model.TaskEditModel.Task.EndDate:yyyy-MM-dd HH:mm}")">
+                                        <div class="input-group-text text-muted"> <i class="ri-calendar-line"></i> </div>
+                                    </div>
+                                }
+                                else
+                                {
+                                    if (Model.TaskEditModel.Task.EndDate != null)
+                                    {
+                                        <input type="hidden" name="EndDate" value="@String.Format($"{Model.TaskEditModel.Task.EndDate:yyyy-MM-dd HH:mm}")" />
+                                        <span class="d-block fs-14 fw-semibold badge bg-info-transparent">
+                                            @(Model.TaskEditModel.Task.EndDate.HasValue
+                                                ? Model.TaskEditModel.Task.EndDate.Value.ToString("dd MMMM yyyy", System.Globalization.CultureInfo.CurrentCulture)
+                                                : "")
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span class="d-block fs-14 fw-semibold badge bg-info-transparent">@Localizer["noEndDate"]</span>
+                                    }
+                                }
+                            </div>
+                        </div>
+                        @if ((Model.TaskEditModel.Task.Status == TaskJect.Web.Enums.TaskStatusView.Done ||
+                       Model.TaskEditModel.Task.Status == TaskJect.Web.Enums.TaskStatusView.OnReview ||
+                       Model.TaskEditModel.Task.Status == TaskJect.Web.Enums.TaskStatusView.Archived)
+                       && Model.TaskEditModel.Task.ReviewDate != null)
+                        {
+                            <div class="col-xl-12 mb-2">
+                                <label class="form-label">@Localizer["ReviewDate"]</label>
+                                <span class="d-block fs-14 fw-semibold badge bg-danger-transparent">
+                                    @(Model.TaskEditModel.Task.ReviewDate.HasValue
+                                        ? Model.TaskEditModel.Task.ReviewDate.Value.ToString("dd MMMM yyyy", System.Globalization.CultureInfo.CurrentCulture)
+                                        : "")
+                                </span>
+                            </div>
+                        }
+                        @if ((Model.TaskEditModel.Task.Status == TaskJect.Web.Enums.TaskStatusView.Done ||
+                       Model.TaskEditModel.Task.Status == TaskJect.Web.Enums.TaskStatusView.Archived)
+                       && Model.TaskEditModel.Task.ComplitedDate != null)
+                        {
+                            <div class="col-xl-12 mb-2">
+                                <label class="form-label">@Localizer["CompletedDate"]</label>
+                                <span class="d-block fs-14 fw-semibold badge bg-success-transparent">
+                                    @(Model.TaskEditModel.Task.ComplitedDate.HasValue
+                                        ? Model.TaskEditModel.Task.ComplitedDate.Value.ToString("dd MMMM yyyy", System.Globalization.CultureInfo.CurrentCulture)
+                                        : "")
+                                </span>
+                            </div>
+                        }
+                        @if ((Model.TaskEditModel.Task.Status == TaskJect.Web.Enums.TaskStatusView.OnReview ||
+                       Model.TaskEditModel.Task.Status == TaskJect.Web.Enums.TaskStatusView.Done ||
+                       Model.TaskEditModel.Task.Status == TaskJect.Web.Enums.TaskStatusView.Archived) &&
+                       grantAccessRole)
+                        {
+                            <div class="col-xl-12 mb-2">
+                                <div class="form-group" style="padding: .5rem .85rem;align-items: center; display: flex;">
+                                    @Html.CheckBox("IsAgreedOverdue", Model.TaskEditModel.Task.IsAgreedOverdue, new { @class = "form-check-input me-2 mt-0", id = "flexCheckDefault", style = "width: 25px;height: 25px;" })
+                                    <label for="flexCheckDefault">@Localizer["AgreedOverdue"]</label>
+                                </div>
+                            </div>
+                        }
+                        <div class="col-xl-12 mb-2">
+                            <div class="form-group">
+                                @{
+                                    var currentUserId = User.Claims.FirstOrDefault(u => u.Type == ClaimTypes.NameIdentifier)?.Value;
+                                    var userIdTask = Model.TaskEditModel.Task.User != null ? Model.TaskEditModel.Task.User.Id : null;
+                                }
+                                @if (userIdTask == currentUserId)
+                                {
+                                    <label for="targetActualHours" class="form-label">@Localizer["ActualHours"]</label>
+                                    <div class="d-flex align-items-center">
+                                        <input type="text" class="form-control me-2" name="ActualHours" placeholder="@Localizer["Hours"]" oninput="validateHours(this)" value="@Model.TaskEditModel.Task.ActualHours">
+                                        <span>:</span>
+                                        <input type="text" class="form-control ms-2" name="ActualMinutes" placeholder="@Localizer["Minutes"]" oninput="validateMinutes(this)" value="@Model.TaskEditModel.Task.ActualMinutes">
+                                    </div>
+                                }
+                                else
+                                {
+                                    if (Model.TaskEditModel.Task.ActualHours != null || Model.TaskEditModel.Task.ActualMinutes != null)
+                                    {
+                                        string actualTimeDisplay = (Model.TaskEditModel.Task.ActualHours != null ? $"{Model.TaskEditModel.Task.ActualHours}{Localizer["h"]} " : "") +
+                                        (Model.TaskEditModel.Task.ActualMinutes != null ? $"{Model.TaskEditModel.Task.ActualMinutes}{Localizer["m"]}" : "").Trim();
+                                        <label for="targetActualHours" class="form-label">@Localizer["ActualHours"]</label>
+                                        <input type="hidden" name="ActualHours" value="@Model.TaskEditModel.Task.ActualHours" />
+                                        <input type="hidden" name="ActualMinutes" value="@Model.TaskEditModel.Task.ActualMinutes" />
+                                        <span class="d-block fs-14 fw-semibold badge bg-indigo-transparent">@actualTimeDisplay</span>
+                                    }
+                                }
+                            </div>
+                        </div>
+                        <div class="col-xl-12 mb-2">
+                            <label for="task-id" class="form-label">@Localizer["Creator"]</label>
+                            <span class="d-block fs-14 fw-semibold badge bg-light text-default">@Model.TaskEditModel.Creator</span>
+                        </div>
+                        <div class="col-xl-12 @(integGitHub ? "mb-2" : "")">
+                            <label for="task-id" class="form-label">@Localizer["CreatedDate"]</label>
+                            <span class="d-block fs-14 fw-semibold badge bg-light text-default">
+                                @(Model.TaskEditModel.Task.DateAdd.HasValue
+                                    ? Model.TaskEditModel.Task.DateAdd.Value.ToString("dd MMMM yyyy", System.Globalization.CultureInfo.CurrentCulture)
+                                    : "")
+                            </span>
+                        </div>
+                        @if (integGitHub && ViewBag.HasGitHubIntegration)
+                        {
+                            <partial name="_GitHubFormElement" model="@Model.GitHubViewModel" />
+                            <input type="hidden" name="GitHubRepoName" value="@Model.TaskEditModel.Task.GitHubRepoName" />
+                            <input type="hidden" name="GitHubOwner" value="@Model.TaskEditModel.Task.GitHubOwner" />
+                        }
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light"
+                            data-bs-dismiss="modal">
+                        @Localizer["Cancel"]
+                    </button>
+                    <button type="button" class="btn btn-primary" onclick="editTask()">@Localizer["Save"]</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>

@@ -1,0 +1,198 @@
+﻿@using System.Globalization
+@using TaskJect.Web.Resources
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<SharedResources> Localizer
+@model AnalysisUserDetails
+@{
+    ViewBag.Title = "UserDetails";
+}
+@section HeadArea {
+    <link href="~/css/NewStyles.css" rel="stylesheet">
+
+    <!-- FlatPickr CSS -->
+    <link rel="stylesheet" href="~/lib/flatpickr/flatpickr.min.css">
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.3.0/css/responsive.bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.2.3/css/buttons.bootstrap5.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/select/1.7.0/css/select.dataTables.min.css">
+}
+<!-- Page Header -->
+<div class="d-md-flex d-block align-items-center justify-content-between my-4 page-header-breadcrumb">
+    <h1 class="page-title fw-semibold fs-18 mb-0">@Localizer["UserAnalytics"]</h1>
+    <div class="ms-md-1 ms-0">
+        <nav>
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item"><a href="@Url.Action("Index", "Analytics")">@Localizer["Analytics"]</a></li>
+                <li class="breadcrumb-item active" aria-current="page">@Localizer["UserDetails"]</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+<!-- Page Header Close -->
+<!-- Start::row-1 -->
+<div class="row" id="analytics-row">
+    <div class="col-xl-12 sticky-filter">
+        <div class="card custom-card">
+            <div class="card-body ">
+                <div class="d-md-flex d-block flex-wrap align-items-center justify-content-between">
+                    <div class="card-title fw-semibold fs-18 mb-0">@Localizer["Filters"]</div>
+                    @using (Html.BeginForm("UserDetails", "Analytics", FormMethod.Post))
+                    {
+                        <div class="d-flex flex-wrap align-items-center mt-md-0 mt-3 justify-content-evenly gap-4">
+                            <div class="form-group">
+                                <div class="input-group flex-nowrap">
+                                    <div class="input-group-text text-muted"><i class="ri-calendar-line"></i></div>
+                                    <input type="text" name="dateTo" class="form-control" id="dateRangeFilter" placeholder="@Localizer["SelectRangeDate"]"
+                                       aria-describedby="button-addon2">
+                                    <button type="button" id="filterButton" class="btn btn-primary">@Localizer["Confirm"]</button>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-12">
+        <div class="card custom-card">
+            <div class="card-body">
+                <div class="row gy-md-0 gy-4">
+                    <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                        <div class="d-flex align-items-center">
+                            <div class="me-3">
+                                <span class="avatar bg-primary">
+                                    <i class="ti ti-user fs-18"></i>
+                                </span>
+                            </div>
+                            <div>
+                                <h6 id="user" class="d-block mb-1 text-muted">@Model.UserName @Model.UserSurname</h6>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                        <div class="d-flex align-items-top">
+                            <div class="me-3">
+                                <span class="avatar bg-success">
+                                    <i class="ti ti-checklist fs-18"></i>
+                                </span>
+                            </div>
+                            <div>
+                                <span class="d-block mb-1 text-muted">@Localizer["TotalTasks"]</span>
+                                <h6 id="total-tasks" class="fw-semibold mb-0">@ViewBag.TotalTasks</h6>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                        <div class="d-flex align-items-top">
+                            <div class="me-3">
+                                <span class="avatar bg-secondary">
+                                    <i class="ti ti-stars fs-18"></i>
+                                </span>
+                            </div>
+                            <div>
+                                <span class="d-block mb-1 text-muted">@Localizer["TotalPoint"]</span>
+                                <h6 id="total-points" class="fw-semibold mb-0">@ViewBag.TotalPoints</h6>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                        <div class="d-flex align-items-top">
+                            <div class="me-3">
+                                <span class="avatar bg-warning">
+                                    <i class="ti ti-hourglass-low fs-18"></i>
+                                </span>
+                            </div>
+                            <div>
+                                <span class="d-block mb-1 text-muted">@Localizer["TotalTime"]</span>
+                                <h6 id="total-times" class="fw-semibold mb-0">@ViewBag.TotalTimes</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-12">
+        <div class="card custom-card">
+            <div class="card-body">
+                <div class="table-responsive" id="table-data-tasks">
+                    @Html.Partial("_UserTasksTablePartial", Model.Tasks, new ViewDataDictionary(ViewData) { { "Projects", Model.Projects } })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-12">
+        <div class="card custom-card">
+            <div class="card-header justify-content-between d-sm-flex d-flex">
+                <div class="card-title">@Localizer["Graph"]</div>
+                <div class="dropdown">
+                    <a href="javascript:void(0);" class="p-2 fs-12 text-muted" data-bs-toggle="dropdown" aria-expanded="false">
+                        @Localizer["ViewMode"]<i class="ri-arrow-down-s-line align-middle ms-1 d-inline-block"></i>
+                    </a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="javascript:void(0);" class="dropdown-item view-mode-task" onclick="1">@Localizer["Day"]</a></li>
+                        <li><a href="javascript:void(0);" class="dropdown-item view-mode-task" onclick="0">@Localizer["Week"]</a></li>
+                        <li><a href="javascript:void(0);" class="dropdown-item view-mode-task" onclick="2">@Localizer["Month"]</a></li>
+                        <li><a href="javascript:void(0);" class="dropdown-item view-mode-task" onclick="3">@Localizer["Quarter"]</a></li>
+                        <li><a href="javascript:void(0);" class="dropdown-item view-mode-task" onclick="4">@Localizer["Year"]</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="card-body">
+                <div id="line-chart-datalabels"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--End::row-1 -->
+<style>
+    .flatpickr-calendar.open{
+        z-index: 99999 !important;
+    }
+
+    #dateRangeFilter {
+        margin-left: calc(var(--bs-border-width)* -1);
+        border-radius: 0;
+        position: relative;
+        flex: 1 1 auto;
+        width: 1%;
+        min-width: 0;
+    }
+</style>
+<script>
+    let dateRangeString = '@Model.DateTo';
+    let userId = '@Model.UserId';
+    let viewMode = 0;
+    let rawTasks = @Html.Raw(Json.Serialize(Model.Tasks));
+
+    window.currentCulture = "@CultureInfo.CurrentCulture.Name";
+</script>
+
+@section Scripts{
+    <!-- Datatables Cdn -->
+    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.3.0/js/dataTables.responsive.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.print.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.6/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.html5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdn.datatables.net/select/1.7.0/js/dataTables.select.min.js"></script>
+
+    <!-- Internal Datatables JS -->
+    <script src="~/js/datatables.js"></script>
+
+    <!-- Date & Time Picker JS -->
+    <script src="~/lib/flatpickr/flatpickr.min.js"></script>
+    <script src="~/lib/flatpickr/l10n/uk.js"></script>
+    <script src="~/js/date&time_pickers.js"></script>
+
+    <script src="~/js/custom_js/utils/dataTableLocalization.js"></script>
+    <script src="~/js/custom_js/utils/dataTables.download.js"></script>
+    <script src="~/js/custom_js/utils/formatString.js"></script>
+
+    <script src="~/js/custom_js/Analytics/user-details.js"></script>
+}

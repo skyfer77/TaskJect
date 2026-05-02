@@ -1,0 +1,330 @@
+﻿@using System.Globalization
+@using TaskJect.Web.Resources
+@using TaskJect.Web.Services
+@using Domain.Database
+@using Microsoft.Extensions.Localization
+@using System.Text.Json
+@inject IStringLocalizer<SharedResources> Localizer
+@model TaskPageModel
+@{
+    ViewBag.Title = Localizer["TaskListView"];
+
+    var notStarted = TaskJect.Web.Enums.TaskStatusView.NotStarted;
+
+    var projectId = Model.ProjectId;
+
+    var grantAccessRole = this.User.IsInRole("Moderator") || this.User.IsInRole("Admin") 
+    || this.User.IsInRole("God") || this.User.IsInRole("TeamLead") || ViewBag.IsProjectManager;
+
+    var now = DateTime.Now;
+    var firstDayOfMonth = new DateTime(now.Year, now.Month, 1);
+
+    var tasksThisMonth = Model.Tasks
+        .Where(t => t.StartDate.HasValue && t.StartDate.Value.Year == now.Year && t.StartDate.Value.Month == now.Month)
+        .Count();
+
+    var tasksThisYear = Model.Tasks
+        .Where(t => t.StartDate.HasValue && t.StartDate.Value.Year == now.Year)
+        .Count();
+
+    var tasksThisMonthDone = Model.Tasks
+        .Where(t => t.ComplitedDate.HasValue && t.ComplitedDate.Value.Year == now.Year && t.ComplitedDate.Value.Month == now.Month)
+        .Count();
+
+    var tasksThisYearDone = Model.Tasks
+        .Where(t => t.ComplitedDate.HasValue && t.ComplitedDate.Value.Year == now.Year)
+        .Count();
+
+    var simplifiedTasks = Model.Tasks.Select(task => new
+    {
+        StartDate = task.StartDate,
+        CompletedDate = task.ComplitedDate
+    }).ToList();
+}
+@section HeadArea {
+    <link href="~/css/NewStyles.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="~/lib/quill/quill.snow.css">
+    <link rel="stylesheet" href="~/lib/flatpickr/flatpickr.min.css">
+
+    <link rel="stylesheet" href="~/lib/filepond/filepond.min.css">
+    <link rel="stylesheet" href="~/lib/filepond-plugin-image-preview/filepond-plugin-image-preview.min.css">
+    <link rel="stylesheet" href="~/lib/filepond-plugin-image-edit/filepond-plugin-image-edit.min.css">
+    <link rel="stylesheet" href="~/lib/filepond-plugin-get-file/filepond-plugin-get-file.min.css">
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.3.0/css/responsive.bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.2.3/css/buttons.bootstrap5.min.css">
+}
+<div class="d-md-flex d-block align-items-center justify-content-between my-4 page-header-breadcrumb">
+    <h1 class="page-title fw-semibold fs-18 mb-0">@Model.ProjectName</h1>
+    <div class="ms-md-1 ms-0">
+        <nav>
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item"><a asp-controller="Project" asp-action="Overview" asp-route-id="@Model.ProjectId">@Localizer["Project"]</a></li>
+                <li class="breadcrumb-item active" aria-current="page">@Localizer["TaskListView"]</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+
+<div class="row" id="taskList">
+    <div class="col-xxl-9 col-xl-8">
+        <div class="card custom-card">
+            <div class="card-header justify-content-between">
+                <div class="card-title">
+                    @Localizer["TotalTasks"]
+                </div>
+                @if (ViewBag.Permission.CanCreateTask || grantAccessRole)
+                {
+                    <div class="d-flex">
+                        <button class="btn btn-sm btn-primary btn-wave waves-light" onclick="Create('@projectId', '@notStarted')"><i class="ri-add-line fw-semibold align-middle me-1"></i>@Localizer["CreateTask"]</button>
+                    </div>
+                }
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <div class="mb-3">
+                        <label for="statusFilter" class="form-label">@Localizer["Statuses"]</label>
+                        @{
+                            var values = Enum.GetValues(typeof(TaskJect.Web.Enums.TaskStatusView));
+                            var defaultSelected = new[] { TaskJect.Web.Enums.TaskStatusView.NotStarted, TaskJect.Web.Enums.TaskStatusView.InProgress };
+                        }
+                        <select class="form-control" id="statusFilter" multiple>
+                            @foreach (TaskJect.Web.Enums.TaskStatusView item in values)
+                            {
+                                if (defaultSelected.Contains(item))
+                                {
+                                    <option value="@item" selected>@EnumHelper.GetEnumDisplayName((TaskJect.Web.Enums.TaskStatusView)item)</option>
+                                }
+                                else
+                                {
+                                    <option value="@item">@EnumHelper.GetEnumDisplayName((TaskJect.Web.Enums.TaskStatusView)item)</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                    <table id="datatable-task-list" class="table text-nowrap table-bordered">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th scope="col">@Localizer["Task"]</th>
+                                <th scope="col">@Localizer["Status"]</th>
+                                <th scope="col">@Localizer["Deadline"]</th>
+                                <th scope="col">@Localizer["Priority"]</th>
+                                <th scope="col">@Localizer["AssignedTo"]</th>
+                                <th scope="col">@Localizer["Action"]</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var task in Model.Tasks)
+                            {
+                                <tr>
+                                    <td></td>
+                                    <td>
+                                        @{
+                                            var taskId = task.ID;
+                                        }
+                                        <a role="button" class="text-primary text-decoration-underline" aria-label="anchor" onclick="Edit('@taskId', '@projectId')">
+                                            <span class="fw-semibold table-word-wrap-column">@task.Title</span>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <span class="badge" name="@task.Status">@EnumHelper.GetEnumDisplayName((TaskJect.Web.Enums.TaskStatusView)task.Status)</span>
+                                    </td>
+                                    <td data-order="@(task.EndDate.HasValue ? task.EndDate.Value.ToString("yyyy-MM-dd") : "")">
+                                        @if (task.EndDate.HasValue)
+                                        {
+                                            <span class="badge bg-light text-dark custom-badge">
+                                                @task.EndDate.Value.ToString("dd MMM yyyy", System.Globalization.CultureInfo.CurrentCulture)
+                                            </span>
+                                        }
+                                    </td>
+                                    <td>
+                                        <span class="badge" name="@task.Priority">@EnumHelper.GetEnumDisplayName((TaskJect.Web.Enums.PriorityView)task.Priority)</span>
+                                    </td>
+                                    <td>
+                                        @{
+                                            var avatarSrc = Url.Content("~/images/default-avatars/default-avatar.png");
+                                            var userInfo = task?.User != null
+                                            ? $@"
+                                                <div class='d-flex align-items-center'>
+                                                    <div class='avatar avatar-sm avatar-rounded me-sm-2 me-0'>
+                                                        <img class='dynamic-avatar rounded-circle' data-name='{task.User.Name}'
+                                                            src='{avatarSrc}' alt='' width='32' height='32'>
+                                                    </div>
+                                                    <div class='d-sm-block d-none'>
+                                                        <p class='fw-semibold mb-0 lh-1'>{task.User.Name} {task.User.Surname}</p>
+                                                    </div>
+                                                </div>"
+                                            : "";
+                                        }
+                                        @Html.Raw(userInfo)
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-primary-light btn-icon btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="@Localizer["Details"]" onclick="Edit('@taskId', '@projectId')"><i class="ri-eye-line"></i></button>
+                                        @if (ViewBag.Permission.CanDeleteTask || grantAccessRole)
+                                        {
+                                            <button class="btn btn-danger-light btn-icon ms-1 btn-sm task-delete-btn" data-bs-toggle="modal" data-bs-target="#delete-task"
+                                                data-todo='{"idTask":"@taskId","titleTask":"@task.Title"}'
+                                                data-bs-placement="top" data-bs-title="@Localizer["Delete"]">
+                                                <i class="ri-delete-bin-5-line"></i>
+                                            </button>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xxl-3 col-xl-4">
+        <div class="card custom-card">
+            <div class="card-body p-0">
+                <div class="card-header justify-content-center" style="padding: 0.6rem;">
+                    <div class="svg-icon-background bg-light text-dark custom-badge" style="width: auto; height: auto; font-size: .875rem; font-weight: 700;">
+                        <i class="ti ti-chart-pie-2 fs-20 op-7 me-1"></i>
+                        @firstDayOfMonth.ToString("dd MMM yyyy", System.Globalization.CultureInfo.CurrentCulture) -
+                        @now.ToString("dd MMM yyyy", System.Globalization.CultureInfo.CurrentCulture)
+                    </div>
+                </div>
+                <div class="p-4 border-bottom border-block-end-dashed d-flex align-items-top">
+                    <div class="svg-icon-background bg-primary-transparent me-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" data-name="Layer 1" viewBox="0 0 24 24" class="svg-primary"><path d="M13,16H7a1,1,0,0,0,0,2h6a1,1,0,0,0,0-2ZM9,10h2a1,1,0,0,0,0-2H9a1,1,0,0,0,0,2Zm12,2H18V3a1,1,0,0,0-.5-.87,1,1,0,0,0-1,0l-3,1.72-3-1.72a1,1,0,0,0-1,0l-3,1.72-3-1.72a1,1,0,0,0-1,0A1,1,0,0,0,2,3V19a3,3,0,0,0,3,3H19a3,3,0,0,0,3-3V13A1,1,0,0,0,21,12ZM5,20a1,1,0,0,1-1-1V4.73L6,5.87a1.08,1.08,0,0,0,1,0l3-1.72,3,1.72a1.08,1.08,0,0,0,1,0l2-1.14V19a3,3,0,0,0,.18,1Zm15-1a1,1,0,0,1-2,0V14h2Zm-7-7H7a1,1,0,0,0,0,2h6a1,1,0,0,0,0-2Z" /></svg>
+                    </div>
+                    <div class="flex-fill">
+                        <h6 class="mb-2 fs-12">
+                            @Localizer["NewTasks"]
+                            <span class="badge bg-primary fw-semibold float-end">
+                                @tasksThisYear
+                            </span>
+                        </h6>
+                        <div class="pb-0 mt-0">
+                            <div>
+                                <h4 class="fs-18 fw-semibold mb-2">
+                                    <span class="count-up" data-count="@(tasksThisMonth - 1)">@tasksThisMonth</span>
+                                    <span class="text-muted float-end fs-11 fw-normal">@Localizer["ThisYear"]</span>
+                                </h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-4 border-bottom border-block-end-dashed d-flex align-items-top">
+                    <div class="svg-icon-background bg-success-transparent me-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="svg-success"><path d="M11.5,20h-6a1,1,0,0,1-1-1V5a1,1,0,0,1,1-1h5V7a3,3,0,0,0,3,3h3v5a1,1,0,0,0,2,0V9s0,0,0-.06a1.31,1.31,0,0,0-.06-.27l0-.09a1.07,1.07,0,0,0-.19-.28h0l-6-6h0a1.07,1.07,0,0,0-.28-.19.29.29,0,0,0-.1,0A1.1,1.1,0,0,0,11.56,2H5.5a3,3,0,0,0-3,3V19a3,3,0,0,0,3,3h6a1,1,0,0,0,0-2Zm1-14.59L15.09,8H13.5a1,1,0,0,1-1-1ZM7.5,14h6a1,1,0,0,0,0-2h-6a1,1,0,0,0,0,2Zm4,2h-4a1,1,0,0,0,0,2h4a1,1,0,0,0,0-2Zm-4-6h1a1,1,0,0,0,0-2h-1a1,1,0,0,0,0,2Zm13.71,6.29a1,1,0,0,0-1.42,0l-3.29,3.3-1.29-1.3a1,1,0,0,0-1.42,1.42l2,2a1,1,0,0,0,1.42,0l4-4A1,1,0,0,0,21.21,16.29Z" /></svg>
+                    </div>
+                    <div class="flex-fill">
+                        <h6 class="mb-2 fs-12">
+                            @Localizer["CompletedTasks"]
+                            <span class="badge bg-success fw-semibold float-end">
+                                @tasksThisYearDone
+                            </span>
+                        </h6>
+                        <div>
+                            <h4 class="fs-18 fw-semibold mb-2">
+                                <span class="count-up" data-count="@(tasksThisMonthDone - 1)">@tasksThisMonthDone</span>
+                                <span class="text-muted float-end fs-11 fw-normal">@Localizer["ThisYear"]</span>
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-4 pb-2">
+                    <p class="fs-15 fw-semibold">@Localizer["TasksStatistics"] <span class="text-muted fw-normal">(@Localizer["Last6Months"]) :</span></p>
+                    <div id="task-list-stats"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Start::task modal -->
+<div id="modal-window"></div>
+<!-- End::task modal -->
+<!-- Start::delete task modal -->
+<partial name="_DeleteTask" />
+<!-- End::delete task modal -->
+
+<style>
+    .was-validated .form-control:valid {
+        border-color: var(--input-border);
+        background-image: none;
+    }
+    .was-validated .form-control:valid:focus {
+        border-color: var(--input-border);
+        background-image: none;
+    }
+</style>
+
+<script>
+    window.currentCulture = "@CultureInfo.CurrentCulture.Name";
+    window.tasks;
+    window.initializeTask = () =>{
+        tasks = @Html.Raw(JsonSerializer.Serialize(simplifiedTasks));
+    }
+    initializeTask()
+</script>
+@section Scripts {
+    <!-- Quill Editor JS -->
+    <script src="~/lib/quill/quill.min.js"></script>
+
+    <!-- Flat Picker JS -->
+    <script src="~/lib/flatpickr/flatpickr.min.js"></script>
+    <script src="~/lib/flatpickr/l10n/uk.js"></script>
+
+    <!-- Form Validation JS -->
+    <script src="~/js/validation.js"></script>
+
+    <script src="~/js/custom_js/utils/valideteFormElement.js"></script>
+
+    <script src="~/js/default-avatar.js"></script>
+
+    <script src="~/js/custom_js/utils/dataTableLocalization.js" ></script>
+    <script src="~/js/custom_js/utils/formatString.js"></script>
+
+    <!-- Filepond JS -->
+    <script src="~/lib/filepond/filepond.min.js"></script>
+    <script src="~/lib/filepond-plugin-image-preview/filepond-plugin-image-preview.min.js"></script>
+    <script src="~/lib/filepond-plugin-image-exif-orientation/filepond-plugin-image-exif-orientation.min.js"></script>
+    <script src="~/lib/filepond-plugin-file-validate-size/filepond-plugin-file-validate-size.min.js"></script>
+    <script src="~/lib/filepond-plugin-file-encode/filepond-plugin-file-encode.min.js"></script>
+    <script src="~/lib/filepond-plugin-image-edit/filepond-plugin-image-edit.min.js"></script>
+    <script src="~/lib/filepond-plugin-file-validate-type/filepond-plugin-file-validate-type.min.js"></script>
+    <script src="~/lib/filepond-plugin-file-validate-type/filepond-plugin-file-validate-type.min.js"></script>
+    <script src="~/lib/filepond-plugin-image-crop/filepond-plugin-image-crop.min.js"></script>
+    <script src="~/lib/filepond-plugin-image-resize/filepond-plugin-image-resize.min.js"></script>
+    <script src="~/lib/filepond-plugin-image-transform/filepond-plugin-image-transform.min.js"></script>
+    <script src="~/lib/filepond-plugin-get-file/filepond-plugin-get-file.min.js"></script>
+
+    <!-- Fileupload JS -->
+    <script src="~/js/custom_js/utils/fileUpload.js"></script>
+
+    <script src="~/js/custom_js/utils/modalWindowLoad.js"></script>
+    <script src="~/js/custom_js/utils/initializerTaskModal.js"></script>
+    <script src="~/js/custom_js/Task/detailsTask.js"></script>
+
+    <script src="~/js/custom_js/Task/task.js"></script>
+    <script src="~/js/custom_js/Task/taskList.js"></script>
+    <script src="~/js/custom_js/Task/detailsTask.js"></script>
+    <script src="~/js/sortBy.js"></script>
+
+    <!-- Date & Time Picker JS -->
+    <script src="~/lib/flatpickr/flatpickr.min.js"></script>
+    <script src="~/lib/flatpickr/l10n/uk.js"></script>
+    <script src="~/js/date&time_pickers.js"></script>
+
+    <!-- Datatables Cdn -->
+    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.3.0/js/dataTables.responsive.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.print.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.6/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.html5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+
+    <!-- Internal Datatables JS -->
+    <script src="~/js/datatables.js"></script>
+}

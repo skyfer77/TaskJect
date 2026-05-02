@@ -1,0 +1,32 @@
+﻿@using TaskJect.Web.Resources
+@using Domain.Database
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<SharedResources> Localizer
+@model ProjectDto
+@{
+    var hasRepo = !string.IsNullOrEmpty(Model.GitHubRepoName) && !string.IsNullOrEmpty(Model.GitHubOwner);
+    var grantAccessRole = ViewBag.GrantAccessRole as bool? ?? false;
+    var showSelect = ViewBag.ShowSelect as bool? ?? false;
+}
+
+<div id="repo-container">
+    @if (hasRepo && !showSelect)
+    {
+        <div class="d-flex flex-column">
+            <div class="d-flex flex-wrap align-items-center">
+                <i class="bi bi-git me-2"></i>
+                <span class="fw-semibold break-word-normal">@Model.GitHubOwner</span>/<span class="text-muted break-word-normal">@Model.GitHubRepoName</span>
+            </div>
+            @if (grantAccessRole)
+            {
+                <button type="button" class="btn btn-primary mt-2 ms-auto" onclick="loadRepo('@Model.ID', false, true)">
+                    @Localizer["Change"]
+                </button>
+            }
+        </div>
+    }
+    else
+    {
+        <div id="select-repo" data-project-id="@Model.ID"></div>
+    }
+</div>

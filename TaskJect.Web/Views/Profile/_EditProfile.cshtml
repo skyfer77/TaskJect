@@ -1,0 +1,75 @@
+﻿@using TaskJect.Web.Resources
+@using Domain.Database
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<SharedResources> Localizer
+@model ApplicationUserLiteDto
+
+<div class="modal fade" id="edit-profile" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            @using (Html.BeginForm("EditProfile", "Profile", FormMethod.Post, new { id = "EditProfile", @class = "was-validated" }))
+            {
+                <div class="modal-header">
+                    <h6 class="modal-title" id="create-teamLabel">@Localizer["EditProfile"]</h6>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body px-4">
+                    <div class="row gy-3">
+                        <div class="col-xl-12">
+                            <input type="hidden" id="UserID" name="Id" value="@Model.Id" />
+                            <label for="user-name" class="form-label">@Localizer["Name"]</label>
+                            <input type="text" class="form-control" id="EditUserName" name="Name" value="@Model.Name" placeholder="@Localizer["EnterName"]" required>
+                        </div>
+                        <div class="col-xl-12">
+                            <label for="user-surname" class="form-label">@Localizer["Surname"]</label>
+                            <input type="text" class="form-control" id="EditUserSurname" name="Surname" value="@Model.Surname" placeholder="@Localizer["EnterSurname"]" required>
+                        </div>
+                        <div class="col-xl-12">
+                            <label for="input-email" class="form-label">@Localizer["Email"]</label>
+                            <input type="email" class="form-control" id="EditUserEmile" name="Email" value="@Model.Email" placeholder="Email@xyz.com" required>
+                        </div>
+                        <div class="invalid-feedback" id="error-email">
+                            @Localizer["PleaseEnterEmail"].
+                        </div>
+                        <div class="col-xl-12">
+                            <label class="form-label">@Localizer["Birthday"]</label>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-text text-muted"> <i class="ri-calendar-line"></i> </div>
+                                    <input name="Birthday" type="text" class="form-control" id="targetDateStart" placeholder="@Localizer["ChooseDate"]" value="@((Model.Birthday.HasValue ? String.Format($"{Model.Birthday.Value.Date:yyyy-MM-dd}") : string.Empty))">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-12">
+                            <label for="input-tel" class="form-label">@Localizer["PhoneNumber"]</label>
+                            <input type="text" class="form-control" id="EditUserPhone" name="PhoneNumber" value="@Model.PhoneNumber" placeholder="+380-099-999-99-99">
+                        </div>
+                        <div class="invalid-feedback" id="error-phone">
+                            Please enter a phone.
+                        </div>
+                        <div class="col-xl-12">
+                            <label for="TelegramUserName" class="form-label">@Localizer["TelegramUserName"]</label>
+                            <input type="text" class="form-control" id="TelegramUserName" name="TelegramUserName" value="@Model.TelegramUserName" placeholder="@Localizer["EnterTelegramUserName"]">
+                        </div>
+                        @if (this.User.IsInRole("God"))
+                        {
+                            <div class="col-xl-12">
+                                <label for="input-card" class="form-label">@Localizer["CardNumber"]</label>
+                                <input type="text" class="form-control" id="EditUserCard" name="CardNumber" value='@(string.IsNullOrEmpty(Model.CardNumber) ? "0000-0000-0000-0000" : String.Format("{0:0000 0000 0000 0000}", (Int64.Parse(Model.CardNumber))))' placeholder="xxxx-xxxx-xxxx-xxxx">
+
+                            </div>
+                            <div class="invalid-feedback" id="error-card">
+                                @Localizer["PleaseEnterValideCardNumber"].
+                            </div>
+                        }
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">@Localizer["Cancel"]</button>
+                    <button type="button" class="btn btn-primary" onclick="EditProfile()">@Localizer["Save"]</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>

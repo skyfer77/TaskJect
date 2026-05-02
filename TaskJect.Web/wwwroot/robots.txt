@@ -1,0 +1,9 @@
+﻿User-agent: *
+Allow: /
+Allow: /Account/Login
+Allow: /Account/ForgotPassword
+Allow: /ContactUs
+Allow: /PrivacyPolicy
+Allow: /RefundPolicy
+
+Sitemap: https://taskject.com/sitemap.xml

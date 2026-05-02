@@ -1,0 +1,1007 @@
+﻿@using TaskJect.Web.Common
+@using TaskJect.Web.Services
+@using System.Text.Json
+@using TaskJect.Web.Resources
+@using TaskJect.Web.Enums
+@using Microsoft.Extensions.Localization
+@using System.Globalization
+@inject IStringLocalizer<SharedResources> Localizer
+@inject Microsoft.Extensions.Options.IOptions<GoogleAnalytics> GA
+@inject ILocalizationProvider LocalizationProvider
+@{
+    var translations = LocalizationProvider.GetAllTranslations();
+    var json = JsonSerializer.Serialize(translations);
+    var consent = Context.Request.Cookies["cookieConsent"];
+    var showBanner = string.IsNullOrEmpty(consent)
+        || (int.TryParse(consent, out int consentInt) && (CookieConsentType)consentInt == CookieConsentType.NecessaryOnly);
+}
+<!DOCTYPE html>
+<html lang="@CultureInfo.CurrentUICulture.TwoLetterISOLanguageName" data-nav-layout="vertical">
+<head>
+    <!-- Meta Data -->
+    <meta charset="UTF-8">
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    @* <title> Taskject </title> *@
+    <title>@Localizer["SeoTitle"]</title>
+    <meta name="description" content="@Localizer["SeoDescription"]" />
+    <meta name="keywords" content="@Localizer["SeoKeywords"]" />
+
+    <meta property="og:title" content="@Localizer["SeoTitle"]">
+    <meta property="og:description" content="@Localizer["SeoDescription"]">
+    <meta property="og:image" content="~/images/brand-logos/desktop-logo.png">
+    <meta property="og:url" content="https://taskject.com/">
+    <meta property="og:type" content="website">
+
+    <link rel="alternate" hreflang="en" href="https://taskject.com/" />
+    <link rel="alternate" hreflang="uk" href="https://taskject.com/?culture=uk" />
+
+    <!-- Favicon -->
+    <link rel="icon" href="~/images/brand-logos/favicon.ico" type="image/x-icon">
+
+    <!-- Choices JS -->
+    <script src="~/lib/choices.js/public/assets/scripts/choices.min.js"></script>
+
+    <!-- Main Theme Js -->
+    <script src="~/js/main.js"></script>
+
+    <!--  jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+    <!-- Bootstrap Css -->
+    <link id="style" href="~/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Style Css -->
+    <link href="~/css/styles.min.css" rel="stylesheet">
+
+    <!-- Icons Css -->
+    <link href="~/css/icons.css" rel="stylesheet">
+
+    <!-- Node Waves Css -->
+    <link href="~/lib/node-waves/waves.min.css" rel="stylesheet">
+
+    <!-- Simplebar Css -->
+    <link href="~/lib/simplebar/simplebar.min.css" rel="stylesheet">
+
+    <!-- Color Picker Css -->
+    <link rel="stylesheet" href="~/lib/flatpickr/flatpickr.min.css">
+    <link rel="stylesheet" href="@("/lib/@simonwep/pickr/themes/nano.min.css")">
+
+    <!-- Choices Css -->
+    <link rel="stylesheet" href="~/lib/choices.js/public/assets/styles/choices.min.css">
+
+    <link rel="stylesheet" href="~/lib/jsvectormap/css/jsvectormap.min.css">
+
+    <link rel="stylesheet" href="~/lib/swiper/swiper-bundle.min.css">
+    @*<link rel="stylesheet" href="~/TaskJect.Web.styles.css" asp-append-version="true" />*@
+
+
+    @if (GA.Value.Enabled)
+    {
+        <!-- Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=@GA.Value.MeasurementId"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', '@GA.Value.MeasurementId');
+        </script>
+    }
+    @await RenderSectionAsync("HeadArea", required: false)
+</head>
+<body>
+    <!-- Start Switcher -->
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="switcher-canvas" aria-labelledby="offcanvasRightLabel">
+        <div class="offcanvas-header border-bottom">
+            <h5 class="offcanvas-title text-default" id="offcanvasRightLabel">@Localizer["Switcher"]</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <nav class="border-bottom border-block-end-dashed">
+                <div class="nav nav-tabs nav-justified" id="switcher-main-tab" role="tablist">
+                    <button class="nav-link active" id="switcher-home-tab" data-bs-toggle="tab" data-bs-target="#switcher-home"
+                    type="button" role="tab" aria-controls="switcher-home" aria-selected="true">
+                        @Localizer["ThemeStyles"]
+                    </button>
+                    <button class="nav-link" id="switcher-profile-tab" data-bs-toggle="tab" data-bs-target="#switcher-profile"
+                    type="button" role="tab" aria-controls="switcher-profile" aria-selected="false">
+                        @Localizer["ThemeColors"]
+                    </button>
+                </div>
+            </nav>
+            <div class="tab-content" id="nav-tabContent">
+                <div class="tab-pane fade show active border-0" id="switcher-home" role="tabpanel" aria-labelledby="switcher-home-tab"
+                tabindex="0">
+                    <div class="">
+                        <p class="switcher-style-head">@Localizer["ThemeColorMode"]:</p>
+                        <div class="row switcher-style gx-0">
+                            <div class="col-4">
+                                <div class="form-check switch-select">
+                                    <label class="form-check-label" for="switcher-light-theme">
+                                        @Localizer["Light"]
+                                    </label>
+                                    <input class="form-check-input" type="radio" name="theme-style" id="switcher-light-theme"
+                                    checked>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="form-check switch-select">
+                                    <label class="form-check-label" for="switcher-dark-theme">
+                                        @Localizer["Dark"]
+                                    </label>
+                                    <input class="form-check-input" type="radio" name="theme-style" id="switcher-dark-theme">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @*  <div class="">
+                        <p class="switcher-style-head">Directions:</p>
+                        <div class="row switcher-style gx-0">
+                            <div class="col-4">
+                                <div class="form-check switch-select">
+                                    <label class="form-check-label" for="switcher-ltr">
+                                        LTR
+                                    </label>
+                                    <input class="form-check-input" type="radio" name="direction" id="switcher-ltr" checked>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="form-check switch-select">
+                                    <label class="form-check-label" for="switcher-rtl">
+                                        RTL
+                                    </label>
+                                    <input class="form-check-input" type="radio" name="direction" id="switcher-rtl">
+                                </div>
+                            </div>
+                        </div>
+                    </div> *@
+                    <div class="">
+                        <p class="switcher-style-head">@Localizer["NavigationStyles"]:</p>
+                        <div class="row switcher-style gx-0">
+                            <div class="col-4">
+                                <div class="form-check switch-select">
+                                    <label class="form-check-label" for="switcher-vertical">
+                                        @Localizer["Vertical"]
+                                    </label>
+                                    <input class="form-check-input" type="radio" name="navigation-style" id="switcher-vertical"
+                                    checked>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="form-check switch-select">
+                                    <label class="form-check-label" for="switcher-horizontal">
+                                        @Localizer["Horizontal"]
+                                    </label>
+                                    <input class="form-check-input" type="radio" name="navigation-style"
+                                    id="switcher-horizontal">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="navigation-menu-styles">
+                        <p class="switcher-style-head">@Localizer["VerticalHorizontalMenuStyles"]:</p>
+                        <div class="row switcher-style gx-0 pb-2 gy-2">
+                            <div class="col-4">
+                                <div class="form-check switch-select">
+                                    <label class="form-check-label" for="switcher-menu-click">
+                                        @Localizer["MenuClick"]
+                                    </label>
+                                    <input class="form-check-input" type="radio" name="navigation-menu-styles"
+                                    id="switcher-menu-click">
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="form-check switch-select">
+                                    <label class="form-check-label" for="switcher-menu-hover">
+                                        @Localizer["MenuHover"]
+                                    </label>
+                                    <input class="form-check-input" type="radio" name="navigation-menu-styles"
+                                    id="switcher-menu-hover">
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="form-check switch-select">
+                                    <label class="form-check-label" for="switcher-icon-click">
+                                        @Localizer["IconClick"]
+                                    </label>
+                                    <input class="form-check-input" type="radio" name="navigation-menu-styles"
+                                    id="switcher-icon-click">
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="form-check switch-select">
+                                    <label class="form-check-label" for="switcher-icon-hover">
+                                        @Localizer["IconHover"]
+                                    </label>
+                                    <input class="form-check-input" type="radio" name="navigation-menu-styles"
+                                    id="switcher-icon-hover">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sidemenu-layout-styles">
+                        <p class="switcher-style-head">@Localizer["SidemenuLayoutStyles"]:</p>
+                        <div class="row switcher-style gx-0 pb-2 gy-2">
+                            <div class="col-sm-6">
+                                <div class="form-check switch-select">
+                                    <label class="form-check-label" for="switcher-default-menu">
+                                        @Localizer["DefaultMenu"]
+                                    </label>
+                                    <input class="form-check-input" type="radio" name="sidemenu-layout-styles"
+                                    id="switcher-default-menu" checked>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-check switch-select">
+                                    <label class="form-check-label" for="switcher-closed-menu">
+                                        @Localizer["ClosedMenu"]
+                                    </label>
+                                    <input class="form-check-input" type="radio" name="sidemenu-layout-styles"
+                                    id="switcher-closed-menu">
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-check switch-select">
+                                    <label class="form-check-label" for="switcher-icontext-menu">
+                                        @Localizer["IconText"]
+                                    </label>
+                                    <input class="form-check-input" type="radio" name="sidemenu-layout-styles"
+                                    id="switcher-icontext-menu">
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-check switch-select">
+                                    <label class="form-check-label" for="switcher-icon-overlay">
+                                        @Localizer["IconOverlay"]
+                                    </label>
+                                    <input class="form-check-input" type="radio" name="sidemenu-layout-styles"
+                                    id="switcher-icon-overlay">
+                                </div>
+                            </div>
+                            @*<div class="col-sm-6">
+                                <div class="form-check switch-select">
+                                    <label class="form-check-label" for="switcher-detached">
+                                        Detached
+                                    </label>
+                                    <input class="form-check-input" type="radio" name="sidemenu-layout-styles"
+                                           id="switcher-detached">
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-check switch-select">
+                                    <label class="form-check-label" for="switcher-double-menu">
+                                        Double Menu
+                                    </label>
+                                    <input class="form-check-input" type="radio" name="sidemenu-layout-styles"
+                                           id="switcher-double-menu">
+                                </div>
+                            </div>*@
+                        </div>
+                    </div>
+                    <div class="">
+                        <p class="switcher-style-head">@Localizer["PageStyles"]:</p>
+                        <div class="row switcher-style gx-0">
+                            <div class="col-4">
+                                <div class="form-check switch-select">
+                                    <label class="form-check-label" for="switcher-regular">
+                                        @Localizer["Regular"]
+                                    </label>
+                                    <input class="form-check-input" type="radio" name="page-styles" id="switcher-regular"
+                                    checked>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="form-check switch-select">
+                                    <label class="form-check-label" for="switcher-classic">
+                                        @Localizer["Classic"]
+                                    </label>
+                                    <input class="form-check-input" type="radio" name="page-styles" id="switcher-classic">
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="form-check switch-select">
+                                    <label class="form-check-label" for="switcher-modern">
+                                        @Localizer["Modern"]
+                                    </label>
+                                    <input class="form-check-input" type="radio" name="page-styles" id="switcher-modern">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="">
+                        <p class="switcher-style-head">@Localizer["LayoutWidthStyles"]:</p>
+                        <div class="row switcher-style gx-0">
+                            <div class="col-4">
+                                <div class="form-check switch-select">
+                                    <label class="form-check-label" for="switcher-full-width">
+                                        @Localizer["FullWidth"]
+                                    </label>
+                                    <input class="form-check-input" type="radio" name="layout-width" id="switcher-full-width"
+                                    checked>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="form-check switch-select">
+                                    <label class="form-check-label" for="switcher-boxed">
+                                        @Localizer["Boxed"]
+                                    </label>
+                                    <input class="form-check-input" type="radio" name="layout-width" id="switcher-boxed">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="">
+                        <p class="switcher-style-head">@Localizer["MenuPositions"]:</p>
+                        <div class="row switcher-style gx-0">
+                            <div class="col-4">
+                                <div class="form-check switch-select">
+                                    <label class="form-check-label" for="switcher-menu-fixed">
+                                        @Localizer["Fixed"]
+                                    </label>
+                                    <input class="form-check-input" type="radio" name="menu-positions" id="switcher-menu-fixed"
+                                    checked>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="form-check switch-select">
+                                    <label class="form-check-label" for="switcher-menu-scroll">
+                                        @Localizer["Scrollable"]
+                                    </label>
+                                    <input class="form-check-input" type="radio" name="menu-positions" id="switcher-menu-scroll">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="">
+                        <p class="switcher-style-head">@Localizer["HeaderPositions"]:</p>
+                        <div class="row switcher-style gx-0">
+                            <div class="col-4">
+                                <div class="form-check switch-select">
+                                    <label class="form-check-label" for="switcher-header-fixed">
+                                        @Localizer["Fixed"]
+                                    </label>
+                                    <input class="form-check-input" type="radio" name="header-positions"
+                                    id="switcher-header-fixed" checked>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="form-check switch-select">
+                                    <label class="form-check-label" for="switcher-header-scroll">
+                                        @Localizer["Scrollable"]
+                                    </label>
+                                    <input class="form-check-input" type="radio" name="header-positions"
+                                    id="switcher-header-scroll">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @* <div class="">
+                        <p class="switcher-style-head">Loader:</p>
+                        <div class="row switcher-style gx-0">
+                            <div class="col-4">
+                                <div class="form-check switch-select">
+                                    <label class="form-check-label" for="switcher-loader-enable">
+                                        Enable
+                                    </label>
+                                    <input class="form-check-input" type="radio" name="page-loader"
+                                           id="switcher-loader-enable">
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="form-check switch-select">
+                                    <label class="form-check-label" for="switcher-loader-disable">
+                                        Disable
+                                    </label>
+                                    <input class="form-check-input" type="radio" name="page-loader"
+                                           id="switcher-loader-disable" checked>
+                                </div>
+                            </div>
+                        </div>
+                    </div> *@
+                </div>
+                <div class="tab-pane fade border-0" id="switcher-profile" role="tabpanel" aria-labelledby="switcher-profile-tab" tabindex="0">
+                    <div>
+                        <div class="theme-colors">
+                            <p class="switcher-style-head">@Localizer["MenuColors"]:</p>
+                            <div class="d-flex switcher-style pb-2">
+                                <div class="form-check switch-select me-3">
+                                    <input class="form-check-input color-input color-white" data-bs-toggle="tooltip"
+                                    data-bs-placement="top" title="Light Menu" type="radio" name="menu-colors"
+                                    id="switcher-menu-light">
+                                </div>
+                                <div class="form-check switch-select me-3">
+                                    <input class="form-check-input color-input color-dark" data-bs-toggle="tooltip"
+                                    data-bs-placement="top" title="Dark Menu" type="radio" name="menu-colors"
+                                    id="switcher-menu-dark" checked>
+                                </div>
+                                <div class="form-check switch-select me-3">
+                                    <input class="form-check-input color-input color-primary" data-bs-toggle="tooltip"
+                                    data-bs-placement="top" title="Color Menu" type="radio" name="menu-colors"
+                                    id="switcher-menu-primary">
+                                </div>
+                                <div class="form-check switch-select me-3">
+                                    <input class="form-check-input color-input color-gradient" data-bs-toggle="tooltip"
+                                    data-bs-placement="top" title="Gradient Menu" type="radio" name="menu-colors"
+                                    id="switcher-menu-gradient">
+                                </div>
+                                <div class="form-check switch-select me-3">
+                                    <input class="form-check-input color-input color-transparent"
+                                    data-bs-toggle="tooltip" data-bs-placement="top" title="Transparent Menu"
+                                    type="radio" name="menu-colors" id="switcher-menu-transparent">
+                                </div>
+                            </div>
+                            <div class="px-4 pb-3 text-muted fs-11">@Localizer["NoteChangeColorMenu"]</div>
+                        </div>
+                        <div class="theme-colors">
+                            <p class="switcher-style-head">@Localizer["HeaderColors"]:</p>
+                            <div class="d-flex switcher-style pb-2">
+                                <div class="form-check switch-select me-3">
+                                    <input class="form-check-input color-input color-white" data-bs-toggle="tooltip"
+                                    data-bs-placement="top" title="Light Header" type="radio" name="header-colors"
+                                    id="switcher-header-light" checked>
+                                </div>
+                                <div class="form-check switch-select me-3">
+                                    <input class="form-check-input color-input color-dark" data-bs-toggle="tooltip"
+                                    data-bs-placement="top" title="Dark Header" type="radio" name="header-colors"
+                                    id="switcher-header-dark">
+                                </div>
+                                <div class="form-check switch-select me-3">
+                                    <input class="form-check-input color-input color-primary" data-bs-toggle="tooltip"
+                                    data-bs-placement="top" title="Color Header" type="radio" name="header-colors"
+                                    id="switcher-header-primary">
+                                </div>
+                                <div class="form-check switch-select me-3">
+                                    <input class="form-check-input color-input color-gradient" data-bs-toggle="tooltip"
+                                    data-bs-placement="top" title="Gradient Header" type="radio" name="header-colors"
+                                    id="switcher-header-gradient">
+                                </div>
+                                <div class="form-check switch-select me-3">
+                                    <input class="form-check-input color-input color-transparent" data-bs-toggle="tooltip"
+                                    data-bs-placement="top" title="Transparent Header" type="radio" name="header-colors"
+                                    id="switcher-header-transparent">
+                                </div>
+                            </div>
+                            <div class="px-4 pb-3 text-muted fs-11">@Localizer["NoteChangeColorHeader"]</div>
+                        </div>
+                        <div class="theme-colors">
+                            <p class="switcher-style-head">@Localizer["ThemePrimary"]:</p>
+                            <div class="d-flex flex-wrap align-items-center switcher-style">
+                                <div class="form-check switch-select me-3">
+                                    <input class="form-check-input color-input color-primary-1" type="radio"
+                                    name="theme-primary" id="switcher-primary">
+                                </div>
+                                <div class="form-check switch-select me-3">
+                                    <input class="form-check-input color-input color-primary-2" type="radio"
+                                    name="theme-primary" id="switcher-primary1">
+                                </div>
+                                <div class="form-check switch-select me-3">
+                                    <input class="form-check-input color-input color-primary-3" type="radio" name="theme-primary"
+                                    id="switcher-primary2">
+                                </div>
+                                <div class="form-check switch-select me-3">
+                                    <input class="form-check-input color-input color-primary-4" type="radio" name="theme-primary"
+                                    id="switcher-primary3">
+                                </div>
+                                <div class="form-check switch-select me-3">
+                                    <input class="form-check-input color-input color-primary-5" type="radio" name="theme-primary"
+                                    id="switcher-primary4">
+                                </div>
+                                <div class="form-check switch-select ps-0 mt-1 color-primary-light">
+                                    <div class="theme-container-primary"></div>
+                                    <div class="pickr-container-primary"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="theme-colors">
+                            <p class="switcher-style-head">@Localizer["ThemeBackground"]:</p>
+                            <div class="d-flex flex-wrap align-items-center switcher-style">
+                                <div class="form-check switch-select me-3">
+                                    <input class="form-check-input color-input color-bg-1" type="radio"
+                                    name="theme-background" id="switcher-background">
+                                </div>
+                                <div class="form-check switch-select me-3">
+                                    <input class="form-check-input color-input color-bg-2" type="radio"
+                                    name="theme-background" id="switcher-background1">
+                                </div>
+                                <div class="form-check switch-select me-3">
+                                    <input class="form-check-input color-input color-bg-3" type="radio" name="theme-background"
+                                    id="switcher-background2">
+                                </div>
+                                <div class="form-check switch-select me-3">
+                                    <input class="form-check-input color-input color-bg-4" type="radio"
+                                    name="theme-background" id="switcher-background3">
+                                </div>
+                                <div class="form-check switch-select me-3">
+                                    <input class="form-check-input color-input color-bg-5" type="radio"
+                                    name="theme-background" id="switcher-background4">
+                                </div>
+                                <div class="form-check switch-select ps-0 mt-1 tooltip-static-demo color-bg-transparent">
+                                    <div class="theme-container-background"></div>
+                                    <div class="pickr-container-background"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="menu-image mb-3">
+                            <p class="switcher-style-head">@Localizer["MenuWithBackgroundImage"]:</p>
+                            <div class="d-flex flex-wrap align-items-center switcher-style">
+                                <div class="form-check switch-select m-2">
+                                    <input class="form-check-input bgimage-input bg-img1" type="radio"
+                                    name="theme-background" id="switcher-bg-img">
+                                </div>
+                                <div class="form-check switch-select m-2">
+                                    <input class="form-check-input bgimage-input bg-img2" type="radio"
+                                    name="theme-background" id="switcher-bg-img1">
+                                </div>
+                                <div class="form-check switch-select m-2">
+                                    <input class="form-check-input bgimage-input bg-img3" type="radio" name="theme-background"
+                                    id="switcher-bg-img2">
+                                </div>
+                                <div class="form-check switch-select m-2">
+                                    <input class="form-check-input bgimage-input bg-img4" type="radio"
+                                    name="theme-background" id="switcher-bg-img3">
+                                </div>
+                                <div class="form-check switch-select m-2">
+                                    <input class="form-check-input bgimage-input bg-img5" type="radio"
+                                    name="theme-background" id="switcher-bg-img4">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-grid canvas-footer">
+                    <a href="javascript:void(0);" id="reset-all" class="btn btn-danger m-1">@Localizer["Reset"]</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Switcher -->
+
+    <!-- app-header -->
+    <header class="app-header">
+
+        <!-- Start::main-header-container -->
+        <div class="main-header-container container-fluid">
+
+            <!-- Start::header-content-left -->
+            <div class="header-content-left">
+
+                <!-- Start::header-element -->
+                <div class="header-element">
+                    <div class="horizontal-logo">
+                        <a asp-controller="Profile" asp-action="Index" class="header-logo">
+                            <img src="~/images/brand-logos/desktop-logo.png" alt="logo" class="desktop-logo">
+                            <img src="~/images/brand-logos/toggle-logo.png" alt="logo" class="toggle-logo">
+                            <img src="~/images/brand-logos/desktop-dark.png" alt="logo" class="desktop-dark">
+                            <img src="~/images/brand-logos/toggle-dark.png" alt="logo" class="toggle-dark">
+                            <img src="~/images/brand-logos/desktop-white.png" alt="logo" class="desktop-white">
+                            <img src="~/images/brand-logos/toggle-white.png" alt="logo" class="toggle-white">
+                        </a>
+                    </div>
+                </div>
+                <!-- End::header-element -->
+                <!-- Start::header-element -->
+                <div class="header-element">
+                    <!-- Start::header-link -->
+                    <a aria-label="Hide Sidebar" class="sidemenu-toggle header-link animated-arrow hor-toggle horizontal-navtoggle" data-bs-toggle="sidebar" href="javascript:void(0);"><span></span></a>
+                    <!-- End::header-link -->
+                </div>
+                <!-- End::header-element -->
+                @* <div class="header-element header-link">
+                    <button class="btn btn-success btn-wave waves-effect waves-light py-1" data-bs-toggle="modal" data-bs-target="#support-modal-window">@Localizer["ThankYou"]<i class="ri-hand-coin-line ms-1 align-middle"></i></button>
+                </div> *@
+
+            </div>
+            <!-- End::header-content-left -->
+            <!-- Start::header-content-right -->
+            <div class="header-content-right">
+                <!-- Start::header-element -->
+                <partial name="_SelectLanguage" />
+                <!-- End::header-element -->
+                <!-- Start::header-element -->
+                <div class="header-element header-theme-mode">
+                    <!-- Start::header-link|layout-setting -->
+                    <a href="javascript:void(0);" class="header-link layout-setting">
+                        <span class="light-layout">
+                            <!-- Start::header-link-icon -->
+                            <i class="bx bx-moon header-link-icon"></i>
+                            <!-- End::header-link-icon -->
+                        </span>
+                        <span class="dark-layout">
+                            <!-- Start::header-link-icon -->
+                            <i class="bx bx-sun header-link-icon"></i>
+                            <!-- End::header-link-icon -->
+                        </span>
+                    </a>
+                    <!-- End::header-link|layout-setting -->
+                </div>
+                <!-- End::header-element -->
+                <partial name="_Notification" />
+                <!-- Start::header-element -->
+                <div class="header-element">
+                    <!-- Start::header-link|dropdown-toggle -->
+                    <a href="javascript:void(0);" class="header-link dropdown-toggle" id="mainHeaderProfile" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+                        <div class="d-flex align-items-center">
+                            <div class="me-sm-2 me-0">
+                                @{
+                                    var avatarUrl = User.Claims.FirstOrDefault(c => c.Type == "avatar")?.Value
+                                        ?? Url.Content("~/images/default-avatars/default-avatar.png");
+                                }
+                                <img class="dynamic-avatar rounded-circle" src="@avatarUrl" alt="" width="32" height="32">
+                            </div>
+                            <div class="d-sm-block d-none">
+                                <p class="fw-semibold mb-0 lh-1">@User.Identity.Name</p> 
+                            </div>
+                        </div>
+                    </a>
+                    <!-- End::header-link|dropdown-toggle -->
+                    <ul class="main-header-dropdown dropdown-menu pt-0 overflow-hidden header-profile-dropdown dropdown-menu-end" aria-labelledby="mainHeaderProfile">
+                        <li><a class="dropdown-item d-flex" asp-controller="Profile" asp-action="Index" asp-route-id=""><i class="ti ti-user-circle fs-18 me-2 op-7"></i>@Localizer["Profile"]</a></li>
+                        @*<li><a class="dropdown-item d-flex" href="mail.html"><i class="ti ti-inbox fs-18 me-2 op-7"></i>Inbox <span class="badge bg-success-transparent ms-auto">25</span></a></li>
+                        <li><a class="dropdown-item d-flex border-block-end" href="to-do-list.html"><i class="ti ti-clipboard-check fs-18 me-2 op-7"></i>Task Manager</a></li>*@
+                        <li><a class="dropdown-item d-flex" href="#" data-bs-toggle="modal" data-bs-target="#changePasswordModal"><i class="ti ti-lock fs-18 me-2 op-7"></i>@Localizer["ChangePassword"]</a></li>
+                        <li>
+                            <form asp-action="Logout" asp-controller="Account" method="post" class="d-inline dropdown-item d-flex">
+                                @Html.AntiForgeryToken()
+                                <button type="submit" class="dropdown-item d-flex btn btn-link text-start p-0 m-0 border-0 bg-transparent">
+                                    <i class="ti ti-logout fs-18 me-2 op-7"></i>@Localizer["LogOut"]
+                                </button>
+                            </form>
+                        </li>
+
+
+                    </ul>
+                </div>
+                <!-- End::header-element -->
+                <!-- Start::header-element -->
+                <div class="header-element">
+                    <!-- Start::header-link|switcher-icon -->
+                    <a href="javascript:void(0);" class="header-link switcher-icon" data-bs-toggle="offcanvas" data-bs-target="#switcher-canvas">
+                        <i class="bx bx-cog header-link-icon"></i>
+                    </a>
+                    <!-- End::header-link|switcher-icon -->
+                </div>
+                <!-- End::header-element -->
+            </div>
+            <!-- End::header-content-right -->
+
+        </div>
+        <!-- End::main-header-container -->
+
+    </header>
+    <!-- /app-header -->
+    <!-- Start::app-sidebar -->
+    <aside class="app-sidebar sticky" id="sidebar">
+
+        <!-- Start::main-sidebar-header -->
+        <div class="main-sidebar-header">
+            <a asp-controller="Profile" asp-action="Index" asp-route-id="" class="header-logo">
+                <img src="~/images/brand-logos/desktop-logo.png" alt="logo" class="desktop-logo">
+                <img src="~/images/brand-logos/toggle-logo.png" alt="logo" class="toggle-logo">
+                <img src="~/images/brand-logos/desktop-dark.png" alt="logo" class="desktop-dark">
+                <img src="~/images/brand-logos/toggle-dark.png" alt="logo" class="toggle-dark">
+                <img src="~/images/brand-logos/desktop-white.png" alt="logo" class="desktop-white">
+                <img src="~/images/brand-logos/toggle-white.png" alt="logo" class="toggle-white">
+            </a>
+        </div>
+        <!-- End::main-sidebar-header -->
+        <!-- Start::main-sidebar -->
+        <div class="main-sidebar" id="sidebar-scroll">
+
+            <!-- Start::nav -->
+            <nav class="main-menu-container nav nav-pills flex-column sub-open">
+                <div class="slide-left" id="slide-left">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="#7b8191" width="24" height="24" viewBox="0 0 24 24"> <path d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"></path> </svg>
+                </div>
+                <ul class="main-menu">
+                    <!-- Start::slide__category -->
+                    <li class="slide__category"><span class="category-name">@Localizer["Main"]</span></li>
+                    <!-- End::slide__category -->
+                    <!-- Start::slide -->
+                    <li class="slide">
+                        <a asp-controller="Profile" asp-action="Index" asp-route-id="" class="side-menu__item">
+                            <i class="bi bi-person-fill side-menu__icon icon_side_menu"></i>
+                            <span class="side-menu__label">@Localizer["Profile"]</span>
+                        </a>
+                    </li>
+                    <li class="slide has-sub">
+                        <a href="javascript:void(0);" class="side-menu__item">
+                            <i class="bi bi-people-fill side-menu__icon icon_side_menu"></i>
+                            <span class="side-menu__label">@Localizer["Team"]</span>
+                            <i class="fe fe-chevron-right side-menu__angle"></i>
+                        </a>
+                        <ul class="slide-menu child1">
+                            <li class="slide side-menu__label1">
+                                <a href="javascript:void(0)">@Localizer["Team"]</a>
+                            </li>
+                            <li class="slide" style="list-style-type: none;">
+                                <a asp-controller="Team" asp-action="Index" class="side-menu__item d-flex align-items-center">
+                                    <i class="bi bi-people-fill side-menu__icon icon_side_menu d-flex me-2 mb-0"></i>
+                                    <span>@Localizer["MyTeam"]</span>
+                                </a>
+                            </li>
+                            <li class="slide">
+                                <a asp-controller="Analytics" asp-action="Index" class="side-menu__item d-flex align-items-center">
+                                    <i class="bi bi-clipboard-data side-menu__icon icon_side_menu d-flex me-2 mb-0"></i>
+                                    <span>@Localizer["Analytics"]</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="slide">
+                        <a asp-controller="Project" asp-action="Index" class="side-menu__item">
+                            <i class="bi bi-kanban side-menu__icon icon_side_menu"></i>
+                            <span class="side-menu__label">@Localizer["Projects"]</span>
+                        </a>
+                        @* <ul class="slide-menu child1">
+                            <li class="slide side-menu__label1">
+                                <a href="javascript:void(0)">Error</a>
+                            </li>
+                            <li class="slide">
+                                <a asp-controller="Project" asp-action="Index" asp class="side-menu__item">Projects</a>
+                            </li>
+                            <li class="slide">
+                                <a asp-controller="Project" asp-action="Create" class="side-menu__item">Create Projects</a>
+                            </li> 
+                        </ul> *@
+                    </li>
+                    <li class="slide has-sub">
+                        <a href="javascript:void(0);" class="side-menu__item">
+                            <i class="bi bi-journals side-menu__icon icon_side_menu"></i>
+                            <span class="side-menu__label">@Localizer["Notebook"]</span>
+                            <i class="fe fe-chevron-right side-menu__angle"></i>
+                        </a>
+                        <ul class="slide-menu child1">
+                            <li class="slide side-menu__label1">
+                                <a href="javascript:void(0)">@Localizer["Notebook"]</a>
+                            </li>
+                            <li class="slide">
+                                <a asp-controller="PersonalNote" asp-action="Index" class="side-menu__item">@Localizer["Notes"]</a>
+                            </li>
+                            <li class="slide">
+                                <a asp-controller="PersonalTodo" asp-action="Index" class="side-menu__item">@Localizer["Todos"]</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="slide has-sub">
+                        <a href="javascript:void(0);" class="side-menu__item">
+                            <i class="ri ri-organization-chart side-menu__icon icon_side_menu"></i>
+                            <span class="side-menu__label">@Localizer["Organization"]</span>
+                            <i class="fe fe-chevron-right side-menu__angle"></i>
+                        </a>
+                        <ul class="slide-menu child1">
+                            <li class="slide side-menu__label1">
+                                <a href="javascript:void(0)">@Localizer["Organization"]</a>
+                            </li>
+                            <li class="slide">
+                            <a asp-controller="Organization" asp-action="Index" class="side-menu__item">@Localizer["MyOrganization"]</a>
+                            </li>
+                            <li class="slide">
+                            <a asp-controller="Improvements" asp-action="OverviewImprovements" class="side-menu__item">@Localizer["Improvements"]</a>
+                            </li>
+                        </ul>
+                    </li>
+                    
+                        <li class="slide">
+                            
+                        </li>
+                    @if (this.User.Identity.IsAuthenticated && (this.User.IsInRole("Moderator")
+                    || this.User.IsInRole("Admin") || this.User.IsInRole("God")))
+                    {
+                        <li class="slide has-sub">
+                            <a href="javascript:void(0);" class="side-menu__item">
+                                <i class="fe fe-shield side-menu__icon icon_side_menu"></i>
+                                <span class="side-menu__label">@Localizer["Moderation"]</span>
+                                <i class="fe fe-chevron-right side-menu__angle"></i>
+                            </a>
+                            <ul class="slide-menu child1">
+                                <li class="slide side-menu__label1">
+                                    <a href="javascript:void(0)">@Localizer["Moderation"]</a>
+                                </li>
+                                <li class="slide">
+                                    <a asp-controller="Moderator" asp-action="Organizations" class="side-menu__item">@Localizer["Organizations"]</a>
+                                </li>
+                                <li class="slide">
+                                    <a asp-controller="Moderator" asp-action="OrganizationAppeals" class="side-menu__item">@Localizer["OrganizationAppeals"]</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="slide">
+                            
+                        </li>
+                    }
+                    @* @if (this.User.Identity.IsAuthenticated && this.User.IsInRole("God"))
+                    {
+                        
+                        <li class="slide">
+                            <a asp-controller="Finance" asp-action="Index" class="side-menu__item">
+                                <i class="bi bi-currency-dollar side-menu__icon icon_side_menu"></i>
+                                <span class="side-menu__label">Finance<span class="badge bg-secondary-transparent ms-2">New</span></span>
+                            </a>
+                        </li>
+                    } *@
+                    <!-- End::slide -->
+                </ul>
+                <div class="slide-right" id="slide-right"><svg xmlns="http://www.w3.org/2000/svg" fill="#7b8191" width="24" height="24" viewBox="0 0 24 24"> <path d="M10.707 17.707 16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"></path> </svg></div>
+            </nav>
+            <!-- End::nav -->
+
+        </div>
+        <!-- End::main-sidebar -->
+
+    </aside>
+    <!-- End::app-sidebar -->
+
+
+    @*<div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>*@
+
+    <div class="main-content app-content">
+        <div class="container-fluid">
+            @RenderBody()
+        </div>
+    </div>
+
+    @*<footer class="border-top footer mt-auto text-muted" style="position: relative">
+        <div class="container">
+            &copy; 2023 - TaskJect.Web - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>*@
+     
+    <footer class="footer mt-auto py-3 bg-white text-muted footer-box">
+        <partial name="_FooterContent" />
+    </footer>
+
+    
+    
+    <!--Modal window Start-->
+    @* <partial name="_SupportButtonModalWin" /> *@
+    <!--MOdal window End-->
+
+    <!-- Scroll To Top -->
+    <div class="scrollToTop">
+        <span class="arrow"><i class="ri-arrow-up-s-fill fs-20"></i></span>
+    </div>
+    <div id="responsive-overlay"></div>
+    <!-- Scroll To Top -->
+
+    <style>
+        .icon_side_menu::before {
+            vertical-align: 0;
+        }
+
+        .footer-box {
+            box-shadow: 0 0.25rem 1rem var(--black-1);
+        }
+        /* notification */
+        .not-reviewed {
+            background-color: var(--primary01);
+        }
+        .btn-nostyle{
+            margin: 0;
+            padding: 0;
+            border: none;
+            background: none; 
+        }
+
+        .custom-tooltip {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            white-space: nowrap;
+            pointer-events: none;
+            z-index: 1000;
+            position: absolute;
+            top: 110%;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.2s, transform 0.2s;
+        }
+
+        .custom-tooltip.show {
+            opacity: 1;
+                transform: translateX(-50%) translateY(4px);
+        }
+
+        .tooltip-arrow-notify {
+            position: absolute;
+            top: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-bottom: 5px solid rgb(var(--dark-rgb))
+        }
+        /* notification */
+    </style>
+
+    <!-- Modal window -->
+    <partial name="_Confirmed" />
+    <partial name="_Warning" />
+    <partial name="_ChangePassword" />
+
+    <!-- Modal window -->
+
+    <script>
+        window.translations = @Html.Raw(json);
+        window.currentCulture = "@CultureInfo.CurrentCulture.Name";
+    </script>
+
+    @if (showBanner)
+    {
+        <partial name="_CookieBanner" />
+    }
+
+    <script src="~/js/custom_js/utils/cookiesAccepted.js" charset="utf-8"></script>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+    <!--TODO: new core reinstall signalr JS v6.0.25 -->
+    <script src="~/lib/signalr/signalr.min.js"></script>
+    <!-- dayjs JS -->
+    <script src="~/lib/dayjs/dayjs.min.js"></script>
+    <script src="~/lib/dayjs/plugin/relativeTime.js"></script>
+    <script src="~/lib/dayjs/plugin/localizedFormat.js"></script>
+    <script src="~/lib/dayjs/plugin/utc.js"></script>
+    <script src="~/lib/dayjs/plugin/timezone.js"></script>
+    <script src="~/lib/dayjs/locale/uk.js"></script>
+    <script src="~/lib/dayjs/locale/en.js"></script>
+    
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <!-- Popper JS -->
+    <script src=@("/lib/@popperjs/core/umd/popper.min.js")></script>
+
+    <!-- Bootstrap JS -->
+    
+    <script src="~/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+    @*Конфлікт dropdown-menu не працюютє*@
+    @*<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>*@
+
+    <!-- Defaultmenu JS -->
+    <script src="~/js/defaultmenu.min.js"></script>
+
+    <!-- Node Waves JS-->
+    <script src="~/lib/node-waves/waves.min.js"></script>
+
+    <!-- Sticky JS -->
+    <script src="~/js/sticky.js"></script>
+
+    <!-- Simplebar JS -->
+    <script src="~/lib/simplebar/simplebar.min.js"></script>
+    <script src="~/js/simplebar.js"></script>
+
+    <!-- Color Picker JS -->
+    <script src=@("/lib/@simonwep/pickr/pickr.es5.min.js")></script>
+
+    <!-- JSVector Maps JS -->
+    <script src="~/lib/jsvectormap/js/jsvectormap.min.js"></script>
+
+    <!-- JSVector Maps MapsJS -->
+    <script src="~/lib/jsvectormap/maps/world-merc.js"></script>
+
+    <!-- Apex Charts JS -->
+    <script src="~/lib/apexcharts/apexcharts.min.js"></script>
+
+    <!-- Chartjs Chart JS -->
+    <script src="~/lib/chart.js/chart.min.js"></script>
+
+    <!-- Custom JS -->
+    <script src="~/js/custom.js" charset="utf-8"></script>
+
+    <!-- Custom-Switcher JS -->
+    <script src="~/js/custom-switcher.min.js"></script>
+
+    <script src="~/js/custom_js/notification/notification.js"></script>
+
+    <!-- Jquery Cdn -->
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+    
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

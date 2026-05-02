@@ -1,0 +1,308 @@
+﻿@using TaskJect.Web.Services
+@using TaskJect.Web.Resources
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<SharedResources> Localizer
+@model OverviewModel
+@{
+    ViewBag.Title = "Projects overview";
+
+    var grantAccessRole =  this.User.IsInRole("Admin") || this.User.IsInRole("God") 
+    || this.User.IsInRole("TeamLead") || ViewBag.IsProjectManager;
+
+    var hasRepo = !string.IsNullOrEmpty(Model.Project.GitHubRepoName) && !string.IsNullOrEmpty(Model.Project.GitHubOwner);
+
+    var showSelect = ViewBag.ShowSelect as bool? ?? false;
+
+    var project = Model.Project;
+}
+@section HeadArea {
+    <link rel="stylesheet" href="~/lib/filepond/filepond.min.css">
+        <link rel="stylesheet" href="~/lib/filepond-plugin-image-preview/filepond-plugin-image-preview.min.css">
+            <link rel="stylesheet" href="~/lib/filepond-plugin-image-edit/filepond-plugin-image-edit.min.css">
+            <link rel="stylesheet" href="~/lib/filepond-plugin-get-file/filepond-plugin-get-file.min.css">
+}
+
+<!-- Page Header -->
+<div class="d-md-flex d-block align-items-center justify-content-between my-4 page-header-breadcrumb">
+    <h1 class="page-title fw-semibold fs-18 mb-0">@Localizer["ProjectOverview"]</h1>
+    <div class="ms-md-1 ms-0">
+        <nav>
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item"><a asp-controller="Project" asp-action="Index">@Localizer["Projects"]</a></li>
+                <li class="breadcrumb-item active" aria-current="page">@Localizer["ProjectOverview"]</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+<!-- Page Header Close -->
+
+<!-- Start::row-1 -->
+<div class="row">
+    <div class="col-xl-9">
+        <div class="card custom-card">
+            <div class="card-header justify-content-between">
+                <div class="card-title">
+                    @Localizer["ProjectDetails"]
+                </div> 
+                <div class="d-flex flex-wrap">
+                    @if (ViewBag.HasProjectAccessControl)
+                    {
+                        <a asp-controller="Project" asp-action="OverviewPermissionsUsers" asp-route-id="@project.ID" class="btn btn-primary btn-sm btn-wave waves-effect waves-light me-2" aria-expanded="false">
+                            <i class="bi bi-table"></i>
+                            @Localizer["UserPermissions"]
+                        </a>
+                    }
+                    <a asp-controller="Task" asp-action="Index" asp-route-id="@project.ID" class="btn btn-success btn-sm btn-wave waves-effect waves-light me-2" aria-expanded="false">
+                        <i class="bi bi-kanban"></i>
+                        @Localizer["TasksBoard"]
+                    </a>
+                    <a asp-controller="Task" asp-action="TaskListView" asp-route-id="@project.ID" class="btn btn-success btn-sm btn-wave waves-effect waves-light" aria-expanded="false">
+                        <i class="ri-clipboard-line"></i>
+                        @Localizer["TaskList"]
+                    </a>
+                </div>
+            </div>
+            <div class="card-body">
+                <h5 class="fw-semibold mb-4 task-title">
+                    @project.Title
+                </h5>
+                <div class="fs-15 fw-semibold mb-2">@Localizer["ProjectDescription"]:</div>
+                <div class="text-muted task-description" id="desc">
+                    @Html.Raw( System.Net.WebUtility.HtmlDecode(@project.Description))
+                </div>
+            </div>
+            <div class="card-footer">
+                <div class="d-flex align-items-start justify-content-between gap-2 flex-wrap">
+                    <div>
+                        <span class="d-block text-muted fs-12">@Localizer["ProjectManager"]</span>
+                        <div class="d-flex align-items-center">
+                            @*<div class="me-2 lh-1">
+                                <span class="avatar avatar-xs avatar-rounded">
+                                    <img src="~/images/faces/13.jpg" alt="">
+                                </span>
+                            </div>*@
+                            @if (project.Manager != null)
+                            {
+                                <span class="d-block fs-14 fw-semibold">@project.Manager.Name @project.Manager.Surname</span>
+                            }
+                        </div>
+                    </div>
+                    <div>
+                        <span class="d-block text-muted fs-12">@Localizer["StartDate"]</span>
+                        <span class="d-block fs-14 fw-semibold">
+                            @(project.StartDate.HasValue
+                                            ? project.StartDate.Value.ToString("dd MMMM yyyy", System.Globalization.CultureInfo.CurrentCulture)
+                                            : "")
+                        </span>
+                    </div>
+                    <div>
+                        <span class="d-block text-muted fs-12">@Localizer["EndDate"]</span>
+                        <span class="d-block fs-14 fw-semibold">
+                            @(project.EndDate.HasValue
+                                            ? project.EndDate.Value.ToString("dd MMMM yyyy", System.Globalization.CultureInfo.CurrentCulture)
+                                            : "")
+                        </span>
+                    </div>
+                    <div>
+                        <span class="d-block text-muted fs-12">@Localizer["Team"]</span>
+                        <span class="d-block fs-14 fw-semibold">@Model.Team.Name</span>
+                    </div>
+                    <div>
+                        <span class="d-block text-muted fs-12">@Localizer["Status"]</span>
+                        <span class="d-block"><span class="badge bg-primary-transparent">@EnumHelper.GetEnumDisplayName((TaskJect.Web.Enums.TaskStatusView)project.Status)</span></span>
+                    </div>
+                    <div>
+                        <span class="d-block text-muted fs-12">@Localizer["Priority"]</span>
+                        <span class="d-block fs-14 fw-semibold"><span class="badge bg-success-transparent">@EnumHelper.GetEnumDisplayName((TaskJect.Web.Enums.PriorityView)project.Priority)</span></span>
+                    </div>
+                </div>
+            </div>
+        </div>      
+    </div>
+    <div class="col-xl-3">
+        @if (project.Client != null)
+        {
+            <div class="card custom-card">
+                <div class="card-header justify-content-between">
+                    <div class="card-title">@Localizer["ProjectClient"]</div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table text-nowrap">
+                        <thead>
+                            <tr>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <div class="fs-14 fw-semibold">
+                                            <a asp-controller="" asp-action="" class="" aria-expanded="false">
+                                                @project.Client
+                                            </a>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        }
+        <div class="card custom-card">
+            <div class="card-header justify-content-between">
+                <div class="card-title">
+                    @Localizer["ProjectTeam"] @Model.Team.Name
+                </div>
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table text-nowrap">
+                        <tbody>
+                            @foreach (var member in Model.User)
+                            {
+                                <li class="team-member-item">
+                                    <a href="@Url.Action("Index", "Profile", new { id = member.Id })">
+                                        <div class="d-flex align-items-center">
+                                            <span class="avatar avatar-md lh-1">
+                                                <img class="dynamic-avatar" data-name="@member.Name" src="~/images/default-avatars/default-avatar.png" alt="">
+                                            </span>
+                                            <div class="ms-3 lh-1">
+                                                <span class="fw-semibold fs-6">@member.Name @member.Surname</span>
+                                                <span class="d-block text-muted mt-1" style="font-size: 0.75rem;">
+                                                    @EnumHelper.GetEnumDisplayName((TaskJect.Web.Enums.OrganizationRolesView)member.RoleInOrganization)
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                            }
+                            @*  @foreach(var item in Model.User){
+                            <tr>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <div class="me-2 lh-1">
+                                            <span class="avatar avatar-sm avatar-rounded">
+                                                    <img class="dynamic-avatar" data-name="@item.Name" src="~/images/default-avatars/default-avatar.png" alt="">
+                                            </span>
+                                        </div>
+                                        <div class="fw-semibold">@item.Name @item.Surname</div>
+                                    </div>
+                                </td>
+                                @*<td>
+                                    <span class="badge bg-primary-transparent">UI Developer</span>
+                                </td>
+                                <td>
+                                    <div class="btn-list">
+                                        <button class="btn btn-sm btn-icon btn-info-light btn-wave waves-effect waves-light"><i class="ri-edit-line"></i></button>
+                                        <button class="btn btn-sm btn-icon btn-danger-light btn-wave waves-effect waves-light"><i class="ri-delete-bin-line"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+                            } *@
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        @if ((Model.OrganizationFiles != null && Model.OrganizationFiles.Any()) || grantAccessRole)
+        {
+            <div class="card custom-card overflow-hidden">
+                <div class="card-header d-flex align-items-center justify-content-between">
+                    <div class="card-title">
+                        @Localizer["ProjectDocuments"]
+                    </div>
+                    @if (grantAccessRole)
+                    {
+                        <div>
+                            <button class="btn btn-sm btn-primary-light" data-bs-toggle="modal"
+                                    data-bs-target="#addFilesModal" data-project-id="@project.ID">
+                                @Localizer["Add"]<i class="ri-add-line ms-1 align-middle"></i>
+                            </button>
+                        </div>
+                    }
+                </div>
+                <div class="card-body p-0">
+                    <ul class="list-group list-group-flush" id="listFiles">
+                        <partial name="_ProjectFileListPartial" model="@Model.OrganizationFiles" />
+                    </ul>
+                </div>
+            </div>
+        }
+        @if (ViewBag.IsSetGitRepo && ViewBag.HasGitHubIntegration)
+        {
+            <div class="card custom-card">
+                <div class="card-header d-flex align-items-center justify-content-between">
+                    <div class="card-title">
+                        @Localizer["GitHubSelectRepository"]
+                    </div>
+                </div>
+                <div class="card-body">
+                    <form id="SelectRepo" method="post">
+                        <div class="form-group d-flex flex-column">
+                            @await Html.PartialAsync("_GitHubRepoInfo", project, new ViewDataDictionary(ViewData) {
+                        { "GrantAccessRole", grantAccessRole }
+                        })
+                        </div>
+                    </form>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+<style>
+    .team-members-container {
+        display: grid;
+    }
+
+    .team-member-item {
+        min-width: 120px;
+        list-style-type: none;
+        padding: 5px; 
+        border-radius: 10px;
+        margin: 10px 0 10px 10px;
+    }
+
+
+    .z-index-1050 {
+        z-index: 1050 !important;
+    }
+</style>
+
+@if (grantAccessRole)
+{
+    <partial name="_DeleteFile" />
+    <partial name="_AddFiles" />
+    <partial name="_UnlinkGitHubModalWindow" />
+}
+
+<!--End::row-1 -->
+@section Scripts{
+
+    <!-- Filepond JS -->
+    <script src="~/lib/filepond/filepond.min.js"></script>
+    <script src="~/lib/filepond-plugin-image-preview/filepond-plugin-image-preview.min.js"></script>
+    <script src="~/lib/filepond-plugin-image-exif-orientation/filepond-plugin-image-exif-orientation.min.js"></script>
+    <script src="~/lib/filepond-plugin-file-validate-size/filepond-plugin-file-validate-size.min.js"></script>
+    <script src="~/lib/filepond-plugin-file-encode/filepond-plugin-file-encode.min.js"></script>
+    <script src="~/lib/filepond-plugin-image-edit/filepond-plugin-image-edit.min.js"></script>
+    <script src="~/lib/filepond-plugin-file-validate-type/filepond-plugin-file-validate-type.min.js"></script>
+    <script src="~/lib/filepond-plugin-file-validate-type/filepond-plugin-file-validate-type.min.js"></script>
+    <script src="~/lib/filepond-plugin-image-crop/filepond-plugin-image-crop.min.js"></script>
+    <script src="~/lib/filepond-plugin-image-resize/filepond-plugin-image-resize.min.js"></script>
+    <script src="~/lib/filepond-plugin-image-transform/filepond-plugin-image-transform.min.js"></script>
+    <script src="~/lib/filepond-plugin-get-file/filepond-plugin-get-file.min.js"></script>
+
+    <!-- Fileupload JS -->
+    <script src="~/js/custom_js/utils/fileUpload.js"></script>
+
+    <!-- GitHub JS -->
+    <script src="~/js/custom_js/GitHub/selectRepo.js"></script>
+
+    <script src="~/js/custom_js/utils/valideteFormElement.js"></script>
+    <!-- Overview js -->
+    <script src="~/js/custom_js/Project/overview.js"></script>
+
+    <script src="~/js/default-avatar.js"></script>
+
+}  

@@ -1,0 +1,187 @@
+﻿@model TaskJect.Web.Models.Finance.CostEditModel
+
+<div class="modal fade" id="edit-cost-row" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            @using (Html.BeginForm("EditCost", "Finance", FormMethod.Post, new { id = "EditCostRow" }))
+            {
+                <div class="modal-header">
+                    <h6 class="modal-title">Edit Cost</h6>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <input type="hidden" id="CostDateEdit" name="CostDate" value="@Model.Cost.CostDate" />
+                <input type="hidden" id="CostIdEdit" name="Id" value="@Model.Cost.Id" />
+                <div class="modal-body px-4">
+                    <div class="row gy-2">
+                        <div class="col-xl-12">
+                            <label class="form-label">Projects</label>
+                            <select class="form-control" name="ProjectId" id="choices-multiple-cost-button-edit1">
+                                @{
+                                    if (Model.Cost.ProjectId == null)
+                                    {
+                                        if (Model.Projects != null)
+                                        {
+                                            <option value="">Select member</option>
+                                            foreach (var project in Model.Projects)
+                                            {
+                                                <option value="@project.Id"> @project.Name </option>
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        var projectSelect = Model.Projects.FirstOrDefault(x => x.Id == Model.Cost.ProjectId);
+                                        <option value="">Select project</option>
+                                        @foreach (var project in Model.Projects)
+                                        {
+                                            <option value="@project.Id" selected="@(projectSelect != null ? projectSelect.Id.Equals(project.Id) : false)"> @project.Name </option>
+                                        }
+                                    }
+
+                                }
+                            </select>
+                        </div>
+                        <div class="col-xl-12">
+                            <label class="form-label">Users</label>
+                            <select class="form-control" name="UserId" id="choices-multiple-cost-button-edit2">
+                                @{
+                                    if (Model.Cost.UserId == null)
+                                    {
+                                        if (Model.Users != null)
+                                        {
+                                            <option value="">Select member</option>
+                                            foreach (var user in Model.Users)
+                                            {
+                                                <option value="@user.UserId"> @user.UserName @user.UserSurname </option>
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        var userSelect = Model.Users.FirstOrDefault(x => x.UserId == Model.Cost.UserId);
+                                        <option value="">Select member</option>
+                                        @foreach (var user in Model.Users)
+                                        {
+                                            <option value="@user.UserId" selected="@(userSelect != null ? userSelect.UserId.Equals(user.UserId) : false)"> @user.UserName @user.UserSurname </option>
+                                        }
+                                    }
+
+                                }
+                            </select>
+                        </div>
+                        <div class="col-xl-6">
+                            <label class="form-label">Income Source</label>
+                            @{
+                                var values = Enum.GetValues(typeof(TaskJect.Web.Enums.CostTargetType));
+                            }
+                            <select class="form-control" name="CostTargetType" id="choices-multiple-cost-button-edit3">
+                                @foreach (var item in values)
+                                {
+                                    <option value="@item" selected="@item.Equals(Model.Cost.CostTargetType)">@item</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="col-xl-6">
+                            <label class="form-label">Priority</label>
+                            @{
+                                var values1 = Enum.GetValues(typeof(TaskJect.Web.Enums.PeriodType));
+                            }
+                            <select class="form-control" name="PeriodType" id="choices-multiple-cost-button-edit4">
+                                @foreach (var item in values1)
+                                {
+                                    <option value="@item" selected="@item.Equals(Model.Cost.PeriodType)">@item</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="col-xl-6">
+                            <label for="AmountCostEdit" class="form-label">Amount</label>
+                            <input type="text" name="sum" class="form-control" id="AmountCostEdit" value="@Model.Cost.Amount.ToString().Replace(",",".")" placeholder="Amount" />
+                            <div class="invalid-feedback" id="error-amount-cost-edit">
+                                Please enter a amount double or integer.
+                            </div>
+                        </div>
+                        
+                        <div class="col-xl-6">
+                            <label class="form-label">End Date</label>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-text text-muted"> <i class="ri-calendar-line"></i> </div>
+                                    <input type="text" name="EndDate" class="form-control" value="@String.Format($"{Model.Cost.EndDate:yyyy-MM-dd HH:mm}")" id="targetDate6" placeholder="Choose date and time">
+                                </div>
+                                <div class="invalid-feedback" id="error-endDate-cost-edit">
+                                    Please enter a end date.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-12">
+                            <label class="form-label">Short Note</label>
+                            <textarea class="form-control" name="Note" placeholder="Short Note here" id="floatingTextareaEdit">@Model.Cost.Note</textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light"
+                        data-bs-dismiss="modal">
+                        Cancel
+                    </button>
+                    <button type="button" class="btn btn-primary" onclick="editCostRow()">Edit Cost</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<script>
+
+    $(document).ready(function () {
+        /* multi select with remove button */
+        var multipleCostEditButton = new Choices(
+            '#choices-multiple-cost-button-edit1',
+            {
+                allowHTML: true,
+                removeItemButton: true,
+            }
+        );
+        var multipleCostEditButton1 = new Choices(
+            '#choices-multiple-cost-button-edit2',
+            {
+                allowHTML: true,
+                removeItemButton: true,
+            }
+        );
+        var multipleCostEditButton2 = new Choices(
+            '#choices-multiple-cost-button-edit3',
+            {
+                allowHTML: true,
+            }
+        );
+        var multipleCostEditButton3 = new Choices(
+            '#choices-multiple-cost-button-edit4',
+            {
+                allowHTML: true,
+            }
+        );
+        //Date picker
+        flatpickr("#targetDate6", {
+            enableTime: true,
+            dateFormat: "Y-m-d H:i",
+            time_24hr: true,
+        });
+
+        var dateEditCist = '@String.Format($"{DateTime.Now:yyyy-MM-dd HH:mm}")';
+        var periodTEditCost = document.getElementById('choices-multiple-cost-button-edit4');
+
+        periodTEditCost.addEventListener("change", e => {
+            if (periodTEditCost.value === 'Once') {
+                $("#targetDate6").val(dateEditCist)
+            }
+            else {
+                $("#targetDate6").val('')
+            }
+        })
+    });
+        /* TargetDate Picker */
+
+</script>
+

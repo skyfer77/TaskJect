@@ -1,0 +1,902 @@
+﻿@using TaskJect.Web.Resources
+@using Domain.Database
+@using Microsoft.Extensions.Localization
+@using System.Globalization
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+@inject IStringLocalizer<SharedResources> Localizer
+@inject IStringLocalizer<LandingResources> LocalizerLanding
+@model IEnumerable<TariffPlanDto>
+@{
+    ViewData["Title"] = "Home";
+    ViewData["TariffMarker"] = "Yearly";
+    Layout = "~/Views/Shared/_SecondLayout.cshtml";
+
+    var comments = new List<CommentLanding>
+    {
+        new CommentLanding
+        {
+            Name = "Olena",
+            Country = "Ukraine",
+            ImageUrl = "/images/flags/uk_flag.jpg",
+            Text = "TaskJect really made our routine better. Love how easy it feels to work together now"
+        },
+        new CommentLanding
+        {
+            Name = "Krzysztof",
+            Country = "Poland",
+            ImageUrl = "/images/flags/pl_flag.jpg",
+            Text = "At first my team didn’t want to switch. Now they’re more efficient and spend less time on management"
+        },
+        new CommentLanding
+        {
+            Name = "Michael",
+            Country = "USA",
+            ImageUrl = "/images/flags/us_flag.jpg",
+            Text = "Smooth experience. It just fits into our workflow. Love it"
+        },
+        new CommentLanding
+        {
+            Name = "Priya",
+            Country = "India",
+            ImageUrl = "/images/flags/in_flag.jpg",
+            Text = "TaskJect saved me a lot of time on management. Great solution!"
+        }
+    };
+}
+
+@section HeadArea
+{
+<!-- SwiperJS Css -->
+    <link rel="stylesheet" href="~/lib/swiper/swiper-bundle.min.css">
+
+
+
+    <!-- Choices Css -->
+    <link rel="stylesheet" href="~/lib/choices.js/public/assets/styles/choices.min.css">
+}
+@* <html lang="@CultureInfo.CurrentUICulture.TwoLetterISOLanguageName" dir="ltr" data-nav-layout="horizontal" data-nav-style="menu-click" data-menu-position="fixed" data-theme-mode="light">
+<head>
+
+    <!-- Meta Data -->
+    <meta charset="UTF-8">
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, user-scalable=0'>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>@Localizer["SeoTitle"]</title>
+    <meta name="description" content="@Localizer["SeoDescription"]" />
+    <meta name="keywords" content="@Localizer["SeoKeywords"]" />
+
+    <meta property="og:title" content="@Localizer["SeoTitle"]">
+    <meta property="og:description" content="@Localizer["SeoDescription"]">
+    <meta property="og:image" content="~/images/brand-logos/desktop-logo.png">
+    <meta property="og:url" content="https://taskject.com/">
+    <meta property="og:type" content="website">
+
+    <link rel="alternate" hreflang="en" href="https://taskject.com/" />
+    <link rel="alternate" hreflang="uk" href="https://taskject.com/?culture=uk" />
+
+    <!-- Favicon -->
+    <link rel="icon" href="~/images/brand-logos/favicon.ico" type="image/x-icon">
+
+    <!-- Bootstrap Css -->
+    <link id="style" href="~/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" >
+
+    <!-- Style Css -->
+    <link href="~/css/styles.css" rel="stylesheet" >
+
+    <!--  jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+    <!-- Icons Css -->
+    <link href="~/css/icons.css" rel="stylesheet" >
+
+    <!-- Node Waves Css -->
+    <link href="~/lib/node-waves/waves.min.css" rel="stylesheet" >
+
+    <!-- SwiperJS Css -->
+    <link rel="stylesheet" href="~/lib/swiper/swiper-bundle.min.css">
+
+    <!-- Color Picker Css -->
+    <link rel="stylesheet" href="~/lib/flatpickr/flatpickr.min.css">
+    <link rel="stylesheet" href="@Url.Content("~/lib/@simonwep/pickr/themes/nano.min.css")">
+
+    <!-- Choices Css -->
+    <link rel="stylesheet" href="~/lib/choices.js/public/assets/styles/choices.min.css">
+
+    <script>
+        if(localStorage.ynexlandingdarktheme){
+            document.querySelector("html").setAttribute("data-theme-mode","dark")
+        }
+        if(localStorage.ynexlandingrtl){
+            document.querySelector("html").setAttribute("dir","rtl")
+            document.querySelector("#style")?.setAttribute("href", "~/lib/bootstrap/css/bootstrap.rtl.min.css");
+        }
+    </script>
+
+
+</head> *@
+
+@* <body class="landing-body">  *@
+<div class="landing-page-wrapper">
+
+    <!-- Start::app-sidebar -->
+    @*<aside class="app-sidebar sticky" id="sidebar">
+
+            <div class="container-xl">
+                <!-- Start::main-sidebar -->
+                <div class="main-sidebar">
+
+                    <!-- Start::nav -->
+                    <nav class="main-menu-container nav nav-pills sub-open">
+                        <div class="landing-logo-container">
+                            <div class="horizontal-logo">
+                                <a asp-controller="Home" asp-action="Index" class="header-logo">
+                                    <img src="~/images/brand-logos/desktop-logo.png" alt="logo" class="desktop-logo">
+                                    <img src="~/images/brand-logos/desktop-white.png" alt="logo" class="desktop-white">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="slide-left" id="slide-left"><svg xmlns="http://www.w3.org/2000/svg" fill="#7b8191" width="24" height="24" viewBox="0 0 24 24"> <path d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"></path> </svg></div>
+                        <ul class="main-menu">
+                            <!-- Start::slide -->
+                            <li class="slide">
+                                <a class="side-menu__item" href="#home">
+                                    <span class="side-menu__label">@Localizer["Home"]</span>
+                                </a>
+                            </li>
+                            <!-- End::slide -->
+                            <!-- Start::slide -->
+                            <li class="slide has-sub">
+                                <a href="#solutions" class="side-menu__item">
+                                    <span class="side-menu__label me-2">@Localizer["Solutions"]</span>
+                                    <i class="fe fe-chevron-right side-menu__angle op-8"></i>
+                                </a>
+                                <ul class="slide-menu child1">
+                                    <li class="slide">
+                                        <a href="#task-management" class="side-menu__item">@Localizer["ProjectManagement"]</a>
+                                    </li>
+                                    <li class="slide">
+                                        <a href="#team-management" class="side-menu__item">@Localizer["AdvancedAnalytics"]</a>
+                                    </li>
+                                    <li class="slide">
+                                        <a href="#personal-profile" class="side-menu__item">@Localizer["PersonalProfile"]</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <!-- End::slide -->
+                            <!-- Start::slide -->
+                            <li class="slide">
+                                <a class="side-menu__item" href="#our-mission">
+                                    <span class="side-menu__label">@Localizer["OurMission"]</span>
+                                </a>
+                            </li>
+                            <li class="slide">
+                                <a class="side-menu__item" href="#features">
+                                    <span class="side-menu__label">@Localizer["Features"]</span>
+                                </a>
+                            </li>
+                            <!-- Start::slide -->
+                            <li class="slide">
+                                <a href="#pricing" class="side-menu__item">
+                                    <span class="side-menu__label">@Localizer["Pricing"]</span>
+                                </a>
+                            </li>
+                            <!-- End::slide -->
+                            <!-- Start::slide -->
+                            <li class="slide">
+                                <a href="#faq" class="side-menu__item">
+                                    <span class="side-menu__label">@Localizer["FAQS"]</span>
+                                </a>
+                            </li>
+                            <!-- End::slide -->
+                            <!-- Start::slide -->
+                            <li class="slide">
+                                <a href="#contact" class="side-menu__item">
+                                    <span class="side-menu__label">@Localizer["Contact"]</span>
+                                </a>
+                            </li>
+                            <!-- End::slide -->
+
+                        </ul>
+                        <div class="slide-right" id="slide-right"><svg xmlns="http://www.w3.org/2000/svg" fill="#7b8191" width="24" height="24" viewBox="0 0 24 24"> <path d="M10.707 17.707 16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"></path> </svg></div>
+                        <div class="d-lg-flex d-none">
+                            <div class="d-flex justify-content-center align-items-center px-3">
+                                <partial name="_SelectLanguage" />
+                            </div>
+                            <div class="btn-list d-lg-flex d-none mt-lg-2 mt-xl-0 mt-0">
+                                @if (this.User.Identity.IsAuthenticated)
+                                {
+                                        <a href="javascript:void(0);" class="btn btn-wave btn-primary p-1" id="mainHeaderProfile" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+                                            <div class="d-flex align-items-center m-0">
+                                                <div class="me-sm-2 mb-0">
+                                                    @{
+                                                        var givenNameClaims = User.Claims.Where(u => u.Type == "name").Select(c => c.Value);
+                                                        var firstLetter = "U";
+                                                        if (givenNameClaims != null)
+                                                        {
+                                                            firstLetter = givenNameClaims.FirstOrDefault();
+                                                        }
+                                                    }
+                                                <img class="dynamic-avatar rounded-circle" data-name="@firstLetter" src="~/images/default-avatars/default-avatar.png" alt="avatar" width="32" height="32">
+                                                </div>
+                                                <div class="d-sm-block d-none mb-0">
+                                                    <p class="fw-semibold mb-0 lh-1">@User.Identity.Name</p>
+                                                </div> 
+                                            </div>
+                                    </a>
+                                    <ul class="main-header-dropdown dropdown-menu pt-0 overflow-hidden header-profile-dropdown dropdown-menu-end" aria-labelledby="mainHeaderProfile">
+                                        <li><a class="dropdown-item d-flex" asp-controller="Profile" asp-action="Index" asp-route-id=""><i class="ti ti-user-circle fs-18 me-2 op-7"></i>@Localizer["Profile"]</a></li>
+                                        <li>
+                                            <form asp-action="Logout" asp-controller="Account" method="post" class="d-inline dropdown-item d-flex mb-0">
+                                                @Html.AntiForgeryToken()
+                                                <button type="submit" class="dropdown-item d-flex btn btn-link text-start p-0 m-0 border-0 bg-transparent">
+                                                    <i class="ti ti-logout fs-18 me-2 op-7"></i>@Localizer["LogOut"]
+                                                </button>
+                                            </form>
+                                        </li>
+                                    </ul>
+                                }
+                                else
+                                {
+                                    <a asp-controller="Account" asp-action="Login" class="btn btn-wave btn-primary">
+                                        @Localizer["LogIn"]
+                                    </a>
+                                }
+
+                            </div>
+                        </div>
+                    </nav>
+                    <!-- End::nav -->
+
+                </div>
+                <!-- End::main-sidebar -->
+            </div>
+
+        </aside>*@
+    <!-- End::app-sidebar -->
+
+    <!-- Start::app-content -->
+    @* <div class="main-content landing-main px-0">  *@
+
+    <!-- Start:: Section-1 -->
+    <div class="landing-banner" id="home">
+        <section class="section">
+            <div class="container main-banner-container pb-lg-0">
+                <div class="row">
+                    <div class="col-xxl-7 col-xl-7 col-lg-7 col-md-8">
+                        @*<div class="py-lg-5">
+                                    <div class="mb-3">
+                                        <h5 class="fw-semibold text-fixed-white op-9">BRILLIANCE IN EXECUTION</h5>
+                                    </div>
+                                    <p class="landing-banner-heading mb-3">Your sure stop place for best theme ends here with <span class="text-secondary">YNEX !</span></p>
+                                    <div class="fs-16 mb-5 text-fixed-white op-7">ynex - Now you can use this admin template to design stunning dashboards that will wow your target viewers or users to no end.</div>
+                                    <a href="index.html" class="m-1 btn btn-primary">
+                                        View Demos
+                                        <i class="ri-eye-line ms-2 align-middle"></i>
+                                    </a>
+                                </div>*@
+                        <div class="py-lg-0">
+                            <div class="mb-3">
+                                <h5 class="fw-semibold text-fixed-white op-9">@LocalizerLanding["BuildByDevelopersForDevelopers"]</h5>
+                            </div>
+                            <p class="landing-banner-heading mb-3">
+                                @LocalizerLanding["SimpleTaskTrackingNotManaging"]
+                            </p>
+                            @*<a href="index.html" class="m-1 btn btn-primary">
+                                        View Demos
+                                        <i class="ri-eye-line ms-2 align-middle"></i>
+                                    </a>*@
+                        </div>
+                    </div>
+                    @* <div class="col-xxl-5 col-xl-5 col-lg-5 col-md-4">
+                                <div class="text-end landing-main-image landing-heading-img">
+                                    <img src="~/images/landing-page/UpImage.jpg" alt="task manager" class="img-fluid">
+                                </div>
+                            </div> *@
+                </div>
+            </div>
+        </section>
+    </div>
+    <!-- End:: Section-1 -->
+
+    <!-- Start:: Section-3 -->
+    <section class="section" id="solutions">
+        <div class="container text-center">
+            <p class="fs-12 fw-semibold text-success mb-1"><span class="landing-section-heading">@Localizer["SolutionsUpperCase"]</span></p>
+            <h3 class="fw-semibold mb-2">@LocalizerLanding["DesignedPrecision"]</h3>
+            <div class="row justify-content-center">
+                <div class="col-xl-7">
+                    <p class="text-muted fs-15 mb-3 fw-normal">@LocalizerLanding["taskjectMultipleCustomization"]</p>
+
+                </div>
+            </div>
+            <div class="row justify-content-between align-items-center mx-0">
+                <div class="col-xxl-5 col-xl-5 col-lg-5 customize-image text-center">
+                    <div class="text-lg-end">
+                        <img src="~/images/landing-page/FunctionsImage.png" alt="Project Management" class="img-fluid">
+                    </div>
+                </div>
+                <div class="col-xxl-6 col-xl-6 col-lg-6 pt-5 pb-0 px-lg-2 px-5 text-start">
+                    @*<h5 class="text-lg-start fw-semibold mb-0">Present your awesome product</h5>
+                        <p class=" text-muted">lorem ipsum, dolor sit var ameto condesetrat aiatel varen or damsenlel verman code Lorem ipsum, dolor sit amet consectetur adipisicing elit</p>
+                        *@<div class="row">
+                        <div class="col-12 col-md-12">
+                            <div class="d-flex">
+                                <span>
+                                    <i class='bx bxs-badge-check text-primary fs-18'></i>
+                                </span>
+                                <div class="ms-2">
+                                    <h6 class="fw-semibold mb-0">@Localizer["ProjectManagement"]</h6>
+                                    <p class=" text-muted">@LocalizerLanding["OrganizeProjectsWorkflows"]</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-12">
+                            <div class="d-flex">
+                                <span>
+                                    <i class='bx bxs-badge-check text-primary fs-18'></i>
+                                </span>
+                                <div class="ms-2">
+                                    <h6 class="fw-semibold mb-0">@Localizer["TaskManagement"]</h6>
+                                    <p class=" text-muted">@LocalizerLanding["AssignTrack"]</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-12">
+                            <div class="d-flex">
+                                <span>
+                                    <i class='bx bxs-badge-check text-primary fs-18'></i>
+                                </span>
+                                <div class="ms-2">
+                                    <h6 class="fw-semibold mb-0">@Localizer["AdvancedAnalytics"]</h6>
+                                    <p class=" text-muted">@LocalizerLanding["GainInsightsDetailed"]</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-12">
+                            <div class="d-flex">
+                                <span>
+                                    <i class='bx bxs-badge-check text-primary fs-18'></i>
+                                </span>
+                                <div class="ms-2">
+                                    <h6 class="fw-semibold mb-0">@Localizer["TeamManagement"]</h6>
+                                    <p class=" text-muted">@LocalizerLanding["CollaborateSeamlessly"]</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-12">
+                            <div class="d-flex">
+                                <span>
+                                    <i class='bx bxs-badge-check text-primary fs-18'></i>
+                                </span>
+                                <div class="ms-2">
+                                    <h6 class="fw-semibold mb-0">@Localizer["PersonalProfile"]</h6>
+                                    <p class=" text-muted">@LocalizerLanding["CustomizeProfile"]</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+            </div>
+        </div> 
+    </section>
+    <!-- End:: Section-3 -->
+    <!-- Start:: Section-8 -->
+    <section class="section landing-Features" id="features" style="height:auto">
+        <div class="container text-center">
+            <p class="fs-12 fw-semibold text-success mb-1"><span class="landing-section-heading">@Localizer["Features"]</span></p>
+            <h2 class="fw-semibold mb-2 text-fixed-white ">@LocalizerLanding["FeaturesUsedTaskJect"]</h2>
+            <div class="row justify-content-center">
+            </div>
+            <div class="text-start">
+                <div class="justify-content-center">
+                    <div class="">
+                        <div class="feature-logos mt-sm-3 flex-wrap">
+                            <div class="ms-2 text-center">
+                                <img src="~/images/media/landing/web/3.png" alt="asp.net" class="featur-icon">
+                                <h6 class="mt-3 text-fixed-white ">ASP</h6>
+                            </div>
+                            <div class="ms-sm-5 ms-2 text-center">
+                                <img src="~/images/media/landing/web/5.png" alt=".net" class="featur-icon">
+                                <h6 class="mt-3 text-fixed-white ">.NET</h6>
+                            </div>
+                            <div class="ms-sm-5 ms-2 text-center">
+                                <img src="~/images/media/landing/web/6.png" alt="Azure" class="featur-icon">
+                                <h6 class="mt-3 text-fixed-white ">Azure</h6>
+                            </div>
+                            <div class="ms-sm-5 ms-2 text-center">
+                                <img src="~/images/media/landing/web/1.png" alt="Bootstrap5" class="featur-icon">
+                                <h6 class="mt-3 text-fixed-white ">Bootstrap5</h6>
+                            </div>
+                            <div class="ms-sm-5 ms-2 text-center">
+                                <img src="~/images/media/landing/web/2.png" alt="HTML5" class="featur-icon">
+                                <h6 class="mt-3 text-fixed-white ">HTML5</h6>
+                            </div>
+                            <div class="ms-sm-5 ms-2 text-center">
+                                <img src="~/images/media/landing/web/4.png" alt="Sass" class="featur-icon">
+                                <h6 class="mt-3 text-fixed-white ">Sass</h6>
+                            </div>
+                            @*<div class="ms-sm-5 ms-2 text-center">
+                                                <img src="~/images/media/landing/web/5.png" alt="image" class="featur-icon">
+                                                <h5 class="mt-3 text-fixed-white ">Gulp</h5>
+                                            </div>*@
+                            @*<div class="ms-sm-5 ms-2 text-center">
+                                                <img src="~/images/media/landing/web/6.png" alt="image" class="featur-icon">
+                                                <h5 class="mt-3 text-fixed-white ">NPM</h5>
+                                            </div> *@                       
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-pagination mt-4"></div>
+            </div>
+        </div>
+    </section>
+    <!-- End:: Section-8 -->
+    <!-- Start:: Section-4 -->
+    @* <section class="section section-bg" id="task-management">
+                <div class="container text-center">
+                    <p class="fs-12 fw-semibold text-success mb-1"><span class="landing-section-heading">@Localizer["ProjectManagementUpperCase"]</span></p>
+                    <h3 class="fw-semibold mb-2">@LocalizerLanding["OrganizeProjectsWorkflows"]</h3>
+                    <div class="row justify-content-between align-items-center mx-0">
+                        <div class="slider-container">
+                            <div style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff" class="swiper swiper-preview">
+                                <div class="swiper-wrapper">
+                                    <div class="swiper-slide">
+                                        <img class="img-fluid rounded" src="~/images/landing-page/ProjectList.png" alt="Project List">
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <img class="img-fluid rounded" src="~/images/landing-page/OverviewProject.png" alt="Overview Project">
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <img class="img-fluid rounded" src="~/images/landing-page/KanbanBoard.png" alt="Kanban Board">
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <img class="img-fluid rounded" src="~/images/landing-page/DetailTask.png" alt="Detail Task">
+                                    </div>
+                                </div>
+                                <div class="swiper-button-next" style="background-color: rgb(0 0 0 / 30%);"></div>
+                                <div class="swiper-button-prev" style="background-color: rgb(0 0 0 / 30%);"></div>
+                            </div>
+                            <div class="swiper swiper-view">
+                                <div class="swiper-wrapper">
+                                    <div class="swiper-slide">
+                                        <img class="img-fluid rounded" src="~/images/landing-page/ProjectList.png" alt="Project List">
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <img class="img-fluid rounded" src="~/images/landing-page/OverviewProject.png" alt="Overview Project">
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <img class="img-fluid rounded" src="~/images/landing-page/KanbanBoard.png" alt="Kanban Board">
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <img class="img-fluid rounded" src="~/images/landing-page/DetailTask.png" alt="Detail Task">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section> *@
+    <!-- End:: Section-4 -->
+    <!-- Start:: Section-5 -->
+    @*  <section class="section section-bg" id="team-management">
+                <div class="container text-center">
+                    <p class="fs-12 fw-semibold text-success mb-1"><span class="landing-section-heading">@Localizer["TeamManagementUpperCase"]</span></p>
+                    <h3 class="fw-semibold mb-2">@LocalizerLanding["CollaborateSeamlessly"]</h3>
+
+                    <div class="row justify-content-between align-items-center mx-0">
+                        <div class="slider-container">
+                            <div style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff" class="swiper swiper-preview">
+                                <div class="swiper-wrapper">
+                                    <div class="swiper-slide">
+                                        <img class="img-fluid rounded" src="~/images/landing-page/Organization.png" alt="Organization">
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <img class="img-fluid rounded" src="~/images/landing-page/Teams.png" alt="Teams">
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <img class="img-fluid rounded" src="~/images/landing-page/Analytics.png" alt="Analytics">
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <img class="img-fluid rounded" src="~/images/landing-page/UserAnalytics.png" alt="User Analytics">
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <img class="img-fluid rounded" src="~/images/landing-page/Requests.png" alt="Requests">
+                                    </div>
+                                </div>
+                                <div class="swiper-button-next" style="background-color: rgb(0 0 0 / 30%);"></div>
+                                <div class="swiper-button-prev" style="background-color: rgb(0 0 0 / 30%);"></div>
+                            </div>
+                            <div class="swiper swiper-view">
+                                <div class="swiper-wrapper">
+                                    <div class="swiper-slide">
+                                        <img class="img-fluid rounded" src="~/images/landing-page/Organization.png" alt="Organization">
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <img class="img-fluid rounded" src="~/images/landing-page/Teams.png" alt="Teams">
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <img class="img-fluid rounded" src="~/images/landing-page/Analytics.png" alt="Analytics">
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <img class="img-fluid rounded" src="~/images/landing-page/UserAnalytics.png" alt="User Analytics">
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <img class="img-fluid rounded" src="~/images/landing-page/Requests.png" alt="Requests">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section> *@
+    <!-- End:: Section-5 -->
+    <!-- Start:: Section-6 -->
+    @* <section class="section" id="personal-profile">
+                <div class="container text-center">
+                    <p class="fs-12 fw-semibold text-success mb-1"><span class="landing-section-heading">@Localizer["PersonalProfileUpperCase"]</span></p>
+                    <h3 class="fw-semibold mb-2">@LocalizerLanding["CustomizeProfile"]</h3>
+                    <div class="row justify-content-between align-items-center mx-0">
+                        <div class="slider-container">
+                            <div style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff" class="swiper swiper-preview">
+                                <div class="swiper-wrapper">
+                                    <div class="swiper-slide">
+                                        <img class="img-fluid rounded" src="~/images/landing-page/WhiteProfile.png" alt="White Profile">
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <img class="img-fluid rounded" src="~/images/landing-page/PurpleProfile.png" alt="Purple Profile">
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <img class="img-fluid rounded" src="~/images/landing-page/GreenProfile.png" alt="Green Profile">
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <img class="img-fluid rounded" src="~/images/landing-page/BlackProfile.png" alt="Black Profile">
+                                    </div>
+                                </div>
+                                <div class="swiper-button-next" style="background-color: rgb(0 0 0 / 30%);"></div>
+                                <div class="swiper-button-prev" style="background-color: rgb(0 0 0 / 30%);"></div>
+                            </div>
+                            <div class="swiper swiper-view">
+                                <div class="swiper-wrapper">
+                                    <div class="swiper-slide">
+                                        <img class="img-fluid rounded" src="~/images/landing-page/WhiteProfile.png" alt="White Profile">
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <img class="img-fluid rounded" src="~/images/landing-page/PurpleProfile.png" alt="Purple Profile">
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <img class="img-fluid rounded" src="~/images/landing-page/GreenProfile.png" alt="Green Profile">
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <img class="img-fluid rounded" src="~/images/landing-page/BlackProfile.png" alt="Black Profile">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section> *@
+    <!-- End:: Section-6 -->
+    <!-- Start:: Section-6 -->
+    <section class="section">
+        <div class="container text-center">
+            <p class="fs-12 fw-semibold text-success mb-1"><span class="landing-section-heading">@Localizer["DEMO"]</span></p>
+            <h2 class="fw-semibold mb-2">@LocalizerLanding["CheckOutTaskJectsFeaturesShortDemo"]</h2>
+            <div class="row justify-content-center">
+                <div class="col-xxl-8 col-xl-8 col-lg-8 col-md-12 col-sm-12">
+                    <div class="card custom-card border shadow-none mb-0">
+                        <div class="card-body p-0">
+                            <div class="ratio ratio-16x9">
+                                <iframe src="https://www.youtube.com/embed/-SoSaIt3qMc"
+                                        title="YouTube video"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                        allowfullscreen
+                                        style="width:100%; height:100%; border:none; border-radius: .35rem;">
+                                </iframe>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End:: Section-6 -->
+    <!-- Start:: Section-7 -->
+    <section class="section section-bg " id="our-mission">
+        <div class="container text-center">
+            <p class="fs-12 fw-semibold text-success mb-1"><span class="landing-section-heading">@Localizer["OurMissionUpperCase"]</span></p>
+            <h2 class="fw-semibold mb-2">@LocalizerLanding["OurMissionConsistsSteps"]</h2>
+
+            <div class="row justify-content-center mb-5">
+                <div class="col-xl-7">
+                    <p class="text-muted fs-15mb-0 fw-normal">@LocalizerLanding["TeamWorkEasyText"]</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-6 col-sm-6 col-12">
+                    <div class="card custom-card text-start landing-missions">
+                        <div class="card-body" style="min-height: 160px;">
+                            <div class="align-items-top">
+                                <div class="mb-2">
+                                    <span class="avatar avatar-lg avatar-rounded bg-primary-transparent">
+                                        <i class='bx bx-spreadsheet fs-25'></i>
+                                    </span>
+                                </div>
+                                <div>
+                                    <h6 class="fw-semibold mb-1">
+                                        @Localizer["ProjectManagement"]
+                                    </h6>
+                                    <p class="mb-0 text-muted">@LocalizerLanding["OptimizeProcessesEnsure"]</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-6 col-sm-6 col-12">
+                    <div class="card custom-card text-start landing-missions">
+                        <div class="card-body" style="min-height: 160px;">
+                            <div class="align-items-top">
+                                <div class="mb-2">
+                                    <span class="avatar avatar-lg avatar-rounded bg-primary-transparent">
+                                        <i class='bx bx-line-chart fs-25' ></i>
+                                    </span>
+                                </div>
+                                <div>
+                                    <h6 class="fw-semibold mb-1">
+                                        @Localizer["Analytics"]
+                                    </h6>
+                                    <p class="mb-0 text-muted">@LocalizerLanding["AnalyzeMetricsMake"]</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-6 col-sm-6 col-12">
+                    <div class="card custom-card text-start landing-missions">
+                        <div class="card-body" style="min-height: 160px;">
+                            <div class="align-items-top">
+                                <div class="mb-2">
+                                    <span class="avatar avatar-lg avatar-rounded  bg-primary-transparent">
+                                        <i class='bx bx-task fs-25'></i>
+                                    </span>
+                                </div>
+                                <div>
+                                    <h6 class="fw-semibold mb-1">
+                                        @Localizer["TaskTracking"]
+                                    </h6>
+                                    <p class="mb-0 text-muted">@LocalizerLanding["SetGoalsDeadlines"]</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-6 col-sm-6 col-12">
+                    <div class="card custom-card text-start landing-missions">
+                        <div class="card-body" style="min-height: 160px;">
+                            <div class="align-items-top">
+                                <div class="mb-2">
+                                    <span class="avatar avatar-lg avatar-rounded bg-primary-transparent">
+                                        <i class='bx bx-conversation fs-25'></i>
+                                    </span>
+                                </div>
+                                <div>
+                                    <h6 class="fw-semibold mb-1">
+                                        @Localizer["Convenience"]
+                                    </h6>
+                                    <p class="mb-0 text-muted">@LocalizerLanding["AllToolAdvancedTeamwork"]</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End:: Section-7 -->
+    <!-- Start:: Section-8 -->
+    <section class="section landing-testimonials">
+        <div class="container text-center">
+            <div class="row mb-5 justify-content-center text-center">
+                <p class="fs-12 fw-semibold text-success mb-1"><span class="landing-section-heading">@LocalizerLanding["FeedbackUpperCase"]</span> </p>
+                <h2 class="fw-semibold mb-2">@LocalizerLanding["ProvenTrackRecordWorldwideTrust"]</h2>
+                <div class="col-xl-9">
+                    <span class="b-block fw-normal fs-15 text-muted">@LocalizerLanding["FromSmallTeamsToGrowingBusinesses"]</span>
+                </div>
+            </div>
+            <div class="swiper pagination-dynamic text-start">
+                <div class="swiper-wrapper">
+                    @foreach(var comment in comments)
+                    {
+                        <div class="swiper-slide">
+                            <div class="card custom-card featured-card-1 border shadow-none">
+                                <div class="card-body p-4">
+                                    <span class="review-quote">
+                                        <i class="bi bi-quote"></i>
+                                    </span>
+                                    <span class="review-quote">
+                                        <i class="bi bi-quote"></i>
+                                    </span>
+                                    <div class="d-flex mb-2 align-items-center">
+                                        <div>
+                                            <p class="mb-0 fw-semibold fs-16 text-primary">@comment.Name</p>
+                                            <div class="d-flex align-items-center">
+                                                <p class="fs-11 mb-0 fw-semibold text-muted">@comment.Country</p>
+                                                <span class="avatar avatar-xs lh-1 ms-2">
+                                                    <img src="@comment.ImageUrl" alt="@comment.Country">
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <span>- @comment.Text</span>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
+        </div>
+    </section>
+    <!-- End:: Section-8 -->
+
+    <!-- Start:: Section-9 -->
+    <section class="section  section-bg" id="pricing">
+        <div class="container text-center">
+            <p class="fs-12 fw-semibold text-success mb-1"><span class="landing-section-heading">@Localizer["PricingUpperCase"]</span></p>
+            <h2 class="fw-semibold mb-2">@LocalizerLanding["TaskJectComesAffordablePricing"]</h2>
+            <div class="row justify-content-center">
+                <div class="col-xl-9">
+                    <p class="text-muted fs-15 mb-5 fw-normal">@LocalizerLanding["OurPlansAffordableMainlyPlaced"]</p>
+                </div>
+            </div>
+            <div class="d-flex justify-content-center mb-2">
+                <ul class="nav nav-tabs mb-3 tab-style-6 bg-primary-transparent" id="myTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="pricing-monthly" data-bs-toggle="tab"
+                            data-bs-target="#pricing-monthly-pane" type="button" role="tab"
+                                aria-controls="pricing-monthly-pane" aria-selected="true">
+                            @Localizer["Monthly"]
+                        </button>
+                    </li>
+                    <li class="nav-item position-relative" role="presentation">
+                        <button class="nav-link" id="pricing-yearly" data-bs-toggle="tab"
+                            data-bs-target="#pricing-yearly-pane" type="button" role="tab"
+                                aria-controls="pricing-yearly-pane" aria-selected="false">
+                            @Localizer["Annually"]
+                        </button>
+                        <span class="pricing-offer-details position-absolute start-50 translate-middle-x px-2 py-1 rounded"
+                                style="white-space: nowrap;top: 100%; margin-top: -0.25rem; background: var(--bs-success-bg-subtle);color: var(--bs-green);">
+                            <span class="fw-semibold">20%</span> <span class="fs-10 op-8 ms-1">Off</span>
+                        </span>
+                    </li>
+                </ul>
+            </div>
+            <p class="text-muted fs-15 fw-normal">@LocalizerLanding["PriceForEntireOrganization"]</p>
+            <div class="card custom-card overflow-hidden shadow-none">
+                <div class="card-body p-0">
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane show active p-0" id="pricing-monthly-pane"
+                            role="tabpanel" aria-labelledby="pricing-monthly" tabindex="0">
+                            <div class="row">
+                                @{
+                                    ViewData["TariffMarker"] = "Monthly";
+                                }
+                                <partial name="_TariffPlansInfo" model="Model" />
+                            </div>
+                        </div>
+                        <div class="tab-pane p-0" id="pricing-yearly-pane"
+                            role="tabpanel" aria-labelledby="pricing-yearly" tabindex="0">
+                            <div class="row">
+                                @{
+                                    ViewData["TariffMarker"] = "Yearly";
+                                }
+                                <partial name="_TariffPlansInfo" model="Model" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End:: Section-9 -->
+<!-- End::app-content -->
+
+</div>
+<style>
+    .list-elements {
+        min-height: 150px;
+    }
+
+    .diagonal-line {
+        position: relative;
+        display: inline-block;
+    }
+
+    .diagonal-line::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 0;
+        width: 100%;
+        height: 1.2px;
+        background-color: var(--text-muted);
+        transform: rotate(-10deg);
+        transform-origin: center;
+        pointer-events: none;
+    }
+
+    @@media (min-width: 1400px) {
+        .col-xxl-custom,
+        .col-xl-custom,
+        .col-lg-custom,
+        .col-md-custom {
+        flex: 0 0 20%;
+        max-width: 20%;
+    }   
+}
+</style>
+    
+@*     <style>
+        .swiper-slide img {
+            max-height: 550px ;
+            object-fit : contain;
+        }
+        .swiper-thumbs .swiper-slide img{
+            max-height: 100px;
+            object-fit: contain;
+        }
+        .country-selector .header-link img{
+            padding: .25rem;
+        }
+        .dropdown-toggle::after{
+            display:none;
+        }
+        .padding-top-this.show {
+            margin-top: 16.2px !important;
+        }
+        .list-elements{
+            min-height: 187px;
+        }
+        .footer-box {
+            box-shadow: 0 0.25rem 1rem var(--black-1);
+        }
+    </style> *@
+
+
+    @section Scripts
+    {
+
+        <!-- Popper JS -->
+        <script src="@Url.Content("~/lib/@popperjs/core/umd/popper.min.js")"></script>
+
+        <!-- Bootstrap JS -->
+        @* <script src="~/lib/bootstrap/js/bootstrap.bundle.min.js"></script> *@
+
+        <!-- Color Picker JS -->
+        <script src="@Url.Content("~/lib/@simonwep/pickr/pickr.es5.min.js")"></script>
+
+        <!-- Choices JS -->
+        <script src="~/lib/choices.js/public/assets/scripts/choices.min.js"></script>
+
+        <!-- Swiper JS -->
+        <script src="~/lib/swiper/swiper-bundle.min.js"></script>
+
+        
+
+        <!-- Internal Landing JS -->
+        @* <script src="~/js/landing.js"></script> *@
+
+        <script src="~/js/custom_js/Landing/landing.js"></script>
+
+        <!-- Node Waves JS-->
+        @* <script src="~/lib/node-waves/waves.min.js"></script> *@
+
+        <!-- Sticky JS -->
+        @* <script src="~/js/sticky.js"></script> *@
+    }
+    @* <script src="~/js/default-avatar.js"></script> *@
+
+@* </body> *@
+@* 
+</html> *@

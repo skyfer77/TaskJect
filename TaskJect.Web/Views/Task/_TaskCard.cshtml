@@ -1,0 +1,143 @@
+﻿@using System.Security.Claims
+@using TaskJect.Web.Resources
+@using TaskJect.Web.Services
+@using Domain.Database
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<SharedResources> Localizer
+@model TaskView
+@{
+    var dateNow = DateTime.Now;
+    var grantAccessRole = this.User.IsInRole("Moderator") || this.User.IsInRole("Admin") || this.User.IsInRole("God") 
+        || this.User.IsInRole("TeamLead") || ViewBag.IsProjectManager;
+
+    var status = (int)Model.Status;
+}
+<div class="card custom-card mb-3" data-id-task="@Model.ID" id="status-card-@Model.ID" data-task-card data-task-card-status="@status">
+    @{
+        string formattedDate = Model?.ComplitedDate?.ToString("yyyy-MM-ddTHH:mm:ss");
+        string formattedCreatedDate = Model?.StartDate?.ToString("yyyy-MM-ddTHH:mm:ss");
+        string formattedTargetDate = Model?.EndDate?.ToString("yyyy-MM-ddTHH:mm:ss");
+    }
+    <input type="hidden" complited-date value="@formattedDate" />
+    <input type="hidden" target-date value="@formattedTargetDate" />
+    <input type="hidden" create-date value="@formattedCreatedDate" />
+    <div class="card-body p-0">
+        <div class="p-3 kanban-board-head">
+            <div class="d-flex text-muted justify-content-between mb-1 fs-12 fw-semibold" >
+                <div>
+                    <i class="ri-time-line me-1 align-middle d-inline-block"></i>@Localizer["Created"] - 
+                    @(Model.StartDate.HasValue
+                            ? Model.StartDate.Value.ToString("dd MMMM", System.Globalization.CultureInfo.CurrentCulture)
+                            : "")
+                </div>
+                @if (Model.Status == (TaskJect.Web.Enums.TaskStatusView)3)
+                {
+                    <div class="text-success" data-task-stat="@Model.Status"><i class="ri-check-fill me-1 align-middle d-inline-block"></i>@Localizer["Done"]</div>
+                }
+                else if (Model.Status == (TaskJect.Web.Enums.TaskStatusView)4)
+                {
+                    <div data-task-stat="@Model.Status">@Localizer["Archiv"]</div>
+                }
+                else{
+                    @if (Model.EndDate != null)
+                    {
+                        if (dateNow.Date < Model.EndDate.Value.Date)
+                        {
+                            var daysRemaining = (Model.EndDate.Value - dateNow).Days + 1;
+                            <div data-task-stat="@Model.Status" style="text-align:end">@daysRemaining @Localizer["daysLeft"]</div>
+                        }
+                        else if (dateNow.Date == Model.EndDate.Value.Date)
+                        {
+                            <div data-task-stat="@Model.Status" style="text-align:end">0 @Localizer["daysLeft"]</div>
+                        }
+                        else
+                        {
+                            var daysOverdue = (dateNow - Model.EndDate.Value).Days;
+                            <div data-task-stat="@Model.Status" style="text-align:end; color:#d62929;">@daysOverdue @Localizer["daysOverdue"]</div>
+                        }
+                    }
+                    else
+                    {
+                        <div data-task-stat="@Model.Status" style="text-align:end">@Localizer["noEndDate"]</div>
+                    }
+                }
+            </div>
+            <div class="d-flex align-items-center justify-content-between">
+                <div class="task-badges">
+                    <span class="badge bg-light text-default" data-complexity-task>@Localizer["Complexity"] - @Model.Complexity</span>
+                    <span class="ms-1 badge" name="@Model.Priority" data-priority>@EnumHelper.GetEnumDisplayName((TaskJect.Web.Enums.PriorityView)Model.Priority)</span>
+                </div>
+                <div class="dropdown">
+                    <a aria-label="anchor" href="javascript:void(0);" class="btn btn-icon btn-sm btn-light" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fe fe-more-vertical"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        @{
+                            var id = Model.ID;
+                            var projectId = Model.ProjectID;
+                        }
+                        <li>
+                            <a class="dropdown-item" aria-label="anchor" href="javascript:void(0);" onclick="Edit('@id', '@projectId')"><i class="ri-edit-line me-1 align-middle d-inline-block"></i>@Localizer["Details"]</a>
+                        </li>
+                        @if (ViewBag.Permission.CanDeleteTask || grantAccessRole)
+                        {
+                            <li>
+                                <a class="dropdown-item" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#delete-task"
+                                data-todo='{"idTask":"@Model.ID","titleTask":"@Model.Title"}'><i class="ri-delete-bin-line me-1 align-middle d-inline-block"></i>@Localizer["Delete"]</a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+            <div class="kanban-content mt-2">
+                <h6 class="fw-semibold mb-1 fs-15" onclick="Edit('@id', '@projectId')" style="cursor:pointer;" data-title>@Model.Title</h6>
+            </div>
+        </div>
+        <div class="p-3 border-top border-block-start-dashed">
+            <div class="d-flex align-items-center justify-content-between">
+                <div class="fw-semibold">
+                    @{
+                        if (Model.User == null)
+                        {
+                            @string.Empty
+                        }
+                        else
+                        {
+                            string actualTimeDisplay = "";
+                            if (Model.ActualHours != null || Model.ActualMinutes != null)
+                            {
+                                actualTimeDisplay = (Model.ActualHours != null ? $"{Model.ActualHours}{Localizer["h"]} " : "") +
+                                (Model.ActualMinutes != null ? $"{Model.ActualMinutes}{Localizer["m"]}" : "").Trim();
+                            }
+
+                            <i class="bi bi-clock" title="@Localizer["ActualHours"]"></i>
+                            <span title="@Localizer["ActualHours"]" data-actual-hours>@actualTimeDisplay</span>
+
+                            var currentUserId = User.Claims.FirstOrDefault(u => u.Type == ClaimTypes.NameIdentifier)?.Value;
+                            if (currentUserId == Model.User.Id)
+                            {
+                                <i class="bi bi-plus-square add-hours-icon ms-1" style="cursor: pointer;"
+                                   title="@Localizer["AddHours"]" data-bs-toggle="modal" data-bs-target="#addHoursModal"
+                                   data-task-id="@Model.ID"></i>
+                            }
+                        }
+                    }
+                </div>
+                <div class="fw-semibold" data-member-task>
+                    @{
+                        if(Model.User == null)
+                        {
+                            @string.Empty
+                        }
+                        else
+                        {
+                            var d =  Model.User.Name + " " + Model.User.Surname;
+                            @d
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

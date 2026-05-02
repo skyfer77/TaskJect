@@ -1,0 +1,64 @@
+﻿@using TaskJect.Web.Resources
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<SharedResources> Localizer
+@{
+    Layout = "~/Views/Shared/_SecondLayout.cshtml";
+}
+@section HeadArea
+{
+    <link rel="stylesheet" href="~/css/NewStyles.css">
+}
+<section class="section section-bg pb-0 section-body" style="min-height: calc(100vh - 14rem);">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-xl-8">
+                <div class="card custom-card">
+                    <div class="card-body p-0">
+                        <div class="p-3 d-flex align-items-center text-fixed-white bg-primary h5 fw-semibold mb-0 top-radius">
+                            <span class="avatar avatar-md me-3">
+                                <img src="~/images/brand-logos/toggle-white.png" alt="logo" class="toggle-logo">
+                            </span> @Localizer["TitleRefund"]
+                        </div>
+                        <div class="p-4 text-muted">
+                            <div class="mb-5" id="refund">
+                                <p class="mb-3 op-7">
+                                    @Localizer["IntroRefundThanks"] <strong>Taskject</strong>.
+                                </p>
+                                <p class="mb-3 op-7">
+                                    @Localizer["IntroNote"]
+                                </p>
+                                <h6 class="fw-bold text-default op-7">
+                                    @Localizer["NoRefundTitle"]
+                                </h6>
+                                <p class="op-7 mb-2">
+                                    @Localizer["NoRefundText"]
+                                </p>
+                                <ul class="op-7 mb-3 ps-4">
+                                    <li>@Localizer["NoRefundList1"]</li>
+                                    <li>@Localizer["NoRefundList2"]</li>
+                                    <li>@Localizer["NoRefundList3"]</li>
+                                </ul>
+                                <p class="op-7 mb-4">
+                                    @Localizer["RefundContact"] <a href="mailto:support@taskject.com">support@taskject.com</a>.
+                                </p>
+
+                                <h6 class="fw-bold text-default op-7">
+                                    @Localizer["AutoRenewalTitle"]
+                                </h6>
+                                <p class="op-7">
+                                    @Localizer["AutoRenewalText"]
+                                </p>
+                                <h6 class="fw-bold text-default op-7">
+                                    @Localizer["ChangingPlan"]
+                                </h6>
+                                <p class="op-7">
+                                    @Localizer["ChangePlanInfo"]
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

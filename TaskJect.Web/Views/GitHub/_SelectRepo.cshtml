@@ -1,0 +1,17 @@
+﻿@using TaskJect.Web.Resources
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<SharedResources> Localizer
+@model GitHubRepoViewModel
+
+<input type="hidden" name="InstallationId" value="@Model.InstallationId" />
+<input type="hidden" name="ProjectId" value="@Model.ProjectId" />
+<select id="repoSelect" name="RepoFullName" class="form-control">
+    <option value="">-- @Localizer["WithoutRepository"] --</option>
+    @foreach (var repo in Model.Repositories)
+    {
+        <option value="@repo.FullName"
+                selected="@(repo.FullName == Model.CurrentRepoFullName)">
+            @repo.FullName
+        </option>
+    }
+</select>

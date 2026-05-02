@@ -1,0 +1,28 @@
+﻿@using TaskJect.Web.Resources
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<SharedResources> Localizer
+<div class="modal fade" id="support-modal-window" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title">@Localizer["ThankYou"]</h6>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+            </div>
+            <div class="modal-body px-4">
+                <div class="row">
+                    <div class="col-sm-6 col-6">
+                        <a class="btn btn-light btn-wave waves-effect waves-light p-0" rel="noopener noreferrer" target="_blank" href="https://www.paypal.com/donate/?hosted_button_id=EZZLZVGRUKS24">
+                            <img src="~/images/apps/paypal.png" class="object-fit-contain" alt="" style="width: 100%;">
+                        </a>
+                    </div>
+                    <div class="col-sm-6 col-6">
+                        <a class="btn btn-light btn-wave waves-effect waves-light p-0" rel="noopener noreferrer" target="_blank" href="https://send.monobank.ua/jar/A52LUasZx5">
+                            <img src="~/images/apps/monobank.png" class="object-fit-contain" alt="" style="width: 100%;">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

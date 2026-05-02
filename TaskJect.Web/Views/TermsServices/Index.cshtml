@@ -1,0 +1,104 @@
+﻿@using TaskJect.Web.Resources
+@using Microsoft.Extensions.Localization
+@using System.Globalization
+@inject IStringLocalizer<SharedResources> Localizer
+@{
+    ViewData["Title"] = "Terms of services";
+    Layout = "~/Views/Shared/_SecondLayout.cshtml";
+    var date = new DateTime(2025, 7, 30);
+    var culture = CultureInfo.CurrentCulture.Name;
+}
+@section HeadArea
+{
+    <link rel="stylesheet" href="~/css/NewStyles.css">
+}
+<section class="section section-bg pb-0 section-body" style="min-height: calc(100vh - 14rem);">
+    <!-- Start::row-1 -->
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-xl-8">
+                <div class="card custom-card">
+                    <div class="card-body p-0">
+                        <div class="p-3 d-flex align-items-center text-fixed-white bg-primary h5 fw-semibold mb-0 top-radius">
+                            <span class="avatar avatar-md me-3">
+                                <img src="~/images/brand-logos/toggle-white.png" alt="logo" class="toggle-logo">
+                            </span> @Localizer["TermsOfServices"]
+                        </div>
+                        <div class="p-4 text-muted">
+                            <h6 class="fw-bold text-default op-7">1. @Localizer["GeneralProvisions"]</h6>
+                            <div class="mb-4">
+                                <p class="op-7 mb-2"> @Localizer["TheseTermsOfService"] <strong>taskject.com</strong> @Localizer["ByAccessingOrUsingThePlatform"]</p>
+                                <p class="op-7 mb-2"> @Localizer["ThePlatformIsIntendedForUseByIndividuals"]</p>
+                                <p class="op-7 mb-2"> @Localizer["ThereAreNoAgeRestrictionsForUsingThePlatform"]</p>
+                                <p class="op-7 mb-2"> @Localizer["WeReserveTheRightToAmendTheseTerms"]</p>
+                            </div>
+                            <h6 class="fw-bold text-default op-7">2. @Localizer["UseTheServiceAndUserObligations"]</h6>
+                            <div class="mb-4">
+                                <p class="op-7 mb-2"><strong> @Localizer["AcceptableUse"] </strong> @Localizer["YouAgreeToUseThePlatformOnlyForLawfulPurposes"]</p>
+                            </div>
+                            <div class="mb-4">
+                                <p class="op-7 mb-2"><strong> @Localizer["AccountRegistration"] </strong> @Localizer["CertainFeaturesOfTheServiceMayRequire"]</p>
+                                <p class="op-7 mb-2">@Localizer["IfYouBecomeAwareOfOrSuspect"]</p>
+                            </div>
+                            <div class="mb-4">
+                                <p class="op-7 mb-2"><strong> @Localizer["UserInformationAndContent"] </strong> @Localizer["ThePlatformAllowsYouToStoreInformationAndContent"]</p>
+                                <p class="op-7 mb-2">@Localizer["WeReserveTheRightToRemoveOrRestrictAccess"]</p>
+                            </div>
+                            <h6 class="fw-bold text-default op-7">
+                                3. @Localizer["IntellectualProperty"]</h6>
+                            <div class="mb-4">
+                                <p class="op-7 mb-2"><strong> @Localizer["PlatformRights"] </strong> @Localizer["AllFunctionalitySoftwareDesignElementsLogosTrademarks"]</p>
+                                <p class="op-7 mb-2">@Localizer["YouMayNotCopyReproduceModifyDistributeOtherwise"]</p>
+                            </div>
+                            <h6 class="fw-bold text-default op-7">4. @Localizer["PrivacyAndPersonalData"]</h6>
+                            <div class="mb-4">
+                                <p class="op-7 mb-2">@Localizer["ByUsingTheServiceYouEntrustUsWithCertainPersonalData"]</p>
+                                <p class="op-7 mb-2">@Localizer["ByAgreeingToTheseTerms"]</p>
+                            </div>
+                            <h6 class="fw-bold text-default op-7">5. @Localizer["LiabilityAndDisclaimerOfWarranties"]</h6>
+                            <div class="mb-4">
+                                <p class="op-7 mb-2"><strong> @Localizer["DisclaimerOfWarranties"] </strong> @Localizer["ThePlatformIsProvidedOnAn"]</p>
+                            </div>
+                            <div class="mb-4">
+                                <p class="op-7 mb-2"><strong> @Localizer["LimitationOfLiability"] </strong> @Localizer["ToTheMaximumExtentPermittedByApplicableLaw"]</p>
+                                <p class="op-7 mb-2">@Localizer["InParticularWeAreNotLiableFor"]</p>
+                                <ol type="a" class ="op-7">
+                                    <li>@Localizer["AnyConsequencesOfDecisionsOrActions"]</li>
+                                    <li>@Localizer["ServiceInterruptionsOrUnavailability"]</li>
+                                    <li>@Localizer["UnauthorizedAccessToYourAccount"]</li>
+                                </ol>
+                            </div>
+                            <div class="mb-4">
+                                <p class="op-7 mb-2">@Localizer["YouAgreeThatTheTotalAggregateLiability"]</p>
+                            </div>
+                            <div class="mb-4">
+                                <p class="op-7 mb-2"><strong> @Localizer["UserLiabilityAndIndemnification"] </strong> @Localizer["YouAreSolelyResponsibleForYourActionsThePlatform"]</p>
+                                <p class="op-7 mb-2">@Localizer["YouAgreeToIndemnifyAndHoldHarmless"]</p>
+                            </div>
+                            <h6 class="fw-bold text-default op-7">6. @Localizer["SuspensionAndTermination"]</h6>
+                            <div class="mb-4">
+                                <p class="op-7 mb-2">@Localizer["WeReserveTheRightToSuspend"]</p>
+                                <p class="op-7 mb-2">@Localizer["YouMayTerminateYourUseOfTheService"]</p>
+                                <p class="op-7 mb-2">@Localizer["ProvisionsOfTheseTerms"]</p>
+                            </div>
+                            <h6 class="fw-bold text-default op-7">7. @Localizer["GoverningLawAndDisputeResolution"]</h6>
+                            <div class="mb-4">
+                                <p class="op-7 mb-2">@Localizer["TheseTermsAreGovernedByTheLawsOfUkraine"]</p>
+                                <p class="op-7 mb-2">@Localizer["AnyDisputesOrDisagreementsArisingBetween"]</p>
+                            </div>
+
+                            <h6 class="fw-bold text-default op-7">8. @Localizer["ContactInformation"]</h6>
+                            <div class="mb-0">
+                                <p class="op-7">
+                                    @Localizer["IfYouHaveAnyQuestionsOrSuggestions"] <strong>support@taskject.com.</strong> 
+                                    @Localizer["WeStriveToRespondPromptly"]:
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--End::row-1 -->
+</section>

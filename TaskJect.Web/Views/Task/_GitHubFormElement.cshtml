@@ -1,0 +1,89 @@
+﻿@using System.Security.Claims;
+@using TaskJect.Web.Services
+@using TaskJect.Web.Resources
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<SharedResources> Localizer
+@model GitHubViewModel
+<div class="col-xl-12">
+    <label class="form-label">GitHub</label>
+
+    <div class="form-group mb-2" style="display:flex; align-items:center;">
+        @if (Model.IsCreateMode)
+        {
+            @Html.CheckBoxFor(m => m.IsGitHubIntegration, new { @class = "form-check-input me-2 mt-0", id = "isGitHubCheck" })
+        }
+        else
+        {
+            <input type="checkbox"
+            class="form-check-input me-2 mt-0"
+            checked="@(Model.IsGitHubIntegration ? "checked" : null)"
+            disabled />
+            <input type="hidden" name="IsGitHubIntegration" value="@(Model.IsGitHubIntegration.ToString().ToLower())" />
+        }
+        <label for="isGitHubCheck">@Localizer["LinkedToGitHub"]</label>
+    </div>
+
+    <div id="github-options" style="display:@(Model.IsGitHubIntegration ? "block" : "none")">
+        <div class="form-group col-xl-12">
+            <label for="GitHubIssue" class="form-label">@Localizer["Issue"]</label>
+            @if (Model.IsCreateMode)
+            {
+                <div class="input-group mb-2">
+                    <div class="form-group" style="display:flex; align-items:center;">
+                        @Html.CheckBoxFor(m => m.CreateNewIssue, new { @class = "form-check-input me-2 mt-0", id = "createIssueCheck" })
+                        <label for="createIssueCheck">@Localizer["CreateNew"]</label>
+                    </div>
+                </div>
+
+                <div class="input-group mb-2">
+                    <label for="GitHubIssueNumber" class="form-label">@Localizer["LinkToExisting"]</label>
+                    <div class="input-group">
+                        <span class="input-group-text">#</span>
+                        <input type="number" class="form-control pe-1" id="GitHubIssueNumber"
+                        name="GitHubIssueNumber"
+                        placeholder="@Localizer["EnterIssuesNumber"]"
+                        value="@(Model.Issue?.ToString() ?? "")" />
+                    </div>
+                </div>
+            }
+            else
+            {
+                @if (Model.Issue.HasValue)
+                {
+                    <input type="hidden" name="GitHubIssueNumber" value="@Model.Issue" />
+                    <span class="d-block fs-14 fw-semibold badge bg-light text-default long-text-badge mb-2">#@Model.Issue</span>
+                }
+                else
+                {
+                    <div class="input-group mb-2">
+                        <label for="GitHubIssueNumber" class="form-label">@Localizer["LinkToExisting"]</label>
+                        <div class="input-group">
+                            <span class="input-group-text">#</span>
+                            <input type="number" class="form-control pe-1" id="GitHubIssueNumber"
+                            placeholder="@Localizer["EnterIssuesNumber"]"
+                            value="@(Model.Issue?.ToString() ?? "")" />
+                        </div>
+                    </div>
+                }
+            }
+            <div id="github-branch-container">
+                @if (!string.IsNullOrWhiteSpace(Model.Branch))
+                {
+                    <label class="form-label">@Localizer["Branch"]</label>
+                    <input type="hidden" name="GitHubBranch" value="@Model.Branch" />
+                    <span class="d-block fs-14 fw-semibold badge bg-light text-default long-text-badge">
+                        @Model.Branch
+                    </span>
+                }
+                else
+                {
+                    <div id="branch-input-wrapper"
+                         style="display:@(Model.TaskStatus == TaskJect.Web.Enums.TaskStatusView.InProgress ? "block" : "none")">
+                        <label for="GitHubBranch" class="form-label">@Localizer["Branch"]</label>
+                        <input type="text" class="form-control" id="GitHubBranch" name="GitHubBranch" readonly />
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

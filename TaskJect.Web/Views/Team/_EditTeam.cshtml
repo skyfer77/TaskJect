@@ -1,0 +1,57 @@
+﻿@using TaskJect.Web.Resources
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<SharedResources> Localizer
+@model ManageTeamModel
+
+<div class="modal fade" id="edit-team" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            @using (Html.BeginForm("ManageTeam", "Team", FormMethod.Post, new { id = "EditTeam", @class = "was-validated" }))
+            {
+                <div class="modal-header">
+                    <h6 class="modal-title" id="create-teamLabel">@Localizer["EditTeam"]</h6>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body px-4">
+                    <div class="row gy-3">
+                        <div class="col-xl-12">
+                            <input type="hidden" id="ProjectID" name="IdTeam" value="@Model.IdTeam" />
+                        </div>
+
+                        <div class="col-xl-12" style="margin : 0;">
+                            <label for="team-name" class="form-label">@Localizer["TeamName"]</label>
+                            <input type="text" class="form-control" id="EditTeamName" name="newTeamName" value="@Model.Name" placeholder="@Localizer["EnterName"]" required />
+                        </div>
+                        <div class="col-xl-12">
+                            <label for="select-members" class="form-label">@Localizer["SelectMembers"]</label>
+                            <select class="form-control" name="Ids" id="choices-multiple-remove-button" multiple>
+                                <option value="">@Localizer["SelectMembers"]</option>
+                                @foreach (var user in Model.User)
+                                {
+                                    var member = Model.Membership.Where(x => x.UserId == user.Id);
+                                    if (member.Count() != 0)
+                                    {
+                                        <option value="@user.Id" selected>@user.Name @user.Surname</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@user.Id">@user.Name @user.Surname</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">@Localizer["Cancel"]</button>
+                    <button type="button" class="btn btn-primary" onclick="ManageTeam()">@Localizer["Save"]</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+<style>
+    .choices__list--multiple:not(:empty) + .choices__input::placeholder {
+        opacity: 0;
+    }
+</style>

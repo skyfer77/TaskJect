@@ -1,0 +1,339 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="allFeaturesIncluded" xml:space="preserve">
+    <value>усі функції включені</value>
+  </data>
+  <data name="AllToolAdvancedTeamwork" xml:space="preserve">
+    <value>Універсальний інструмент для ефективної командної роботи</value>
+  </data>
+  <data name="AnalyzeMetricsMake" xml:space="preserve">
+    <value>Аналізуйте всі показники, щоб приймати зважені рішення</value>
+  </data>
+  <data name="AssignTrack" xml:space="preserve">
+    <value>Призначайте, відстежуйте, перевіряйте та оновлюйте задачі зручно.</value>
+  </data>
+  <data name="AtTheMoment" xml:space="preserve">
+    <value>На даний момент ми не маємо інтеграції з іншими сервісами (наприклад, Jira, Trello, Notion).</value>
+  </data>
+  <data name="AtTheMomentSuchCases" xml:space="preserve">
+    <value>Наразі такі випадки розглядаються індивідуально.</value>
+  </data>
+  <data name="BlockingUserOnlyRestricts" xml:space="preserve">
+    <value>Блокування користувача лише обмежує доступ учасника до сервісу, а його видалення призведе до втрати інформації про виконавця та завдання.</value>
+  </data>
+  <data name="BuildByDevelopersForDevelopers" xml:space="preserve">
+    <value>створено розробниками для розробників</value>
+  </data>
+  <data name="CanIntegrateTasksFrom" xml:space="preserve">
+    <value>Чи можу я інтегрувати свої завдання з інших служб обліку завдань у ваші</value>
+  </data>
+  <data name="CanOneUserWith" xml:space="preserve">
+    <value>Чи може один користувач з одним обліковим записом бути членом кількох організацій</value>
+  </data>
+  <data name="CollaborateSeamlessly" xml:space="preserve">
+    <value>Співпрацюйте з командою, призначайте ролі й контролюйте прогрес.</value>
+  </data>
+  <data name="ContactFindMostSuitablePackage" xml:space="preserve">
+    <value>, щоб знайти найбільш підходящий пакет для вашої команди</value>
+  </data>
+  <data name="CustomizeProfile" xml:space="preserve">
+    <value>Керуйте своїм акаунтом, персональними задачами та статистикою.</value>
+  </data>
+  <data name="DesignedPrecision" xml:space="preserve">
+    <value>Створено для зручності</value>
+  </data>
+  <data name="DoesEveryMember" xml:space="preserve">
+    <value>Чи кожен член моєї команди повинен подавати таку заявку</value>
+  </data>
+  <data name="FeaturesUsedTaskJect" xml:space="preserve">
+    <value>Функції, що використовуються в TaskJect</value>
+  </data>
+  <data name="FeedbackBodyForRequest" xml:space="preserve">
+    <value>&lt;p&gt;Дякуємо що зацікавились нашим сервісом. Найближчим часом ми опрацюємо ваш запит і надамо зворотній зв'язок.&lt;/p&gt;&lt;p&gt;З повагою ,&lt;/p&gt;&lt;p&gt;Команда TaskJect&lt;/p&gt;</value>
+  </data>
+  <data name="FeedbackSubjectForRequest" xml:space="preserve">
+    <value>Ми отримали ваш запит</value>
+  </data>
+  <data name="forFreeSimplify" xml:space="preserve">
+    <value>безкоштовно та спростіть свій робочий процес!</value>
+  </data>
+  <data name="FrequentlyAskedQuestions" xml:space="preserve">
+    <value>Часті запитання</value>
+  </data>
+  <data name="FromSmallTeamsToGrowingBusinesses" xml:space="preserve">
+    <value>Від невеликих команд що розвиваються, до компаній, ось що клієнти кажуть про роботу з TaskJect.</value>
+  </data>
+  <data name="GainInsightsDetailed" xml:space="preserve">
+    <value>Аналізуйте продуктивність і приймайте обґрунтовані рішення на основі даних.</value>
+  </data>
+  <data name="HowCreatePersonalAccount" xml:space="preserve">
+    <value>Як створити особистий обліковий запис</value>
+  </data>
+  <data name="HowDoAddNewUser" xml:space="preserve">
+    <value>Як додати нового користувача</value>
+  </data>
+  <data name="HowRolesOrganizationTeam" xml:space="preserve">
+    <value>Як розподіляються ролі в організації та команді</value>
+  </data>
+  <data name="IfIDontUseYourService" xml:space="preserve">
+    <value>Що станеться з моїм обліковим записом, якщо я деякий час не користуюсь TaskJect</value>
+  </data>
+  <data name="IfTheDiskSpaceLimitExceeded" xml:space="preserve">
+    <value>Якщо ліміт простору перевищено, створення та редагування проєктів і завдань стане недоступним, доки ви не повернетеся до ліміту.</value>
+  </data>
+  <data name="IfThePlanRenewedWithin" xml:space="preserve">
+    <value>*Якщо план не буде оновлено протягом 3 місяців, усі заблоковані користувачі будуть видалені, а також деякі старі завдання.</value>
+  </data>
+  <data name="IfYouExceedUserLimit" xml:space="preserve">
+    <value>Якщо ви перевищите ліміт користувачів, нові зареєстровані користувачі будуть заблоковані.</value>
+  </data>
+  <data name="IfYouHaventExceeded" xml:space="preserve">
+    <value>Якщо ви не перевищили обмеження на кількість користувачів і простір для свого базового плану, змін не буде.</value>
+  </data>
+  <data name="IfYouLeaveYourProfileInactive" xml:space="preserve">
+    <value>Якщо ви залишите свій профіль неактивним, ми зв’яжемося з вами, щоб уточнити ваші наміри щодо використання програми. Ми будемо зберігати ваші дані протягом року, щоб ви не втратили важливу інформацію.</value>
+  </data>
+  <data name="integrationWithTelegram" xml:space="preserve">
+    <value>інтеграція з Telegram</value>
+  </data>
+  <data name="InTheSection" xml:space="preserve">
+    <value>У розділі «Моя організація» -&gt; «Запит на оновлення»</value>
+  </data>
+  <data name="IsPossibleChangeTariff" xml:space="preserve">
+    <value>Чи можна змінити тарифний план</value>
+  </data>
+  <data name="IsPossibleEnterVia" xml:space="preserve">
+    <value>Чи можна зайти через Google/Microsoft</value>
+  </data>
+  <data name="IsPossibleTrack" xml:space="preserve">
+    <value>Чи можна відстежувати час, витрачений на завдання</value>
+  </data>
+  <data name="OnlyTheTeamLeader" xml:space="preserve">
+    <value>Заявку подає лише керівник групи. Після схвалення нашими модераторами керівник команди зможе запросити членів приєднатися до команди у своєму профілі на закладці організації</value>
+  </data>
+  <data name="OptimizeProcessesEnsure" xml:space="preserve">
+    <value>Оптимізуйте свої процеси для комфортнішої роботи</value>
+  </data>
+  <data name="OrganizeProjectsWorkflows" xml:space="preserve">
+    <value>Ефективно організовуйте всі етапи роботи.</value>
+  </data>
+  <data name="OurMissionConsistsSteps" xml:space="preserve">
+    <value>Наша місія складається з 4 основних задач</value>
+  </data>
+  <data name="OurMissionMakeWebDesign" xml:space="preserve">
+    <value>Наша місія — зробити веб-дизайн простим, щоб ви могли зосередитися на створенні свого бренду</value>
+  </data>
+  <data name="OurPlansAffordableMainlyPlaced" xml:space="preserve">
+    <value>Наші плани є найдоступнішими та в основному розміщуються, зосереджуючись на кожній категорії в секторі, навіть базовий план допомагає краще</value>
+  </data>
+  <data name="PriceForEntireOrganization" xml:space="preserve">
+    <value>Ціна для всієї організації</value>
+  </data>
+  <data name="ProvenTrackRecordWorldwideTrust" xml:space="preserve">
+    <value>Підтверджений досвід. Міжнародна довіра.</value>
+  </data>
+  <data name="SetGoalsDeadlines" xml:space="preserve">
+    <value>Ставте цілі та відстежуйте прогрес</value>
+  </data>
+  <data name="SimpleTaskTrackingNotManaging" xml:space="preserve">
+    <value>Просте управління, що дозволяє сфокусуватись на роботі, а не мікроменеджменті.</value>
+  </data>
+  <data name="SomeReviewsClientsWhich" xml:space="preserve">
+    <value>Деякі відгуки наших клієнтів надихають на роботу над майбутніми проектами</value>
+  </data>
+  <data name="SoundsLikeGoodFit" xml:space="preserve">
+    <value>Підходить вашій організації? Напишіть</value>
+  </data>
+  <data name="submitApplication" xml:space="preserve">
+    <value>подати заявку</value>
+  </data>
+  <data name="TaskJectComesAffordablePricing" xml:space="preserve">
+    <value>TaskJect має найдоступніший ціновий діапазон</value>
+  </data>
+  <data name="taskjectMultipleCustomization" xml:space="preserve">
+    <value>Taskject пропонує кастомізацію, для зручності кожного</value>
+  </data>
+  <data name="FeedbackUpperCase" xml:space="preserve">
+    <value>ЗВОРОТНІЙ ВІДГУК</value>
+  </data>
+  <data name="TheHeadOfTheOrganizationInvites" xml:space="preserve">
+    <value>Керівник організації запрошує нового учасника у вільні слоти на вкладці «Команди», і запрошений користувач отримує відповідний електронний лист</value>
+  </data>
+  <data name="ThereMainRolesOrganization" xml:space="preserve">
+    <value>В організації є 2 основні ролі: керівник організації та член організації. На відміну від члена, керівник організації може запрошувати та видаляти користувачів, а також керувати планом.</value>
+  </data>
+  <data name="ThereMainRolesTeam" xml:space="preserve">
+    <value>У команді 2 головні ролі. Керівник проекту (призначений для проекту) та інші учасники. Керівник проекту може редагувати завдання та керувати завданнями інших, а також надавати подібні права іншим учасникам.</value>
+  </data>
+  <data name="TheSystemOperatesClosedFormat" xml:space="preserve">
+    <value>Система працює в закритому форматі, і щоб отримати запрошення скористатися сервісом, вам потрібно</value>
+  </data>
+  <data name="TheTaskPerformerIndicate" xml:space="preserve">
+    <value>Виконавець завдання може вказати витрачений час у 2 форматах: або додати час, проведений на дошці Канбан, або вказати загальну кількість годин при детальному перегляді завдання.</value>
+  </data>
+  <data name="TheTeamLeaderChanges" xml:space="preserve">
+    <value>Змінюється керівник групи/змінюється керівник проекту. Як і де налаштувати ці зміни в обліковому записі</value>
+  </data>
+  <data name="ThisOptionCurrentlyNotAvailable" xml:space="preserve">
+    <value>Ця опція наразі недоступна.</value>
+  </data>
+  <data name="ToChangeProjectManager" xml:space="preserve">
+    <value>Щоб змінити менеджера проекту, натисніть кнопку «Редагувати» на вкладці «Проект», після чого ви зможете змінити менеджера проекту. Однак на даний момент автоматично змінити керівника організації неможливо.</value>
+  </data>
+  <data name="WeHaveSharedSomeMostFrequently" xml:space="preserve">
+    <value>Ми поділилися деякими з найпоширеніших запитань, щоб допомогти вам</value>
+  </data>
+  <data name="WeWantMakeServiceConvenient" xml:space="preserve">
+    <value>Ми хочемо зробити сервіс максимально зручним для вас, щоб ви мали можливість впливати на наш розвиток. Це запити щодо впровадження або покращення функцій нашого сервісу. Вони абсолютно безкоштовні. Ви можете запропонувати нову функціональність або вдосконалити поточну, і ми опрацюємо ваш запит і надамо вам відгук.</value>
+  </data>
+  <data name="WhatAreTheRequestsTariffPlan" xml:space="preserve">
+    <value>Які є запити в тарифному плані</value>
+  </data>
+  <data name="WhatDifferenceBetweenDeleting" xml:space="preserve">
+    <value>Чим відрізняється видалення користувача від блокування доступу</value>
+  </data>
+  <data name="WhatHappensCancelSubscription" xml:space="preserve">
+    <value>Що станеться, якщо я скасую підписку на платний план</value>
+  </data>
+  <data name="WhatShouldlostAccess" xml:space="preserve">
+    <value>Що робити, якщо я втратив доступ до пошти, до якої прив'язаний мій обліковий запис</value>
+  </data>
+  <data name="WhereCanTrackStatusRequests" xml:space="preserve">
+    <value>Де я можу відстежити статус своїх запитів</value>
+  </data>
+  <data name="YesYouCanSwitchPlan" xml:space="preserve">
+    <value>Так, ви можете будь-коли перейти на інший план у налаштуваннях вашої організації.</value>
+  </data>
+  <data name="YouCanContactAnytime" xml:space="preserve">
+    <value>Ви можете будь-коли зв’язатися з нами щодо будь-яких запитів чи угод. Не соромтеся розвіяти свої сумніви, перш ніж спробувати наш продукт.</value>
+  </data>
+  <data name="YouCanUseGoogleOrMicrosoftEmail" xml:space="preserve">
+    <value>Ви можете використовувати електронну пошту Google/Microsoft або іншого постачальника для реєстрації, але ви не можете ввійти через свій обліковий запис/профіль</value>
+  </data>
+  <data name="YouHaveOpportunitySendRequests" xml:space="preserve">
+    <value>Ви маєте можливість надсилати запити/пропозиції щодо функціональності програми, яку б ви хотіли мати.</value>
+  </data>
+  <data name="CheckOutTaskJectsFeaturesShortDemo" xml:space="preserve">
+    <value>Ознайомтеся з можливостями TaskJect у нашій короткій демонстрації</value>
+  </data>
+  <data name="TeamWorkEasyText" xml:space="preserve">
+    <value>Наша місія зробити роботу в команді простою. Фокусуйтесь на задачах, а не їх менеджменті.</value>
+  </data>
+</root>

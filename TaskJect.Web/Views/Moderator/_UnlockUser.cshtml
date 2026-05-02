@@ -1,0 +1,24 @@
+﻿@using TaskJect.Web.Resources
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<SharedResources> Localizer
+<div class="modal fade" id="unlockout-user-row" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content custom-alert1 alert-success">
+            <button type="button" class="btn-close  ms-auto" data-bs-dismiss="modal" aria-label="Close"></button>
+            @using (Html.BeginForm("UnlockUser", "Moderator", FormMethod.Post, new { id = "UnlockUserRow" }))
+            {
+                <div class="text-center px-5 pb-0">
+                    <svg class="custom-alert-icon svg-success" xmlns="http://www.w3.org/2000/svg" height="1.5rem" viewBox="0 0 24 24" width="1.5rem" fill="#000000"><path d="M0 0h24v24H0z" fill="none"></path><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"></path></svg>
+                    <h6 id="unlockUserText"></h6>
+                    <input type="hidden" id="IdUserUnlock" name="userId" value="" />
+                    <div>
+                        <button type="button" class="btn btn-light m-1" data-bs-dismiss="modal">
+                            @Localizer["Cancel"]Cancel
+                        </button>
+                        <button type="button" class="btn btn-success m-1" onclick="UnlockUser()">@Localizer["Unlock"]</button>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

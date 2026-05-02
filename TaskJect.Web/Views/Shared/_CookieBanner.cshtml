@@ -1,0 +1,77 @@
+﻿@using TaskJect.Web.Resources
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<SharedResources> Localizer
+<div id="cookieBanner" class="coockie-bar bg-light" style="display: none;">
+    <div class="coockie-notice">
+        <p class="h5"><strong>@Localizer["WeValueYourPrivacy"]</strong></p>
+        <div class="row">
+            <div class="col-sm-8 d-flex align-items-center justify-content-between">
+                <p class="text-cookies-desc">
+                    @Localizer["WeUseCookiesEnhanceBrowsingExperience"]
+                    <button class="button-link" onclick="showModal()">@Localizer["CookiePolicy"]</button>
+                </p>
+            </div>
+            <div class="col-sm-4 d-flex align-items-center justify-content-end gap-2">
+                <button id="btnCustomize" onclick="showModal()" class="btn btn-secondary-ghost btn-lg">@Localizer["Customise"]</button>
+                <button id="btnReject" onclick="rejectCookies()" class="btn btn-secondary btn-lg">@Localizer["RejectAll"]</button>
+                <button id="btnAccept" onclick="acceptCookies()" class="btn btn-secondary btn-lg">@Localizer["AcceptAll"]</button>
+            </div>
+        </div>
+    </div>
+</div>
+<partial name="_CookieBannerModalWindow" />
+<style>
+    .coockie-bar {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        z-index: 9999;
+        display: block;
+        transition: all 0.3s ease;
+        padding: 1rem 1.6rem;
+    }
+
+    .coockie-hidden {
+        display: none !important;
+    }
+
+    body.banner-visible {
+        padding-bottom: 120px;
+    }
+
+    .button-link{
+        background: none;
+        border: none;
+        padding: 0;
+        margin: 0;
+        color: rgba(var(--bs-link-color-rgb), var(--bs-link-opacity, 1));
+        text-decoration: underline;
+        cursor: pointer;
+        font: inherit;
+    }
+
+    .button-link:hover,
+    .button-link:focus {
+        color: var(--bs-link-hover-color);
+        text-decoration: underline;
+        outline: none;
+    }
+
+
+    .button-link:active {
+        color: var(--bs-link-hover-color);
+        text-decoration: none;
+    }
+
+    .button-link:visited {
+        color: var(--bs-link-color);
+    }
+
+    .text-cookies-desc {
+        font-size: 0.9rem;
+    }
+</style>
+
+@* <script src="~/js/custom_js/utils/cookiesAccepted.js" charset="utf-8"></script> *@
+

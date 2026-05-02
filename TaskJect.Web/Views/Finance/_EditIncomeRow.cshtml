@@ -1,0 +1,153 @@
+﻿@model TaskJect.Web.Models.Finance.IncomeEditModel
+
+<div class="modal fade" id="edit-income-row" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            @using (Html.BeginForm("EditIncome", "Finance", FormMethod.Post, new { id = "EditIncomeRow" }))
+            {
+                <div class="modal-header">
+                    <h6 class="modal-title">Edit Income</h6>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <input type="hidden" id="IncomingDateEdit" name="IncomingDate" value="@Model.Income.IncomingDate" />
+                <input type="hidden" id="IncomingIdEdit" name="Id" value="@Model.Income.Id" />
+                <div class="modal-body px-4">
+                    <div class="row gy-2">
+                        <div class="col-xl-12">
+                            <label class="form-label">Project</label>
+                            <select class="form-control" name="ProjectId" id="choices-multiple-income-button1">
+                                @{
+                                    if (Model.Income.ProjectId == null)
+                                    {
+                                        if (Model.Projects != null)
+                                        {
+                                            <option value="">Select member</option>
+                                            foreach (var project in Model.Projects)
+                                            {
+                                                <option value="@project.Id"> @project.Name </option>
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        var projectSelect = Model.Projects.FirstOrDefault(x => x.Id == Model.Income.ProjectId);
+                                        <option value="">Select project</option>
+                                        @foreach (var project in Model.Projects)
+                                        {
+                                            <option value="@project.Id" selected="@(projectSelect != null ? projectSelect.Id.Equals(project.Id) : false)"> @project.Name </option>
+                                        }
+                                    }
+
+                                }
+                            </select>
+                        </div>
+
+                        <div class="col-xl-6">
+                            <label class="form-label">Income Source</label>
+                            @{
+                                var values = Enum.GetValues(typeof(TaskJect.Web.Enums.IncomeSourceType));
+                            }
+                            <select class="form-control" name="IncomeSourceType" id="choices-multiple-income-button2">
+                                @foreach (var item in values)
+                                {
+                                    <option value="@item" selected="@item.Equals(Model.Income.IncomeSourceType)">@item</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="col-xl-6">
+                            <label class="form-label">Priority</label>
+                            @{
+                                var values1 = Enum.GetValues(typeof(TaskJect.Web.Enums.PeriodType));
+                            }
+                            <select class="form-control" name="PeriodType" id="choices-multiple-income-button3">
+                                @foreach (var item in values1)
+                                {
+                                    <option value="@item" selected="@item.Equals(Model.Income.PeriodType)">@item</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="col-xl-6">
+                            <label for="Amount" class="form-label">Amount</label>
+                            <input type="text" name="sum" class="form-control" id="AmountEdit" value="@Model.Income.Amount.ToString().Replace(",",".")" placeholder="Amount" />
+                            <div class="invalid-feedback" id="error-amount-edit">
+                                Please enter a amount double or integer.
+                            </div>
+                        </div>
+                        
+                        <div class="col-xl-6">
+                            <label class="form-label">End Date</label>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-text text-muted"> <i class="ri-calendar-line"></i> </div>
+                                    <input type="text" name="EndDate" class="form-control" value="@String.Format($"{Model.Income.EndDate:yyyy-MM-dd HH:mm}")" id="targetDate3" placeholder="Choose date and time">
+                                </div>
+                                <div class="invalid-feedback" id="error-endDate-edit">
+                                    Please enter a end date.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-12">
+                            <label class="form-label">Short Note</label>
+                            <textarea class="form-control" name="Note" placeholder="Short Note here" id="floatingTextareaEdit">@Model.Income.Note</textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light"
+                        data-bs-dismiss="modal">
+                        Cancel
+                    </button>
+                    <button type="button" class="btn btn-primary" onclick="editIncomeRow()">Edit Income</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<script>
+
+    $(document).ready(function () {
+        /* multi select with remove button */
+        var multipleIncomeButton = new Choices(
+            '#choices-multiple-income-button1',
+            {
+                allowHTML: true,
+                removeItemButton: true,
+            }
+        );
+        var multipleIncomeButton1 = new Choices(
+            '#choices-multiple-income-button2',
+            {
+                allowHTML: true,
+            }
+        );
+        var multipleIncomeButton2 = new Choices(
+            '#choices-multiple-income-button3',
+            {
+                allowHTML: true,
+            }
+        );
+        //Date picker
+        flatpickr("#targetDate3", {
+            enableTime: true,
+            dateFormat: "Y-m-d H:i",
+            time_24hr: true,
+        });
+
+        var dateEditIncome = '@String.Format($"{DateTime.Now:yyyy-MM-dd HH:mm}")';
+        var periodTEditIncome = document.getElementById('choices-multiple-income-button3');
+
+        periodTEditIncome.addEventListener("change", e => {
+            if (periodTEditIncome.value === 'Once') {
+                $("#targetDate3").val(dateEditIncome)
+            }
+            else {
+                $("#targetDate3").val('')
+            }
+        })
+    });
+        /* TargetDate Picker */
+
+</script>
+

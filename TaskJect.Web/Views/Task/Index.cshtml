@@ -1,0 +1,358 @@
+﻿@using System.Globalization
+@using TaskJect.Web.Enums
+@using TaskJect.Web.Resources
+@using Domain.Database
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<SharedResources> Localizer
+@model TaskPageModel
+@{
+    ViewBag.Title = "Task";
+
+    var onHold = (int)TaskStatusView.OnHold;
+    var notStarted = (int)TaskStatusView.NotStarted;
+    var inProgress = (int)TaskStatusView.InProgress;
+    var onReview = (int)TaskStatusView.OnReview;
+    var done = (int)TaskStatusView.Done;
+    var archived = (int)TaskStatusView.Archived;
+
+    var projectId = Model.ProjectId;
+
+    var grantAccessRole = this.User.IsInRole("Moderator") || this.User.IsInRole("Admin")
+    || this.User.IsInRole("God") || this.User.IsInRole("TeamLead") || ViewBag.IsProjectManager;
+
+    var grantRoleForArchive = this.User.IsInRole("TeamLead") || this.User.IsInRole("God") || ViewBag.IsProjectManager;
+}
+@section HeadArea {
+    <link href="~/css/NewStyles.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="~/lib/dragula/dragula.min.css">
+
+    <link rel="stylesheet" href="~/lib/quill/quill.snow.css">
+
+    <link rel="stylesheet" href="~/lib/filepond/filepond.min.css">
+    <link rel="stylesheet" href="~/lib/filepond-plugin-image-preview/filepond-plugin-image-preview.min.css">
+    <link rel="stylesheet" href="~/lib/filepond-plugin-image-edit/filepond-plugin-image-edit.min.css">
+    <link rel="stylesheet" href="~/lib/filepond-plugin-get-file/filepond-plugin-get-file.min.css">
+
+}
+<!-- Page Header -->
+    <div class="d-md-flex d-block align-items-center justify-content-between my-4 page-header-breadcrumb">
+    <h1 class="page-title fw-semibold fs-18 mb-0">@Model.ProjectName</h1>
+    <div class="ms-md-1 ms-0">
+        <nav>
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item"><a asp-controller="Project" asp-action="Overview" asp-route-id="@Model.ProjectId">@Localizer["Project"]</a></li>
+                <li class="breadcrumb-item active" aria-current="page">@Localizer["KanbanBoard"]</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+<!-- Page Header Close -->
+<!-- Start:: row-1 -->
+<div class="row">
+    <div class="col-xl-12">
+        <div class="card custom-card">
+            <div class="card-body p-3">
+                <div class="row align-items-center justify-content-between g-2">
+                    <div class="col-xl-3 pe-0">
+                        <div id="projectData" data-project-id="@Model.ProjectId"></div>
+                        <div class="col-xl-8 my-xxl-0">
+                            <select class="form-control kanban-sortby" data-trigger name="choices-single-default" id="choices-single-default" data-type="select-one">
+                                <option value="">@Localizer["SortBy"]</option>
+                                <option value="Newest">@Localizer["Newest"]</option>
+                                <option value="Date Added">@Localizer["DateAdded"]</option>
+                                <option value="A - Z">@Localizer["AtoZ"]</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-12 col-xl-9 mt-xl-0">
+                        <div class="row g-2 justify-content-end align-items-center">
+                            <div class="col-12 col-md-3 col-xl-3 d-flex justify-content-end">
+                                <div class="form-check mt-2">
+                                    @Html.CheckBox("overdueTasks", new { @class = "form-check-input", id = "overdueTasks" })
+                                    <label class="form-label text-nowrap" for="overdueTasks">@Localizer["OverdueTasks"]</label>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-5 col-xl-5">
+                                <div class="input-group">
+                                    <label class="input-group-text" for="periodFilter">@Localizer["ShowArchivedTasks"]</label>
+                                    <select id="periodFilter" data-project-id="@projectId" class="form-control"
+                                            name="TaskPeriod" asp-items="Html.GetEnumSelectList<TaskPeriodView>()">
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-4 col-xl-3">
+                                <input class="form-control" id="Search" type="search"
+                                       placeholder="@Localizer["Search"]" aria-label="Search" data-search>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    <!-- End:: row-1 -->
+
+    <!-- Start::row-2 -->
+<div id="someParentElement">
+    <div class="ynex-kanban-board" id="kanbanBoard">
+        <div class="kanban-tasks-type onHold" style="min-width: 16rem;">
+            <div class="pe-3 mb-3">
+                <div class="d-flex justify-content-between align-items-center">
+                    <span class="d-block fw-semibold fs-15" id="@onHold">@Localizer["OnHold"] - 
+                        <span data-count-badge="@onHold">@Model.Tasks.Where(x => x.Status == (TaskStatusView)5).Count()</span>
+                    </span>
+                    @if(ViewBag.Permission.CanCreateTask || grantAccessRole)
+                    {
+                        <div>
+                            <a aria-label="anchor" class="btn btn-sm bg-white text-default border-0 btn-wave" onclick="Create('@projectId', '@onHold')">
+                                <i class="ri-add-line align-middle me-1 fw-semibold"></i>@Localizer["AddTaskShort"]
+                            </a>
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="kanban-tasks" id="onHold-tasks">
+                <div id="onHold-tasks-draggable" data-view-btn="onHold-tasks" data-status-task="@onHold">
+                    @foreach(var task in Model.Tasks)
+                    {
+                        if (task.Status == (TaskStatusView)5)
+                        {
+                            <partial name="_TaskCard" model="task" />
+                        }
+                    }
+                </div>
+            </div>
+            <div class="d-grid"></div>
+        </div>
+        <div class="kanban-tasks-type notStarted" style="min-width: 16rem;">
+            <div class="pe-3 mb-3">
+                <div class="d-flex justify-content-between align-items-center">
+                    <span class="d-block fw-semibold fs-15" id="@notStarted">@Localizer["NotStarted"] - 
+                        <span data-count-badge="@notStarted">@Model.Tasks.Where(x => x.Status == (TaskStatusView)0).Count()</span>
+                    </span>
+                    @if (ViewBag.Permission.CanCreateTask || grantAccessRole)
+                    {
+                        <div>
+                            <a aria-label="anchor" href="javascript:void(0)" class="btn btn-sm bg-white text-default border-0 btn-wave" onclick="Create('@projectId', '@notStarted')">
+                                <i class="ri-add-line align-middle me-1 fw-semibold"></i>@Localizer["AddTaskShort"]
+                            </a>
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="kanban-tasks" id="notStarted-tasks">
+                <div id="notStarted-tasks-draggable" data-view-btn="notStarted-tasks" data-status-task="@notStarted">
+                    @foreach(var task in Model.Tasks){
+                        if (task.Status == (TaskStatusView)0)
+                        {
+                            <partial name="_TaskCard" model="task" />
+                        }
+                    }
+                </div>
+            </div>
+            <div class="d-grid"></div>
+        </div>
+        <div class="kanban-tasks-type inProgress" style="min-width: 16rem;">
+            <div class="pe-3 mb-3">
+                <div class="d-flex justify-content-between align-items-center">
+                    <span class="d-block fw-semibold fs-15" id="@inProgress">@Localizer["InProgress"] - 
+                        <span data-count-badge="@inProgress">@Model.Tasks.Where(x => x.Status == (TaskStatusView)1).Count()</span>
+                    </span>
+                    @if(ViewBag.Permission.CanCreateTask || grantAccessRole)
+                    {    
+                        <div>
+                            <a aria-label="anchor" href="javascript:void(0)" class="btn btn-sm bg-white text-default border-0 btn-wave" onclick="Create('@projectId', '@inProgress')">
+                                <i class="ri-add-line align-middle me-1 fw-semibold"></i>@Localizer["AddTaskShort"]
+                            </a>
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="kanban-tasks" id="inProgress-tasks">
+                <div id="inProgress-tasks-draggable" data-view-btn="inProgress-tasks" data-status-task="@inProgress">
+                @foreach(var task in Model.Tasks){
+                    if (task.Status == (TaskStatusView)1)
+                    {
+                        <partial name="_TaskCard" model="task" />
+                    }
+                }
+                </div>
+            </div>
+            <div class="d-grid"></div>
+        </div>
+        <div class="kanban-tasks-type inReview" style="min-width: 16rem;">
+            <div class="pe-3 mb-3">
+                <div class="d-flex justify-content-between align-items-center">
+                    <span class="d-block fw-semibold fs-15" id="@onReview">@Localizer["OnReview"] - 
+                        <span data-count-badge="@onReview">@Model.Tasks.Where(x => x.Status == (TaskStatusView)2).Count()</span>
+                    </span>
+                    @if (ViewBag.Permission.CanCreateTask || grantAccessRole)
+                    {
+                        <div>
+                            <a aria-label="anchor" href="javascript:void(0)" class="btn btn-sm bg-white text-default border-0 btn-wave" onclick="Create('@projectId', '@onReview')">
+                                <i class="ri-add-line align-middle me-1 fw-semibold"></i>@Localizer["AddTaskShort"]
+                            </a>
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="kanban-tasks" id="inReview-tasks">
+                <div id="inReview-tasks-draggable" data-view-btn="inReview-tasks" data-status-task="@onReview">
+                    @foreach(var task in Model.Tasks){
+                        if (task.Status == (TaskStatusView)2)
+                        {
+                            <partial name="_TaskCard" model="task" />
+                        }
+                    }
+                </div>
+            </div>
+            <div class="d-grid"></div>
+        </div>
+        <div class="kanban-tasks-type done" style="min-width: 16rem;">
+            <div class="pe-3 mb-3">
+                <div class="d-flex justify-content-between align-items-center" style="min-height: 26.83px;">
+                    <span class="d-block fw-semibold fs-15" id="@done">@Localizer["Completed"] - 
+                        <span data-count-badge="@done">@Model.Tasks.Where(x => x.Status == (TaskStatusView)3).Count()</span>
+                    </span>
+                    @if (grantRoleForArchive)
+                    {
+                        var hasCompletedTasks = Model.Tasks.Any(x => x.Status == (TaskStatusView)3);
+                        <div>
+                            <button id="archiveCompletedBtn" class="btn btn-sm btn-success border-0 @(hasCompletedTasks ? "" : "d-none")">
+                                <i class="ri-archive-fill align-middle me-1 fw-semibold"></i>@Localizer["ToArchive"]
+                            </button>
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="kanban-tasks" id="done-tasks">
+                <div id="done-tasks-draggable" data-view-btn="done-tasks" data-status-task="@done">
+                @foreach(var task in Model.Tasks){
+                    if (task.Status == (TaskStatusView)3)
+                    {
+                        <partial name="_TaskCard" model="task" />
+                    }
+                }
+                </div>
+            </div>
+            <div class="d-grid"></div>
+        </div>
+        <div class="kanban-tasks-type archived" style="min-width: 16rem;">
+            <div class="pe-3 mb-3">
+                <div class="d-flex justify-content-between align-items-center">
+                    <span class="d-block fw-semibold fs-15" id="@archived">@Localizer["Archived"] - 
+                        <span data-count-badge="@archived">@Model.Tasks.Where(x => x.Status == (TaskStatusView)4).Count()</span>
+                    </span>
+                </div>
+            </div>
+            <div class="kanban-tasks" id="archived-tasks">
+                <div id="archived-tasks-draggable" data-view-btn="archived-tasks" data-status-task="@archived">
+                    @* Вантажеться після завантаження в JS *@
+                </div>
+            </div>
+            <div class="d-grid"></div>
+        </div>
+    </div>
+</div>
+<!--End::row-2 -->
+
+<!-- Start::task modal -->
+<div id="modal-window"></div>
+<!-- End::task modal -->
+<!-- Start::delete task modal -->
+<partial name="_DeleteTask" />
+<!-- End::delete task modal -->
+<!-- Start::Add hourse task modal -->
+<partial name="_AddHours" />
+<!-- End::Add hourse task modal -->
+<style>
+    .was-validated .form-control:valid{
+        border-color: var(--input-border);
+        background-image: none;
+    }
+    .was-validated .form-control:valid:focus{
+        border-color: var(--input-border);
+        background-image: none;
+    }
+
+    .simplebar-scrollbar::before {
+        width: 8px !important;
+    }
+
+    .ynex-kanban-board::-webkit-scrollbar {
+        height: 0.5rem;
+    }
+
+    .hide {
+        display: none;
+    }
+
+    .period-flex {
+        flex: 1 1 auto;
+    }
+</style>
+
+<script>
+$(document).ready(function () {
+    //Get url params
+    const urlParams = new URLSearchParams(window.location.search);
+    const taskId = urlParams.get('taskId');
+    //Open Details task modal window
+    if (taskId) {
+        const validTaskIds = @Html.Raw(Json.Serialize(Model.Tasks.Select(t => t.ID).ToList()));
+        const projectID = @Html.Raw(Json.Serialize(Model.Tasks.Select(t => t.ProjectID).ToList()));
+        if (validTaskIds.includes(taskId)) {
+            Edit(taskId, projectID)
+        }
+    }
+});
+
+window.currentCulture = "@CultureInfo.CurrentCulture.Name";
+
+</script>
+
+@section Scripts{
+    <!-- Quill Editor JS -->
+    <script src="~/lib/quill/quill.min.js"></script>
+
+    <!-- Flat Picker JS -->
+    <script src="~/lib/flatpickr/flatpickr.min.js"></script>
+    <script src="~/lib/flatpickr/l10n/uk.js"></script>
+
+    <!-- Dragula JS -->
+    <script src="~/lib/dragula/dragula.min.js"></script>
+
+    <!-- Internal Task  JS -->
+    <script src="~/js/custom_js/Task/task-kanban-board.js"></script>
+    <script src="~/js/custom_js/utils/formatString.js"></script>
+
+    <!-- Filepond JS -->
+    <script src="~/lib/filepond/filepond.min.js"></script>
+    <script src="~/lib/filepond-plugin-image-preview/filepond-plugin-image-preview.min.js"></script>
+    <script src="~/lib/filepond-plugin-image-exif-orientation/filepond-plugin-image-exif-orientation.min.js"></script>
+    <script src="~/lib/filepond-plugin-file-validate-size/filepond-plugin-file-validate-size.min.js"></script>
+    <script src="~/lib/filepond-plugin-file-encode/filepond-plugin-file-encode.min.js"></script>
+    <script src="~/lib/filepond-plugin-image-edit/filepond-plugin-image-edit.min.js"></script>
+    <script src="~/lib/filepond-plugin-file-validate-type/filepond-plugin-file-validate-type.min.js"></script>
+    <script src="~/lib/filepond-plugin-file-validate-type/filepond-plugin-file-validate-type.min.js"></script>
+    <script src="~/lib/filepond-plugin-image-crop/filepond-plugin-image-crop.min.js"></script>
+    <script src="~/lib/filepond-plugin-image-resize/filepond-plugin-image-resize.min.js"></script>
+    <script src="~/lib/filepond-plugin-image-transform/filepond-plugin-image-transform.min.js"></script>
+    <script src="~/lib/filepond-plugin-get-file/filepond-plugin-get-file.min.js"></script>
+
+    <!-- Fileupload JS -->
+    <script src="~/js/custom_js/utils/fileUpload.js"></script>
+
+    <!-- Form Validation JS -->
+    <script src="~/js/validation.js"></script>
+
+    <script src="~/js/custom_js/utils/valideteFormElement.js"></script>
+
+    <script src="~/js/custom_js/utils/modalWindowLoad.js"></script>
+    <script src="~/js/custom_js/utils/initializerTaskModal.js"></script>
+    <script src="~/js/custom_js/Task/detailsTask.js"></script>
+    
+    <script src="~/js/custom_js/Task/task.js"></script>
+}

@@ -1,0 +1,282 @@
+﻿@using TaskJect.Web.Resources
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<LandingResources> Localizer
+@{
+    Layout = "~/Views/Shared/_SecondLayout.cshtml";
+}
+@section HeadArea
+{
+    <link rel="stylesheet" href="~/css/NewStyles.css">
+}
+<!-- Start:: Section-1 -->
+<section class="section section-bg pb-5 section-body" id="faq" style="min-height: calc(100vh - 14rem);">
+    <div class="container text-center">
+        <h3 class="fw-semibold mb-2">@Localizer["FrequentlyAskedQuestions"]</h3>
+        <div class="row justify-content-center">
+            <div class="col-xl-7">
+                <p class="text-muted fs-15 mb-5 fw-normal">@Localizer["WeHaveSharedSomeMostFrequently"]</p>
+            </div>
+        </div>
+        <div class="row text-start justify-content-center">
+            <div class="col-xl-8">
+                <div class="row gy-2">
+                    <div class="col-xl-12">
+                        <div class="accordion accordion-customicon1 accordion-primary accordions-items-seperate" id="accordionFAQ1">
+                            @* <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingcustomicon1One">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapsecustomicon1One" aria-expanded="true"
+                                        aria-controls="collapsecustomicon1One">
+                                        @Localizer["HowCreatePersonalAccount"]?
+                                    </button>
+                                </h2>
+                                <div id="collapsecustomicon1One" class="accordion-collapse collapse show"
+                                    aria-labelledby="headingcustomicon1One"
+                                    data-bs-parent="#accordionFAQ1">
+                                    <div class="accordion-body fs-14">
+                                        @Localizer["TheSystemOperatesClosedFormat"] <a href="#contact">@Localizer["submitApplication"]</a>
+                                    </div>
+                                </div>
+                            </div> *@
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingcustomicon1Two">
+                                    <button class="accordion-button fs-14" type="button"
+                                            data-bs-toggle="collapse" data-bs-target="#collapsecustomicon1Two"
+                                            aria-expanded="true" aria-controls="collapsecustomicon1Two">
+                                        @Localizer["IsPossibleEnterVia"]?
+                                    </button>
+                                </h2>
+                                <div id="collapsecustomicon1Two" class="accordion-collapse collapse show"
+                                     aria-labelledby="headingcustomicon1Two"
+                                     data-bs-parent="#accordionFAQ1">
+                                    <div class="accordion-body fs-14">
+                                        @Localizer["YouCanUseGoogleOrMicrosoftEmail"].
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingcustomicon1Four">
+                                    <button class="accordion-button collapsed fs-14" type="button"
+                                            data-bs-toggle="collapse" data-bs-target="#collapsecustomicon1Four"
+                                            aria-expanded="false" aria-controls="collapsecustomicon1Four">
+                                        @Localizer["HowDoAddNewUser"]?
+                                    </button>
+                                </h2>
+                                <div id="collapsecustomicon1Four" class="accordion-collapse collapse"
+                                     aria-labelledby="headingcustomicon1Four"
+                                     data-bs-parent="#accordionFAQ1">
+                                    <div class="accordion-body fs-14">
+                                        @Localizer["TheHeadOfTheOrganizationInvites"].
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingcustomicon1Five">
+                                    <button class="accordion-button collapsed fs-14" type="button"
+                                            data-bs-toggle="collapse" data-bs-target="#collapsecustomicon1Five"
+                                            aria-expanded="false" aria-controls="collapsecustomicon1Five">
+                                        @Localizer["HowRolesOrganizationTeam"]?
+                                    </button>
+                                </h2>
+                                <div id="collapsecustomicon1Five" class="accordion-collapse collapse"
+                                     aria-labelledby="headingcustomicon1Five"
+                                     data-bs-parent="#accordionFAQ1">
+                                    <div class="accordion-body fs-14">
+                                        @Localizer["ThereMainRolesOrganization"]
+                                        <br />
+                                        @Localizer["ThereMainRolesTeam"]
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingcustomicon1Six">
+                                    <button class="accordion-button collapsed fs-14" type="button"
+                                            data-bs-toggle="collapse" data-bs-target="#collapsecustomicon1Six"
+                                            aria-expanded="false" aria-controls="collapsecustomicon1Six">
+                                        @Localizer["CanIntegrateTasksFrom"]?
+                                    </button>
+                                </h2>
+                                <div id="collapsecustomicon1Six" class="accordion-collapse collapse"
+                                     aria-labelledby="headingcustomicon1Six"
+                                     data-bs-parent="#accordionFAQ1">
+                                    <div class="accordion-body fs-14">
+                                        @Localizer["AtTheMoment"]
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingcustomicon1Seven">
+                                    <button class="accordion-button collapsed fs-14" type="button"
+                                            data-bs-toggle="collapse" data-bs-target="#collapsecustomicon1Seven"
+                                            aria-expanded="false" aria-controls="collapsecustomicon1Seven">
+                                        @Localizer["IsPossibleTrack"]?
+                                    </button>
+                                </h2>
+                                <div id="collapsecustomicon1Seven" class="accordion-collapse collapse"
+                                     aria-labelledby="headingcustomicon1Seven"
+                                     data-bs-parent="#accordionFAQ1">
+                                    <div class="accordion-body fs-14">
+                                        @Localizer["TheTaskPerformerIndicate"]
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingcustomicon1Eight">
+                                    <button class="accordion-button collapsed fs-14" type="button"
+                                            data-bs-toggle="collapse" data-bs-target="#collapsecustomicon1Eight"
+                                            aria-expanded="false" aria-controls="collapsecustomicon1Eight">
+                                        @Localizer["IsPossibleChangeTariff"]?
+                                    </button>
+                                </h2>
+                                <div id="collapsecustomicon1Eight" class="accordion-collapse collapse"
+                                     aria-labelledby="headingcustomicon1Eight"
+                                     data-bs-parent="#accordionFAQ1">
+                                    <div class="accordion-body fs-14">
+                                        @Localizer["YesYouCanSwitchPlan"]
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingcustomicon2One">
+                                    <button class="accordion-button collapsed fs-14" type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#collapsecustomicon2One" aria-expanded="false"
+                                            aria-controls="collapsecustomicon2One">
+                                        @Localizer["WhatHappensCancelSubscription"]?
+                                    </button>
+                                </h2>
+                                <div id="collapsecustomicon2One" class="accordion-collapse collapse"
+                                     aria-labelledby="headingcustomicon2One"
+                                     data-bs-parent="#accordionFAQ1">
+                                    <div class="accordion-body fs-14">
+                                        @Localizer["IfYouHaventExceeded"]
+                                        <br />
+                                        @Localizer["IfYouExceedUserLimit"]
+                                        <br />
+                                        @Localizer["IfTheDiskSpaceLimitExceeded"]
+                                        <br />
+                                        @Localizer["IfThePlanRenewedWithin"]
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingcustomicon2Two">
+                                    <button class="accordion-button collapsed fs-14" type="button"
+                                            data-bs-toggle="collapse" data-bs-target="#collapsecustomicon2Two"
+                                            aria-expanded="false" aria-controls="collapsecustomicon2Two">
+                                        @Localizer["IfIDontUseYourService"]?
+                                    </button>
+                                </h2>
+                                <div id="collapsecustomicon2Two" class="accordion-collapse collapse"
+                                     aria-labelledby="headingcustomicon2Two"
+                                     data-bs-parent="#accordionFAQ1">
+                                    <div class="accordion-body fs-14">
+                                        @Localizer["IfYouLeaveYourProfileInactive"]
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingcustomicon2Three">
+                                    <button class="accordion-button collapsed fs-14" type="button"
+                                            data-bs-toggle="collapse" data-bs-target="#collapsecustomicon2Three"
+                                            aria-expanded="false" aria-controls="collapsecustomicon2Three">
+                                        @Localizer["WhatAreTheRequestsTariffPlan"]?
+                                    </button>
+                                </h2>
+                                <div id="collapsecustomicon2Three" class="accordion-collapse collapse"
+                                     aria-labelledby="headingcustomicon2Three"
+                                     data-bs-parent="#accordionFAQ1">
+                                    <div class="accordion-body fs-14">
+                                        @Localizer["YouHaveOpportunitySendRequests"]
+                                        <br />
+                                        @Localizer["WeWantMakeServiceConvenient"]
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingcustomicon2Four">
+                                    <button class="accordion-button collapsed fs-14" type="button"
+                                            data-bs-toggle="collapse" data-bs-target="#collapsecustomicon2Four"
+                                            aria-expanded="false" aria-controls="collapsecustomicon2Four">
+                                        @Localizer["WhereCanTrackStatusRequests"]?
+                                    </button>
+                                </h2>
+                                <div id="collapsecustomicon2Four" class="accordion-collapse collapse"
+                                     aria-labelledby="headingcustomicon2Four"
+                                     data-bs-parent="#accordionFAQ1">
+                                    <div class="accordion-body fs-14">
+                                        @Localizer["InTheSection"]
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingcustomicon2Five">
+                                    <button class="accordion-button collapsed fs-14" type="button"
+                                            data-bs-toggle="collapse" data-bs-target="#collapsecustomicon2Five"
+                                            aria-expanded="false" aria-controls="collapsecustomicon2Five">
+                                        @Localizer["WhatDifferenceBetweenDeleting"]?
+                                    </button>
+                                </h2>
+                                <div id="collapsecustomicon2Five" class="accordion-collapse collapse"
+                                     aria-labelledby="headingcustomicon2Five"
+                                     data-bs-parent="#accordionFAQ1">
+                                    <div class="accordion-body fs-14">
+                                        @Localizer["BlockingUserOnlyRestricts"]
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingcustomicon2Six">
+                                    <button class="accordion-button collapsed fs-14" type="button"
+                                            data-bs-toggle="collapse" data-bs-target="#collapsecustomicon2Six"
+                                            aria-expanded="false" aria-controls="collapsecustomicon2Six">
+                                        @Localizer["TheTeamLeaderChanges"]?
+                                    </button>
+                                </h2>
+                                <div id="collapsecustomicon2Six" class="accordion-collapse collapse"
+                                     aria-labelledby="headingcustomicon2Six"
+                                     data-bs-parent="#accordionFAQ1">
+                                    <div class="accordion-body fs-14">
+                                        @Localizer["ToChangeProjectManager"]
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingcustomicon2Seven">
+                                    <button class="accordion-button collapsed fs-14" type="button"
+                                            data-bs-toggle="collapse" data-bs-target="#collapsecustomicon2Seven"
+                                            aria-expanded="false" aria-controls="collapsecustomicon2Seven">
+                                        @Localizer["WhatShouldlostAccess"]?
+                                    </button>
+                                </h2>
+                                <div id="collapsecustomicon2Seven" class="accordion-collapse collapse"
+                                     aria-labelledby="headingcustomicon2Seven"
+                                     data-bs-parent="#accordionFAQ1">
+                                    <div class="accordion-body fs-14">
+                                        @Localizer["AtTheMomentSuchCases"]
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingcustomicon2Eight">
+                                    <button class="accordion-button collapsed fs-14" type="button"
+                                            data-bs-toggle="collapse" data-bs-target="#collapsecustomicon2Eight"
+                                            aria-expanded="false" aria-controls="collapsecustomicon2Eight">
+                                        @Localizer["CanOneUserWith"]?
+                                    </button>
+                                </h2>
+                                <div id="collapsecustomicon2Eight" class="accordion-collapse collapse"
+                                     aria-labelledby="headingcustomicon2Eight"
+                                     data-bs-parent="#accordionFAQ1">
+                                    <div class="accordion-body fs-14">
+                                        @Localizer["ThisOptionCurrentlyNotAvailable"]
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End:: Section-1 -->

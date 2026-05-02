@@ -1,0 +1,75 @@
+﻿@using System.Globalization
+@using TaskJect.Web.Resources
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<SharedResources> Localizer
+@model IEnumerable<TariffUpdateModel>
+@{
+    ViewBag.Title = "History Plans";
+    var firstTariff = Model.FirstOrDefault();
+}
+@section HeadArea {
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.3.0/css/responsive.bootstrap.min.css">
+}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="card custom-card">
+                <div class="card-body ">
+                    <div class="d-md-flex d-block flex-wrap align-items-center justify-content-between">
+                        <div class="card-title fw-semibold fs-18 mb-0">History Tariff Plans</div>
+                        <button type="button" class="btn btn-primary ms-auto" onclick="loadTariffModal('@firstTariff.OrganizationId','@firstTariff.TariffDateTo.ToString("yyyy-MM-dd")', '@firstTariff.TariffName')"
+                                title="@Localizer["UpdateTariffPlan"]">
+                            @Localizer["AddTariff"]
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-12">
+            <div class="card custom-card">
+                <div class="card-body">
+                    <div class="table-responsive" id="history-table">
+                        <table class="table text-nowrap table-bordered" id="datatable-basic-history">
+                            <thead>
+                                <tr>
+                                    <th scope="col">S.No</th>
+                                    <th scope="col">@Localizer["TariffPlanName"]</th>
+                                    <th scope="col">@Localizer["DateFrom"]</th>
+                                    <th scope="col">@Localizer["DateTo"]</th>
+                                </tr>
+                            </thead>
+                            <tbody style="text-align: center;">
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td></td>
+                                        <td>@item.TariffName</td>
+                                        <td data-order="@item?.TariffDateFrom.ToString("yyyy-MM-dd")">@item.TariffDateFrom.ToString("dd MMM yyyy", System.Globalization.CultureInfo.CurrentCulture)</td>
+                                        <td data-order="@item?.TariffDateTo.ToString("yyyy-MM-dd")">@item.TariffDateTo.ToString("dd MMM yyyy", System.Globalization.CultureInfo.CurrentCulture)</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="modal-container"></div>
+<script>
+    window.currentCulture = "@CultureInfo.CurrentCulture.Name";
+</script>
+@section Scripts {
+    <!-- Datatables Cdn -->
+    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
+
+    <script src="~/lib/flatpickr/flatpickr.min.js"></script>
+    <script src="~/lib/flatpickr/l10n/uk.js"></script>
+    <script src="~/js/custom_js/utils/dataTableLocalization.js"></script>
+    <script src="~/js/custom_js/utils/formatString.js"></script>
+    <script src="~/js/custom_js/Moderator/tariffHistory.js"></script>
+
+}

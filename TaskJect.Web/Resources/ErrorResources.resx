@@ -1,0 +1,603 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Error" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="NoFoundUsersTitle" xml:space="preserve">
+    <value>No found users</value>
+  </data>
+  <data name="NoFoundUsersMessage" xml:space="preserve">
+    <value>Couldn't find users for your organization, try again or contact administrator</value>
+  </data>
+  <data name="ErrorCalculatingAnalyticsMessage" xml:space="preserve">
+    <value>Sorry! We encountered a problem while calculating analytics. Please try again later or contact the administration</value>
+  </data>
+  <data name="NoFoundCurrentUser" xml:space="preserve">
+    <value>Could not find details for the current user. Please try again later or contact the administration</value>
+  </data>
+  <data name="NoFoundDetails" xml:space="preserve">
+    <value>No found details</value>
+  </data>
+  <data name="PageNotFound" xml:space="preserve">
+    <value>Page not found</value>
+  </data>
+  <data name="AllFieldsMustFilled" xml:space="preserve">
+    <value>All fields must be filled in.</value>
+  </data>
+  <data name="TheLetterWasSentSuccessfully" xml:space="preserve">
+    <value>The letter was sent successfully.</value>
+  </data>
+  <data name="PasswordTooShort" xml:space="preserve">
+    <value>The password must be at least {0} characters long.</value>
+  </data>
+  <data name="RequiredAttribute_ValidationError" xml:space="preserve">
+    <value>The {0} field is required.</value>
+  </data>
+  <data name="StringLengthAttribute_ValidationError" xml:space="preserve">
+    <value>The field {0} must be a string with a maximum length of {1}.</value>
+  </data>
+  <data name="RangeAttribute_ValidationError" xml:space="preserve">
+    <value>The field {0} must be between {1} and {2}.</value>
+  </data>
+  <data name="EmailAddressAttribute_Invalid" xml:space="preserve">
+    <value>he {0} field is not a valid e-mail address.</value>
+  </data>
+  <data name="RegularExpressionAttribute_ValidationError" xml:space="preserve">
+    <value>The field {0} is not valid.</value>
+  </data>
+  <data name="ComparePasswordError" xml:space="preserve">
+    <value>The password and confirmation password do not match.</value>
+  </data>
+  <data name="DefaultError" xml:space="preserve">
+    <value>An unknown error occurred.</value>
+  </data>
+  <data name="ConcurrencyFailure" xml:space="preserve">
+    <value>Conflict while saving data. Please try again.</value>
+  </data>
+  <data name="PasswordMismatch" xml:space="preserve">
+    <value>Incorrect password.</value>
+  </data>
+  <data name="InvalidToken" xml:space="preserve">
+    <value>Invalid token.</value>
+  </data>
+  <data name="LoginAlreadyAssociated" xml:space="preserve">
+    <value>This login is already linked to another account.</value>
+  </data>
+  <data name="InvalidUserName" xml:space="preserve">
+    <value>The username '{0}' is invalid.</value>
+  </data>
+  <data name="InvalidEmail" xml:space="preserve">
+    <value>Email '{0}' is invalid.</value>
+  </data>
+  <data name="DuplicateUserName" xml:space="preserve">
+    <value>Username '{0}' is already in use.</value>
+  </data>
+  <data name="DuplicateEmail" xml:space="preserve">
+    <value>Email '{0}' is already in use.</value>
+  </data>
+  <data name="InvalidRoleName" xml:space="preserve">
+    <value>The role name '{0}' is invalid.</value>
+  </data>
+  <data name="DuplicateRoleName" xml:space="preserve">
+    <value>The role name '{0}' is already in use.</value>
+  </data>
+  <data name="UserAlreadyHasPassword" xml:space="preserve">
+    <value>The user already has a password.</value>
+  </data>
+  <data name="UserLockoutNotEnabled" xml:space="preserve">
+    <value>Blocking is not allowed for this user.</value>
+  </data>
+  <data name="UserAlreadyInRole" xml:space="preserve">
+    <value>The user already has the role '{0}'.</value>
+  </data>
+  <data name="UserNotInRole" xml:space="preserve">
+    <value>User does not have role '{0}'.</value>
+  </data>
+  <data name="PasswordRequiresNonAlphanumeric" xml:space="preserve">
+    <value>The password must contain at least one special character.</value>
+  </data>
+  <data name="PasswordRequiresDigit" xml:space="preserve">
+    <value>The password must contain at least one digit.</value>
+  </data>
+  <data name="PasswordRequiresLower" xml:space="preserve">
+    <value>The password must contain at least one lowercase letter.</value>
+  </data>
+  <data name="PasswordRequiresUpper" xml:space="preserve">
+    <value>The password must contain at least one uppercase letter.</value>
+  </data>
+  <data name="InvalidLoginAttempt" xml:space="preserve">
+    <value>Invalid login attempt.</value>
+  </data>
+  <data name="UserWithEmailNotExist" xml:space="preserve">
+    <value>User with this email does not exist.</value>
+  </data>
+  <data name="EmailCodeProvided" xml:space="preserve">
+    <value>Email and Code must be provided</value>
+  </data>
+  <data name="overdueTasksLoadErrorTitle" xml:space="preserve">
+    <value>Failed to download overdue tasks</value>
+  </data>
+  <data name="overdueTasksLoadErrorMessage" xml:space="preserve">
+    <value>The system was unable to retrieve overdue task details. Please try again later or contact support.</value>
+  </data>
+  <data name="totalTasksStatsLoadErrorMessage" xml:space="preserve">
+    <value>Failed to retrieve statistics on total number of tasks. Please try again or contact your administrator.</value>
+  </data>
+  <data name="totalTasksStatsLoadErrorTitle" xml:space="preserve">
+    <value>Failed to calculate total tasks</value>
+  </data>
+  <data name="totalPointsStatsLoadErrorTitle" xml:space="preserve">
+    <value>Failed to calculate points</value>
+  </data>
+  <data name="totalPointsStatsLoadErrorMessage" xml:space="preserve">
+    <value>Failed to retrieve score statistics. Please refresh the page or contact support.</value>
+  </data>
+  <data name="taskDetailsLoadErrorTitle" xml:space="preserve">
+    <value>Failed to load task details</value>
+  </data>
+  <data name="taskDetailsLoadErrorMessage" xml:space="preserve">
+    <value>Unable to retrieve task details for the selected period. Please try again or report a problem.</value>
+  </data>
+  <data name="userTasksLoadErrorTitle" xml:space="preserve">
+    <value>Failed to load task list</value>
+  </data>
+  <data name="userTasksLoadErrorMessage" xml:space="preserve">
+    <value>Failed to retrieve the task list for the user. Please refresh the page or contact technical support.</value>
+  </data>
+  <data name="projectsLoadErrorTitle" xml:space="preserve">
+    <value>Failed to load project list</value>
+  </data>
+  <data name="projectsLoadErrorMessage" xml:space="preserve">
+    <value>The system could not find any projects for your organization. Please check your access rights or contact your administrator.</value>
+  </data>
+  <data name="organizationsLoadErrorTitle" xml:space="preserve">
+    <value>No found organizations</value>
+  </data>
+  <data name="organizationsLoadErrorMessage" xml:space="preserve">
+    <value>Could not find organizations. Please try again later or contact the administration</value>
+  </data>
+  <data name="organizationAppealsLoadErrorTitle" xml:space="preserve">
+    <value>Improvements not found</value>
+  </data>
+  <data name="organizationAppealsLoadErrorMessage" xml:space="preserve">
+    <value>No data to show</value>
+  </data>
+  <data name="organizationsUserInfoLoadErrorTitle" xml:space="preserve">
+    <value>No found organization info</value>
+  </data>
+  <data name="organizationsLoadUserInfoErrorMessage" xml:space="preserve">
+    <value>Could not find organizations details. Please try again later or contact the administration</value>
+  </data>
+  <data name="organizationLoadErrorMessage" xml:space="preserve">
+    <value>Selected organization not found. Please try again later or contact the administration</value>
+  </data>
+  <data name="organizationLoadErrorTitle" xml:space="preserve">
+    <value>Organization not found</value>
+  </data>
+  <data name="rolesLoadErrorTitle" xml:space="preserve">
+    <value>Roles not found</value>
+  </data>
+  <data name="rolesLoadErrorMessage" xml:space="preserve">
+    <value>User roles not found. Please try again later or contact administration.</value>
+  </data>
+  <data name="userUpdateErrorMessage" xml:space="preserve">
+    <value>Can't update information about user. Please try again later or contact the administration</value>
+  </data>
+  <data name="userUpdateErrorTitle" xml:space="preserve">
+    <value>Update user info failed</value>
+  </data>
+  <data name="membershipsByUserLoadErrorTitle" xml:space="preserve">
+    <value>Failed to load user memberships</value>
+  </data>
+  <data name="membershipsByUserLoadErrorMessage" xml:space="preserve">
+    <value>We couldn't retrieve the user's memberships. Please try again later or contact support if the issue persists.</value>
+  </data>
+  <data name="allMembershipsLoadErrorTitle" xml:space="preserve">
+    <value>Failed to load memberships</value>
+  </data>
+  <data name="allMembershipsLoadErrorMessage" xml:space="preserve">
+    <value>The list of memberships could not be retrieved. Please try again later or contact support.</value>
+  </data>
+  <data name="projectsByOrganizationLoadErrorTitle" xml:space="preserve">
+    <value>Failed to load projects</value>
+  </data>
+  <data name="projectsByOrganizationLoadErrorMessage" xml:space="preserve">
+    <value>Projects related to the selected organization are currently unavailable. Please try again later.</value>
+  </data>
+  <data name="tasksByUserLoadErrorTitle" xml:space="preserve">
+    <value>Failed to load tasks</value>
+  </data>
+  <data name="tasksByUserLoadErrorMessage" xml:space="preserve">
+    <value>We couldn’t get the list of tasks for the selected user. Please refresh the page or try again later.</value>
+  </data>
+  <data name="teamOverviewLoadErrorTitle" xml:space="preserve">
+    <value>Team information not available</value>
+  </data>
+  <data name="teamOverviewLoadErrorMessage" xml:space="preserve">
+    <value>We were unable to find information about the team assigned to this project. Try again later.</value>
+  </data>
+  <data name="teamsByOrganizationLoadErrorTitle" xml:space="preserve">
+    <value>Failed to load teams</value>
+  </data>
+  <data name="teamsByOrganizationLoadErrorMessage" xml:space="preserve">
+    <value>We couldn’t retrieve teams for the selected organization. Please refresh or try again later.</value>
+  </data>
+  <data name="singleTaskLoadErrorTitle" xml:space="preserve">
+    <value>Task details unavailable</value>
+  </data>
+  <data name="singleTaskLoadErrorMessage" xml:space="preserve">
+    <value>We couldn't load the information about this task. It might have been deleted or is temporarily inaccessible.</value>
+  </data>
+  <data name="projectOverviewLoadErrorTitle" xml:space="preserve">
+    <value>Project information not available</value>
+  </data>
+  <data name="projectOverviewLoadErrorMessage" xml:space="preserve">
+    <value>The requested project could not be found. It might have been removed or the identifier is incorrect.</value>
+  </data>
+  <data name="PasswordChanged" xml:space="preserve">
+    <value>Password changed successfully.</value>
+  </data>
+  <data name="AnUnknownErrorOccurredWhileLinkingAccount" xml:space="preserve">
+    <value>An unknown error occurred while linking an account.</value>
+  </data>
+  <data name="InvalidModelNullModel" xml:space="preserve">
+    <value>Invalid model or null model!</value>
+  </data>
+  <data name="CreateNewOrganizationUserSuccessful" xml:space="preserve">
+    <value>Create new organization and new user with email is successful!</value>
+  </data>
+  <data name="CreatingNewOrganizationWasSuccessful" xml:space="preserve">
+    <value>Creating a new organization was successful! Creating a package plan failed!</value>
+  </data>
+  <data name="CreatingNewOrganizationUserWasSuccessful" xml:space="preserve">
+    <value>Creating a new organization was successful! Creating new user failed!</value>
+  </data>
+  <data name="IdOrganizationEmpty" xml:space="preserve">
+    <value>Id organization is empty!</value>
+  </data>
+  <data name="OrganizationNotFound" xml:space="preserve">
+    <value>Organization not found!</value>
+  </data>
+  <data name="CreateOrganizationWasSuccessfulAlreadyExists" xml:space="preserve">
+    <value>Create organization was not successful! The organization already exists!</value>
+  </data>
+  <data name="ThereOrganizationThisId" xml:space="preserve">
+    <value>There is no organization with this Id!</value>
+  </data>
+  <data name="IdOrganizationEqualsNull" xml:space="preserve">
+    <value>Id organization equals null!</value>
+  </data>
+  <data name="CurrentTariffSame" xml:space="preserve">
+    <value>Current tariff is the same</value>
+  </data>
+  <data name="TariffPlanUpdated" xml:space="preserve">
+    <value>Tariff plan updated</value>
+  </data>
+  <data name="TariffPlanNotUpdated" xml:space="preserve">
+    <value>Tariff plan is not updated</value>
+  </data>
+  <data name="YourOperationSuccessful" xml:space="preserve">
+    <value>Your operation is successful!</value>
+  </data>
+  <data name="OrganizationLockoutUsersNotLockout" xml:space="preserve">
+    <value>Organization is lockout, Users is not lockout</value>
+  </data>
+  <data name="YourOperationWasNotSuccessful" xml:space="preserve">
+    <value>Your operation was not successful!</value>
+  </data>
+  <data name="OrganizationUnlockedUsersNotUnlocked" xml:space="preserve">
+    <value>Organization is unlocked, Users is not unlocked</value>
+  </data>
+  <data name="DeleteOrganizationSuccessful" xml:space="preserve">
+    <value>Delete organization is successful!</value>
+  </data>
+  <data name="DeleteOrganizationWasNotSuccessful" xml:space="preserve">
+    <value>Delete organization was not successful!</value>
+  </data>
+  <data name="DeleteDataOrganizationWasNotSuccessful" xml:space="preserve">
+    <value>Delete data in organization was not successful!</value>
+  </data>
+  <data name="RoleUpdateSuccessful" xml:space="preserve">
+    <value>Role update is successful!</value>
+  </data>
+  <data name="RoleUpdateWasNotSuccessful" xml:space="preserve">
+    <value>Role update was not successful!</value>
+  </data>
+  <data name="IdUserRoleEqualsNull" xml:space="preserve">
+    <value>Id user or role equals null!</value>
+  </data>
+  <data name="LockoutUserSuccessful" xml:space="preserve">
+    <value>Lockout user is successful!</value>
+  </data>
+  <data name="LockoutUserWasNotSuccessful" xml:space="preserve">
+    <value>Lockout user was not successful!</value>
+  </data>
+  <data name="IdUserEqualsNull" xml:space="preserve">
+    <value>Id user equals null!</value>
+  </data>
+  <data name="UnlockUserSuccessful" xml:space="preserve">
+    <value>Unlock user is successful!</value>
+  </data>
+  <data name="UnlockUserWasNotSuccessful" xml:space="preserve">
+    <value>Unlock user was not successful!</value>
+  </data>
+  <data name="DeleteUserSuccessful" xml:space="preserve">
+    <value>Delete user is successful!</value>
+  </data>
+  <data name="DeleteUserWasNotSuccessful" xml:space="preserve">
+    <value>Delete user was not successful!</value>
+  </data>
+  <data name="OrganizationAppealEditSuccessful" xml:space="preserve">
+    <value>Organization appeal edit is successful!</value>
+  </data>
+  <data name="OrganizationAppealEditWasNotSuccessful" xml:space="preserve">
+    <value>Organization appeal edit was not successful!</value>
+  </data>
+  <data name="OrganizationAppealEqualsNull" xml:space="preserve">
+    <value>Organization appeal equals null!</value>
+  </data>
+  <data name="DeleteOrganizationAppealSuccessful" xml:space="preserve">
+    <value>Delete organization appeal is successful!</value>
+  </data>
+  <data name="DeleteOrganizationAppealWasNotSuccessful" xml:space="preserve">
+    <value>Delete organization appeal was not successful!</value>
+  </data>
+  <data name="CreateNewUserWithEmailSuccessful" xml:space="preserve">
+    <value>Create new user with email is successful!</value>
+  </data>
+  <data name="CreateNewUserWithEmailWasNotSuccessful" xml:space="preserve">
+    <value>Create new user with email was not successful!</value>
+  </data>
+  <data name="TheRoleOrganizationSuccessfullyUpdated" xml:space="preserve">
+    <value>The role in the organization has been successfully updated!</value>
+  </data>
+  <data name="ErrorUpdatingRoleOrganization" xml:space="preserve">
+    <value>Error updating the role in the organization!</value>
+  </data>
+  <data name="ThankYouForYourRequestReview" xml:space="preserve">
+    <value>Thank you for your request, we will review it shortly and provide feedback!</value>
+  </data>
+  <data name="StorageYourOrganizationFull" xml:space="preserve">
+    <value>Storage of your organization is full. Please delete some data or change your tariff plan.</value>
+  </data>
+  <data name="IdProjectEqualsNull" xml:space="preserve">
+    <value>Id project equals null!</value>
+  </data>
+  <data name="TeamMembersNull" xml:space="preserve">
+    <value>Team or members is null!</value>
+  </data>
+  <data name="ModelProjectEqualsNull" xml:space="preserve">
+    <value>Model project equals null!</value>
+  </data>
+  <data name="TaskModelEqualsNull" xml:space="preserve">
+    <value>Task model equals null!</value>
+  </data>
+  <data name="IdTaskEqualsNull" xml:space="preserve">
+    <value>Id task equals null!</value>
+  </data>
+  <data name="TaskIdHoursMinutesNull" xml:space="preserve">
+    <value>Task id or hours and minutes, is null!</value>
+  </data>
+  <data name="IdTeamEqualsNull" xml:space="preserve">
+    <value>Id team equals null!</value>
+  </data>
+  <data name="TeamNotFound" xml:space="preserve">
+    <value>Team not found!</value>
+  </data>
+  <data name="TeamNameUpdateWasNotSuccessful" xml:space="preserve">
+    <value>Team name update was not successful!</value>
+  </data>
+  <data name="ThisMembersAlreadyTeam" xml:space="preserve">
+    <value>This members are already in team!</value>
+  </data>
+  <data name="TeamModelQualsNull" xml:space="preserve">
+    <value>Team model equals null!</value>
+  </data>
+  <data name="TheTeamBeingUsedFollowingProjects" xml:space="preserve">
+    <value>The team is being used in the following projects</value>
+  </data>
+  <data name="IdTeamIdUserEqualsNull" xml:space="preserve">
+    <value>Id team or id user equals null!</value>
+  </data>
+  <data name="UnconnectFailed" xml:space="preserve">
+    <value>Failed to unconnect</value>
+  </data>
+  <data name="UnconnectSuccessful" xml:space="preserve">
+    <value>Unconnect is success!</value>
+  </data>
+  <data name="NoInfoAboutTariffPlans" xml:space="preserve">
+    <value>Failed to find information about available tariff plans.</value>
+  </data>
+  <data name="FileDeletedSuccessfully" xml:space="preserve">
+    <value>File deleted successfully.</value>
+  </data>
+  <data name="FailedToDeleteFile" xml:space="preserve">
+    <value>Failed to delete file.</value>
+  </data>
+  <data name="FileUploadSuccess" xml:space="preserve">
+    <value>File uploaded successfully</value>
+  </data>
+  <data name="FileUploadFailed" xml:space="preserve">
+    <value>Failed to upload file</value>
+  </data>
+  <data name="FileMissingOrEmpty" xml:space="preserve">
+    <value>File is missing or empty</value>
+  </data>
+  <data name="FileSavedSuccessfully" xml:space="preserve">
+    <value>File saved successfully</value>
+  </data>
+  <data name="FileSaveFailed" xml:space="preserve">
+    <value>Failed to save file.</value>
+  </data>
+  <data name="CreateOrganizationWasNotSuccessful" xml:space="preserve">
+    <value>Create organization was not successful!</value>
+  </data>
+  <data name="EmailConfirmedSuccessfully" xml:space="preserve">
+    <value>Email confirmed successfully.</value>
+  </data>
+  <data name="EmailConfirmationFailed" xml:space="preserve">
+    <value> Email confirmation failed.</value>
+  </data>
+  <data name="EmailNotConfirmed" xml:space="preserve">
+    <value>To log in, first confirm your email.</value>
+  </data>
+  <data name="SwitchRoleWasNotSuccessful" xml:space="preserve">
+    <value>Failed to change the user role.</value>
+  </data>
+  <data name="NoRepositorySelected" xml:space="preserve">
+    <value>No repository selected</value>
+  </data>
+  <data name="MissingProjectId" xml:space="preserve">
+    <value>Missing project ID</value>
+  </data>
+  <data name="GitHubNotLinked" xml:space="preserve">
+    <value>GitHub is not linked</value>
+  </data>
+  <data name="GitHubNotDeleteApp" xml:space="preserve">
+    <value>GitHub has not removed the app</value>
+  </data>
+  <data name="SERVER_ERROR" xml:space="preserve">
+    <value>An error occurred. Please try again later or contact the support.</value>
+  </data>
+  <data name="ProjectNotFound" xml:space="preserve">
+    <value>Project not found</value>
+  </data>
+  <data name="ProjectHasNoLinkedRepository" xml:space="preserve">
+    <value>There is no repository associated with this project.</value>
+  </data>
+  <data name="ErrorUnlinkingRepository" xml:space="preserve">
+    <value>Error unlinking repository.</value>
+  </data>
+  <data name="NoDataToExport" xml:space="preserve">
+    <value>No data to export</value>
+  </data>
+  <data name="CurrentTariffChanged" xml:space="preserve">
+    <value>Current tariff successfully changed!</value>
+  </data>
+  <data name="ArchiveCompletedFailed" xml:space="preserve">
+    <value>Failed to archive completed tasks.</value>
+  </data>
+  <data name="TaskSuccessfullyCreated" xml:space="preserve">
+    <value>Task successfully created</value>
+  </data>
+  <data name="TaskSuccessfullyChanged" xml:space="preserve">
+    <value>Task successfully changed</value>
+  </data>
+</root>

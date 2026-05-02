@@ -1,0 +1,2552 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Analytics" xml:space="preserve">
+    <value>Analytics</value>
+  </data>
+  <data name="Boxed" xml:space="preserve">
+    <value>Boxed</value>
+  </data>
+  <data name="ByteBustersTeam" xml:space="preserve">
+    <value>ByteBusters Team</value>
+  </data>
+  <data name="Classic" xml:space="preserve">
+    <value>Classic</value>
+  </data>
+  <data name="ClosedMenu" xml:space="preserve">
+    <value>Closed Menu</value>
+  </data>
+  <data name="ContactSupport" xml:space="preserve">
+    <value>Contact support</value>
+  </data>
+  <data name="Dark" xml:space="preserve">
+    <value>Dark</value>
+  </data>
+  <data name="DefaultMenu" xml:space="preserve">
+    <value>Default Menu</value>
+  </data>
+  <data name="Fixed" xml:space="preserve">
+    <value>Fixed</value>
+  </data>
+  <data name="FullWidth" xml:space="preserve">
+    <value>Full Width</value>
+  </data>
+  <data name="HeaderColors" xml:space="preserve">
+    <value>Header Colors</value>
+  </data>
+  <data name="HeaderPositions" xml:space="preserve">
+    <value>Header Positions</value>
+  </data>
+  <data name="Horizontal" xml:space="preserve">
+    <value>Horizontal</value>
+  </data>
+  <data name="IconClick" xml:space="preserve">
+    <value>Icon Click</value>
+  </data>
+  <data name="IconHover" xml:space="preserve">
+    <value>Icon Hover</value>
+  </data>
+  <data name="IconOverlay" xml:space="preserve">
+    <value>Icon Overlay</value>
+  </data>
+  <data name="IconText" xml:space="preserve">
+    <value>Icon Text</value>
+  </data>
+  <data name="Improvements" xml:space="preserve">
+    <value>Improvements</value>
+  </data>
+  <data name="LayoutWidthStyles" xml:space="preserve">
+    <value>Layout Width Styles</value>
+  </data>
+  <data name="Light" xml:space="preserve">
+    <value>Light</value>
+  </data>
+  <data name="LogOut" xml:space="preserve">
+    <value>Log Out</value>
+  </data>
+  <data name="Main" xml:space="preserve">
+    <value>Main</value>
+  </data>
+  <data name="MenuClick" xml:space="preserve">
+    <value>Menu Click</value>
+  </data>
+  <data name="MenuColors" xml:space="preserve">
+    <value>Menu Colors</value>
+  </data>
+  <data name="MenuHover" xml:space="preserve">
+    <value>Menu Hover</value>
+  </data>
+  <data name="MenuPositions" xml:space="preserve">
+    <value>Menu Positions</value>
+  </data>
+  <data name="Moderation" xml:space="preserve">
+    <value>Moderation</value>
+  </data>
+  <data name="Modern" xml:space="preserve">
+    <value>Modern</value>
+  </data>
+  <data name="MyOrganization" xml:space="preserve">
+    <value>My Organization</value>
+  </data>
+  <data name="MyTeam" xml:space="preserve">
+    <value>My Team</value>
+  </data>
+  <data name="NavigationStyles" xml:space="preserve">
+    <value>Navigation Styles</value>
+  </data>
+  <data name="NoteChangeColorHeader" xml:space="preserve">
+    <value>Note:If you want to change color Header dynamically change from below Theme Primary color picker</value>
+  </data>
+  <data name="NoteChangeColorMenu" xml:space="preserve">
+    <value>Note:If you want to change color Menu dynamically change from below Theme Primary color picker</value>
+  </data>
+  <data name="Organization" xml:space="preserve">
+    <value>Organization</value>
+  </data>
+  <data name="OrganizationAppeals" xml:space="preserve">
+    <value>Organization Appeals</value>
+  </data>
+  <data name="Organizations" xml:space="preserve">
+    <value>Organizations</value>
+  </data>
+  <data name="PageStyles" xml:space="preserve">
+    <value>Page Styles</value>
+  </data>
+  <data name="Profile" xml:space="preserve">
+    <value>Profile</value>
+  </data>
+  <data name="Projects" xml:space="preserve">
+    <value>Projects</value>
+  </data>
+  <data name="Regular" xml:space="preserve">
+    <value>Regular</value>
+  </data>
+  <data name="Reset" xml:space="preserve">
+    <value>Reset</value>
+  </data>
+  <data name="Scrollable" xml:space="preserve">
+    <value>Scrollable</value>
+  </data>
+  <data name="SidemenuLayoutStyles" xml:space="preserve">
+    <value>Sidemenu Layout Styles</value>
+  </data>
+  <data name="Switcher" xml:space="preserve">
+    <value>Switcher</value>
+  </data>
+  <data name="Team" xml:space="preserve">
+    <value>Team</value>
+  </data>
+  <data name="ThankYou" xml:space="preserve">
+    <value>Thank You</value>
+  </data>
+  <data name="ThemeBackground" xml:space="preserve">
+    <value>Theme Background</value>
+  </data>
+  <data name="ThemeColorMode" xml:space="preserve">
+    <value>Theme Color Mode</value>
+  </data>
+  <data name="ThemeColors" xml:space="preserve">
+    <value>Theme Colors</value>
+  </data>
+  <data name="ThemePrimary" xml:space="preserve">
+    <value>Theme Primary</value>
+  </data>
+  <data name="ThemeStyles" xml:space="preserve">
+    <value>Theme Styles</value>
+  </data>
+  <data name="Vertical" xml:space="preserve">
+    <value>Vertical</value>
+  </data>
+  <data name="VerticalHorizontalMenuStyles" xml:space="preserve">
+    <value>Vertical &amp; Horizontal Menu Styles</value>
+  </data>
+  <data name="MenuWithBackgroundImage" xml:space="preserve">
+    <value>Menu With Background Image</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="Tasks" xml:space="preserve">
+    <value>Tasks</value>
+  </data>
+  <data name="ContactInformation" xml:space="preserve">
+    <value>Contact Information</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="ProjectTitle" xml:space="preserve">
+    <value>Project Title</value>
+  </data>
+  <data name="AssignedDate" xml:space="preserve">
+    <value>Assigned Date</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="DueDate" xml:space="preserve">
+    <value>Due Date</value>
+  </data>
+  <data name="Priority" xml:space="preserve">
+    <value>Priority</value>
+  </data>
+  <data name="Action" xml:space="preserve">
+    <value>Action</value>
+  </data>
+  <data name="NotStarted" xml:space="preserve">
+    <value>Not Started</value>
+  </data>
+  <data name="InProgress" xml:space="preserve">
+    <value>In Progress</value>
+  </data>
+  <data name="Done" xml:space="preserve">
+    <value>Done</value>
+  </data>
+  <data name="Archived" xml:space="preserve">
+    <value>Archived</value>
+  </data>
+  <data name="OnHold" xml:space="preserve">
+    <value>On Hold</value>
+  </data>
+  <data name="OnReview" xml:space="preserve">
+    <value>On Review</value>
+  </data>
+  <data name="Low" xml:space="preserve">
+    <value>Low</value>
+  </data>
+  <data name="Medium" xml:space="preserve">
+    <value>Medium</value>
+  </data>
+  <data name="High" xml:space="preserve">
+    <value>High</value>
+  </data>
+  <data name="OverviewTask" xml:space="preserve">
+    <value>Overview Task</value>
+  </data>
+  <data name="AgreedOverdue" xml:space="preserve">
+    <value>Agreed overdue</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="PerformanceNote" xml:space="preserve">
+    <value>Performance note</value>
+  </data>
+  <data name="CompletedDate" xml:space="preserve">
+    <value>Completed Date</value>
+  </data>
+  <data name="ReviewDate" xml:space="preserve">
+    <value>Review date</value>
+  </data>
+  <data name="AssignedBy" xml:space="preserve">
+    <value>Assigned By</value>
+  </data>
+  <data name="Complexity" xml:space="preserve">
+    <value>Complexity</value>
+  </data>
+  <data name="EditProfile" xml:space="preserve">
+    <value>Edit Profile</value>
+  </data>
+  <data name="Surname" xml:space="preserve">
+    <value>Surname</value>
+  </data>
+  <data name="EnterName" xml:space="preserve">
+    <value>Enter Name</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="PleaseEnterEmail" xml:space="preserve">
+    <value>Please enter a Email</value>
+  </data>
+  <data name="Birthday" xml:space="preserve">
+    <value>Birthday</value>
+  </data>
+  <data name="ChooseDate" xml:space="preserve">
+    <value>Choose date</value>
+  </data>
+  <data name="PhoneNumber" xml:space="preserve">
+    <value>Phone Number</value>
+  </data>
+  <data name="TelegramUserName" xml:space="preserve">
+    <value>Telegram User Name</value>
+  </data>
+  <data name="EnterTelegramUserName" xml:space="preserve">
+    <value>Enter telegram user name</value>
+  </data>
+  <data name="CardNumber" xml:space="preserve">
+    <value>Card Number</value>
+  </data>
+  <data name="PleaseEnterValideCardNumber" xml:space="preserve">
+    <value>Please enter valide card number</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="BirthdaysDuringMonth" xml:space="preserve">
+    <value>Birthdays during month</value>
+  </data>
+  <data name="BACKTOHOME" xml:space="preserve">
+    <value>BACK TO HOME</value>
+  </data>
+  <data name="Confirmed" xml:space="preserve">
+    <value>Confirmed</value>
+  </data>
+  <data name="Warning" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="Days" xml:space="preserve">
+    <value>Days</value>
+  </data>
+  <data name="Day" xml:space="preserve">
+    <value>Day</value>
+  </data>
+  <data name="Month" xml:space="preserve">
+    <value>Month</value>
+  </data>
+  <data name="Years" xml:space="preserve">
+    <value>Years</value>
+  </data>
+  <data name="Year" xml:space="preserve">
+    <value>Year</value>
+  </data>
+  <data name="MemberSince" xml:space="preserve">
+    <value>Member Since</value>
+  </data>
+  <data name="CompletedTasks" xml:space="preserve">
+    <value>Completed Tasks</value>
+  </data>
+  <data name="Position" xml:space="preserve">
+    <value>Position</value>
+  </data>
+  <data name="AllMembers" xml:space="preserve">
+    <value>All members</value>
+  </data>
+  <data name="CreateTeam" xml:space="preserve">
+    <value>Create Team</value>
+  </data>
+  <data name="EditTeam" xml:space="preserve">
+    <value>Edit Team</value>
+  </data>
+  <data name="DeleteTeam" xml:space="preserve">
+    <value>Delete Team</value>
+  </data>
+  <data name="TeamName" xml:space="preserve">
+    <value>Team Name</value>
+  </data>
+  <data name="SelectMembers" xml:space="preserve">
+    <value>Select members</value>
+  </data>
+  <data name="DefinitelyWantDeleteTeam" xml:space="preserve">
+    <value>Definitely want to delete team</value>
+  </data>
+  <data name="DefinitelyWantDeleteMember" xml:space="preserve">
+    <value>Definitely want to delete member</value>
+  </data>
+  <data name="DeleteMember" xml:space="preserve">
+    <value>Delete Member</value>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>Create</value>
+  </data>
+  <data name="CreateUser" xml:space="preserve">
+    <value>Create User</value>
+  </data>
+  <data name="EmailUser" xml:space="preserve">
+    <value>Email user</value>
+  </data>
+  <data name="EnterEmail" xml:space="preserve">
+    <value>Enter email</value>
+  </data>
+  <data name="FirstNameUser" xml:space="preserve">
+    <value>First name user</value>
+  </data>
+  <data name="EnterFirstName" xml:space="preserve">
+    <value>Enter first name</value>
+  </data>
+  <data name="PleaseEnterFirstName" xml:space="preserve">
+    <value>Please enter a First name</value>
+  </data>
+  <data name="SurnameUser" xml:space="preserve">
+    <value>Surname user</value>
+  </data>
+  <data name="PleaseEnterSurname" xml:space="preserve">
+    <value>Please enter a Surname</value>
+  </data>
+  <data name="Filters" xml:space="preserve">
+    <value>Filters</value>
+  </data>
+  <data name="SelectRangeDate" xml:space="preserve">
+    <value>Select range date</value>
+  </data>
+  <data name="Confirm" xml:space="preserve">
+    <value>Confirm</value>
+  </data>
+  <data name="QuickFilter" xml:space="preserve">
+    <value>Quick Filter</value>
+  </data>
+  <data name="ThisWeek" xml:space="preserve">
+    <value>This Week</value>
+  </data>
+  <data name="ThisMonth" xml:space="preserve">
+    <value>This Month</value>
+  </data>
+  <data name="ThisQuarter" xml:space="preserve">
+    <value>This Quarter</value>
+  </data>
+  <data name="ThisYear" xml:space="preserve">
+    <value>This Year</value>
+  </data>
+  <data name="Users" xml:space="preserve">
+    <value>Users</value>
+  </data>
+  <data name="UserName" xml:space="preserve">
+    <value>User Name</value>
+  </data>
+  <data name="Points" xml:space="preserve">
+    <value>Points</value>
+  </data>
+  <data name="TotalTasks" xml:space="preserve">
+    <value>Total Tasks</value>
+  </data>
+  <data name="TasksOverdue" xml:space="preserve">
+    <value>Tasks overdue</value>
+  </data>
+  <data name="Time" xml:space="preserve">
+    <value>Time</value>
+  </data>
+  <data name="Actions" xml:space="preserve">
+    <value>Actions</value>
+  </data>
+  <data name="h" xml:space="preserve">
+    <value>h</value>
+  </data>
+  <data name="m" xml:space="preserve">
+    <value>m</value>
+  </data>
+  <data name="UserAnalytics" xml:space="preserve">
+    <value>User Analytics</value>
+  </data>
+  <data name="UserDetails" xml:space="preserve">
+    <value>User Details</value>
+  </data>
+  <data name="TotalPoint" xml:space="preserve">
+    <value>Total Point</value>
+  </data>
+  <data name="TotalTime" xml:space="preserve">
+    <value>Total Time</value>
+  </data>
+  <data name="Graph" xml:space="preserve">
+    <value>Graph</value>
+  </data>
+  <data name="Week" xml:space="preserve">
+    <value>Week</value>
+  </data>
+  <data name="Quarter" xml:space="preserve">
+    <value>Quarter</value>
+  </data>
+  <data name="ViewMode" xml:space="preserve">
+    <value>View Mode</value>
+  </data>
+  <data name="TaskName" xml:space="preserve">
+    <value>Task Name</value>
+  </data>
+  <data name="ProjectName" xml:space="preserve">
+    <value>Project Name</value>
+  </data>
+  <data name="TaskPoint" xml:space="preserve">
+    <value>Task Point</value>
+  </data>
+  <data name="ActualHours" xml:space="preserve">
+    <value>Actual hours</value>
+  </data>
+  <data name="InTime" xml:space="preserve">
+    <value>In time</value>
+  </data>
+  <data name="OopsBetterCheckThatURL" xml:space="preserve">
+    <value>Oops, better check that URL</value>
+  </data>
+  <data name="PageNotFound" xml:space="preserve">
+    <value>Page not found</value>
+  </data>
+  <data name="MyRequests" xml:space="preserve">
+    <value>My Requests</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Title</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="AppealDetails" xml:space="preserve">
+    <value>Appeal details</value>
+  </data>
+  <data name="ThereNoDescription" xml:space="preserve">
+    <value>There is no description</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="RegistrationDate" xml:space="preserve">
+    <value>Registration Date</value>
+  </data>
+  <data name="Role" xml:space="preserve">
+    <value>Role</value>
+  </data>
+  <data name="SelectRole" xml:space="preserve">
+    <value>Select role</value>
+  </data>
+  <data name="UnblockUser" xml:space="preserve">
+    <value>Unblock user</value>
+  </data>
+  <data name="BlockUser" xml:space="preserve">
+    <value>Block user</value>
+  </data>
+  <data name="UsersInThe" xml:space="preserve">
+    <value>Users in the</value>
+  </data>
+  <data name="InviteNewOrganization" xml:space="preserve">
+    <value>Invite New Organization</value>
+  </data>
+  <data name="Number" xml:space="preserve">
+    <value>Number</value>
+  </data>
+  <data name="OfParticipants" xml:space="preserve">
+    <value>Of Participants</value>
+  </data>
+  <data name="TariffPlan" xml:space="preserve">
+    <value>Tariff Plan</value>
+  </data>
+  <data name="TariffEndDate" xml:space="preserve">
+    <value>Tariff End Date</value>
+  </data>
+  <data name="TeamLeadEmail" xml:space="preserve">
+    <value>Team Lead Email</value>
+  </data>
+  <data name="UpdateTariffPlan" xml:space="preserve">
+    <value>Update tariff plan</value>
+  </data>
+  <data name="ViewHistoryPlans" xml:space="preserve">
+    <value>View history plans</value>
+  </data>
+  <data name="UnblockAllUsersOrganization" xml:space="preserve">
+    <value>Unblock all users in organization</value>
+  </data>
+  <data name="BlockAllUsersOrganization" xml:space="preserve">
+    <value>Block all users in organization</value>
+  </data>
+  <data name="AddTariff" xml:space="preserve">
+    <value>Add Tariff</value>
+  </data>
+  <data name="TariffPlanName" xml:space="preserve">
+    <value>Tariff Plan Name</value>
+  </data>
+  <data name="DateFrom" xml:space="preserve">
+    <value>Date From</value>
+  </data>
+  <data name="DateTo" xml:space="preserve">
+    <value>Date To</value>
+  </data>
+  <data name="UpdateTariff" xml:space="preserve">
+    <value>Update Tariff</value>
+  </data>
+  <data name="ExpirationDate" xml:space="preserve">
+    <value>Expiration Date</value>
+  </data>
+  <data name="SelectDate" xml:space="preserve">
+    <value>Select a date</value>
+  </data>
+  <data name="AreYouSureUnblockOrganizationMembers" xml:space="preserve">
+    <value>Are you sure you want to unblock the organization and its members</value>
+  </data>
+  <data name="Unlockout" xml:space="preserve">
+    <value>Unlockout</value>
+  </data>
+  <data name="Lockout" xml:space="preserve">
+    <value>Lockout</value>
+  </data>
+  <data name="DoYouWantBlockOrganizationMembers" xml:space="preserve">
+    <value>Do you want to block the organization and all its members</value>
+  </data>
+  <data name="EditAppeal" xml:space="preserve">
+    <value>Edit Appeal</value>
+  </data>
+  <data name="AppealDateSend" xml:space="preserve">
+    <value>Appeal date send</value>
+  </data>
+  <data name="AppealRejectedDescription" xml:space="preserve">
+    <value>Appeal Rejected Description</value>
+  </data>
+  <data name="DefinitelyDeleteUser" xml:space="preserve">
+    <value>Definitely want to delete user</value>
+  </data>
+  <data name="DeleteUser" xml:space="preserve">
+    <value>Delete User</value>
+  </data>
+  <data name="DefinitelyDeleteOrganization" xml:space="preserve">
+    <value>Definitely want to delete organization</value>
+  </data>
+  <data name="DeleteOrganization" xml:space="preserve">
+    <value>Delete Organization</value>
+  </data>
+  <data name="DefinitelyDeleteAppeal" xml:space="preserve">
+    <value>Definitely want to delete appeal</value>
+  </data>
+  <data name="DeleteAppeal" xml:space="preserve">
+    <value>Delete Appeal</value>
+  </data>
+  <data name="CreateOrganization" xml:space="preserve">
+    <value>Create Organization</value>
+  </data>
+  <data name="OrganizationName" xml:space="preserve">
+    <value>Organization Name</value>
+  </data>
+  <data name="EmailTeamLeadOrganization" xml:space="preserve">
+    <value>Email team lead Organization</value>
+  </data>
+  <data name="FirstNameTeamLead" xml:space="preserve">
+    <value>First name team lead</value>
+  </data>
+  <data name="SurnameTeamLead" xml:space="preserve">
+    <value>Surname team lead</value>
+  </data>
+  <data name="Information" xml:space="preserve">
+    <value>Information</value>
+  </data>
+  <data name="Members" xml:space="preserve">
+    <value>Members</value>
+  </data>
+  <data name="AddUser" xml:space="preserve">
+    <value>Add User</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>User</value>
+  </data>
+  <data name="Roles" xml:space="preserve">
+    <value>Roles</value>
+  </data>
+  <data name="ChangePlan" xml:space="preserve">
+    <value>Change Plan</value>
+  </data>
+  <data name="WeAreWorkingOnNewTariffPlans" xml:space="preserve">
+    <value>We are working on new tariff plans with enhanced features for teams, including larger team sizes, more users, increased storage, higher request limits, and other exciting new functionalities. Stay tuned!</value>
+  </data>
+  <data name="Ok" xml:space="preserve">
+    <value>Ok</value>
+  </data>
+  <data name="TotalUsers" xml:space="preserve">
+    <value>Total Users</value>
+  </data>
+  <data name="SpaceUsed" xml:space="preserve">
+    <value>Space used</value>
+  </data>
+  <data name="RequestsSent" xml:space="preserve">
+    <value>Requests sent</value>
+  </data>
+  <data name="EditOrganization" xml:space="preserve">
+    <value>Edit Organization</value>
+  </data>
+  <data name="PleaseEnterPhone" xml:space="preserve">
+    <value>Please enter a phone</value>
+  </data>
+  <data name="Send" xml:space="preserve">
+    <value>Send</value>
+  </data>
+  <data name="EnterSurname" xml:space="preserve">
+    <value>Enter Surname</value>
+  </data>
+  <data name="ProjectsOverview" xml:space="preserve">
+    <value>Projects Overview</value>
+  </data>
+  <data name="ProjectDetails" xml:space="preserve">
+    <value>Project Details</value>
+  </data>
+  <data name="TasksBoard" xml:space="preserve">
+    <value>Tasks Board</value>
+  </data>
+  <data name="ProjectDescription" xml:space="preserve">
+    <value>Project Description</value>
+  </data>
+  <data name="ProjectManager" xml:space="preserve">
+    <value>Project Manager</value>
+  </data>
+  <data name="StartDate" xml:space="preserve">
+    <value>Start Date</value>
+  </data>
+  <data name="EndDate" xml:space="preserve">
+    <value>End Date</value>
+  </data>
+  <data name="Properties" xml:space="preserve">
+    <value>Properties</value>
+  </data>
+  <data name="ProjectClient" xml:space="preserve">
+    <value>Project Client</value>
+  </data>
+  <data name="ProjectTeam" xml:space="preserve">
+    <value>Project Team</value>
+  </data>
+  <data name="NewProject" xml:space="preserve">
+    <value>New Project</value>
+  </data>
+  <data name="SortBy" xml:space="preserve">
+    <value>Sort By</value>
+  </data>
+  <data name="Newest" xml:space="preserve">
+    <value>Newest</value>
+  </data>
+  <data name="DateAdded" xml:space="preserve">
+    <value>Date Added</value>
+  </data>
+  <data name="AtoZ" xml:space="preserve">
+    <value>A - Z</value>
+  </data>
+  <data name="SearchProject" xml:space="preserve">
+    <value>Search Project</value>
+  </data>
+  <data name="TasksCompleted" xml:space="preserve">
+    <value>Tasks Completed</value>
+  </data>
+  <data name="View" xml:space="preserve">
+    <value>View</value>
+  </data>
+  <data name="Task" xml:space="preserve">
+    <value>Task</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="Client" xml:space="preserve">
+    <value>Client</value>
+  </data>
+  <data name="Completed" xml:space="preserve">
+    <value>Completed</value>
+  </data>
+  <data name="CreateProject" xml:space="preserve">
+    <value>Create Project</value>
+  </data>
+  <data name="EnterProjectName" xml:space="preserve">
+    <value>Enter Project Name</value>
+  </data>
+  <data name="PleaseEnterProjectName" xml:space="preserve">
+    <value>Please enter a Project Name</value>
+  </data>
+  <data name="SelectPriority" xml:space="preserve">
+    <value>Select priority</value>
+  </data>
+  <data name="Stakeholder" xml:space="preserve">
+    <value>Stakeholder</value>
+  </data>
+  <data name="EnterClientName" xml:space="preserve">
+    <value>Enter Client Name</value>
+  </data>
+  <data name="ChooseDateTime" xml:space="preserve">
+    <value>Choose date and time</value>
+  </data>
+  <data name="PleaseSelectProjectManager" xml:space="preserve">
+    <value>Please select Project Manager</value>
+  </data>
+  <data name="CreateTask" xml:space="preserve">
+    <value>Create Task</value>
+  </data>
+  <data name="AllUsers" xml:space="preserve">
+    <value>All users</value>
+  </data>
+  <data name="Project" xml:space="preserve">
+    <value>Project</value>
+  </data>
+  <data name="Member" xml:space="preserve">
+    <value>Member</value>
+  </data>
+  <data name="Developer" xml:space="preserve">
+    <value>Developer</value>
+  </data>
+  <data name="Designer" xml:space="preserve">
+    <value>Designer</value>
+  </data>
+  <data name="SalesManager" xml:space="preserve">
+    <value>Sales Manager</value>
+  </data>
+  <data name="QA" xml:space="preserve">
+    <value>QA</value>
+  </data>
+  <data name="DevOps" xml:space="preserve">
+    <value>DevOps</value>
+  </data>
+  <data name="Analyst" xml:space="preserve">
+    <value>Analyst</value>
+  </data>
+  <data name="HRManager" xml:space="preserve">
+    <value>HR Manager</value>
+  </data>
+  <data name="MarketingManager" xml:space="preserve">
+    <value>Marketing Manager</value>
+  </data>
+  <data name="TeamLead" xml:space="preserve">
+    <value>Team Lead</value>
+  </data>
+  <data name="DeleteTask" xml:space="preserve">
+    <value>Delete Task</value>
+  </data>
+  <data name="SetAssignmentsTask" xml:space="preserve">
+    <value>Set Assignments Task</value>
+  </data>
+  <data name="ToCreateProject" xml:space="preserve">
+    <value>To create a project, first create a team consisting of at least one member</value>
+  </data>
+  <data name="ProjectsAnalytics" xml:space="preserve">
+    <value>Projects Analytics</value>
+  </data>
+  <data name="ThisMonthLowerCase" xml:space="preserve">
+    <value>this month</value>
+  </data>
+  <data name="UIDeveloper" xml:space="preserve">
+    <value>UI Developer</value>
+  </data>
+  <data name="ProjectAnalysis" xml:space="preserve">
+    <value>Project Analysis</value>
+  </data>
+  <data name="DailyTasks" xml:space="preserve">
+    <value>Daily Tasks</value>
+  </data>
+  <data name="TaskBoard" xml:space="preserve">
+    <value>Task board</value>
+  </data>
+  <data name="Framework" xml:space="preserve">
+    <value>Framework</value>
+  </data>
+  <data name="Angular" xml:space="preserve">
+    <value>Angular</value>
+  </data>
+  <data name="Php" xml:space="preserve">
+    <value>Php</value>
+  </data>
+  <data name="Overview" xml:space="preserve">
+    <value>Overview</value>
+  </data>
+  <data name="ProjectsSummary" xml:space="preserve">
+    <value>Projects Summary</value>
+  </data>
+  <data name="New" xml:space="preserve">
+    <value>New</value>
+  </data>
+  <data name="Popular" xml:space="preserve">
+    <value>Popular</value>
+  </data>
+  <data name="Relevant" xml:space="preserve">
+    <value>Relevant</value>
+  </data>
+  <data name="AssignedTo" xml:space="preserve">
+    <value>Assigned To</value>
+  </data>
+  <data name="Progress" xml:space="preserve">
+    <value>Progress</value>
+  </data>
+  <data name="HomePage" xml:space="preserve">
+    <value>Home Page</value>
+  </data>
+  <data name="EditProject" xml:space="preserve">
+    <value>Edit Project</value>
+  </data>
+  <data name="DefinitelyWantDeleteProject" xml:space="preserve">
+    <value>Definitely want to delete project</value>
+  </data>
+  <data name="DeleteProject" xml:space="preserve">
+    <value>Delete Project</value>
+  </data>
+  <data name="TakenToWork" xml:space="preserve">
+    <value>Taken To Work</value>
+  </data>
+  <data name="Postponed" xml:space="preserve">
+    <value>Postponed</value>
+  </data>
+  <data name="Rejected" xml:space="preserve">
+    <value>Rejected</value>
+  </data>
+  <data name="InProcessing" xml:space="preserve">
+    <value>In Processing</value>
+  </data>
+  <data name="KanbanBoard" xml:space="preserve">
+    <value>Kanban Board</value>
+  </data>
+  <data name="OverdueTasks" xml:space="preserve">
+    <value>Overdue Tasks</value>
+  </data>
+  <data name="LastMonth" xml:space="preserve">
+    <value>Last Month</value>
+  </data>
+  <data name="AddTask" xml:space="preserve">
+    <value>Add Task</value>
+  </data>
+  <data name="Created" xml:space="preserve">
+    <value>Created</value>
+  </data>
+  <data name="Archiv" xml:space="preserve">
+    <value>Archiv</value>
+  </data>
+  <data name="daysLeft" xml:space="preserve">
+    <value>days left</value>
+  </data>
+  <data name="daysOverdue" xml:space="preserve">
+    <value>days overdue</value>
+  </data>
+  <data name="noEndDate" xml:space="preserve">
+    <value>no end date</value>
+  </data>
+  <data name="Details" xml:space="preserve">
+    <value>Details</value>
+  </data>
+  <data name="AddHours" xml:space="preserve">
+    <value>Add Hours</value>
+  </data>
+  <data name="DetailsTask" xml:space="preserve">
+    <value>Details Task</value>
+  </data>
+  <data name="TaskDescription" xml:space="preserve">
+    <value>Task Description</value>
+  </data>
+  <data name="PerformanceNotes" xml:space="preserve">
+    <value>Performance notes</value>
+  </data>
+  <data name="EnterComplexity" xml:space="preserve">
+    <value>Enter complexity</value>
+  </data>
+  <data name="SelectMember" xml:space="preserve">
+    <value>Select member</value>
+  </data>
+  <data name="Deadline" xml:space="preserve">
+    <value>Deadline</value>
+  </data>
+  <data name="Hours" xml:space="preserve">
+    <value>Hours</value>
+  </data>
+  <data name="Minutes" xml:space="preserve">
+    <value>Minutes</value>
+  </data>
+  <data name="DefinitelyWantDeleteTask" xml:space="preserve">
+    <value>Definitely want to delete task</value>
+  </data>
+  <data name="EnterTime" xml:space="preserve">
+    <value>Enter Time</value>
+  </data>
+  <data name="AddTaskShort" xml:space="preserve">
+    <value>Add Task</value>
+  </data>
+  <data name="Home" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="Solutions" xml:space="preserve">
+    <value>Solutions</value>
+  </data>
+  <data name="ProjectManagement" xml:space="preserve">
+    <value>Project Management</value>
+  </data>
+  <data name="TaskManagement" xml:space="preserve">
+    <value>Task Management</value>
+  </data>
+  <data name="AdvancedAnalytics" xml:space="preserve">
+    <value>Advanced Analytics</value>
+  </data>
+  <data name="TeamManagement" xml:space="preserve">
+    <value>Team Management</value>
+  </data>
+  <data name="PersonalProfile" xml:space="preserve">
+    <value>Personal Profile</value>
+  </data>
+  <data name="OurMission" xml:space="preserve">
+    <value>Our Mission</value>
+  </data>
+  <data name="Features" xml:space="preserve">
+    <value>Features</value>
+  </data>
+  <data name="Pricing" xml:space="preserve">
+    <value>Pricing</value>
+  </data>
+  <data name="FAQS" xml:space="preserve">
+    <value>Faq's</value>
+  </data>
+  <data name="Contact" xml:space="preserve">
+    <value>Contact</value>
+  </data>
+  <data name="SignUp" xml:space="preserve">
+    <value>Sign Up</value>
+  </data>
+  <data name="SolutionsUpperCase" xml:space="preserve">
+    <value>SOLUTIONS</value>
+  </data>
+  <data name="Analytics1" xml:space="preserve">
+    <value>Analytics</value>
+  </data>
+  <data name="ProjectManagementUpperCase" xml:space="preserve">
+    <value>PROJECT/TASK MANAGEMENT</value>
+  </data>
+  <data name="TaskManagementUpperCase" xml:space="preserve">
+    <value>TASK MANAGEMENT</value>
+  </data>
+  <data name="AdvancedAnalyticsUpperCase" xml:space="preserve">
+    <value>ADVANCED ANALYTICS</value>
+  </data>
+  <data name="TeamManagementUpperCase" xml:space="preserve">
+    <value>TEAM/ANALYTICS MANAGEMENT</value>
+  </data>
+  <data name="PersonalProfileUpperCase" xml:space="preserve">
+    <value>PERSONAL PROFILE</value>
+  </data>
+  <data name="OurMissionUpperCase" xml:space="preserve">
+    <value>OUR MISSION</value>
+  </data>
+  <data name="TaskTracking" xml:space="preserve">
+    <value>Task Tracking</value>
+  </data>
+  <data name="Convenience" xml:space="preserve">
+    <value>Convenience</value>
+  </data>
+  <data name="PricingUpperCase" xml:space="preserve">
+    <value>PRICING</value>
+  </data>
+  <data name="Monthly" xml:space="preserve">
+    <value>Monthly</value>
+  </data>
+  <data name="Yearly" xml:space="preserve">
+    <value>Yearly</value>
+  </data>
+  <data name="Basic" xml:space="preserve">
+    <value>Basic</value>
+  </data>
+  <data name="FreeUpperCase" xml:space="preserve">
+    <value>FREE</value>
+  </data>
+  <data name="perMonth" xml:space="preserve">
+    <value>per month</value>
+  </data>
+  <data name="Space" xml:space="preserve">
+    <value>Space</value>
+  </data>
+  <data name="Requests" xml:space="preserve">
+    <value>Requests</value>
+  </data>
+  <data name="GetStarted" xml:space="preserve">
+    <value>Get Started</value>
+  </data>
+  <data name="Pro" xml:space="preserve">
+    <value>Pro</value>
+  </data>
+  <data name="Individual" xml:space="preserve">
+    <value>Individual</value>
+  </data>
+  <data name="perYear" xml:space="preserve">
+    <value>per year</value>
+  </data>
+  <data name="ContactUsUpperCase" xml:space="preserve">
+    <value>CONTACT US</value>
+  </data>
+  <data name="FullName" xml:space="preserve">
+    <value>Full Name</value>
+  </data>
+  <data name="PleaseEnterFullName" xml:space="preserve">
+    <value>Please enter full name</value>
+  </data>
+  <data name="Phone" xml:space="preserve">
+    <value>Phone</value>
+  </data>
+  <data name="EnterPhone" xml:space="preserve">
+    <value>Enter Phone</value>
+  </data>
+  <data name="PleaseEnterPhoneNumber" xml:space="preserve">
+    <value>Please enter phone number</value>
+  </data>
+  <data name="EmailAddress" xml:space="preserve">
+    <value>Email Address</value>
+  </data>
+  <data name="PleaseEnterCorrectEmail" xml:space="preserve">
+    <value>Please enter correct email</value>
+  </data>
+  <data name="Message" xml:space="preserve">
+    <value>Message</value>
+  </data>
+  <data name="PleaseEnterMessage" xml:space="preserve">
+    <value>Please enter message</value>
+  </data>
+  <data name="SendMessage" xml:space="preserve">
+    <value>Send Message</value>
+  </data>
+  <data name="Copyright" xml:space="preserve">
+    <value>Copyright</value>
+  </data>
+  <data name="AllRightsReserved" xml:space="preserve">
+    <value>All rights reserved</value>
+  </data>
+  <data name="SendRequest" xml:space="preserve">
+    <value>Send request</value>
+  </data>
+  <data name="SignIn" xml:space="preserve">
+    <value>Sign In</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="ForgotPassword" xml:space="preserve">
+    <value>Forgot password</value>
+  </data>
+  <data name="LogIn" xml:space="preserve">
+    <value>Log In</value>
+  </data>
+  <data name="YouNowLoggedOut" xml:space="preserve">
+    <value>You are now logged out</value>
+  </data>
+  <data name="ClickLoginReturnPageLogin" xml:space="preserve">
+    <value>Click Login to return to the page login</value>
+  </data>
+  <data name="SignUpWithGoogle" xml:space="preserve">
+    <value>Sign up with google</value>
+  </data>
+  <data name="OrUpperCase" xml:space="preserve">
+    <value>OR</value>
+  </data>
+  <data name="AtLeastCharactersLong" xml:space="preserve">
+    <value>At least 6 characters long</value>
+  </data>
+  <data name="MustContainLeastDigit" xml:space="preserve">
+    <value>Must contain at least 1 digit</value>
+  </data>
+  <data name="MustContainLeastUppercaseLetter" xml:space="preserve">
+    <value>Must contain at least 1 uppercase letter</value>
+  </data>
+  <data name="MustContainLeastSpecialCharacter" xml:space="preserve">
+    <value>Must contain at least 1 special character</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>First Name</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>Last Name</value>
+  </data>
+  <data name="CreateAccount" xml:space="preserve">
+    <value>Create Account</value>
+  </data>
+  <data name="ResetPassword" xml:space="preserve">
+    <value>Reset Password</value>
+  </data>
+  <data name="ConfirmPassword" xml:space="preserve">
+    <value>Confirm Password</value>
+  </data>
+  <data name="ResetPasswordConfirmation" xml:space="preserve">
+    <value>Reset Password Confirmation</value>
+  </data>
+  <data name="PasswordSuccessfullyChanged" xml:space="preserve">
+    <value>Password successfully changed, you can close this page</value>
+  </data>
+  <data name="GoToLogin" xml:space="preserve">
+    <value>Go to Login</value>
+  </data>
+  <data name="SendResetLink" xml:space="preserve">
+    <value>Send Reset Link</value>
+  </data>
+  <data name="ForgotPasswordConfirmation" xml:space="preserve">
+    <value>Forgot Password Confirmation</value>
+  </data>
+  <data name="WeveSentEmailInstructionsResetPassword" xml:space="preserve">
+    <value>We've sent you an email with instructions on how to reset your password. Please check your email</value>
+  </data>
+  <data name="AccessDenied" xml:space="preserve">
+    <value>Access Denied</value>
+  </data>
+  <data name="YouDoNotHaveAccess" xml:space="preserve">
+    <value>You do not have access to that resource</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="EfficiencyDoingThingsRight" xml:space="preserve">
+    <value>"Efficiency is doing things right; effectiveness is doing the right things." – Peter Drucker</value>
+  </data>
+  <data name="GreatTeamsJustWorkTogether" xml:space="preserve">
+    <value>"Great teams don’t just work together, they think together."</value>
+  </data>
+  <data name="ProductivityNeverAccident" xml:space="preserve">
+    <value>"Productivity is never an accident. It is always the result of commitment and smart planning."</value>
+  </data>
+  <data name="AGoalWithoutPlan" xml:space="preserve">
+    <value>"A goal without a plan is just a wish." – Antoine de Saint-Exupéry</value>
+  </data>
+  <data name="SuccessSumSmallEfforts" xml:space="preserve">
+    <value>"Success is the sum of small efforts, repeated day in and day out." – Robert Collier</value>
+  </data>
+  <data name="RememberMe" xml:space="preserve">
+    <value>Remember me?</value>
+  </data>
+  <data name="PleaseResetPasswordClickingHere" xml:space="preserve">
+    <value>Please reset your password by clicking here</value>
+  </data>
+  <data name="CurrentPlan" xml:space="preserve">
+    <value>Current Plan</value>
+  </data>
+  <data name="Default" xml:space="preserve">
+    <value>Default</value>
+  </data>
+  <data name="dataTableInfo" xml:space="preserve">
+    <value>Showing {0} to {1} of {2} entries</value>
+  </data>
+  <data name="noEntriesToShow" xml:space="preserve">
+    <value>No entries to show</value>
+  </data>
+  <data name="noMatchingRecordsFound" xml:space="preserve">
+    <value>No matching records found</value>
+  </data>
+  <data name="first" xml:space="preserve">
+    <value>First</value>
+  </data>
+  <data name="previous" xml:space="preserve">
+    <value>Previous</value>
+  </data>
+  <data name="next" xml:space="preserve">
+    <value>Next</value>
+  </data>
+  <data name="last" xml:space="preserve">
+    <value>Last</value>
+  </data>
+  <data name="invalidEmailAddress" xml:space="preserve">
+    <value>Invalid email address. Email: test@gmail.com</value>
+  </data>
+  <data name="cannotBeEmpty" xml:space="preserve">
+    <value>cannot be empty</value>
+  </data>
+  <data name="noResultsFound" xml:space="preserve">
+    <value>No results found</value>
+  </data>
+  <data name="noChoicesChooseFrom" xml:space="preserve">
+    <value>No choices to choose from</value>
+  </data>
+  <data name="pressSelect" xml:space="preserve">
+    <value>Press to select</value>
+  </data>
+  <data name="errorOccurredWhileUpdatingTariff" xml:space="preserve">
+    <value>Error occurred while updating tariff</value>
+  </data>
+  <data name="doYouWantBlockUser" xml:space="preserve">
+    <value>Do you want to block the user</value>
+  </data>
+  <data name="areYouSureWantUnblockUser" xml:space="preserve">
+    <value>Are you sure you want to unblock the user</value>
+  </data>
+  <data name="invalidPhoneNumber" xml:space="preserve">
+    <value>Invalid phone number. +380-xx-xxx-xx-xx</value>
+  </data>
+  <data name="organizationNameRequired" xml:space="preserve">
+    <value>Organization Name is required.</value>
+  </data>
+  <data name="anErrorOccurredWhileUpdatingRole" xml:space="preserve">
+    <value>An error occurred while updating the role</value>
+  </data>
+  <data name="pleaseEnterTitle" xml:space="preserve">
+    <value>Please enter a title.</value>
+  </data>
+  <data name="maxLengthChars" xml:space="preserve">
+    <value>Max length 128 chars.</value>
+  </data>
+  <data name="loading" xml:space="preserve">
+    <value>Loading</value>
+  </data>
+  <data name="selectManager" xml:space="preserve">
+    <value>Select manager</value>
+  </data>
+  <data name="helloIAmInterestedPleaseContactMe" xml:space="preserve">
+    <value>Hello! I am interested in the {0} plan ({1}). Please contact me!</value>
+  </data>
+  <data name="lengthMenu" xml:space="preserve">
+    <value>Show {0} entries</value>
+  </data>
+  <data name="infoFiltered" xml:space="preserve">
+    <value>(filtered from {0} records)</value>
+  </data>
+  <data name="loadingRecords" xml:space="preserve">
+    <value>Loading...</value>
+  </data>
+  <data name="processing" xml:space="preserve">
+    <value>Processing...</value>
+  </data>
+  <data name="emptyTable" xml:space="preserve">
+    <value>Data missing</value>
+  </data>
+  <data name="TaskListView" xml:space="preserve">
+    <value>Task List View</value>
+  </data>
+  <data name="NewTasks" xml:space="preserve">
+    <value>New Tasks</value>
+  </data>
+  <data name="TasksStatistics" xml:space="preserve">
+    <value>Tasks Statistics</value>
+  </data>
+  <data name="Last6Months" xml:space="preserve">
+    <value>Last 6 months</value>
+  </data>
+  <data name="NotExhibited" xml:space="preserve">
+    <value>Not exhibited</value>
+  </data>
+  <data name="TaskList" xml:space="preserve">
+    <value>Task List</value>
+  </data>
+  <data name="ConnectTelegram" xml:space="preserve">
+    <value>Connect Telegram</value>
+  </data>
+  <data name="ChangePassword" xml:space="preserve">
+    <value>Change Password</value>
+  </data>
+  <data name="CurrentPassword" xml:space="preserve">
+    <value>Current Password</value>
+  </data>
+  <data name="NewPassword" xml:space="preserve">
+    <value>New Password</value>
+  </data>
+  <data name="PasswordDontMatch" xml:space="preserve">
+    <value>Passwords do not match.</value>
+  </data>
+  <data name="IntegrationViaTelegramAvailableOnlyUsersProPlan" xml:space="preserve">
+    <value>Integration via Telegram is available only for users with a Pro plan. Please upgrade your tariff plan</value>
+  </data>
+  <data name="WeCouldntFindOrganizationYourAccount" xml:space="preserve">
+    <value>We couldn't find an organization for your account. Please contact the administrator.</value>
+  </data>
+  <data name="ToLinkYourAccountFollowPersonal" xml:space="preserve">
+    <value>To link your account, follow the personal link in your profile.</value>
+  </data>
+  <data name="CongratulationsYourAccountSuccessfullyLinkedTelegram" xml:space="preserve">
+    <value>Congratulations! Your account has been successfully linked to Telegram.</value>
+  </data>
+  <data name="PleaseUseYourPersonalizedLink" xml:space="preserve">
+    <value>Please use your personalized link to link your account.</value>
+  </data>
+  <data name="ICanOnlyInformYouButNotEngageDialog" xml:space="preserve">
+    <value>I can only inform you, but not engage in a dialog. If you have any questions, please contact the administrators via the mail indicated on the Taskject website</value>
+  </data>
+  <data name="YouSetExecutorForTheTask" xml:space="preserve">
+    <value>You have been assigned to the task '{0}'</value>
+  </data>
+  <data name="ForYouWasCreatedTask" xml:space="preserve">
+    <value>A new task '{0}' has been created for you</value>
+  </data>
+  <data name="TaskDeadlineSet" xml:space="preserve">
+    <value>For your task '{0}' set deadline: {1:d}</value>
+  </data>
+  <data name="TaskDeadlineChanged" xml:space="preserve">
+    <value>The deadline for your task '{0}' was changed from {1:d} to {2:d}</value>
+  </data>
+  <data name="TheTaskTransferredStatusOnReview" xml:space="preserve">
+    <value>The task '{0}' you created has been moved to the status 'On review'</value>
+  </data>
+  <data name="YourTaskHasStatusCompleted" xml:space="preserve">
+    <value>Your task '{0}' is now marked as 'Completed'</value>
+  </data>
+  <data name="YourTaskWasUpdated" xml:space="preserve">
+    <value>Your task '{0}' was updated</value>
+  </data>
+  <data name="Confirmation" xml:space="preserve">
+    <value>Confirmation</value>
+  </data>
+  <data name="ConfirmationTelegramText" xml:space="preserve">
+    <value>Are you sure you want to unconnect Telegram?</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="UnconnectTelegram" xml:space="preserve">
+    <value>Unconnect Telegram</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="AutoRenewalText" xml:space="preserve">
+    <value>Subscriptions are automatically renewed monthly. You can cancel anytime and your subscription will remain active until the end of the paid period.</value>
+  </data>
+  <data name="AutoRenewalTitle" xml:space="preserve">
+    <value>Automatic Renewal</value>
+  </data>
+  <data name="IntroNote" xml:space="preserve">
+    <value>We provide a fully functional free plan so you can try the service before paying.</value>
+  </data>
+  <data name="IntroRefundThanks" xml:space="preserve">
+    <value>Thank you for using</value>
+  </data>
+  <data name="NoRefundList1" xml:space="preserve">
+    <value>a technical issue occurred on the platform side;</value>
+  </data>
+  <data name="NoRefundList2" xml:space="preserve">
+    <value>you accidentally purchased multiple subscriptions;</value>
+  </data>
+  <data name="NoRefundList3" xml:space="preserve">
+    <value>a subscription was charged after being cancelled (auto-renewal off).</value>
+  </data>
+  <data name="NoRefundText" xml:space="preserve">
+    <value>After purchasing a paid subscription, refunds are not available except in cases where:</value>
+  </data>
+  <data name="NoRefundTitle" xml:space="preserve">
+    <value>Refunds</value>
+  </data>
+  <data name="RefundContact" xml:space="preserve">
+    <value>In such cases, contact us within 7 days at:</value>
+  </data>
+  <data name="TitleRefund" xml:space="preserve">
+    <value>Refund Policy</value>
+  </data>
+  <data name="ContactInfoPrivate" xml:space="preserve">
+    <value>If you have questions about the privacy policy, please contact us:</value>
+  </data>
+  <data name="ContactTitlePrivate" xml:space="preserve">
+    <value>Contact Information</value>
+  </data>
+  <data name="CookiesList1Private" xml:space="preserve">
+    <value>user authentication</value>
+  </data>
+  <data name="CookiesList2Private" xml:space="preserve">
+    <value>saving language settings</value>
+  </data>
+  <data name="CookiesList3Private" xml:space="preserve">
+    <value>displaying a relevant interface</value>
+  </data>
+  <data name="CookiesPurposePrivate" xml:space="preserve">
+    <value>We use cookies necessary for:</value>
+  </data>
+  <data name="UseTheServiceAndUserObligations" xml:space="preserve">
+    <value>Use of the Service and User Obligations</value>
+  </data>
+  <data name="DataSharingNoteImportantPrivate" xml:space="preserve">
+    <value>do not share your personal data</value>
+  </data>
+  <data name="DataSharingNotePrivate" xml:space="preserve">
+    <value>with third parties, except for the integrations with the above services acting as separate controllers or processors.</value>
+  </data>
+  <data name="DataSharingTitlePrivate" xml:space="preserve">
+    <value>Data Sharing with Third Parties</value>
+  </data>
+  <data name="ExtraInfoPrivate" xml:space="preserve">
+    <value>Additionally, we store:</value>
+  </data>
+  <data name="ExtraList1Private" xml:space="preserve">
+    <value>Telegram chat ID, if you subscribed to notifications</value>
+  </data>
+  <data name="ExtraList2Private" xml:space="preserve">
+    <value>Organization code and language preference (via cookies)</value>
+  </data>
+  <data name="InfoList1Private" xml:space="preserve">
+    <value>Full name of the account owner</value>
+  </data>
+  <data name="InfoList2Private" xml:space="preserve">
+    <value>Organization name</value>
+  </data>
+  <data name="InfoList3Private" xml:space="preserve">
+    <value>Email (used as login)</value>
+  </data>
+  <data name="InfoList4Private" xml:space="preserve">
+    <value>Password (stored in encrypted form)</value>
+  </data>
+  <data name="InfoParagraph1Private" xml:space="preserve">
+    <value>When registering on Taskject, we may collect the following information:</value>
+  </data>
+  <data name="InfoTitlePrivate" xml:space="preserve">
+    <value>What Information We Collect</value>
+  </data>
+  <data name="IntroPrivate" xml:space="preserve">
+    <value>We respect your privacy and are committed to protecting the personal data you provide. This Privacy Policy explains what data we collect, how we use it, and what rights you have.</value>
+  </data>
+  <data name="IntroPrivateStart" xml:space="preserve">
+    <value>Welcome to</value>
+  </data>
+  <data name="InviteInfoPrivate" xml:space="preserve">
+    <value>If you invite other users to your organization, we also store:</value>
+  </data>
+  <data name="InviteList1Private" xml:space="preserve">
+    <value>Name, surname and email of invited users</value>
+  </data>
+  <data name="RightsList1Private" xml:space="preserve">
+    <value>view or edit your personal information</value>
+  </data>
+  <data name="RightsList2Private" xml:space="preserve">
+    <value>withdraw consent for processing (e.g., unsubscribing from Telegram)</value>
+  </data>
+  <data name="RightsList3Private" xml:space="preserve">
+    <value>contact us with questions or a request to delete data</value>
+  </data>
+  <data name="RightsNotePrivate" xml:space="preserve">
+    <value>You have the right:</value>
+  </data>
+  <data name="RightsTitlePrivate" xml:space="preserve">
+    <value>Your Rights</value>
+  </data>
+  <data name="SecurityNote1Private" xml:space="preserve">
+    <value>We use ASP.NET Core Identity with password hashing and other modern data protection methods. Account access is controlled by authentication and roles.</value>
+  </data>
+  <data name="SecurityNote2Private" xml:space="preserve">
+    <value>We do not explicitly store the user's IP address, but it may be logged by the Azure infrastructure for technical reasons (without our access).</value>
+  </data>
+  <data name="SecurityTitlePrivate" xml:space="preserve">
+    <value>Security</value>
+  </data>
+  <data name="ThirdList2Private" xml:space="preserve">
+    <value>GitHub — for optimaze developers processes</value>
+  </data>
+  <data name="ThirdList3Private" xml:space="preserve">
+    <value>Telegram — for sending notifications, if you explicitly subscribed</value>
+  </data>
+  <data name="ThirdNotePrivate" xml:space="preserve">
+    <value>These services may collect their own technical data according to their policies.</value>
+  </data>
+  <data name="ThirdPartyIntroPrivate" xml:space="preserve">
+    <value>We integrate the following third-party services:</value>
+  </data>
+  <data name="ThirdPartyTitlePrivate" xml:space="preserve">
+    <value>Third-Party Services</value>
+  </data>
+  <data name="TitlePrivatePolicy" xml:space="preserve">
+    <value>Privacy Policy</value>
+  </data>
+  <data name="UsageList1Private" xml:space="preserve">
+    <value>For user registration and identification</value>
+  </data>
+  <data name="UsageList2Private" xml:space="preserve">
+    <value>To support service functionality (task and project management)</value>
+  </data>
+  <data name="UsageList3Private" xml:space="preserve">
+    <value>To send transactional messages (email or Telegram)</value>
+  </data>
+  <data name="UsageList4Private" xml:space="preserve">
+    <value>To handle payments and access to plans</value>
+  </data>
+  <data name="UsageTitlePrivate" xml:space="preserve">
+    <value>How We Use Your Information</value>
+  </data>
+  <data name="We" xml:space="preserve">
+    <value>We</value>
+  </data>
+  <data name="Statuses" xml:space="preserve">
+    <value>Statuses</value>
+  </data>
+  <data name="CreatedDate" xml:space="preserve">
+    <value>Created Date</value>
+  </data>
+  <data name="Creator" xml:space="preserve">
+    <value>Creator</value>
+  </data>
+  <data name="ProtectionAgainstCSRFAttacksASP" xml:space="preserve">
+    <value>Protection against CSRF attacks in ASP.NET Core.</value>
+  </data>
+  <data name="ASPNETCoreIdentityAuthenticationCookie" xml:space="preserve">
+    <value>ASP.NET Core Identity authentication cookie.</value>
+  </data>
+  <data name="StoresUserCookiePreferences" xml:space="preserve">
+    <value>Stores user cookie preferences.</value>
+  </data>
+  <data name="SavesUsersLanguage" xml:space="preserve">
+    <value>Saves the user's language.</value>
+  </data>
+  <data name="months6" xml:space="preserve">
+    <value>6 months</value>
+  </data>
+  <data name="year1" xml:space="preserve">
+    <value>1 year</value>
+  </data>
+  <data name="DescriptionUnavailable" xml:space="preserve">
+    <value>Description unavailable</value>
+  </data>
+  <data name="Unknown" xml:space="preserve">
+    <value>Unknown</value>
+  </data>
+  <data name="Duration" xml:space="preserve">
+    <value>Duration</value>
+  </data>
+  <data name="CustomiseConsentPreferences" xml:space="preserve">
+    <value>Customise Consent Preferences</value>
+  </data>
+  <data name="Necessary" xml:space="preserve">
+    <value>Necessary</value>
+  </data>
+  <data name="AlwaysActive" xml:space="preserve">
+    <value>Always Active</value>
+  </data>
+  <data name="Functional" xml:space="preserve">
+    <value>Functional</value>
+  </data>
+  <data name="RejectAll" xml:space="preserve">
+    <value>Reject All</value>
+  </data>
+  <data name="SaveMyPreferences" xml:space="preserve">
+    <value>Save My Preferences</value>
+  </data>
+  <data name="AcceptAll" xml:space="preserve">
+    <value>Accept All</value>
+  </data>
+  <data name="Customise" xml:space="preserve">
+    <value>Customise</value>
+  </data>
+  <data name="WeUseCookiesHelpYouNavigateEfficiently" xml:space="preserve">
+    <value>We use cookies to help you navigate efficiently and perform certain functions. You will find detailed information about all cookies under each consent category below.</value>
+  </data>
+  <data name="TheCookiesThatCategorisedNecessary" xml:space="preserve">
+    <value>The cookies that are categorised as "Necessary" are stored on your browser as they are essential for enabling the basic functionalities of the site.</value>
+  </data>
+  <data name="YouCanChooseEnableDisableSome" xml:space="preserve">
+    <value>You can choose to enable or disable some or all of these cookies but disabling some of them may affect your browsing experience.</value>
+  </data>
+  <data name="WeUseCookiesEnhanceBrowsingExperience" xml:space="preserve">
+    <value>We use cookies to enhance your browsing experience, serve personalised ads or content, and analyse our traffic. By clicking "Accept All", you consent to our use of cookies.</value>
+  </data>
+  <data name="CookiePolicy" xml:space="preserve">
+    <value>Cookie Policy</value>
+  </data>
+  <data name="WeValueYourPrivacy" xml:space="preserve">
+    <value>We value your privacy</value>
+  </data>
+  <data name="TopTen" xml:space="preserve">
+    <value>Top 10</value>
+  </data>
+  <data name="Expert" xml:space="preserve">
+    <value>Expert</value>
+  </data>
+  <data name="UsersAnalytics" xml:space="preserve">
+    <value>Users Analytics</value>
+  </data>
+  <data name="OverviewPermissionsUsers" xml:space="preserve">
+    <value>Overview Permissions Users</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>Save changes</value>
+  </data>
+  <data name="CanCreate" xml:space="preserve">
+    <value>Can Create</value>
+  </data>
+  <data name="CanEdit" xml:space="preserve">
+    <value>Can Edit</value>
+  </data>
+  <data name="CanDelete" xml:space="preserve">
+    <value>Can Delete</value>
+  </data>
+  <data name="CanAssign" xml:space="preserve">
+    <value>Can Assign</value>
+  </data>
+  <data name="UserPermissions" xml:space="preserve">
+    <value>User Permissions</value>
+  </data>
+  <data name="NotAccessThisPage" xml:space="preserve">
+    <value>Oops 😥, You do not have access to this page.</value>
+  </data>
+  <data name="ReturnToProfileUpperCase" xml:space="preserve">
+    <value>RETURN TO PROFILE</value>
+  </data>
+  <data name="SorryYouDoNotHaveSufficientPermissions" xml:space="preserve">
+    <value>Sorry, you do not have sufficient permissions to view this page. If you believe this is an error, please contact the administrator.</value>
+  </data>
+  <data name="ADSFree" xml:space="preserve">
+    <value>ADS Free</value>
+  </data>
+  <data name="Free" xml:space="preserve">
+    <value>Free</value>
+  </data>
+  <data name="PriceMonthlyAnnually" xml:space="preserve">
+    <value>Price (Monthly/Annually)</value>
+  </data>
+  <data name="Subscribe" xml:space="preserve">
+    <value>Subscribe</value>
+  </data>
+  <data name="TelegramIntegration" xml:space="preserve">
+    <value>Telegram Integration</value>
+  </data>
+  <data name="ProjectAccessLevels" xml:space="preserve">
+    <value>Project access levels</value>
+  </data>
+  <data name="AcceptedYourRequestToUse" xml:space="preserve">
+    <value>Dear user,the ByteBusters team has accepted your request to use</value>
+  </data>
+  <data name="AccountAuthenticationDetails" xml:space="preserve">
+    <value>Account Authentication Details</value>
+  </data>
+  <data name="HereYourAccountAuthenticationDetails" xml:space="preserve">
+    <value>Here are your account authentication details</value>
+  </data>
+  <data name="IfYouHaveQuestionsContactUs" xml:space="preserve">
+    <value>If you have any questions, feel free to contact our support team support@taskject.com</value>
+  </data>
+  <data name="InformationConfidential" xml:space="preserve">
+    <value>Please keep this information confidential</value>
+  </data>
+  <data name="YourAccountAuthenticationDetails" xml:space="preserve">
+    <value>Your Account Authentication Details</value>
+  </data>
+  <data name="Adress" xml:space="preserve">
+    <value>Adress</value>
+  </data>
+  <data name="BazhanaAvenue10AKyiv" xml:space="preserve">
+    <value>Bazhana avenue 10A, Kyiv</value>
+  </data>
+  <data name="SocialNetwork" xml:space="preserve">
+    <value>Social network</value>
+  </data>
+  <data name="ContactUs" xml:space="preserve">
+    <value>Contact us</value>
+  </data>
+  <data name="PrivacyPolicy" xml:space="preserve">
+    <value>Privacy Policy</value>
+  </data>
+  <data name="RefundPolicy" xml:space="preserve">
+    <value>Refund Policy</value>
+  </data>
+  <data name="Policy" xml:space="preserve">
+    <value>Policy</value>
+  </data>
+  <data name="SeoTitle" xml:space="preserve">
+    <value>TaskJect — Task &amp; Project Management</value>
+  </data>
+  <data name="SeoDescription" xml:space="preserve">
+    <value>TaskJect is a modern platform for task and project management with team analytics. Track deadlines, visualize progress, collaborate effectively. Cloud-based SaaS from Ukraine.</value>
+  </data>
+  <data name="SeoKeywords" xml:space="preserve">
+    <value>task management, project tracking, task analytics, SaaS Ukraine, TaskJect, team collaboration, task tracker, deadline manager</value>
+  </data>
+  <data name="Files" xml:space="preserve">
+    <value>Files</value>
+  </data>
+  <data name="DefinitelyWantDeleteFile" xml:space="preserve">
+    <value>Definitely want Delete File</value>
+  </data>
+  <data name="Attachments" xml:space="preserve">
+    <value>Attachments</value>
+  </data>
+  <data name="ProjectDocuments" xml:space="preserve">
+    <value>Project Documents</value>
+  </data>
+  <data name="Download" xml:space="preserve">
+    <value>Download</value>
+  </data>
+  <data name="TotalFileSizeNotExceed30MB" xml:space="preserve">
+    <value>Total file size must not exceed 30 MB</value>
+  </data>
+  <data name="FilePond_LabelIdle" xml:space="preserve">
+    <value>Drag &amp; Drop your files or &lt;span class="filepond--label-action"&gt;Browse&lt;/span&gt;</value>
+  </data>
+  <data name="FilePond_LabelInvalidField" xml:space="preserve">
+    <value>Field contains invalid files</value>
+  </data>
+  <data name="FilePond_LabelFileWaitingForSize" xml:space="preserve">
+    <value>Waiting for size</value>
+  </data>
+  <data name="FilePond_LabelFileSizeNotAvailable" xml:space="preserve">
+    <value>Size not available</value>
+  </data>
+  <data name="FilePond_LabelFileLoading" xml:space="preserve">
+    <value>Loading</value>
+  </data>
+  <data name="FilePond_LabelFileLoadError" xml:space="preserve">
+    <value>Error during load</value>
+  </data>
+  <data name="FilePond_LabelFileProcessing" xml:space="preserve">
+    <value>Uploading</value>
+  </data>
+  <data name="FilePond_LabelFileProcessingComplete" xml:space="preserve">
+    <value>Upload complete</value>
+  </data>
+  <data name="FilePond_LabelFileProcessingAborted" xml:space="preserve">
+    <value>Upload cancelled</value>
+  </data>
+  <data name="FilePond_LabelFileProcessingError" xml:space="preserve">
+    <value>Upload error</value>
+  </data>
+  <data name="FilePond_LabelTapToCancel" xml:space="preserve">
+    <value>Tap to cancel</value>
+  </data>
+  <data name="FilePond_LabelTapToRetry" xml:space="preserve">
+    <value>Tap to retry</value>
+  </data>
+  <data name="FilePond_LabelTapToUndo" xml:space="preserve">
+    <value>Tap to undo</value>
+  </data>
+  <data name="FilePond_LabelButtonRemoveItem" xml:space="preserve">
+    <value>Remove</value>
+  </data>
+  <data name="FilePond_LabelButtonAbortItemLoad" xml:space="preserve">
+    <value>Abort</value>
+  </data>
+  <data name="FilePond_LabelButtonRetryItemLoad" xml:space="preserve">
+    <value>Retry</value>
+  </data>
+  <data name="FilePond_LabelButtonUndoItemProcessing" xml:space="preserve">
+    <value>Undo</value>
+  </data>
+  <data name="FilePond_LabelButtonProcessItem" xml:space="preserve">
+    <value>Upload</value>
+  </data>
+  <data name="FilePond_LabelMaxFileSizeExceeded" xml:space="preserve">
+    <value>File is too large</value>
+  </data>
+  <data name="FilePond_LabelMaxFileSize" xml:space="preserve">
+    <value>Maximum file size is {filesize}</value>
+  </data>
+  <data name="DownloadFile" xml:space="preserve">
+    <value>Download file</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="AddFiles" xml:space="preserve">
+    <value>Add Files</value>
+  </data>
+  <data name="FileUploadError" xml:space="preserve">
+    <value>An error occurred while uploading the file.</value>
+  </data>
+  <data name="Months" xml:space="preserve">
+    <value>Months</value>
+  </data>
+  <data name="IfYouDidNotRequestPasswordReset" xml:space="preserve">
+    <value>If you did not request a password reset,</value>
+  </data>
+  <data name="NoFurtherActionRequired" xml:space="preserve">
+    <value>no further action is required.</value>
+  </data>
+  <data name="PleaseConfirmEmailClickingHere" xml:space="preserve">
+    <value>Please confirm your email by clicking here</value>
+  </data>
+  <data name="ConfirmEmail" xml:space="preserve">
+    <value>Confirm Email</value>
+  </data>
+  <data name="RegistrationConfirmTitle" xml:space="preserve">
+    <value>Registration successful</value>
+  </data>
+  <data name="RegistrationConfirmMessage" xml:space="preserve">
+    <value>To log in, please confirm your email address. We've sent you a confirmation link via email.</value>
+  </data>
+  <data name="DontHaveAccount" xml:space="preserve">
+    <value>Dont have an account?</value>
+  </data>
+  <data name="AlreadyHaveAccount" xml:space="preserve">
+    <value>Already have an account?</value>
+  </data>
+  <data name="ProjectList" xml:space="preserve">
+    <value>Project List</value>
+  </data>
+  <data name="Start" xml:space="preserve">
+    <value>Start</value>
+  </data>
+  <data name="FeelFreeReachOutUs" xml:space="preserve">
+    <value>Feel free to reach out to us</value>
+  </data>
+  <data name="ViaTheFormBelow" xml:space="preserve">
+    <value>Via the form below</value>
+  </data>
+  <data name="FAQ" xml:space="preserve">
+    <value>F.A.Q</value>
+  </data>
+  <data name="NewTask" xml:space="preserve">
+    <value>New Task</value>
+  </data>
+  <data name="LastUpdate" xml:space="preserve">
+    <value>Last Update</value>
+  </data>
+  <data name="NewCreatedAt" xml:space="preserve">
+    <value>Creation Date (Newest first)</value>
+  </data>
+  <data name="NewUpdatedAt" xml:space="preserve">
+    <value>Last Update (Most Recent)</value>
+  </data>
+  <data name="OldCreatedAt" xml:space="preserve">
+    <value>Creation Date (Oldest first)</value>
+  </data>
+  <data name="OldUpdatedAt" xml:space="preserve">
+    <value>Last Update (Oldest)</value>
+  </data>
+  <data name="DefinitelyDeleteTodoTask" xml:space="preserve">
+    <value>Definitely want to delete todo task</value>
+  </data>
+  <data name="DefinitelyDeleteTodo" xml:space="preserve">
+    <value>Definitely want to delete todo</value>
+  </data>
+  <data name="DeleteTodo" xml:space="preserve">
+    <value>Delete Todo</value>
+  </data>
+  <data name="DeleteTodoTask" xml:space="preserve">
+    <value>Delete Todo Task</value>
+  </data>
+  <data name="DefinitelyDeleteNote" xml:space="preserve">
+    <value>Definitely want to delete note</value>
+  </data>
+  <data name="DeleteNote" xml:space="preserve">
+    <value>Delete Note</value>
+  </data>
+  <data name="NewNoteTitle" xml:space="preserve">
+    <value>New note title </value>
+  </data>
+  <data name="NewNoteText" xml:space="preserve">
+    <value>New note text</value>
+  </data>
+  <data name="NewNote" xml:space="preserve">
+    <value>New Note</value>
+  </data>
+  <data name="NoteList" xml:space="preserve">
+    <value>Note List</value>
+  </data>
+  <data name="TermsOfServices" xml:space="preserve">
+    <value>Terms of services</value>
+  </data>
+  <data name="EffectiveDate" xml:space="preserve">
+    <value>Effective Date</value>
+  </data>
+  <data name="Operator" xml:space="preserve">
+    <value>Operator</value>
+  </data>
+  <data name="GeneralProvisions" xml:space="preserve">
+    <value>General Provisions</value>
+  </data>
+  <data name="TheseTermsOfService" xml:space="preserve">
+    <value>These Terms of Service (the “Terms”) govern the use of the web service available at </value>
+  </data>
+  <data name="ByAccessingOrUsingThePlatform" xml:space="preserve">
+    <value>(the “Platform” or the “Service”). By accessing or using the Platform, you confirm that you have read, understood, and agree to be bound by these Terms. If you do not agree with any provision of the Terms, you must stop using the Service.</value>
+  </data>
+  <data name="AcceptanceTerms" xml:space="preserve">
+    <value>Acceptance of Terms</value>
+  </data>
+  <data name="YouAgreeToUseThePlatformOnlyForLawfulPurposes" xml:space="preserve">
+    <value>You agree to use the Platform only for lawful purposes and in accordance with these Terms. You are prohibited from using the Service to upload, generate, or distribute content that is unlawful, offensive, defamatory, pornographic, violent, or otherwise infringes the rights of third parties. You must not engage in any activity that may harm the functionality or security of the Service (including hacking attempts, malware distribution, denial-of-service attacks, or similar actions) or interfere with other users’ access to the Platform.
+</value>
+  </data>
+  <data name="Eligibility" xml:space="preserve">
+    <value>Eligibility</value>
+  </data>
+  <data name="AllFunctionalitySoftwareDesignElementsLogosTrademarks" xml:space="preserve">
+    <value>All functionality, software, design elements, logos, trademarks, and other content of the Platform (excluding user-generated content) are the property of the Platform owner or are used on lawful grounds. Such materials are protected by copyright, trademark, and other applicable laws. Users do not acquire any proprietary rights to these intellectual property objects.</value>
+  </data>
+  <data name="YearsOld16" xml:space="preserve">
+    <value>16 years old</value>
+  </data>
+  <data name="ToUseTaskJect" xml:space="preserve">
+    <value>to use TaskJect</value>
+  </data>
+  <data name="OneAccountPerEmailAddress" xml:space="preserve">
+    <value>One account per email address is permitted.</value>
+  </data>
+  <data name="PrivacyAndPersonalData" xml:space="preserve">
+    <value>Privacy and Personal Data</value>
+  </data>
+  <data name="ByUsingTheServiceYouEntrustUsWithCertainPersonalData" xml:space="preserve">
+    <value>By using the Service, you entrust us with certain personal data (such as your name, email address, personal information, and content). We take the protection of user privacy seriously. These Terms include general provisions regarding the processing of personal data; however, detailed information about what data is collected, how it is used, stored, and protected, as well as your rights regarding such data, is set out in a separate document — our Privacy Policy.
+</value>
+  </data>
+  <data name="ByAgreeingToTheseTerms" xml:space="preserve">
+    <value>By agreeing to these Terms, you also agree to the data processing practices described in the Privacy Policy. Please review the Privacy Policy to learn more.</value>
+  </data>
+  <data name="AndAllDataAssociatedYourAccount" xml:space="preserve">
+    <value>and all data associated with your account will be permanently removed.</value>
+  </data>
+  <data name="LiabilityAndDisclaimerOfWarranties" xml:space="preserve">
+    <value>Liability and Disclaimer of Warranties</value>
+  </data>
+  <data name="DisclaimerOfWarranties" xml:space="preserve">
+    <value>Disclaimer of Warranties</value>
+  </data>
+  <data name="ThePlatformIsProvidedOnAn" xml:space="preserve">
+    <value>The Platform is provided on an “as is” basis. The administration makes no warranties regarding uninterrupted or error-free operation of the Service, or its suitability for any particular purpose or user expectations.</value>
+  </data>
+  <data name="LimitationOfLiability" xml:space="preserve">
+    <value>Limitation of Liability</value>
+  </data>
+  <data name="ToTheMaximumExtentPermittedByApplicableLaw" xml:space="preserve">
+    <value>To the maximum extent permitted by applicable law, the Platform owner shall not be liable for any direct or indirect damages, loss of profits, loss of data, or harm to honor, dignity, or business reputation arising out of or in connection with the use of or inability to use the Service.
+</value>
+  </data>
+  <data name="UnauthorizedAccessToYourAccount" xml:space="preserve">
+    <value>unauthorized access to your account or data resulting from your failure to comply with security measures.
+</value>
+  </data>
+  <data name="WeDo" xml:space="preserve">
+    <value>We do</value>
+  </data>
+  <data name="SuspensionAndTermination" xml:space="preserve">
+    <value>Suspension and Termination</value>
+  </data>
+  <data name="TaskJectOffersFreePaidPlans" xml:space="preserve">
+    <value>TaskJect offers Free and Paid plans: </value>
+  </data>
+  <data name="WeReserveTheRightToSuspend" xml:space="preserve">
+    <value>We reserve the right to suspend or terminate your access to the Service at any time at our sole discretion, particularly in cases of violation of these Terms or upon a lawful request. In the event of a minor violation, we may, at our discretion, issue a warning and request that the violation be remedied. However, serious or repeated violations may result in account suspension or deletion without prior notice.
+</value>
+  </data>
+  <data name="AllPaymentsNonRefundable" xml:space="preserve">
+    <value>All payments are non-refundable, as outlined in our</value>
+  </data>
+  <data name="IntellectualProperty" xml:space="preserve">
+    <value>Intellectual Property</value>
+  </data>
+  <data name="AllRightsTitlesInterestsTaskJect" xml:space="preserve">
+    <value>All rights, titles, and interests in TaskJect, including its source code, design, branding, and trademarks, are owned by </value>
+  </data>
+  <data name="YouMayNot" xml:space="preserve">
+    <value>You may not:</value>
+  </data>
+  <data name="CopyModifyRedistributeSoftwareContent" xml:space="preserve">
+    <value>Copy, modify, or redistribute our software or content.</value>
+  </data>
+  <data name="ReverseEngineerAttemptExtract" xml:space="preserve">
+    <value>Reverse-engineer or attempt to extract the source code.</value>
+  </data>
+  <data name="ProhibitedActions" xml:space="preserve">
+    <value>Prohibited Actions</value>
+  </data>
+  <data name="IfYouHaveAnyQuestionsOrSuggestions" xml:space="preserve">
+    <value>If you have any questions or suggestions regarding these Terms of Service, you may contact the Platform owner at</value>
+  </data>
+  <data name="WeStriveToRespondPromptly" xml:space="preserve">
+    <value>We strive to respond promptly to user inquiries and to address any issues related to the operation of the Service.</value>
+  </data>
+  <data name="TerminationService" xml:space="preserve">
+    <value>Termination of Service</value>
+  </data>
+  <data name="GoverningLaw" xml:space="preserve">
+    <value>Governing Law</value>
+  </data>
+  <data name="Ukraine" xml:space="preserve">
+    <value>Ukraine</value>
+  </data>
+  <data name="ChangesTerms" xml:space="preserve">
+    <value>Changes to Terms</value>
+  </data>
+  <data name="IdealToTryOutTaskJect" xml:space="preserve">
+    <value>Ideal to try out TaskJect</value>
+  </data>
+  <data name="AllCoreToolsNeededManageYourTeam" xml:space="preserve">
+    <value>All the core tools needed to manage your team</value>
+  </data>
+  <data name="AdvancedChoiceProfessionalManagement" xml:space="preserve">
+    <value>Advanced choice for professional management</value>
+  </data>
+  <data name="Annually" xml:space="preserve">
+    <value>Annually</value>
+  </data>
+  <data name="CustomPermissions" xml:space="preserve">
+    <value>Custom permissions</value>
+  </data>
+  <data name="Unsubscribe" xml:space="preserve">
+    <value>Unsubscribe</value>
+  </data>
+  <data name="AdvancedFeaturesForGrowing" xml:space="preserve">
+    <value>Advanced features for growing teams</value>
+  </data>
+  <data name="Business" xml:space="preserve">
+    <value>Business</value>
+  </data>
+  <data name="ChangePlanInfo" xml:space="preserve">
+    <value>If you switch to a more expensive plan, the changes will take effect immediately, without saving the current state. If you switch to a cheaper plan, it will take effect from the next billing cycle.</value>
+  </data>
+  <data name="CompleteSolutionForLargeScale" xml:space="preserve">
+    <value>Complete solution for large-scale teams</value>
+  </data>
+  <data name="Enterprise" xml:space="preserve">
+    <value>Enterprise</value>
+  </data>
+  <data name="EssentialToolsToKickstart" xml:space="preserve">
+    <value>Essential tools to kickstart your team</value>
+  </data>
+  <data name="FullControlForManagers" xml:space="preserve">
+    <value>Full control and efficiency for managers</value>
+  </data>
+  <data name="PriorityRequests" xml:space="preserve">
+    <value>Priority processing of requests</value>
+  </data>
+  <data name="Starter" xml:space="preserve">
+    <value>Starter</value>
+  </data>
+  <data name="PriceMonthly" xml:space="preserve">
+    <value>Price per month</value>
+  </data>
+  <data name="ChangingPlan" xml:space="preserve">
+    <value>Changing Plan</value>
+  </data>
+  <data name="DefinitelyWantDeleteMyAccount" xml:space="preserve">
+    <value>I definitely want to delete my account</value>
+  </data>
+  <data name="SelectUser" xml:space="preserve">
+    <value>Select User</value>
+  </data>
+  <data name="SwitchUserNewRoleTeamLeadHeader" xml:space="preserve">
+    <value>Are you sure you want to transfer the Team Lead role to another user and delete your account</value>
+  </data>
+  <data name="DeleteLastUserOrganizationHeader" xml:space="preserve">
+    <value>Are you sure that deleting your account will remove the entire organization</value>
+  </data>
+  <data name="Notebook" xml:space="preserve">
+    <value>Notebook</value>
+  </data>
+  <data name="Notes" xml:space="preserve">
+    <value>Notes</value>
+  </data>
+  <data name="Todos" xml:space="preserve">
+    <value>To Do List</value>
+  </data>
+  <data name="NewList" xml:space="preserve">
+    <value>New List</value>
+  </data>
+  <data name="Notifications" xml:space="preserve">
+    <value>Notifications</value>
+  </data>
+  <data name="NoNewNotifications" xml:space="preserve">
+    <value>No New Notifications</value>
+  </data>
+  <data name="Unread" xml:space="preserve">
+    <value>Unread</value>
+  </data>
+  <data name="SystemTitleNewUpdate" xml:space="preserve">
+    <value>System Update</value>
+  </data>
+  <data name="NewSystemUpdateMessage" xml:space="preserve">
+    <value>A new system update has been released.</value>
+  </data>
+  <data name="TaskTitleAssigneeChanged" xml:space="preserve">
+    <value>Task Assignee Changed</value>
+  </data>
+  <data name="TaskTitleDedlineChanged" xml:space="preserve">
+    <value>Task Deadline Changed</value>
+  </data>
+  <data name="TaskTitleDedlineSet" xml:space="preserve">
+    <value>Task Deadline Set</value>
+  </data>
+  <data name="TaskTitleStatusOnReview" xml:space="preserve">
+    <value>Task Sent for Review</value>
+  </data>
+  <data name="TaskTitleStatusCompleted" xml:space="preserve">
+    <value>Task Completed</value>
+  </data>
+  <data name="TaskTitleCreated" xml:space="preserve">
+    <value>Task Created</value>
+  </data>
+  <data name="TaskTitleUpdated" xml:space="preserve">
+    <value>Task Updated</value>
+  </data>
+  <data name="IfYouChangeRepositoryAllTasksUunlinked" xml:space="preserve">
+    <value>If you change the repository, all tasks linked to the current repository will be unlinked</value>
+  </data>
+  <data name="ThisActionCannotUndone" xml:space="preserve">
+    <value>This action cannot be undone</value>
+  </data>
+  <data name="IfYouUnlinkGitHub" xml:space="preserve">
+    <value>If you unlink GitHub</value>
+  </data>
+  <data name="allProjectsAndTasks" xml:space="preserve">
+    <value>all projects and tasks</value>
+  </data>
+  <data name="inThisOrganizationLoseGitHubIntegration" xml:space="preserve">
+    <value>in this organization will lose their GitHub integration</value>
+  </data>
+  <data name="Unlink" xml:space="preserve">
+    <value>Unlink</value>
+  </data>
+  <data name="ConfirmUnlinkGitHub" xml:space="preserve">
+    <value>Confirm Unlink GitHub</value>
+  </data>
+  <data name="ConfirmRepositoryChange" xml:space="preserve">
+    <value>Confirm Repository Change</value>
+  </data>
+  <data name="GitHubSelectRepository" xml:space="preserve">
+    <value>GitHub Select Repository</value>
+  </data>
+  <data name="WithoutRepository" xml:space="preserve">
+    <value>Without repository</value>
+  </data>
+  <data name="Change" xml:space="preserve">
+    <value>Change</value>
+  </data>
+  <data name="UnlinkGitHub" xml:space="preserve">
+    <value>Unlink GitHub</value>
+  </data>
+  <data name="LinkToGitHub" xml:space="preserve">
+    <value>Link to GitHub</value>
+  </data>
+  <data name="RepositoryBindingSuccessful" xml:space="preserve">
+    <value>Repository binding successful</value>
+  </data>
+  <data name="RepositoryUnbindingSuccessful" xml:space="preserve">
+    <value>Repository unbinding successful</value>
+  </data>
+  <data name="ErrorLoadingRepository" xml:space="preserve">
+    <value>Error loading repository</value>
+  </data>
+  <data name="LinkGit" xml:space="preserve">
+    <value>Link</value>
+  </data>
+  <data name="Issue" xml:space="preserve">
+    <value>Issue</value>
+  </data>
+  <data name="CreateNew" xml:space="preserve">
+    <value>Create New</value>
+  </data>
+  <data name="LinkToExisting" xml:space="preserve">
+    <value>Link to existing</value>
+  </data>
+  <data name="EnterIssuesNumber" xml:space="preserve">
+    <value>Enter Issues number</value>
+  </data>
+  <data name="Branch" xml:space="preserve">
+    <value>Branch</value>
+  </data>
+  <data name="LinkedToGitHub" xml:space="preserve">
+    <value>Linked to GitHub</value>
+  </data>
+  <data name="NumberRegistration" xml:space="preserve">
+    <value>Registration number (ІПН/ЄДРПОУ)</value>
+  </data>
+  <data name="AddressRegistered" xml:space="preserve">
+    <value>Registered address</value>
+  </data>
+  <data name="Integrations" xml:space="preserve">
+    <value>Integrations</value>
+  </data>
+  <data name="Count" xml:space="preserve">
+    <value>Count</value>
+  </data>
+  <data name="OrganizationRequestRecieved" xml:space="preserve">
+    <value>Received a request from the organization</value>
+  </data>
+  <data name="YouGotRequest" xml:space="preserve">
+    <value>You got request!</value>
+  </data>
+  <data name="Teams" xml:space="preserve">
+    <value>Teams</value>
+  </data>
+  <data name="ProjectOverview" xml:space="preserve">
+    <value>Project Overview</value>
+  </data>
+  <data name="PaymentWasSuccessful" xml:space="preserve">
+    <value>Payment was successful!</value>
+  </data>
+  <data name="ThePaymentFailed" xml:space="preserve">
+    <value>The payment failed.</value>
+  </data>
+  <data name="ForYear" xml:space="preserve">
+    <value>Per year</value>
+  </data>
+  <data name="ForMonth" xml:space="preserve">
+    <value>Per month</value>
+  </data>
+  <data name="AnErrorOccurredWhileProcessing" xml:space="preserve">
+    <value>An error occurred while processing your request.</value>
+  </data>
+  <data name="Annual" xml:space="preserve">
+    <value>Annual</value>
+  </data>
+  <data name="GitHubIntegration" xml:space="preserve">
+    <value>GitHub Integration</value>
+  </data>
+  <data name="ExportError" xml:space="preserve">
+    <value>Export error</value>
+  </data>
+  <data name="Period" xml:space="preserve">
+    <value>Period</value>
+  </data>
+  <data name="SubscriptionCongratulationsTitle" xml:space="preserve">
+    <value>Welcome to TaskJect 👋</value>
+  </data>
+  <data name="SubscriptionCongratulationsMessage" xml:space="preserve">
+    <value>Your {0} plan is now active.
+ You have full access to your workspace and team tools.
+ Subscription valid until {1}.
+ Let’s get your work organized.
+</value>
+  </data>
+  <data name="CheckYourOptions" xml:space="preserve">
+    <value>Check your options</value>
+  </data>
+  <data name="SubscriptionPaymentFailedTitle" xml:space="preserve">
+    <value>We couldn’t process your payment</value>
+  </data>
+  <data name="SubscriptionPaymentFailedMessage" xml:space="preserve">
+    <value>Your subscription is still on hold for now.
+ Please update your payment details to keep uninterrupted access.
+ It only takes a minute.</value>
+  </data>
+  <data name="UpdatePaymentMethod" xml:space="preserve">
+    <value> Update payment method</value>
+  </data>
+  <data name="SubscriptionPaymentRefundedTitle" xml:space="preserve">
+    <value>Your refund has been successfully processed</value>
+  </data>
+  <data name="SubscriptionPaymentRefundedMessage" xml:space="preserve">
+    <value> The amount will be returned within the stated timeframe.
+ You can change or reselect a plan anytime.
+ We’ll be glad to have you back.
+</value>
+  </data>
+  <data name="ChangeYourPlan" xml:space="preserve">
+    <value>Change your plan</value>
+  </data>
+  <data name="SubscriptionExpiresInWeekTitle" xml:space="preserve">
+    <value>Your TaskJect subscription ends in 7 days</value>
+  </data>
+  <data name="SubscriptionExpiresInWeekMessage" xml:space="preserve">
+    <value>To keep access to your projects and data, renew your plan.
+ No changes — just continue where you left off.</value>
+  </data>
+  <data name="ContinueSubscription" xml:space="preserve">
+    <value>Continue subscription</value>
+  </data>
+  <data name="SubscriptionExpiresIn3DaysTitle" xml:space="preserve">
+    <value>Only 3 days left until your subscription ends</value>
+  </data>
+  <data name="SubscriptionExpiresIn3DaysMessage" xml:space="preserve">
+    <value> Avoid losing access to your workspace and team tools.
+ Renew now and stay productive.</value>
+  </data>
+  <data name="SubscriptionExpiredTitle" xml:space="preserve">
+    <value>Your TaskJect subscription has ended</value>
+  </data>
+  <data name="SubscriptionExpiredMessage" xml:space="preserve">
+    <value>Access to premium features is currently limited.
+ Reactivate your plan to continue working without interruptions.</value>
+  </data>
+  <data name="ReactivateSubscription" xml:space="preserve">
+    <value>Reactivate subscription</value>
+  </data>
+  <data name="TaskjectNotification" xml:space="preserve">
+    <value>Taskject notification</value>
+  </data>
+  <data name="SubscriptionFreemiumEndedTitle" xml:space="preserve">
+    <value>Your premium access has ended</value>
+  </data>
+  <data name="SubscriptionFreemiumEndedMessage" xml:space="preserve">
+    <value>The number of active users in your workspace is now limited.
+We hope you enjoyed the premium features during this period.
+Upgrade your plan to keep access and invite more teammates.
+</value>
+  </data>
+  <data name="UpgradePlan" xml:space="preserve">
+    <value>Upgrade plan</value>
+  </data>
+  <data name="NoCompletedTasksArchive" xml:space="preserve">
+    <value>No completed tasks to archive</value>
+  </data>
+  <data name="ToArchive" xml:space="preserve">
+    <value>To archive</value>
+  </data>
+  <data name="ShowArchivedTasks" xml:space="preserve">
+    <value>Show archived tasks</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>None</value>
+  </data>
+  <data name="TwoWeeks" xml:space="preserve">
+    <value>Two Weeks</value>
+  </data>
+  <data name="ThreeMonths" xml:space="preserve">
+    <value>Three Months</value>
+  </data>
+  <data name="SixMonths" xml:space="preserve">
+    <value>Six Months</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>All</value>
+  </data>
+  <data name="Новий список" xml:space="preserve">
+    <value>New list</value>
+  </data>
+  <data name="AddedFiles" xml:space="preserve">
+    <value>(Files added)</value>
+  </data>
+  <data name="NoFilesAttached" xml:space="preserve">
+    <value>(No files attached)</value>
+  </data>
+  <data name="FilesPartiallyAdded" xml:space="preserve">
+    <value>(Added {0} of {1} files)</value>
+  </data>
+  <data name="ThePlatformIsIntendedForUseByIndividuals" xml:space="preserve">
+    <value>The Platform is intended for use by individuals and legal entities located within the territory of Ukraine and the member states of the European Union. We do not guarantee that the Platform is available, suitable, or compliant with the legal requirements of other jurisdictions.</value>
+  </data>
+  <data name="ThereAreNoAgeRestrictionsForUsingThePlatform" xml:space="preserve">
+    <value>There are no age restrictions for using the Platform; however, if you are under the age of 18, it is recommended that you use the Service with the consent of a parent or legal guardian. By continuing to use the Service, you confirm that you have full legal capacity to enter into this agreement (or, if you are under 18, that you have obtained the necessary consent from your parent or legal guardian).</value>
+  </data>
+  <data name="WeReserveTheRightToAmendTheseTerms" xml:space="preserve">
+    <value>We reserve the right to amend these Terms from time to time. In the event of significant changes, we may notify users by posting a notice on the website or by sending an email notification. Continued use of the Platform after the updated Terms take effect constitutes your acceptance of the revised Terms. The current version of the Terms is always available on this page, and you are responsible for reviewing them periodically.</value>
+  </data>
+  <data name="AcceptableUse" xml:space="preserve">
+    <value>Acceptable Use</value>
+  </data>
+  <data name="AccountRegistration" xml:space="preserve">
+    <value>Account Registration</value>
+  </data>
+  <data name="CertainFeaturesOfTheServiceMayRequire" xml:space="preserve">
+    <value>Certain features of the Service may require you to create an account. When registering, you agree to provide accurate and up-to-date information (including your name and a valid email address) and to keep such information current. You are responsible for maintaining the confidentiality of your account credentials (login and password). All actions performed through your account are deemed to have been performed by you.</value>
+  </data>
+  <data name="IfYouBecomeAwareOfOrSuspect" xml:space="preserve">
+    <value>If you become aware of or suspect any unauthorized use of your account, you must notify us immediately. The Service administration is not responsible for any losses or damages resulting from unauthorized access caused by the user’s failure to maintain account security (for example, disclosure of login credentials).</value>
+  </data>
+  <data name="UserInformationAndContent" xml:space="preserve">
+    <value>User Information and Content</value>
+  </data>
+  <data name="ThePlatformAllowsYouToStoreInformationAndContent" xml:space="preserve">
+    <value>The Platform allows you to store information and content. You acknowledge that all information and content you store on the Platform is your sole responsibility. You represent and warrant that you have all necessary rights to the information and content you submit and that such content does not violate applicable law or the rights of third parties. The submission of personal data of third parties without their consent is prohibited.</value>
+  </data>
+  <data name="WeReserveTheRightToRemoveOrRestrictAccess" xml:space="preserve">
+    <value>We reserve the right to remove or restrict access to any content that violates these Terms or applicable law.</value>
+  </data>
+  <data name="PlatformRights" xml:space="preserve">
+    <value>Platform Rights</value>
+  </data>
+  <data name="YouMayNotCopyReproduceModifyDistributeOtherwise" xml:space="preserve">
+    <value>You may not copy, reproduce, modify, distribute, or otherwise use any elements of the Platform or its source code without our prior written consent.</value>
+  </data>
+  <data name="InParticularWeAreNotLiableFor" xml:space="preserve">
+    <value>In particular, we are not liable for:</value>
+  </data>
+  <data name="AnyConsequencesOfDecisionsOrActions" xml:space="preserve">
+    <value>any consequences of decisions or actions taken by you based on information obtained through the Platform;</value>
+  </data>
+  <data name="ServiceInterruptionsOrUnavailability" xml:space="preserve">
+    <value>service interruptions or unavailability caused by circumstances beyond our reasonable control (including technical failures, internet connectivity issues, or force majeure events);</value>
+  </data>
+  <data name="YouAgreeThatTheTotalAggregateLiability" xml:space="preserve">
+    <value>You agree that the total aggregate liability of the Platform owner for any claims arising out of or related to the use of the Service shall not exceed the amount paid by you for the Service (if any), or zero (0) Ukrainian hryvnias / euros / U.S. dollars if the Service was provided free of charge.</value>
+  </data>
+  <data name="UserLiabilityAndIndemnification" xml:space="preserve">
+    <value>User Liability and Indemnification</value>
+  </data>
+  <data name="YouAreSolelyResponsibleForYourActionsThePlatform" xml:space="preserve">
+    <value>You are solely responsible for your actions on the Platform and for compliance with these Terms. In the event of a breach of these Terms or applicable law, you agree to compensate us for any losses incurred as a result of such breach, including legal costs, if applicable.</value>
+  </data>
+  <data name="YouAgreeToIndemnifyAndHoldHarmless" xml:space="preserve">
+    <value>You agree to indemnify and hold harmless the Platform owner and its representatives from any third-party claims arising out of your content or your use of the Service in violation of these Terms or the rights of third parties.</value>
+  </data>
+  <data name="YouMayTerminateYourUseOfTheService" xml:space="preserve">
+    <value>You may terminate your use of the Service at any time by deleting your account through the available interface or by contacting support.</value>
+  </data>
+  <data name="ProvisionsOfTheseTerms" xml:space="preserve">
+    <value>Provisions of these Terms that by their nature should survive termination (including, but not limited to, intellectual property rights, disclaimers of warranties, limitation of liability, and dispute resolution provisions) shall remain in effect after account deactivation or termination of access.</value>
+  </data>
+  <data name="GoverningLawAndDisputeResolution" xml:space="preserve">
+    <value>Governing Law and Dispute Resolution</value>
+  </data>
+  <data name="TheseTermsAreGovernedByTheLawsOfUkraine" xml:space="preserve">
+    <value>These Terms are governed by the laws of Ukraine. Any matters not expressly regulated by these Terms shall be governed by applicable Ukrainian law. If any provision of these Terms is found to be unlawful or invalid by a court decision, such invalidity shall not affect the remaining provisions, which shall remain in full force and effect.</value>
+  </data>
+  <data name="AnyDisputesOrDisagreementsArisingBetween" xml:space="preserve">
+    <value>Any disputes or disagreements arising between you and the Platform owner in connection with these Terms or the use of the Service shall first be resolved through negotiations. If the dispute cannot be resolved amicably, it shall be subject to resolution in accordance with Ukrainian law by a competent court at the location of the Platform owner, unless otherwise required by law.</value>
+  </data>
+  <data name="DisclaimerLimitationLiability" xml:space="preserve">
+    <value>Disclaimer &amp; Limitation of Liability</value>
+  </data>
+  <data name="CookiesTitlePrivate" xml:space="preserve">
+    <value>Cookies and Tracking Technologies</value>
+  </data>
+</root>

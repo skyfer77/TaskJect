@@ -1,0 +1,182 @@
+﻿@using TaskJect.Web.Resources
+@using Data
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<SharedResources> Localizer
+@model IEnumerable<PlanValues>
+@{
+    var planFeatures = new string[]
+            {"PriceMonthly" , "Users" , "Space" , "Requests" , "TelegramIntegration" , "GitHubIntegration" ,"CustomPermissions","PriorityRequests" ,""};
+    var ifSubcribed = false;
+
+    var year = (int)TaskJect.Web.Enums.SubscriptionPeriodTypeView.Year;
+}
+<div class="modal-dialog modal-xl">
+    <div class="modal-content border">
+        <div class="modal-header border-bottom">
+            <h5 class="modal-title" id="upgradeModalLabel">@Localizer["ChangePlan"]</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="table-responsive" style="overflow: visible;">
+                <table class="table table-bordered text-center align-middle" style="margin-bottom: -10px;">
+                    <thead>
+                        <tr>
+                            <th style="width: 30%;">@Localizer["Features"]</th>
+                            @foreach(var plan in Model)
+                            {
+                                <th style="width: 35%;">@Localizer[plan.TariffPlan.Name] @(plan.TariffPlan.Source != null ? $" ({plan.TariffPlan.Source})" : "") </th>
+                            }
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (int i = 0; i < planFeatures.Length; i++)
+                        {
+                            var isLast = i == planFeatures.Length - 1;
+                            <tr class="@(isLast ? "border-0" : "")">
+                                @if (isLast)
+                                {
+                                    <td class="border-0"></td>
+                                }
+                                else
+                                {
+                                    <td>@Localizer[planFeatures[i]]</td>
+                                }
+                                @foreach(PlanValues plan in Model)
+                                {
+                                    switch (i)
+                                    {
+                                        case 0:
+                                            <td>@(plan.TariffPlan.PriceMonthlyDiscount ?? plan.TariffPlan.PriceMonth)/@plan.TariffPlan.PriceYearlyDiscount</td>
+                                            break;
+                                        case 1:
+                                            <td>@plan.TariffPlan.MaxUsers</td>
+                                            break;
+                                        case 2:
+                                            @if (plan.TariffPlan.MaxStorageBytes < 1073741824)
+                                            {
+                                                <td>@(plan.TariffPlan.MaxStorageBytes / 1048576) Mb</td>
+                                            }
+                                            else
+                                            {
+                                                <td>@(plan.TariffPlan.MaxStorageBytes / 1073741824) Gb</td>
+                                            }
+                                            break;
+                                        case 3:
+                                            <td>@plan.TariffPlan.CountRequests</td>
+                                            break;
+                                        case 4:
+                                            <td>
+                                                @Html.Raw(plan.TariffPlan.HasTelegramIntegration
+                                                                  ? "<i class='bi bi-check-lg text-success'></i>"
+                                                                  : "<i class='bi bi-x-lg text-danger'></i>")
+                                            </td>
+                                            break;
+                                        case 5:
+                                            <td>
+                                                @Html.Raw(plan.TariffPlan.HasGitHubIntegration
+                                                         ? "<i class='bi bi-check-lg text-success'></i>"
+                                                         : "<i class='bi bi-x-lg text-danger'></i>")
+                                            </td>
+                                            break;
+                                        case 6:
+                                            <td>
+                                                @Html.Raw(plan.TariffPlan.HasProjectAccessControl
+                                                         ? "<i class='bi bi-check-lg text-success'></i>"
+                                                         : "<i class='bi bi-x-lg text-danger'></i>")
+                                            </td>
+                                            break;
+                                        case 7:
+                                            <td>
+                                                @Html.Raw(plan.TariffPlan.HasPriorityRequestsProcess
+                                                         ? "<i class='bi bi-check-lg text-success'></i>"
+                                                         : "<i class='bi bi-x-lg text-danger'></i>")
+                                            </td>
+                                            break;
+                                        case 8:
+                                            if (plan.TariffPlan.Code == SD.BasicPlanCode 
+                                                || plan.TariffPlan.Code == SD.SaaSPirate.BasicPlanCode)
+                                            {
+                                                <td class="border-0"></td>
+                                            }
+                                            else
+                                            {
+                                                <td class="border-0 align-top">
+                                                    @if (plan.ExpirationDate.HasValue)
+                                                    {
+                                                        <button class="btn btn-danger w-100" onclick="unsubscribe()">
+                                                            @Localizer["Unsubscribe"]
+                                                        </button>
+                                                        <p class="small text-muted mt-1 mb-0">
+                                                            @Localizer["TariffEndDate"]: @plan.ExpirationDate.Value.ToString("dd.MM.yyyy")
+                                                        </p>
+                                                        ifSubcribed = true;
+                                                    }
+                                                    else if (ViewBag.IsSubscribe == true)
+                                                    {
+                                                        <button id="subscribeBtn-@plan.TariffPlan.Code"
+                                                                type="button"
+                                                                class="btn btn-primary w-100 mb-1 px-2"
+                                                                data-plan-code="@plan.TariffPlan.Code"
+                                                                data-plan-name="@plan.TariffPlan.Name"
+                                                                data-period="@year"
+                                                                onclick="handleChangeClick(this)"
+                                                                style="min-width: 112px;">
+                                                                @Localizer["ChangePlan"]
+                                                        </button>
+
+                                                        <select class="choices-period" data-plan-code="@plan.TariffPlan.Code" data-type="select-one">
+                                                            @foreach (var period in Html.GetEnumSelectList<TaskJect.Web.Enums.SubscriptionPeriodTypeView>())
+                                                            {
+                                                                <option value="@period.Value" selected="@(period.Value == year.ToString())">@period.Text</option>
+                                                            }
+                                                        </select>
+                                                    }
+                                                    else
+                                                    {
+                                                        <button id="subscribeBtn-@plan.TariffPlan.Code"
+                                                                type="button"
+                                                                class="btn btn-primary w-100 mb-1 px-2"
+                                                                data-plan-code="@plan.TariffPlan.Code"
+                                                                data-plan-name="@plan.TariffPlan.Name"
+                                                                data-period="@year"
+                                                                onclick="handleSubscribeClick(this)"
+                                                                style="min-width: 112px;">
+                                                            @Localizer["Subscribe"]
+                                                        </button>
+
+                                                        <select class="choices-period" data-plan-code="@plan.TariffPlan.Code" data-type="select-one">
+                                                            @foreach (var period in Html.GetEnumSelectList<TaskJect.Web.Enums.SubscriptionPeriodTypeView>())
+                                                            {
+                                                                <option value="@period.Value" selected="@(period.Value == year.ToString())">@period.Text</option>
+                                                            }
+                                                        </select>
+                                                    }
+                                                </td>
+                                            }
+                                            break;
+                                    }
+                                }
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                @if (ifSubcribed == true)
+                {
+                    <div style="border: 1px solid #f0544f; border-radius: 6px; padding: 10px; margin-top: 10px;">
+                        @Localizer["ChangePlanInfo"]
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="modal-footer border-top">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">@Localizer["Ok"]</button>
+        </div>
+    </div>
+</div>
+<script src="https://gumroad.com/js/gumroad.js"></script>
+<style>
+    .no-border td {
+        border: none !important;
+    }
+
+</style>

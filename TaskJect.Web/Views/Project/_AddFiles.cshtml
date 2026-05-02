@@ -1,0 +1,29 @@
+﻿@using TaskJect.Web.Resources
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<SharedResources> Localizer
+<div class="modal fade" id="addFilesModal" tabindex="-1" aria-labelledby="addFilesModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addFilesModalLabel">@Localizer["AddFiles"]</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                @using (Html.BeginForm("AddFiles", "Project", FormMethod.Post, new { id = "AddFiles" }))
+                {
+                    <div class="col-xl-12">
+                        <label class="form-label">@Localizer["Attachments"]</label>
+                        <input type="file" class="multiple-filepond" name="files" multiple data-allow-reorder="true" data-max-file-size="30MB">
+                        <div class="invalid-feedback" id="error-files">
+                        </div>
+                    </div>
+                    <input type="hidden" id="addFilesProjectId" name="ProjectId">
+                }
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal">@Localizer["Close"]</button>
+                <button type="button" class="btn btn-primary" onclick="addedFile()">@Localizer["Save"]</button>
+            </div>
+        </div>
+    </div>
+</div>

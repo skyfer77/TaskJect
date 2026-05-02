@@ -1,0 +1,124 @@
+﻿@using TaskJect.Web.Enums
+@using TaskJect.Web.Services
+@using TaskJect.Web.Resources
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<SharedResources> Localizer
+@model OrganizationAppealViewModel
+<div class="modal fade" id="edit-appeal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            @using (Html.BeginForm("EditAppeal", "Organization", FormMethod.Post, new { id = "EditAppeal" }))
+            {
+                <div class="modal-header">
+                    <h6 class="modal-title" id="create-teamLabel">@Localizer["EditAppeal"]</h6>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-0">
+                    <div class="row gy-3 ">
+                        <input type="hidden" id="AppealId" name="Id" value="@Model.Id" />
+                        <div class="col-xxl-9" style="border-right: solid 1px var(--default-border); padding: 1rem 1.5rem !important; padding-right: 1rem !important;">
+                            <div class="d-flex align-items-center justify-content-between mb-4">
+                                <h5 class="fw-semibold task-title">
+                                    @Model.Title
+                                </h5>
+                            </div>
+                            <div class="text-muted task-description" id="desc">
+                                @if (string.IsNullOrWhiteSpace(Model.Description))
+                                {
+                                    @Localizer["ThereNoDescription"]
+                                }
+                                else
+                                {
+                                    @Html.Raw(System.Net.WebUtility.HtmlDecode(Model.Description))
+                                }
+                            </div>
+                        </div>
+                        <div class="col-xxl-3" style="padding-left: 1rem !important; padding: 1.5rem;">
+                            <div class="col-xl-12 mb-2">
+                                <label class="form-label">@Localizer["Organization"]</label>
+                                @if (!string.IsNullOrEmpty(Model.OrganizationName))
+                                {
+                                    <span class="d-block fs-14 mb-1 fw-semibold badge bg-light text-default long-text-badge">@Model.OrganizationName</span>
+                                }
+                                @if (!string.IsNullOrEmpty(Model.PhoneNumber))
+                                {
+                                    <span class="d-block fs-14 mb-1 fw-semibold badge bg-light text-default">@Model.PhoneNumber</span>
+                                }
+                                @if (!string.IsNullOrEmpty(Model.Email))
+                                {
+                                    <span class="d-block fs-14 mb-1 fw-semibold badge bg-light text-default long-text-badge">@Model.Email</span>
+                                }
+                            </div>
+                            <div class="col-xl-12 mb-2">
+                                <label class="form-label">@Localizer["AppealDateSend"]</label>
+                                <span class="d-block fs-14 fw-semibold badge bg-light text-default">@Model?.Date.ToString("dd MMMM yyyy", System.Globalization.CultureInfo.CurrentCulture)</span>
+                            </div>
+                            <div class="col-xl-12 mb-2">
+                                <label for="choices-multiple-remove-button4" class="form-label">@Localizer["Status"]</label>
+                                @{
+                                    var values = Enum.GetValues(typeof(AppealStatusView));
+                                }
+                                <select class="form-control" name="Status" id="choices-multiple-remove-button1">
+                                    @foreach (var item in values)
+                                    {
+                                        if (item.Equals(Model.Status))
+                                        {
+                                            <option value="@item" selected>@EnumHelper.GetEnumDisplayName((AppealStatusView)item)</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@item">@EnumHelper.GetEnumDisplayName((AppealStatusView)item)</option>
+                                        }
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    @{
+                        var displayStyle = Model.Status == AppealStatusView.Rejected ? "block" : "none";
+                    }
+                    <div class="col-xl-12 p-3" id="rejectedDescriptionDiv" style="display:@displayStyle;border-block-start: 1px solid var(--default-border);">
+                        <label for="text-area" class="form-label">@Localizer["AppealRejectedDescription"]</label>
+                        <div>
+                            <input type="hidden" id="Description" name="DescriptionRejecting" value="" />
+                            <div id="appeal-descriptioin-editor">
+                                @Html.Raw(System.Net.WebUtility.HtmlDecode(Model.DescriptionRejecting))
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light"
+                        data-bs-dismiss="modal">
+                        @Localizer["Cancel"]
+                    </button>
+                    <button type="button" class="btn btn-primary" onclick="EditAppeal()">@Localizer["Save"]</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+@*<script>
+    $(document).ready(function () {
+        new Choices('#choices-multiple-remove-button1');
+        initializeQuill();
+        toggleRejectedDescription();
+
+        $('#choices-multiple-remove-button1').change(function () {
+            toggleRejectedDescription();
+        });
+
+        //var description = document.querySelector('[data-gramm]');
+        //document.getElementById("Description").value = description.innerHTML.toString();
+        //description.addEventListener("keyup", function () {
+        //    document.getElementById("Description").value = description.innerHTML.toString();
+        //});
+        const hiddenInput = document.getElementById("Description");
+        hiddenInput.value = quill.root.innerHTML;
+
+        quill.on('text-change', () => {
+            hiddenInput.value = quill.root.innerHTML;
+        });
+    });
+</script>*@

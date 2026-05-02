@@ -1,0 +1,23 @@
+﻿@using Domain.Database
+@model PersonalTodoTaskDto
+
+<li class="list-group-item d-flex justify-content-between align-items-center py-2 px-3" data-task-id="@Model.Id" data-sort-order="@Model.SortOrder">
+    <div class="w-100">
+        <div class="form-check mb-0">
+            <input class="form-check-input" type="checkbox" value="" @(Model.IsDone ? "checked" : "") onchange="toggleTaskStatus(this)">
+            <label class="form-check-label editable-text w-100" onclick="editTaskText(this)">
+                <span class="task-text break-word-normal" todo-task-text>@Model.Text</span>
+            </label>
+        </div>
+        <textarea class="form-control task-input textarea-no-resize d-none"
+                  onblur="if (!saveNewTaskTriggeredByEnter) saveTaskEdit(this)"
+                  onkeydown="saveTaskEditOnEnter(event, this)" name="Text"
+                  rows="1" maxlength="500">@Model.Text</textarea>
+    </div>
+    <div class="group-btn-vertical ms-2">
+        <button type="button" class="btn btn-sm btn-outline-danger btn-icon d-flex align-items-center justify-content-center"
+                onclick="deleteTask('@Model.Id')">
+            <i class="bi bi-trash align-middle"></i>
+        </button>
+    </div>
+</li>

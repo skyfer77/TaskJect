@@ -1,0 +1,91 @@
+﻿@using TaskJect.Web.Resources
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<SharedResources> Localizer
+@model OrganizationInfo
+@{
+    var isDefault = Model.TariffPlan.Code == "Default";   //Now Basic
+    var seriesText = isDefault ? "{0}Mb/{1}Mb" : "{0}Gb/{1}Gb";
+    var usedStorage = isDefault
+        ? string.Format("{0:F2} MB", Model.Organization.UsedStorageSpace / 1024.0 / 1024)
+        : string.Format("{0:F2} GB", Model.Organization.UsedStorageSpace / 1024.0 / 1024 / 1024);
+
+    var maxStorage = isDefault
+        ? string.Format("{0:F2} MB", Model.TariffPlan.MaxStorageBytes / 1024.0 / 1024)
+        : string.Format("{0:F2} GB", Model.TariffPlan.MaxStorageBytes / 1024.0 / 1024 / 1024);
+
+    var maxUser = Model.TariffPlan.MaxUsers;
+    var countUser = Model.Users.Count();
+    var daysLeft = (Model.CurrentTariffPlan.DateTo - DateTime.Now).TotalDays;
+    var dateClass = daysLeft <= 3 ? "text-danger" : "";
+}
+<div class="col-xxl-3 col-xl-12">
+    <div class="row">
+        <div class="card custom-card" style="min-height: 274px;">
+            <div class="card-body">
+                <span class="fs-5 fw-semibold">@Localizer["CurrentPlan"]: @Localizer[Model.TariffPlan.Name]</span>
+                <div class="fw-normal d-flex align-items-center mb-2 mt-3">
+                    <p class="mb-0 flex-fill">@Localizer["TariffEndDate"]</p>
+                    <span class="@dateClass d-inline-block + text-end"> @Model.CurrentTariffPlan.DateTo.ToString("dd.MM.yyyy")</span>
+                </div>
+                <div class="fw-normal d-flex align-items-center mb-2 mt-3">
+                    <p class="mb-0 flex-fill">@Localizer["TotalUsers"]</p>
+                    <span id="userDisplay" class="d-inline-block text-end"></span>
+                </div>
+                <div class="progress progress-xs mb-4">
+                    <div id="userProgressBar" class="progress-bar bg-success" role="progressbar" style="width: 0%;"></div>
+                </div>
+                <div class="fw-normal d-flex align-items-center mb-2 mt-3">
+                    <p class="mb-0 flex-fill">@Localizer["SpaceUsed"]</p>
+                    <span id="memoryDisplay" class="d-inline-block text-end"></span>
+                </div>
+                <div class="progress progress-xs mb-4">
+                    <div id="memoryProgressBar" class="progress-bar bg-success" role="progressbar" style="width: 0%;"></div>
+                </div>
+                <div class="fw-normal d-flex align-items-center mb-2 mt-3">
+                    <p class="mb-0 flex-fill">
+                        @Localizer["RequestsSent"]
+                        @if (Model.TariffPlan.CountRequests > Model.IsAppealCount && (User.IsInRole("Admin") || User.IsInRole("God") || User.IsInRole("TeamLead")))
+                        {
+                            <i class="bi bi-plus-square add-hours-icon ms-1" style="cursor: pointer;" title="Send Request" data-bs-toggle="modal" data-bs-target="#contact-form"></i>
+                        }
+                    </p>
+                    <span id="availableRequests" class="d-inline-block text-end"></span>
+                </div>
+                <div class="progress progress-xs mb-4">
+                    <div id="availableRequestsProgressBar" class="progress-bar bg-success" role="progressbar" style="width: 0%;"></div>
+                </div>
+                @if (User.IsInRole("TeamLead"))
+                {
+                    <div class="d-grid">
+                        <button class="btn btn-success mb-2" data-can-change-plan="true" type="button" onclick="ChangePlan()">
+                            @Localizer["ChangePlan"]
+                        </button>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var seriesText = "@seriesText";
+    var series = parseFloat('@usedStorage'.replace(',', '.'));
+    var maxStorage = parseFloat('@maxStorage'.replace(',', '.'));
+    var countUser = parseInt('@countUser', 10);
+    var maxUser = parseInt('@maxUser', 10);
+    var appealRequests = parseInt('@Model.IsAppealCount', 10);
+    var countRequests = parseInt('@Model.TariffPlan.CountRequests', 10);
+
+    $(document).ready(function () {
+        series = parseFloat('@usedStorage'.replace(',', '.'));
+        maxStorage = parseFloat('@maxStorage'.replace(',', '.'));
+
+        // Використання для пам'яті
+        updateProgressBar("memoryDisplay", "memoryProgressBar", series, maxStorage, seriesText);
+
+        // Використання для користувачів
+        updateProgressBar("userDisplay", "userProgressBar", countUser, maxUser, "{0}/{1}");
+
+        // Використання для звернень
+        updateProgressBar("availableRequests", "availableRequestsProgressBar", appealRequests, countRequests, "{0}/{1}");
+    });
+</script>

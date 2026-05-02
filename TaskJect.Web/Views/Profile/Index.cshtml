@@ -1,0 +1,366 @@
+﻿@using System.Security.Claims;
+@using System.Globalization
+@using TaskJect.Web.Services
+@using TaskJect.Web.Resources
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<SharedResources> Localizer
+@model ProfileViewModel
+@{
+    ViewBag.Title = "Profile";
+}
+@section HeadArea {
+    <link href="~/css/NewStyles.css" rel="stylesheet">
+    <link rel="stylesheet" href="~/lib/gridjs/theme/mermaid.min.css">
+
+    <style>
+        .was-validated .form-control:valid {
+            border-color: var(--input-border);
+            background-image: none;
+        }
+
+            .was-validated .form-control:valid:focus {
+                border-color: var(--input-border);
+                background-image: none;
+            }
+
+        #extra-panel {
+            border-block-end: 1px solid var(--default-border);
+        }
+
+        .toggle-btn {
+            position: absolute;
+            top: 0px;
+            right: 0.75rem;
+            z-index: 10;
+            border-radius: 0 0 .5rem .5rem !important;
+            font-size: 14px !important;
+            line-height: 1;
+            transition: all 0.3s ease;
+            border-top: none;
+        }
+    </style>
+}
+
+<!-- Page Header -->
+<div class="d-md-flex d-block align-items-center justify-content-between my-4 page-header-breadcrumb">
+    <h1 class="page-title fw-semibold fs-18 mb-0">@Localizer["Profile"]</h1>
+</div>
+<!-- Page Header Close -->
+<!-- Start::row-1 -->
+<div class="row">
+    <div class="col-xxl-4 col-xl-12">
+        <div class="card custom-card overflow-hidden">
+            <div class="card-body p-0" id="user-card">
+                <div class="d-sm-flex align-items-top p-4 border-bottom-0 main-profile-cover">
+                    <div>
+                        <span class="avatar avatar-xxl avatar-rounded me-3">
+                            <img class="dynamic-avatar" data-name="@Model.User.Name" src="~/images/default-avatars/default-avatar.png" alt="">
+                        </span>
+                    </div>
+                    <div class="flex-fill main-profile-info">
+                        @{var idUser = Model.User.Id;}
+                        <div class="d-flex align-items-center justify-content-between" id="main-profile-info">
+                            <h6 class="fw-semibold mb-1 text-fixed-white" style="word-break: break-word;white-space: normal;" account-user-name>
+                                @Model.User.Name @Model.User.Surname
+                            </h6>
+                            @if (this.User.FindFirstValue(ClaimTypes.NameIdentifier) == Model.ThisUserId)
+                            {
+                                <div class="d-flex">
+                                    <button class="btn btn-danger btn-wave ms-2 btn-sm" data-bs-toggle="modal" data-bs-target="#delete-account"><i class="bi bi-trash align-middle d-inline-block"></i></button>
+                                    <button class="btn btn-light btn-wave ms-2 btn-sm" onclick="Edit('@idUser')"><i class="ri-edit-line me-1 align-middle d-inline-block"></i>@Localizer["Edit"]</button>
+                                </div>
+                            }
+                        </div>
+                        @*<p class="mb-1 text-muted text-fixed-white op-7">Chief Executive Officer (C.E.O)</p>*@
+                        @*<p class="fs-12 text-fixed-white mb-4 op-5">
+                            <span><i class="ri-map-pin-line me-1 align-middle"></i>Birthday</span>
+                        </p>*@
+                        <div class="d-flex mb-0">
+                            <div class="me-4">
+                                <p class="fw-bold fs-20 text-fixed-white text-shadow mb-0">@Model.Projects.Count()</p>
+                                <p class="mb-0 fs-11 op-5 text-fixed-white">@Localizer["Projects"]</p>
+                            </div>
+                            <div class="me-4">
+                                <p class="fw-bold fs-20 text-fixed-white text-shadow mb-0">@Model.TasksWithProjectNames.Count()</p>
+                                <p class="mb-0 fs-11 op-5 text-fixed-white">@Localizer["Tasks"]</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @*<div class="p-4 border-bottom border-block-end-dashed">
+                    <div class="mb-4">
+                        <p class="fs-15 mb-2 fw-semibold">Professional Bio :</p>
+                        <p class="fs-12 text-muted op-7 mb-0">
+                            @Model.User.ContactInfo
+                        </p>
+                    </div>
+                </div>*@
+                <div class="p-4 border-block-end-dashed">
+                    <p class="fs-15 mb-2 me-4 fw-semibold">@Localizer["ContactInformation"]:</p>
+                    <div>
+                        <p class="mb-2">
+                            <span class="avatar avatar-sm avatar-rounded me-2 bg-light text-muted">
+                                <i class="ri-mail-line align-middle fs-14"></i>
+                            </span>
+                            @Model.User.Email
+                        </p>
+                        <p class="mb-2">
+                            <span class="avatar avatar-sm avatar-rounded me-2 bg-light text-muted">
+                                <i class="ri-phone-line align-middle fs-14"></i>
+                            </span>
+                            @Model.User.PhoneNumber
+                        </p>
+                        <p class="mb-2">
+                            <span class="avatar avatar-sm avatar-rounded me-2 bg-light text-muted">
+                                <i class="ri-telegram-line align-middle fs-14"></i>
+                            </span>
+                            <a href="https://t.me/@Model.User.TelegramUserName">&#64;@Model.User.TelegramUserName</a>
+                            @if (Model.ThisUserId == User.FindFirstValue(ClaimTypes.NameIdentifier))
+                            {
+                                @if (string.IsNullOrEmpty(Model.User.TelegramChatId))
+                                {
+                                    @if (!string.IsNullOrEmpty(Model.PersonalTelegramLink))
+                                    {
+                                        <a href="@Model.PersonalTelegramLink" target="_blank" class="btn btn-sm btn-outline-primary ms-2">
+                                            @Localizer["ConnectTelegram"]
+                                        </a>
+                                    }
+                                }
+                                else
+                                {
+                                    <a href="javascript:void(0)"class="btn btn-sm btn-outline-primary ms-2"data-bs-toggle="modal"
+                                    data-bs-target="#confirmModal" data-user-id="@Model.ThisUserId"> @Localizer["UnconnectTelegram"]</a>
+                                }
+                            }
+                        </p>
+                        <p class="mb-2">
+                            <span class="avatar avatar-sm avatar-rounded me-2 bg-light text-muted">
+                                <i class="las la-birthday-cake align-middle fs-14"></i>
+                            </span>
+                            @(Model.User.Birthday.HasValue ? Model.User.Birthday.Value.ToString("dd MMMM yyyy", System.Globalization.CultureInfo.CurrentCulture): string.Empty)
+                            @* @(Model.User.Birthday.HasValue ? String.Format($"{Model.User.Birthday.Value.Date:dd MMMM yyyy}") : string.Empty) *@
+                        </p>
+                        @if (/*this.User.FindFirstValue(ClaimTypes.NameIdentifier) == Model.ThisUserId ||*/ this.User.IsInRole("God"))
+                        {
+                            <p class="mb-0">
+                                <span class="avatar avatar-sm avatar-rounded me-2 bg-light text-muted">
+                                    <i class="ri-bank-card-line align-middle fs-14"></i>
+                                </span>
+                                @if (Model.User.CardNumber != null)
+                                {
+                                    @System.Text.RegularExpressions.Regex.Replace(Model.User.CardNumber, @"(\w{4})(\w{4})(\w{4})(\w{4})", @"$1 $2 $3 $4")
+                                }
+                            </p>
+                        }
+                    </div>
+                </div>
+                @*<div class="p-4 border-bottom border-block-end-dashed">
+                    <p class="fs-15 mb-2 me-4 fw-semibold">Skills :</p>
+                    <div>
+                        <a href="javascript:void(0);">
+                            <span class="badge bg-light text-muted m-1">Cloud computing</span>
+                        </a>
+                        <a href="javascript:void(0);">
+                            <span class="badge bg-light text-muted m-1">Data analysis</span>
+                        </a>
+                        <a href="javascript:void(0);">
+                            <span class="badge bg-light text-muted m-1">DevOps</span>
+                        </a>
+                        <a href="javascript:void(0);">
+                            <span class="badge bg-light text-muted m-1">Machine learning</span>
+                        </a>
+                        <a href="javascript:void(0);">
+                            <span class="badge bg-light text-muted m-1">Programming</span>
+                        </a>
+                        <a href="javascript:void(0);">
+                            <span class="badge bg-light text-muted m-1">Security</span>
+                        </a>
+                        <a href="javascript:void(0);">
+                            <span class="badge bg-light text-muted m-1">Python</span>
+                        </a>
+                        <a href="javascript:void(0);">
+                            <span class="badge bg-light text-muted m-1">JavaScript</span>
+                        </a>
+                        <a href="javascript:void(0);">
+                            <span class="badge bg-light text-muted m-1">Ruby</span>
+                        </a>
+                        <a href="javascript:void(0);">
+                            <span class="badge bg-light text-muted m-1">PowerShell</span>
+                        </a>
+                        <a href="javascript:void(0);">
+                            <span class="badge bg-light text-muted m-1">Statistics</span>
+                        </a>
+                        <a href="javascript:void(0);">
+                            <span class="badge bg-light text-muted m-1">SQL</span>
+                        </a>
+                    </div>
+                </div>*@
+            </div>
+        </div>
+        <div id="colleagues-birthdays-container">
+
+        </div>
+    </div>
+    <div class="col-xxl-8 col-xl-12">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card custom-card">
+                    <div class="card-body p-0">
+                        <div class="p-3 border-bottom border-block-end-dashed d-flex align-items-center justify-content-between">
+                            <h6 class="fw-semibold mb-0">@Localizer["Tasks"] (@Localizer["TopTen"])</h6>
+                        </div>
+                        <div class="p-3">
+                            <div class="row">
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table id="datatable-basic" class="table text-nowrap table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">#</th>
+                                                    <th scope="col">@Localizer["Task"]</th>
+                                                    <th scope="col">@Localizer["Project"]</th>
+                                                    <th scope="col">@Localizer["AssignedDate"]</th>
+                                                    <th scope="col">@Localizer["Status"]</th>
+                                                    <th scope="col">@Localizer["DueDate"]</th>
+                                                    <th scope="col">@Localizer["Priority"]</th>
+                                                    <th scope="col">@Localizer["Action"]</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @{
+                                                    int i = 1;
+                                                    foreach (var task in Model.TasksWithProjectNames)
+                                                    {
+                                                        <tr class="task-list">
+                                                            <td>
+                                                                <span class="fw-semibold">@(i++)</span>
+                                                            </td>
+                                                            <td>
+                                                                <span class="fw-semibold table-word-wrap-column">@task.Key.Title</span>
+                                                            </td>
+                                                            <td>
+                                                                <span class="fw-semibold table-word-wrap-column">@task.Value</span>
+                                                            </td>
+                                                            <td>
+                                                                @(task.Key.StartDate.HasValue
+                                                                ? task.Key.StartDate.Value.ToString("dd MMM yyyy", System.Globalization.CultureInfo.CurrentCulture)
+                                                                : "")
+                                                            </td>
+                                                            <td>
+                                                                <span class="badge" name="@task.Key.Status">@EnumHelper.GetEnumDisplayName((TaskJect.Web.Enums.TaskStatusView)task.Key.Status)</span>
+                                                            </td>
+                                                            <td>
+                                                                @(task.Key.EndDate.HasValue
+                                                                ? task.Key.EndDate.Value.ToString("dd MMM yyyy", System.Globalization.CultureInfo.CurrentCulture)
+                                                                : "")
+                                                            </td>
+                                                            <td>
+                                                                <span class="badge" name="@task.Key.Priority">@EnumHelper.GetEnumDisplayName((TaskJect.Web.Enums.PriorityView)task.Key.Priority)</span>
+                                                            </td>
+                                                            <td>@{var id = task.Key.ID; string userId = Model.User.Id;}
+                                                                <button type="button" class="btn btn-primary-light btn-icon btn-sm" onclick="Overview('@id','@userId')" data-bs-title="More details">
+                                                                    <i class="ri-eye-line"></i>
+                                                                </button>
+                                                                <a asp-controller="Task" asp-action="Index" asp-route-id="@task.Key.ProjectID" class="btn btn-primary-light btn-icon btn-sm">
+                                                                    <i class="ri-clipboard-line"></i>
+                                                                </a>
+                                                            </td>
+                                                        </tr>
+                                                    }
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card custom-card">
+                    <div class="card-body p-0">
+                        <div class="p-3 border-bottom border-block-end-dashed d-flex align-items-center justify-content-between">
+                            <h6 class="fw-semibold mb-0">@Localizer["Projects"]</h6>
+                        </div>
+                        <div class="p-3">
+                            <div class="row">
+                                @foreach(var project in Model.Projects)
+                                {
+                                    <div class="col-xl-4">
+                                        <a asp-controller="Project" asp-action="Overview" asp-route-id="@project.ID">
+                                        <div class="card border custom-card" data-status="@project.Status">
+                                            <div class="card-body">
+                                                <p class="fs-14 fw-semibold mb-2 lh-1">
+                                                    @project.Title
+                                                </p>
+                                                <div class="d-flex flex-wrap gap-2 mb-4">
+                                                    <span class="badge" name="@project.Priority">@EnumHelper.GetEnumDisplayName((TaskJect.Web.Enums.PriorityView)project.Priority)</span>
+                                                    <span class="badge" name="@project.Status">@EnumHelper.GetEnumDisplayName((TaskJect.Web.Enums.TaskStatusView)project.Status)</span>
+                                                </div>
+                                                <div class="avatar-list-stacked">
+                                                        @Localizer["Team"]: @project.Team.Name
+                                                </div>
+                                            </div>
+                                        </div>
+                                        </a>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirmModalLabel">@Localizer["Confirmation"]</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                @Localizer["ConfirmationTelegramText"]
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">@Localizer["No"]</button>
+                <button type="button" class="btn btn-primary" id="confirmUnload">@Localizer["Yes"]</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--End::row-1 -->
+<!-- Start::task modal -->
+<div id="modal-window"></div>
+
+<partial name="_DeleteAccount" />
+
+
+<!-- End::task modal -->
+<script>
+    window.currentCulture = "@CultureInfo.CurrentCulture.Name";
+</script>
+@section Scripts{
+    <!-- Datatables Cdn -->
+    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+
+    <!-- Flat Picker JS -->
+    <script src="~/lib/flatpickr/flatpickr.min.js"></script>
+    <script src="~/lib/flatpickr/l10n/uk.js"></script>
+
+    <script src="~/js/custom_js/utils/modalWindowLoad.js"></script>
+
+    <script src="~/js/custom_js/utils/dataTableLocalization.js"></script>
+    <script src="~/js/custom_js/utils/formatString.js"></script>
+    <!-- Main js -->
+    <script src="~/js/custom_js/Profile/profile.js"></script>
+
+    <!-- Form Validation JS -->
+    <script src="~/js/validation.js"></script>
+
+    <script src="~/js/default-avatar.js"></script>
+}  

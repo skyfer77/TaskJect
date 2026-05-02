@@ -1,0 +1,268 @@
+﻿@using System.Globalization
+@using TaskJect.Web.Resources
+@using Domain.Database
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<SharedResources> Localizer
+@model IEnumerable<AnalyticsUserTableModel>
+@{
+    ViewBag.Title = "Analytics";
+}
+@section HeadArea {
+    <link href="~/css/NewStyles.css" rel="stylesheet">
+
+    <!-- FlatPickr CSS -->
+    <link rel="stylesheet" href="~/lib/flatpickr/flatpickr.min.css">
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.3.0/css/responsive.bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.2.3/css/buttons.bootstrap5.min.css">
+@*    <link rel="stylesheet" href="https://cdn.datatables.net/select/1.7.0/css/select.dataTables.min.css">*@
+
+}
+<!-- Page Header -->
+<div class="d-md-flex d-block align-items-center justify-content-between my-4 page-header-breadcrumb">
+    <h1 class="page-title fw-semibold fs-18 mb-0">@Localizer["UsersAnalytics"]</h1>
+</div>
+<!-- Page Header Close -->
+<!-- Start::row-1 -->
+<div class="row" id="analytics-row">
+    <div class="col-xl-12 sticky-filter">
+        <div class="card custom-card">
+            <div class="card-body ">
+                <div class="d-md-flex d-block flex-wrap align-items-center justify-content-between">
+                    <div class="card-title fw-semibold fs-18 mb-0">@Localizer["Filters"]</div>
+                    <div class="d-flex justify-content-end">
+                        <form class="me-3" id="dateRangeForm" method="post" action="/Analytics/Index">
+                            <div class="d-flex flex-wrap align-items-center mt-md-0 mt-3 justify-content-evenly gap-4">
+                                <div class="form-group">
+                                    <div class="input-group flex-nowrap">
+                                        <div class="input-group-text text-muted"><i class="ri-calendar-line"></i></div>
+                                        <input type="text" name="dateTo" class="form-control" id="dateRangeFilter" placeholder="@Localizer["SelectRangeDate"]"
+                                               aria-describedby="button-addon2">
+                                        <button class="btn btn-primary" type="button" id="dateRangeSubmit">@Localizer["Confirm"]</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        <form id="quickFilterForm" method="post" action="/Analytics/Index">
+                            <div class="dropdown">
+                                <button class="btn btn-primary dropdown-toggle" type="button" data-selected="@Localizer["ThisMonth"]"
+                                        id="dropdownCenterBtn" data-bs-toggle="dropdown" aria-expanded="false">
+                                    @Localizer["QuickFilter"]
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-end">
+                                    <li><button type="button" class="dropdown-item quick-filter" data-value="1">@Localizer["ThisWeek"]</button></li>
+                                    <li><button type="button" class="dropdown-item quick-filter" data-value="0">@Localizer["ThisMonth"]</button></li>
+                                    <li><button type="button" class="dropdown-item quick-filter" data-value="2">@Localizer["ThisQuarter"]</button></li>
+                                    <li><button type="button" class="dropdown-item quick-filter" data-value="3">@Localizer["ThisYear"]</button></li>
+                                </ul>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-8">
+        <div class="card custom-card">
+            <div class="card-header">
+                <div class="card-title">
+                    @Localizer["Users"]
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table id="datatable-basic-check1" class="table table-bordered text-nowrap w-100">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>@Localizer["UserName"]</th>
+                                <th>@Localizer["Points"]</th>
+                                <th>@Localizer["TotalTasks"]</th>
+                                <th>@Localizer["TasksOverdue"]</th>
+                                <th>@Localizer["Time"]</th>
+                                <th data-export-include="false">@Localizer["Actions"]</th>
+                            </tr>
+                        </thead>
+                        <tbody style="text-align: center;">
+                            @foreach (var user in Model)
+                            {
+                                var totalMinutes = (user.ActualHours) * 60 + (user.ActualMinutes);
+                                <tr>
+                                    <td></td>
+                                    <td>@user.FirstName @user.Surname</td>
+                                    <td>@user.Points</td>
+                                    <td>@user.CountTask</td>
+                                    <td>@user.TaskOverdue</td>
+                                    <td><span data-order="@totalMinutes">@($"{user.ActualHours}{Localizer["h"]} {user.ActualMinutes}{Localizer["m"]}")</span></td>
+                                    <td>
+                                        @{
+                                            var id = user.UserId;
+                                        }
+                                        <div class="btn-list">
+                                           @*  <a href="javascript:void(0)" onclick="MoreDetails('@id')"
+                                           role="button"  class="btn btn-sm btn-warning-light btn-icon"><i class="ri-eye-line"></i></a> *@
+                                            <a href="@Url.Action("UserDetails", "Analytics", new { userId = id })" data-user-id="@id"
+                                                class="btn btn-sm btn-info-light btn-icon details-link">
+                                                <i class="ri-user-3-line"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    @*<div class="col-xl-6">
+        <div class="card custom-card">
+            <div class="card-header justify-content-between d-sm-flex d-flex">
+                <div class="card-title">Task</div>
+                <div class="dropdown">
+                    <a href="javascript:void(0);" class="p-2 fs-12 text-muted" data-bs-toggle="dropdown" aria-expanded="false">
+                        View Mode<i class="ri-arrow-down-s-line align-middle ms-1 d-inline-block"></i>
+                    </a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="javascript:void(0);" class="dropdown-item view-mode-task" onclick="getGraphTaskData(1)">Day</a></li>
+                        <li><a href="javascript:void(0);" class="dropdown-item view-mode-task" onclick="getGraphTaskData(0)">Week</a></li>
+                        <li><a href="javascript:void(0);" class="dropdown-item view-mode-task" onclick="getGraphTaskData(2)">Month</a></li>
+                        <li><a href="javascript:void(0);" class="dropdown-item view-mode-task" onclick="getGraphTaskData(3)">Quarter</a></li>
+                        <li><a href="javascript:void(0);" class="dropdown-item view-mode-task" onclick="getGraphTaskData(4)">Year</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="card-body">
+                <div id="line-chart-datalabels"></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-6">
+        <div class="card custom-card">
+            <div class="card-header justify-content-between d-sm-flex d-flex">
+                <div class="card-title">Points</div>
+                <div class="dropdown">
+                    <a href="javascript:void(0);" class="p-2 fs-12 text-muted" data-bs-toggle="dropdown" aria-expanded="false">
+                        View Mode<i class="ri-arrow-down-s-line align-middle ms-1 d-inline-block"></i>
+                    </a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="javascript:void(0);" class="dropdown-item view-mode-point" onclick="getGraphPointData(1)">Day</a></li>
+                        <li><a href="javascript:void(0);" class="dropdown-item view-mode-point" onclick="getGraphPointData(0)">Week</a></li>
+                        <li><a href="javascript:void(0);" class="dropdown-item view-mode-point" onclick="getGraphPointData(2)">Month</a></li>
+                        <li><a href="javascript:void(0);" class="dropdown-item view-mode-point" onclick="getGraphPointData(3)">Quarter</a></li>
+                        <li><a href="javascript:void(0);" class="dropdown-item view-mode-point" onclick="getGraphPointData(4)">Year</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="card-body">
+                <div id="line-chart-datalabels1"></div>
+            </div>
+        </div>
+    </div>
+    <div hidden>
+        <div id="task-summary"></div>
+    </div>*@
+</div>
+<!--End::row-1 -->
+<!-- Start::task modal -->
+<div id="modal-window"></div>
+<!-- End::task modal -->
+<style>
+    .flatpickr-calendar.open{
+        z-index: 99999 !important;
+    }
+
+    #dateRangeFilter {
+        margin-left: calc(var(--bs-border-width)* -1);
+        border-radius: 0;
+        position: relative;
+        flex: 1 1 auto;
+        width: 1%;
+        min-width: 0;
+    }
+
+    /*table.dataTable {
+        border-collapse: collapse !important;
+    }
+
+    table.dataTable > tbody > tr > td.form-check-input:before, table.dataTable > tbody > tr > th.form-check-input:before {
+        border-radius: 0.25em;
+        width: 1.1em;
+        height: 1.1em;
+        background-color: var(--custom-white);
+        border: 1px solid var(--input-border);
+        cursor: pointer;
+    }
+
+    table.dataTable > tbody > tr > td.form-check-input:before, table.dataTable > tbody > tr > th.form-check-input:after {
+        border-radius: 0.25em;
+        width: 1.1em;
+        height: 1.1em;
+        background-color: var(--custom-white);
+        border: 1px solid var(--input-border);
+        cursor: pointer;
+    }
+
+    table.dataTable > tbody > tr.selected > td.form-check-input:before, table.dataTable > tbody > tr.selected > th.form-check-input:before {
+        /*--bs-form-check-bg-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='m6 10 3 3 6-6'/%3e%3c/svg%3e");*/
+     /*   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='m6 10 3 3 6-6'/%3e%3c/svg%3e");
+        background-color: var(--primary-color);
+        border-color: var(--primary-color);
+        border-radius: 0.25em;
+        width: 1.1em;
+        height: 1.1em;
+        border: 1px solid var(--input-border);
+        content: "";
+        cursor: pointer;
+    }
+
+    table.dataTable > tbody > tr.selected > td.form-check-input:after, table.dataTable > tbody > tr.selected > th.form-check-input:after {
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='m6 10 3 3 6-6'/%3e%3c/svg%3e");
+        background-color: var(--primary-color);
+        border-color: var(--primary-color);
+        border-radius: 0.25em;
+        width: 1.1em;
+        height: 1.1em;
+        border: 1px solid var(--input-border);
+        content: " ";
+        margin-top: -6px;
+        font-size: 13px;
+        cursor: pointer;
+    }*/
+</style>
+<script>
+    window.currentCulture = "@CultureInfo.CurrentCulture.Name";
+</script>
+@section Scripts{
+    <!-- Date & Time Picker JS -->
+    <script src="~/lib/flatpickr/flatpickr.min.js"></script>
+    <script src="~/lib/flatpickr/l10n/uk.js"></script>
+    <script src="~/js/date&time_pickers.js"></script>
+
+    <script src="~/js/custom_js/utils/dataTableLocalization.js"></script>
+    <script src="~/js/custom_js/utils/formatString.js"></script>
+
+    <!-- Chart Analytecs  JS -->
+    <script src="~/js/custom_js/Analytics/chart-analytecs.js"></script>
+
+    <!-- Datatables Cdn -->
+    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.3.0/js/dataTables.responsive.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.print.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.6/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.html5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    @*<script src="https://cdn.datatables.net/select/1.7.0/js/dataTables.select.min.js"></script>*@
+
+    <script src="~/js/custom_js/utils/dataTables.download.js"></script>
+
+    <!-- Internal Datatables JS -->
+    <script src="~/js/datatables.js"></script>
+
+
+}

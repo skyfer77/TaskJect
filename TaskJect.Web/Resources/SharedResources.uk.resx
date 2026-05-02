@@ -1,0 +1,2559 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Analytics" xml:space="preserve">
+    <value>Аналітика</value>
+  </data>
+  <data name="Boxed" xml:space="preserve">
+    <value>У коробці</value>
+  </data>
+  <data name="ByteBustersTeam" xml:space="preserve">
+    <value>Команда ByteBusters</value>
+  </data>
+  <data name="Classic" xml:space="preserve">
+    <value>Класичний</value>
+  </data>
+  <data name="ClosedMenu" xml:space="preserve">
+    <value>Закрите меню</value>
+  </data>
+  <data name="ContactSupport" xml:space="preserve">
+    <value>Зверніться до служби підтримки</value>
+  </data>
+  <data name="Dark" xml:space="preserve">
+    <value>Темний</value>
+  </data>
+  <data name="DefaultMenu" xml:space="preserve">
+    <value>Меню за замовчуванням</value>
+  </data>
+  <data name="Fixed" xml:space="preserve">
+    <value>Фіксовано</value>
+  </data>
+  <data name="FullWidth" xml:space="preserve">
+    <value>Повна ширина</value>
+  </data>
+  <data name="HeaderColors" xml:space="preserve">
+    <value>Кольори заголовка</value>
+  </data>
+  <data name="HeaderPositions" xml:space="preserve">
+    <value>Позиції заголовка</value>
+  </data>
+  <data name="Horizontal" xml:space="preserve">
+    <value>Горизонтальний</value>
+  </data>
+  <data name="IconClick" xml:space="preserve">
+    <value>Натискання на значок</value>
+  </data>
+  <data name="IconHover" xml:space="preserve">
+    <value>Значок наведення</value>
+  </data>
+  <data name="IconOverlay" xml:space="preserve">
+    <value>Накладання піктограм</value>
+  </data>
+  <data name="IconText" xml:space="preserve">
+    <value>Текст значка</value>
+  </data>
+  <data name="Improvements" xml:space="preserve">
+    <value>Покращення</value>
+  </data>
+  <data name="LayoutWidthStyles" xml:space="preserve">
+    <value>Стилі ширини макета</value>
+  </data>
+  <data name="Light" xml:space="preserve">
+    <value>Світлий</value>
+  </data>
+  <data name="LogOut" xml:space="preserve">
+    <value>Вихід</value>
+  </data>
+  <data name="Main" xml:space="preserve">
+    <value>Головна</value>
+  </data>
+  <data name="MenuClick" xml:space="preserve">
+    <value>Натискання на меню</value>
+  </data>
+  <data name="MenuColors" xml:space="preserve">
+    <value>Кольори меню</value>
+  </data>
+  <data name="MenuHover" xml:space="preserve">
+    <value>Наведення курсора на меню</value>
+  </data>
+  <data name="MenuPositions" xml:space="preserve">
+    <value>Позиції меню</value>
+  </data>
+  <data name="Moderation" xml:space="preserve">
+    <value>Модерація</value>
+  </data>
+  <data name="Modern" xml:space="preserve">
+    <value>Сучасний</value>
+  </data>
+  <data name="MyOrganization" xml:space="preserve">
+    <value>Моя організація</value>
+  </data>
+  <data name="MyTeam" xml:space="preserve">
+    <value>Моя команда</value>
+  </data>
+  <data name="NavigationStyles" xml:space="preserve">
+    <value>Стилі навігації</value>
+  </data>
+  <data name="NoteChangeColorHeader" xml:space="preserve">
+    <value>Примітка. Якщо ви бажаєте динамічно змінити колір заголовка, змініть його знизу основного засобу вибору кольору теми</value>
+  </data>
+  <data name="NoteChangeColorMenu" xml:space="preserve">
+    <value>Примітка. Якщо ви хочете динамічно змінити колір меню, змініть його знизу основного вибору кольору теми</value>
+  </data>
+  <data name="Organization" xml:space="preserve">
+    <value>Організація</value>
+  </data>
+  <data name="OrganizationAppeals" xml:space="preserve">
+    <value>Запити організації</value>
+  </data>
+  <data name="Organizations" xml:space="preserve">
+    <value>Організації</value>
+  </data>
+  <data name="PageStyles" xml:space="preserve">
+    <value>Стилі сторінок</value>
+  </data>
+  <data name="Profile" xml:space="preserve">
+    <value>Профіль</value>
+  </data>
+  <data name="Projects" xml:space="preserve">
+    <value>Проекти</value>
+  </data>
+  <data name="Regular" xml:space="preserve">
+    <value>Регулярний</value>
+  </data>
+  <data name="Reset" xml:space="preserve">
+    <value>Скинути</value>
+  </data>
+  <data name="Scrollable" xml:space="preserve">
+    <value>Прокручується</value>
+  </data>
+  <data name="SidemenuLayoutStyles" xml:space="preserve">
+    <value>Стилі макета бічного меню</value>
+  </data>
+  <data name="Switcher" xml:space="preserve">
+    <value>Перемикач</value>
+  </data>
+  <data name="Team" xml:space="preserve">
+    <value>Команда</value>
+  </data>
+  <data name="ThankYou" xml:space="preserve">
+    <value>Дякую</value>
+  </data>
+  <data name="ThemeBackground" xml:space="preserve">
+    <value>Тематичний фон</value>
+  </data>
+  <data name="ThemeColorMode" xml:space="preserve">
+    <value>Колірний режим теми</value>
+  </data>
+  <data name="ThemeColors" xml:space="preserve">
+    <value>Кольори теми</value>
+  </data>
+  <data name="ThemePrimary" xml:space="preserve">
+    <value>Основна тема</value>
+  </data>
+  <data name="ThemeStyles" xml:space="preserve">
+    <value>Стилі теми</value>
+  </data>
+  <data name="Vertical" xml:space="preserve">
+    <value>Вертикальний</value>
+  </data>
+  <data name="VerticalHorizontalMenuStyles" xml:space="preserve">
+    <value>Стилі вертикального та горизонтального меню</value>
+  </data>
+  <data name="MenuWithBackgroundImage" xml:space="preserve">
+    <value>Меню з фоновим зображенням</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Редагувати</value>
+  </data>
+  <data name="Tasks" xml:space="preserve">
+    <value>Завдання</value>
+  </data>
+  <data name="ContactInformation" xml:space="preserve">
+    <value>Контактна інформація</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Ім'я</value>
+  </data>
+  <data name="ProjectTitle" xml:space="preserve">
+    <value>Назва проекту</value>
+  </data>
+  <data name="AssignedDate" xml:space="preserve">
+    <value>Призначена дата</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Статус</value>
+  </data>
+  <data name="DueDate" xml:space="preserve">
+    <value>Термін виконання</value>
+  </data>
+  <data name="Priority" xml:space="preserve">
+    <value>Пріоритет</value>
+  </data>
+  <data name="Action" xml:space="preserve">
+    <value>Дія</value>
+  </data>
+  <data name="NotStarted" xml:space="preserve">
+    <value>Не розпочато</value>
+  </data>
+  <data name="InProgress" xml:space="preserve">
+    <value>В процесі</value>
+  </data>
+  <data name="Done" xml:space="preserve">
+    <value>Виконано</value>
+  </data>
+  <data name="Archived" xml:space="preserve">
+    <value> Архівовано</value>
+  </data>
+  <data name="OnHold" xml:space="preserve">
+    <value>Призупинено</value>
+  </data>
+  <data name="OnReview" xml:space="preserve">
+    <value>На перевірці</value>
+  </data>
+  <data name="Low" xml:space="preserve">
+    <value>Низький</value>
+  </data>
+  <data name="Medium" xml:space="preserve">
+    <value>Середній</value>
+  </data>
+  <data name="High" xml:space="preserve">
+    <value>Високий</value>
+  </data>
+  <data name="OverviewTask" xml:space="preserve">
+    <value>Оглядове завдання</value>
+  </data>
+  <data name="AgreedOverdue" xml:space="preserve">
+    <value>Погоджене протермінування</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Опис</value>
+  </data>
+  <data name="PerformanceNote" xml:space="preserve">
+    <value>Примітка до виконання</value>
+  </data>
+  <data name="CompletedDate" xml:space="preserve">
+    <value>Дата завершення</value>
+  </data>
+  <data name="ReviewDate" xml:space="preserve">
+    <value>Дата перевірки</value>
+  </data>
+  <data name="AssignedBy" xml:space="preserve">
+    <value>Призначено</value>
+  </data>
+  <data name="Complexity" xml:space="preserve">
+    <value>Складність</value>
+  </data>
+  <data name="EditProfile" xml:space="preserve">
+    <value>Редагувати профіль</value>
+  </data>
+  <data name="Surname" xml:space="preserve">
+    <value>Прізвище</value>
+  </data>
+  <data name="EnterName" xml:space="preserve">
+    <value>Введіть ім'я</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Електронна пошта</value>
+  </data>
+  <data name="PleaseEnterEmail" xml:space="preserve">
+    <value>Введіть адресу електронної пошти</value>
+  </data>
+  <data name="Birthday" xml:space="preserve">
+    <value>День Народження</value>
+  </data>
+  <data name="ChooseDate" xml:space="preserve">
+    <value>Виберіть дату</value>
+  </data>
+  <data name="PhoneNumber" xml:space="preserve">
+    <value>Номер телефону</value>
+  </data>
+  <data name="TelegramUserName" xml:space="preserve">
+    <value>Ім'я користувача Telegram</value>
+  </data>
+  <data name="EnterTelegramUserName" xml:space="preserve">
+    <value>Введіть ім'я користувача Telegram</value>
+  </data>
+  <data name="CardNumber" xml:space="preserve">
+    <value>Номер картки</value>
+  </data>
+  <data name="PleaseEnterValideCardNumber" xml:space="preserve">
+    <value>Введіть дійсний номер картки</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Скасувати</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Зберегти</value>
+  </data>
+  <data name="BirthdaysDuringMonth" xml:space="preserve">
+    <value>Дні народження протягом місяця</value>
+  </data>
+  <data name="BACKTOHOME" xml:space="preserve">
+    <value>НАЗАД ДО ДОМУ</value>
+  </data>
+  <data name="Confirmed" xml:space="preserve">
+    <value>Підтверджено</value>
+  </data>
+  <data name="Warning" xml:space="preserve">
+    <value>Увага</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Пошук</value>
+  </data>
+  <data name="Days" xml:space="preserve">
+    <value>Днів</value>
+  </data>
+  <data name="Day" xml:space="preserve">
+    <value>День</value>
+  </data>
+  <data name="Month" xml:space="preserve">
+    <value>Місяць</value>
+  </data>
+  <data name="Years" xml:space="preserve">
+    <value>Роки</value>
+  </data>
+  <data name="Year" xml:space="preserve">
+    <value>Рік</value>
+  </data>
+  <data name="MemberSince" xml:space="preserve">
+    <value>Член з</value>
+  </data>
+  <data name="CompletedTasks" xml:space="preserve">
+    <value>Виконані завдання</value>
+  </data>
+  <data name="Position" xml:space="preserve">
+    <value>Позиція</value>
+  </data>
+  <data name="AllMembers" xml:space="preserve">
+    <value>Всі учасники</value>
+  </data>
+  <data name="CreateTeam" xml:space="preserve">
+    <value>Створити команду</value>
+  </data>
+  <data name="EditTeam" xml:space="preserve">
+    <value>Редагувати команду</value>
+  </data>
+  <data name="DeleteTeam" xml:space="preserve">
+    <value>Видалити команду</value>
+  </data>
+  <data name="TeamName" xml:space="preserve">
+    <value>Назва команди</value>
+  </data>
+  <data name="SelectMembers" xml:space="preserve">
+    <value>Виберіть учасників</value>
+  </data>
+  <data name="DefinitelyWantDeleteTeam" xml:space="preserve">
+    <value>Точно хочу видалити команду</value>
+  </data>
+  <data name="DefinitelyWantDeleteMember" xml:space="preserve">
+    <value>Точно хочу видалити учасника</value>
+  </data>
+  <data name="DeleteMember" xml:space="preserve">
+    <value>Видалити учасника</value>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>Створити</value>
+  </data>
+  <data name="CreateUser" xml:space="preserve">
+    <value>Створити користувача</value>
+  </data>
+  <data name="EmailUser" xml:space="preserve">
+    <value>Електронної пошта користувача </value>
+  </data>
+  <data name="EnterEmail" xml:space="preserve">
+    <value>Введіть адресу електронної пошти</value>
+  </data>
+  <data name="FirstNameUser" xml:space="preserve">
+    <value>Ім'я користувача</value>
+  </data>
+  <data name="EnterFirstName" xml:space="preserve">
+    <value>Введіть ім'я</value>
+  </data>
+  <data name="PleaseEnterFirstName" xml:space="preserve">
+    <value>Будь ласка, введіть ім'я</value>
+  </data>
+  <data name="SurnameUser" xml:space="preserve">
+    <value>Прізвище користувача</value>
+  </data>
+  <data name="PleaseEnterSurname" xml:space="preserve">
+    <value>Будь ласка, введіть прізвище</value>
+  </data>
+  <data name="Filters" xml:space="preserve">
+    <value>Фільтри</value>
+  </data>
+  <data name="SelectRangeDate" xml:space="preserve">
+    <value>Виберіть дату діапазону</value>
+  </data>
+  <data name="Confirm" xml:space="preserve">
+    <value>Підтвердити</value>
+  </data>
+  <data name="QuickFilter" xml:space="preserve">
+    <value>Швидкий фільтр</value>
+  </data>
+  <data name="ThisWeek" xml:space="preserve">
+    <value>Цей тиждень</value>
+  </data>
+  <data name="ThisMonth" xml:space="preserve">
+    <value>Цей місяць</value>
+  </data>
+  <data name="ThisQuarter" xml:space="preserve">
+    <value>Цей квартал</value>
+  </data>
+  <data name="ThisYear" xml:space="preserve">
+    <value>Цього року</value>
+  </data>
+  <data name="Users" xml:space="preserve">
+    <value>Користувачі</value>
+  </data>
+  <data name="UserName" xml:space="preserve">
+    <value>Ім'я користувача</value>
+  </data>
+  <data name="Points" xml:space="preserve">
+    <value>Очки</value>
+  </data>
+  <data name="TotalTasks" xml:space="preserve">
+    <value>Всього завдань</value>
+  </data>
+  <data name="TasksOverdue" xml:space="preserve">
+    <value>Завдання прострочені</value>
+  </data>
+  <data name="Time" xml:space="preserve">
+    <value>Час</value>
+  </data>
+  <data name="Actions" xml:space="preserve">
+    <value>Дії</value>
+  </data>
+  <data name="h" xml:space="preserve">
+    <value>год.</value>
+  </data>
+  <data name="m" xml:space="preserve">
+    <value>хв.</value>
+  </data>
+  <data name="UserAnalytics" xml:space="preserve">
+    <value>Аналітика користувачів</value>
+  </data>
+  <data name="UserDetails" xml:space="preserve">
+    <value>Відомості про користувача</value>
+  </data>
+  <data name="TotalPoint" xml:space="preserve">
+    <value>Загальний бал</value>
+  </data>
+  <data name="TotalTime" xml:space="preserve">
+    <value>Загальний час</value>
+  </data>
+  <data name="Graph" xml:space="preserve">
+    <value>Графік</value>
+  </data>
+  <data name="Week" xml:space="preserve">
+    <value>Тиждень</value>
+  </data>
+  <data name="Quarter" xml:space="preserve">
+    <value>Квартал</value>
+  </data>
+  <data name="ViewMode" xml:space="preserve">
+    <value>Режим перегляду</value>
+  </data>
+  <data name="TaskName" xml:space="preserve">
+    <value>Назва завдання</value>
+  </data>
+  <data name="ProjectName" xml:space="preserve">
+    <value>Назва проекту</value>
+  </data>
+  <data name="TaskPoint" xml:space="preserve">
+    <value>Бали завдання</value>
+  </data>
+  <data name="ActualHours" xml:space="preserve">
+    <value>Фактичні години</value>
+  </data>
+  <data name="InTime" xml:space="preserve">
+    <value>Вчасно</value>
+  </data>
+  <data name="OopsBetterCheckThatURL" xml:space="preserve">
+    <value>Ой, краще перевірте цю URL-адресу</value>
+  </data>
+  <data name="PageNotFound" xml:space="preserve">
+    <value>Сторінка не знайдена</value>
+  </data>
+  <data name="MyRequests" xml:space="preserve">
+    <value>Мої запити</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Назва</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Дата</value>
+  </data>
+  <data name="AppealDetails" xml:space="preserve">
+    <value>Деталі звернення</value>
+  </data>
+  <data name="ThereNoDescription" xml:space="preserve">
+    <value>Опису немає</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Закрити</value>
+  </data>
+  <data name="RegistrationDate" xml:space="preserve">
+    <value>Дата реєстрації</value>
+  </data>
+  <data name="Role" xml:space="preserve">
+    <value>Роль</value>
+  </data>
+  <data name="SelectRole" xml:space="preserve">
+    <value>Виберіть роль</value>
+  </data>
+  <data name="UnblockUser" xml:space="preserve">
+    <value>Розблокувати користувача</value>
+  </data>
+  <data name="BlockUser" xml:space="preserve">
+    <value>Заблокувати користувача</value>
+  </data>
+  <data name="UsersInThe" xml:space="preserve">
+    <value>Користувачі в</value>
+  </data>
+  <data name="InviteNewOrganization" xml:space="preserve">
+    <value>Запросити нову організацію</value>
+  </data>
+  <data name="Number" xml:space="preserve">
+    <value>Номер</value>
+  </data>
+  <data name="OfParticipants" xml:space="preserve">
+    <value>Учасників</value>
+  </data>
+  <data name="TariffPlan" xml:space="preserve">
+    <value>Тарифний план</value>
+  </data>
+  <data name="TariffEndDate" xml:space="preserve">
+    <value>Дата закінчення дії тарифу</value>
+  </data>
+  <data name="TeamLeadEmail" xml:space="preserve">
+    <value>Електронна адреса керівника групи</value>
+  </data>
+  <data name="UpdateTariffPlan" xml:space="preserve">
+    <value>Оновити тарифний план</value>
+  </data>
+  <data name="ViewHistoryPlans" xml:space="preserve">
+    <value>Переглянути плани історії</value>
+  </data>
+  <data name="UnblockAllUsersOrganization" xml:space="preserve">
+    <value>Розблокувати всіх користувачів в організації</value>
+  </data>
+  <data name="BlockAllUsersOrganization" xml:space="preserve">
+    <value>Блокувати всіх користувачів в організації</value>
+  </data>
+  <data name="AddTariff" xml:space="preserve">
+    <value>Додати тариф</value>
+  </data>
+  <data name="TariffPlanName" xml:space="preserve">
+    <value>Назва тарифного плану</value>
+  </data>
+  <data name="DateFrom" xml:space="preserve">
+    <value>Дата з</value>
+  </data>
+  <data name="DateTo" xml:space="preserve">
+    <value>Дата до</value>
+  </data>
+  <data name="UpdateTariff" xml:space="preserve">
+    <value>Оновити тариф</value>
+  </data>
+  <data name="ExpirationDate" xml:space="preserve">
+    <value>Термін придатності</value>
+  </data>
+  <data name="SelectDate" xml:space="preserve">
+    <value>Виберіть дату</value>
+  </data>
+  <data name="AreYouSureUnblockOrganizationMembers" xml:space="preserve">
+    <value>Ви впевнені, що бажаєте розблокувати організацію та її учасників</value>
+  </data>
+  <data name="Unlockout" xml:space="preserve">
+    <value>Розблокування</value>
+  </data>
+  <data name="Lockout" xml:space="preserve">
+    <value>Блокування</value>
+  </data>
+  <data name="DoYouWantBlockOrganizationMembers" xml:space="preserve">
+    <value>Ви хочете заблокувати організацію та всіх її учасників</value>
+  </data>
+  <data name="EditAppeal" xml:space="preserve">
+    <value>Редагувати звернення</value>
+  </data>
+  <data name="AppealDateSend" xml:space="preserve">
+    <value>Дата звернення</value>
+  </data>
+  <data name="AppealRejectedDescription" xml:space="preserve">
+    <value>Опис апеляції відхилено</value>
+  </data>
+  <data name="DefinitelyDeleteUser" xml:space="preserve">
+    <value>Точно хочу видалити користувача</value>
+  </data>
+  <data name="DeleteUser" xml:space="preserve">
+    <value>Видалити користувача</value>
+  </data>
+  <data name="DefinitelyDeleteOrganization" xml:space="preserve">
+    <value>Точно хочу видалити організацію</value>
+  </data>
+  <data name="DeleteOrganization" xml:space="preserve">
+    <value>Видалити організацію</value>
+  </data>
+  <data name="DefinitelyDeleteAppeal" xml:space="preserve">
+    <value>Точно хочу видалити звернення</value>
+  </data>
+  <data name="DeleteAppeal" xml:space="preserve">
+    <value>Видалити звернення</value>
+  </data>
+  <data name="CreateOrganization" xml:space="preserve">
+    <value>Створити організацію</value>
+  </data>
+  <data name="OrganizationName" xml:space="preserve">
+    <value>Назва організації</value>
+  </data>
+  <data name="EmailTeamLeadOrganization" xml:space="preserve">
+    <value>Електронна пошта керівника Організації</value>
+  </data>
+  <data name="FirstNameTeamLead" xml:space="preserve">
+    <value>Ім'я керівника групи</value>
+  </data>
+  <data name="SurnameTeamLead" xml:space="preserve">
+    <value>Прізвище керівника групи</value>
+  </data>
+  <data name="Information" xml:space="preserve">
+    <value>Інформація</value>
+  </data>
+  <data name="Members" xml:space="preserve">
+    <value>Члени</value>
+  </data>
+  <data name="AddUser" xml:space="preserve">
+    <value>Додати користувача</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>Користувач</value>
+  </data>
+  <data name="Roles" xml:space="preserve">
+    <value>Ролі</value>
+  </data>
+  <data name="ChangePlan" xml:space="preserve">
+    <value>Змінити план</value>
+  </data>
+  <data name="WeAreWorkingOnNewTariffPlans" xml:space="preserve">
+    <value>Ми працюємо над новими тарифними планами з розширеними функціями для команд, зокрема збільшеними розмірами команд, більшою кількістю користувачів, збільшеним обсягом пам’яті, вищими обмеженнями запитів та іншими цікавими новими функціями. Залишайтеся на зв'язку!</value>
+  </data>
+  <data name="Ok" xml:space="preserve">
+    <value>Добре</value>
+  </data>
+  <data name="TotalUsers" xml:space="preserve">
+    <value>Загальна кількість користувачів</value>
+  </data>
+  <data name="SpaceUsed" xml:space="preserve">
+    <value>Використаний простір</value>
+  </data>
+  <data name="RequestsSent" xml:space="preserve">
+    <value>Запитів надіслано</value>
+  </data>
+  <data name="EditOrganization" xml:space="preserve">
+    <value>Редагувати організацію</value>
+  </data>
+  <data name="PleaseEnterPhone" xml:space="preserve">
+    <value>Будь ласка, введіть телефон</value>
+  </data>
+  <data name="Send" xml:space="preserve">
+    <value>Надіслати</value>
+  </data>
+  <data name="EnterSurname" xml:space="preserve">
+    <value>Введіть прізвище</value>
+  </data>
+  <data name="ProjectsOverview" xml:space="preserve">
+    <value>Огляд проектів</value>
+  </data>
+  <data name="ProjectDetails" xml:space="preserve">
+    <value>Деталі проекту</value>
+  </data>
+  <data name="TasksBoard" xml:space="preserve">
+    <value>Дошка завдань</value>
+  </data>
+  <data name="ProjectDescription" xml:space="preserve">
+    <value>Опис проекту</value>
+  </data>
+  <data name="ProjectManager" xml:space="preserve">
+    <value>Керівник проекту</value>
+  </data>
+  <data name="StartDate" xml:space="preserve">
+    <value>Дата початку</value>
+  </data>
+  <data name="EndDate" xml:space="preserve">
+    <value>Дата закінчення</value>
+  </data>
+  <data name="Properties" xml:space="preserve">
+    <value>Властивості</value>
+  </data>
+  <data name="ProjectClient" xml:space="preserve">
+    <value>Клієнт проекту</value>
+  </data>
+  <data name="ProjectTeam" xml:space="preserve">
+    <value>Команда проекту</value>
+  </data>
+  <data name="NewProject" xml:space="preserve">
+    <value>Новий проект</value>
+  </data>
+  <data name="SortBy" xml:space="preserve">
+    <value>Сортувати за</value>
+  </data>
+  <data name="Newest" xml:space="preserve">
+    <value>Найновіший</value>
+  </data>
+  <data name="DateAdded" xml:space="preserve">
+    <value>Дата додавання</value>
+  </data>
+  <data name="AtoZ" xml:space="preserve">
+    <value>А - Я</value>
+  </data>
+  <data name="SearchProject" xml:space="preserve">
+    <value>Пошуковий проект</value>
+  </data>
+  <data name="TasksCompleted" xml:space="preserve">
+    <value>Завдання виконано</value>
+  </data>
+  <data name="View" xml:space="preserve">
+    <value>Переглянути</value>
+  </data>
+  <data name="Task" xml:space="preserve">
+    <value>Завдання</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Видалити</value>
+  </data>
+  <data name="Client" xml:space="preserve">
+    <value>Клієнт</value>
+  </data>
+  <data name="Completed" xml:space="preserve">
+    <value>Виконано</value>
+  </data>
+  <data name="CreateProject" xml:space="preserve">
+    <value>Створити проект</value>
+  </data>
+  <data name="EnterProjectName" xml:space="preserve">
+    <value>Введіть назву проекту</value>
+  </data>
+  <data name="PleaseEnterProjectName" xml:space="preserve">
+    <value>Будь ласка, введіть назву проєкту</value>
+  </data>
+  <data name="SelectPriority" xml:space="preserve">
+    <value>Виберіть пріоритет</value>
+  </data>
+  <data name="Stakeholder" xml:space="preserve">
+    <value>Зацікавлена ​​сторона</value>
+  </data>
+  <data name="EnterClientName" xml:space="preserve">
+    <value>Введіть ім'я клієнта</value>
+  </data>
+  <data name="ChooseDateTime" xml:space="preserve">
+    <value>Виберіть дату та час</value>
+  </data>
+  <data name="PleaseSelectProjectManager" xml:space="preserve">
+    <value>Виберіть менеджер проєкту</value>
+  </data>
+  <data name="CreateTask" xml:space="preserve">
+    <value>Створити завдання</value>
+  </data>
+  <data name="AllUsers" xml:space="preserve">
+    <value>Усі користувачі</value>
+  </data>
+  <data name="Project" xml:space="preserve">
+    <value>Проект</value>
+  </data>
+  <data name="Member" xml:space="preserve">
+    <value>Учасник</value>
+  </data>
+  <data name="Developer" xml:space="preserve">
+    <value>Розробник</value>
+  </data>
+  <data name="Designer" xml:space="preserve">
+    <value>Дизайнер</value>
+  </data>
+  <data name="SalesManager" xml:space="preserve">
+    <value>Менеджер з продажу</value>
+  </data>
+  <data name="QA" xml:space="preserve">
+    <value>QA</value>
+  </data>
+  <data name="DevOps" xml:space="preserve">
+    <value>DevOps</value>
+  </data>
+  <data name="Analyst" xml:space="preserve">
+    <value>Аналітик</value>
+  </data>
+  <data name="HRManager" xml:space="preserve">
+    <value>Менеджер з персоналу</value>
+  </data>
+  <data name="MarketingManager" xml:space="preserve">
+    <value>Менеджер з маркетингу</value>
+  </data>
+  <data name="TeamLead" xml:space="preserve">
+    <value>Керівник команди</value>
+  </data>
+  <data name="DeleteTask" xml:space="preserve">
+    <value>Видалити завдання</value>
+  </data>
+  <data name="SetAssignmentsTask" xml:space="preserve">
+    <value>Встановіть завдання</value>
+  </data>
+  <data name="ToCreateProject" xml:space="preserve">
+    <value>Щоб створити проєкт, спочатку створіть команду, що складається щонайменше з одного учасника</value>
+  </data>
+  <data name="ProjectsAnalytics" xml:space="preserve">
+    <value>Аналітика проекту</value>
+  </data>
+  <data name="ThisMonthLowerCase" xml:space="preserve">
+    <value>цей місяць</value>
+  </data>
+  <data name="UIDeveloper" xml:space="preserve">
+    <value>Розробник UI</value>
+  </data>
+  <data name="ProjectAnalysis" xml:space="preserve">
+    <value>Аналіз проекту</value>
+  </data>
+  <data name="DailyTasks" xml:space="preserve">
+    <value>Щоденні завдання</value>
+  </data>
+  <data name="TaskBoard" xml:space="preserve">
+    <value>Дошка завдань</value>
+  </data>
+  <data name="Framework" xml:space="preserve">
+    <value>Framework</value>
+  </data>
+  <data name="Angular" xml:space="preserve">
+    <value>Angular</value>
+  </data>
+  <data name="Php" xml:space="preserve">
+    <value>Php</value>
+  </data>
+  <data name="Overview" xml:space="preserve">
+    <value>Огляд</value>
+  </data>
+  <data name="ProjectsSummary" xml:space="preserve">
+    <value>Резюме проєктy</value>
+  </data>
+  <data name="New" xml:space="preserve">
+    <value>Новий</value>
+  </data>
+  <data name="Popular" xml:space="preserve">
+    <value>Популярний</value>
+  </data>
+  <data name="Relevant" xml:space="preserve">
+    <value>Релевантний</value>
+  </data>
+  <data name="AssignedTo" xml:space="preserve">
+    <value>Виконавець</value>
+  </data>
+  <data name="Progress" xml:space="preserve">
+    <value>Прогрес</value>
+  </data>
+  <data name="HomePage" xml:space="preserve">
+    <value>Домашня сторінка</value>
+  </data>
+  <data name="EditProject" xml:space="preserve">
+    <value>Редагувати проект</value>
+  </data>
+  <data name="DefinitelyWantDeleteProject" xml:space="preserve">
+    <value>Точно хочу видалити проєкт</value>
+  </data>
+  <data name="DeleteProject" xml:space="preserve">
+    <value>Видалити проект</value>
+  </data>
+  <data name="TakenToWork" xml:space="preserve">
+    <value>Взято в Роботу</value>
+  </data>
+  <data name="Postponed" xml:space="preserve">
+    <value>Відкладено</value>
+  </data>
+  <data name="Rejected" xml:space="preserve">
+    <value>Відхилено</value>
+  </data>
+  <data name="InProcessing" xml:space="preserve">
+    <value>В обробці</value>
+  </data>
+  <data name="KanbanBoard" xml:space="preserve">
+    <value>Канбан дошка</value>
+  </data>
+  <data name="OverdueTasks" xml:space="preserve">
+    <value>Прострочені завдання</value>
+  </data>
+  <data name="LastMonth" xml:space="preserve">
+    <value>Останній місяць</value>
+  </data>
+  <data name="AddTask" xml:space="preserve">
+    <value>Додати завдання</value>
+  </data>
+  <data name="Created" xml:space="preserve">
+    <value>Створено</value>
+  </data>
+  <data name="Archiv" xml:space="preserve">
+    <value>Архів</value>
+  </data>
+  <data name="daysLeft" xml:space="preserve">
+    <value>залишилося днів</value>
+  </data>
+  <data name="daysOverdue" xml:space="preserve">
+    <value>днів прострочення</value>
+  </data>
+  <data name="noEndDate" xml:space="preserve">
+    <value>немає кінцевої дати</value>
+  </data>
+  <data name="Details" xml:space="preserve">
+    <value>Подробиці</value>
+  </data>
+  <data name="AddHours" xml:space="preserve">
+    <value>Додайте час</value>
+  </data>
+  <data name="DetailsTask" xml:space="preserve">
+    <value>Деталі Завдання</value>
+  </data>
+  <data name="TaskDescription" xml:space="preserve">
+    <value>Опис завдання</value>
+  </data>
+  <data name="PerformanceNotes" xml:space="preserve">
+    <value>Примітки до виконання</value>
+  </data>
+  <data name="EnterComplexity" xml:space="preserve">
+    <value>Введіть складність</value>
+  </data>
+  <data name="SelectMember" xml:space="preserve">
+    <value>Виберіть учасника</value>
+  </data>
+  <data name="Deadline" xml:space="preserve">
+    <value>Дедлайн</value>
+  </data>
+  <data name="Hours" xml:space="preserve">
+    <value>Години</value>
+  </data>
+  <data name="Minutes" xml:space="preserve">
+    <value>Хвилин</value>
+  </data>
+  <data name="DefinitelyWantDeleteTask" xml:space="preserve">
+    <value>Однозначно хочу видалити завдання</value>
+  </data>
+  <data name="EnterTime" xml:space="preserve">
+    <value>Введіть час</value>
+  </data>
+  <data name="AddTaskShort" xml:space="preserve">
+    <value>Додати</value>
+  </data>
+  <data name="Home" xml:space="preserve">
+    <value>Додому</value>
+  </data>
+  <data name="Solutions" xml:space="preserve">
+    <value>Рішення</value>
+  </data>
+  <data name="ProjectManagement" xml:space="preserve">
+    <value>Управління проектами</value>
+  </data>
+  <data name="TaskManagement" xml:space="preserve">
+    <value>Управління завданнями</value>
+  </data>
+  <data name="AdvancedAnalytics" xml:space="preserve">
+    <value>Розширена аналітика</value>
+  </data>
+  <data name="TeamManagement" xml:space="preserve">
+    <value>Управління командою</value>
+  </data>
+  <data name="PersonalProfile" xml:space="preserve">
+    <value>Особистий профіль</value>
+  </data>
+  <data name="OurMission" xml:space="preserve">
+    <value>Наша місія</value>
+  </data>
+  <data name="Features" xml:space="preserve">
+    <value>Особливості</value>
+  </data>
+  <data name="Pricing" xml:space="preserve">
+    <value>Ціноутворення</value>
+  </data>
+  <data name="FAQS" xml:space="preserve">
+    <value>Часті запитання</value>
+  </data>
+  <data name="Contact" xml:space="preserve">
+    <value>Контакт</value>
+  </data>
+  <data name="SignUp" xml:space="preserve">
+    <value>Зареєструватися</value>
+  </data>
+  <data name="SolutionsUpperCase" xml:space="preserve">
+    <value>РІШЕННЯ</value>
+  </data>
+  <data name="Analytics1" xml:space="preserve">
+    <value>Аналітика</value>
+  </data>
+  <data name="ProjectManagementUpperCase" xml:space="preserve">
+    <value>УПРАВЛІННЯ ПРОЕКТАМИ І ЗАДАЧАМИ</value>
+  </data>
+  <data name="TaskManagementUpperCase" xml:space="preserve">
+    <value>УПРАВЛІННЯ ЗАВДАННЯМИ</value>
+  </data>
+  <data name="AdvancedAnalyticsUpperCase" xml:space="preserve">
+    <value>РОЗШИРЕНА АНАЛІТИКА</value>
+  </data>
+  <data name="TeamManagementUpperCase" xml:space="preserve">
+    <value>УПРАВЛІННЯ КОМАНДОЮ ТА АНАЛІТИКА</value>
+  </data>
+  <data name="PersonalProfileUpperCase" xml:space="preserve">
+    <value>ОСОБИСТИЙ ПРОФІЛЬ</value>
+  </data>
+  <data name="OurMissionUpperCase" xml:space="preserve">
+    <value>НАША МІСІЯ</value>
+  </data>
+  <data name="TaskTracking" xml:space="preserve">
+    <value>Відстеження завдань</value>
+  </data>
+  <data name="Convenience" xml:space="preserve">
+    <value>Зручність</value>
+  </data>
+  <data name="PricingUpperCase" xml:space="preserve">
+    <value>ЦІНА</value>
+  </data>
+  <data name="Monthly" xml:space="preserve">
+    <value>Щомісяця</value>
+  </data>
+  <data name="Yearly" xml:space="preserve">
+    <value>Щорічно</value>
+  </data>
+  <data name="Basic" xml:space="preserve">
+    <value>Базовий</value>
+  </data>
+  <data name="FreeUpperCase" xml:space="preserve">
+    <value>БЕЗКОШТОВНО</value>
+  </data>
+  <data name="perMonth" xml:space="preserve">
+    <value>на місяць</value>
+  </data>
+  <data name="Space" xml:space="preserve">
+    <value>Простір</value>
+  </data>
+  <data name="Requests" xml:space="preserve">
+    <value>Запити</value>
+  </data>
+  <data name="GetStarted" xml:space="preserve">
+    <value>Почніть роботу</value>
+  </data>
+  <data name="Pro" xml:space="preserve">
+    <value>Професіонал</value>
+  </data>
+  <data name="Individual" xml:space="preserve">
+    <value>Індивідуальний</value>
+  </data>
+  <data name="perYear" xml:space="preserve">
+    <value>на рік</value>
+  </data>
+  <data name="ContactUsUpperCase" xml:space="preserve">
+    <value>ЗВ'ЯЖІТЬСЯ З НАМИ</value>
+  </data>
+  <data name="FullName" xml:space="preserve">
+    <value>Повне ім'я</value>
+  </data>
+  <data name="PleaseEnterFullName" xml:space="preserve">
+    <value>Будь ласка, введіть повне ім'я</value>
+  </data>
+  <data name="Phone" xml:space="preserve">
+    <value>Телефон</value>
+  </data>
+  <data name="EnterPhone" xml:space="preserve">
+    <value>Введіть телефон</value>
+  </data>
+  <data name="PleaseEnterPhoneNumber" xml:space="preserve">
+    <value>Будь ласка, введіть номер телефону</value>
+  </data>
+  <data name="EmailAddress" xml:space="preserve">
+    <value>Адреса електронної пошти</value>
+  </data>
+  <data name="PleaseEnterCorrectEmail" xml:space="preserve">
+    <value>Будь ласка, введіть правильний email</value>
+  </data>
+  <data name="Message" xml:space="preserve">
+    <value>Повідомлення</value>
+  </data>
+  <data name="PleaseEnterMessage" xml:space="preserve">
+    <value>Будь ласка, введіть повідомлення</value>
+  </data>
+  <data name="SendMessage" xml:space="preserve">
+    <value>Надіслати повідомлення</value>
+  </data>
+  <data name="Copyright" xml:space="preserve">
+    <value>Авторське право</value>
+  </data>
+  <data name="AllRightsReserved" xml:space="preserve">
+    <value>Всі права захищені</value>
+  </data>
+  <data name="SendRequest" xml:space="preserve">
+    <value>Надіслати запит</value>
+  </data>
+  <data name="SignIn" xml:space="preserve">
+    <value>Увійти</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Пароль</value>
+  </data>
+  <data name="ForgotPassword" xml:space="preserve">
+    <value>Забули пароль</value>
+  </data>
+  <data name="LogIn" xml:space="preserve">
+    <value>Увійти</value>
+  </data>
+  <data name="YouNowLoggedOut" xml:space="preserve">
+    <value>Ви вийшли з системи</value>
+  </data>
+  <data name="ClickLoginReturnPageLogin" xml:space="preserve">
+    <value>Натисніть Увійти, щоб повернутися до сторінки входу</value>
+  </data>
+  <data name="SignUpWithGoogle" xml:space="preserve">
+    <value>Зареєструйтеся в Google</value>
+  </data>
+  <data name="OrUpperCase" xml:space="preserve">
+    <value>АБО</value>
+  </data>
+  <data name="AtLeastCharactersLong" xml:space="preserve">
+    <value>Мінімум 6 символів</value>
+  </data>
+  <data name="MustContainLeastDigit" xml:space="preserve">
+    <value>Має містити принаймні 1 цифру</value>
+  </data>
+  <data name="MustContainLeastUppercaseLetter" xml:space="preserve">
+    <value>Має містити принаймні 1 велику літеру</value>
+  </data>
+  <data name="MustContainLeastSpecialCharacter" xml:space="preserve">
+    <value>Має містити принаймні 1 спеціальний символ</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>Ім'я</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>Прізвище</value>
+  </data>
+  <data name="CreateAccount" xml:space="preserve">
+    <value>Створити акаунт</value>
+  </data>
+  <data name="ResetPassword" xml:space="preserve">
+    <value>Скинути пароль</value>
+  </data>
+  <data name="ConfirmPassword" xml:space="preserve">
+    <value>Підтвердьте пароль</value>
+  </data>
+  <data name="ResetPasswordConfirmation" xml:space="preserve">
+    <value>Підтвердження скидання пароля</value>
+  </data>
+  <data name="PasswordSuccessfullyChanged" xml:space="preserve">
+    <value>Пароль успішно змінено, ви можете закрити цю сторінку</value>
+  </data>
+  <data name="GoToLogin" xml:space="preserve">
+    <value>Перейдіть до входу</value>
+  </data>
+  <data name="SendResetLink" xml:space="preserve">
+    <value>Надіслати посилання для скидання</value>
+  </data>
+  <data name="ForgotPasswordConfirmation" xml:space="preserve">
+    <value>Підтвердження забутого пароля</value>
+  </data>
+  <data name="WeveSentEmailInstructionsResetPassword" xml:space="preserve">
+    <value>Ми надіслали вам електронний лист з інструкціями щодо скидання пароля. Будь ласка, перевірте свою електронну пошту</value>
+  </data>
+  <data name="AccessDenied" xml:space="preserve">
+    <value>Доступ заборонено</value>
+  </data>
+  <data name="YouDoNotHaveAccess" xml:space="preserve">
+    <value>Ви не маєте доступу до цього ресурсу</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Помилка</value>
+  </data>
+  <data name="EfficiencyDoingThingsRight" xml:space="preserve">
+    <value>«Ефективність — це робити речі правильно; ефективність — це робити правильні речі». – Пітер Друкер</value>
+  </data>
+  <data name="GreatTeamsJustWorkTogether" xml:space="preserve">
+    <value>«Чудові команди не просто працюють разом, вони думають разом».</value>
+  </data>
+  <data name="ProductivityNeverAccident" xml:space="preserve">
+    <value>«Продуктивність ніколи не є випадковістю. Це завжди результат відданості та розумного планування».</value>
+  </data>
+  <data name="AGoalWithoutPlan" xml:space="preserve">
+    <value>«Мета без плану - це лише бажання». – Антуан де Сент-Екзюпері</value>
+  </data>
+  <data name="SuccessSumSmallEfforts" xml:space="preserve">
+    <value>«Успіх — це сума маленьких зусиль, які повторюються день у день». – Роберт Кольєр</value>
+  </data>
+  <data name="RememberMe" xml:space="preserve">
+    <value>Пам'ятаєш мене?</value>
+  </data>
+  <data name="PleaseResetPasswordClickingHere" xml:space="preserve">
+    <value>Будь ласка, скиньте свій пароль, натиснувши тут</value>
+  </data>
+  <data name="CurrentPlan" xml:space="preserve">
+    <value>Поточний план</value>
+  </data>
+  <data name="Default" xml:space="preserve">
+    <value>За замовчуванням</value>
+  </data>
+  <data name="dataTableInfo" xml:space="preserve">
+    <value>Показано {0} по {1} з {2} записів</value>
+  </data>
+  <data name="noEntriesToShow" xml:space="preserve">
+    <value>Немає записів для показу</value>
+  </data>
+  <data name="noMatchingRecordsFound" xml:space="preserve">
+    <value>Нічого не знайдено</value>
+  </data>
+  <data name="first" xml:space="preserve">
+    <value>Перша</value>
+  </data>
+  <data name="previous" xml:space="preserve">
+    <value>Попередня</value>
+  </data>
+  <data name="next" xml:space="preserve">
+    <value>Наступна</value>
+  </data>
+  <data name="last" xml:space="preserve">
+    <value>Остання</value>
+  </data>
+  <data name="invalidEmailAddress" xml:space="preserve">
+    <value>Недійсна адреса електронної пошти. Електронна адреса: test@gmail.com</value>
+  </data>
+  <data name="cannotBeEmpty" xml:space="preserve">
+    <value>не може бути порожнім</value>
+  </data>
+  <data name="noResultsFound" xml:space="preserve">
+    <value>Нічого не знайдено</value>
+  </data>
+  <data name="noChoicesChooseFrom" xml:space="preserve">
+    <value>Немає варіантів для вибору</value>
+  </data>
+  <data name="pressSelect" xml:space="preserve">
+    <value>Натисніть, щоб вибрати</value>
+  </data>
+  <data name="errorOccurredWhileUpdatingTariff" xml:space="preserve">
+    <value>Під час оновлення тарифу сталася помилка</value>
+  </data>
+  <data name="doYouWantBlockUser" xml:space="preserve">
+    <value>Ви хочете заблокувати користувача</value>
+  </data>
+  <data name="areYouSureWantUnblockUser" xml:space="preserve">
+    <value>Ви впевнені, що бажаєте розблокувати користувача</value>
+  </data>
+  <data name="invalidPhoneNumber" xml:space="preserve">
+    <value>Недійсний номер телефону. +380-xx-xxx-xx-xx</value>
+  </data>
+  <data name="organizationNameRequired" xml:space="preserve">
+    <value>Потрібна назва організації.</value>
+  </data>
+  <data name="anErrorOccurredWhileUpdatingRole" xml:space="preserve">
+    <value>Під час оновлення ролі сталася помилка</value>
+  </data>
+  <data name="pleaseEnterTitle" xml:space="preserve">
+    <value>Будь ласка, введіть назву.</value>
+  </data>
+  <data name="maxLengthChars" xml:space="preserve">
+    <value>Максимальна довжина 128 символів.</value>
+  </data>
+  <data name="loading" xml:space="preserve">
+    <value>Завантаження</value>
+  </data>
+  <data name="selectManager" xml:space="preserve">
+    <value>Виберіть менеджера</value>
+  </data>
+  <data name="helloIAmInterestedPleaseContactMe" xml:space="preserve">
+    <value>Привіт! Мене цікавить план {0} ({1}). Будь ласка, зв'яжіться зі мною!</value>
+  </data>
+  <data name="lengthMenu" xml:space="preserve">
+    <value>Показати {0} записів</value>
+  </data>
+  <data name="infoFiltered" xml:space="preserve">
+    <value>(відфільтровано з {0} записів)</value>
+  </data>
+  <data name="loadingRecords" xml:space="preserve">
+    <value>Завантаження...</value>
+  </data>
+  <data name="processing" xml:space="preserve">
+    <value>Обробка...</value>
+  </data>
+  <data name="emptyTable" xml:space="preserve">
+    <value>Дані відсутні</value>
+  </data>
+  <data name="TaskListView" xml:space="preserve">
+    <value>Перегляд списку завдань</value>
+  </data>
+  <data name="NewTasks" xml:space="preserve">
+    <value>Нові завдання</value>
+  </data>
+  <data name="TasksStatistics" xml:space="preserve">
+    <value>Статистика завдань</value>
+  </data>
+  <data name="Last6Months" xml:space="preserve">
+    <value>Останні 6 місяців</value>
+  </data>
+  <data name="NotExhibited" xml:space="preserve">
+    <value>Не виставлено</value>
+  </data>
+  <data name="TaskList" xml:space="preserve">
+    <value>Список завдань</value>
+  </data>
+  <data name="ConnectTelegram" xml:space="preserve">
+    <value>Підключити Telegram</value>
+  </data>
+  <data name="ChangePassword" xml:space="preserve">
+    <value>Зміна паролю</value>
+  </data>
+  <data name="CurrentPassword" xml:space="preserve">
+    <value>Діючий пароль</value>
+  </data>
+  <data name="NewPassword" xml:space="preserve">
+    <value>Новий пароль</value>
+  </data>
+  <data name="PasswordDontMatch" xml:space="preserve">
+    <value>Паролі не співпадають</value>
+  </data>
+  <data name="IntegrationViaTelegramAvailableOnlyUsersProPlan" xml:space="preserve">
+    <value>Інтеграція через Telegram доступна лише для користувачів з тарифним планом Pro. Будь ласка, оновіть свій тарифний план.</value>
+  </data>
+  <data name="WeCouldntFindOrganizationYourAccount" xml:space="preserve">
+    <value>Нам не вдалося знайти організацію для вашого облікового запису. Зверніться до адміністратора.</value>
+  </data>
+  <data name="ToLinkYourAccountFollowPersonal" xml:space="preserve">
+    <value>Щоб прив’язати свій обліковий запис, перейдіть за особистим посиланням у вашому профілі.</value>
+  </data>
+  <data name="CongratulationsYourAccountSuccessfullyLinkedTelegram" xml:space="preserve">
+    <value>Вітаємо! Ваш обліковий запис успішно підключено до Telegram.</value>
+  </data>
+  <data name="PleaseUseYourPersonalizedLink" xml:space="preserve">
+    <value>Будь ласка, скористайтеся своїм персоналізованим посиланням, щоб підключити свій обліковий запис.</value>
+  </data>
+  <data name="ICanOnlyInformYouButNotEngageDialog" xml:space="preserve">
+    <value>Я можу лише інформувати вас, але не вступати в діалог. Якщо у вас є якісь питання, будь ласка, зв'яжіться з адміністраторами електронною поштою, вказаною на вебсайті Taskject.</value>
+  </data>
+  <data name="YouSetExecutorForTheTask" xml:space="preserve">
+    <value>Вам призначено завдання {0}.</value>
+  </data>
+  <data name="ForYouWasCreatedTask" xml:space="preserve">
+    <value>Для вас створено нове завдання '{0}'</value>
+  </data>
+  <data name="TaskDeadlineSet" xml:space="preserve">
+    <value>Для вашого завдання «{0}» встановлено дедлайн: {1:d}</value>
+  </data>
+  <data name="TaskDeadlineChanged" xml:space="preserve">
+    <value>Дедлайн вашого завдання '{0}' змінено з {1:d} на {2:d}</value>
+  </data>
+  <data name="TheTaskTransferredStatusOnReview" xml:space="preserve">
+    <value>Завдання '{0}', яке ви створили, переведено в статус 'На розгляді'</value>
+  </data>
+  <data name="YourTaskHasStatusCompleted" xml:space="preserve">
+    <value>Ваше завдання '{0}' позначене як 'Завершено'</value>
+  </data>
+  <data name="YourTaskWasUpdated" xml:space="preserve">
+    <value>Ваше завдання «{0}» оновлено</value>
+  </data>
+  <data name="Confirmation" xml:space="preserve">
+    <value>Підтвердження</value>
+  </data>
+  <data name="ConfirmationTelegramText" xml:space="preserve">
+    <value>Ви впевнені що хочете відв'язати Telegram?</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>Ні</value>
+  </data>
+  <data name="UnconnectTelegram" xml:space="preserve">
+    <value>Відв'язати Telegram</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Так</value>
+  </data>
+  <data name="AutoRenewalText" xml:space="preserve">
+    <value>Підписки поновлюються автоматично щомісяця. Ви можете скасувати підписку в будь-який момент, і вона залишиться активною до кінця оплаченої дати.</value>
+  </data>
+  <data name="AutoRenewalTitle" xml:space="preserve">
+    <value>Автоматичне поновлення</value>
+  </data>
+  <data name="IntroNote" xml:space="preserve">
+    <value>Ми надаємо повнофункціональний безкоштовний тариф, щоб ви могли ознайомитися з сервісом перед оплатою.</value>
+  </data>
+  <data name="IntroRefundThanks" xml:space="preserve">
+    <value>Дякуємо, що використовуєте</value>
+  </data>
+  <data name="NoRefundList1" xml:space="preserve">
+    <value>сталася технічна помилка з боку платформи;</value>
+  </data>
+  <data name="NoRefundList2" xml:space="preserve">
+    <value>ви випадково оформили декілька підписок;</value>
+  </data>
+  <data name="NoRefundList3" xml:space="preserve">
+    <value>підписка була списана після скасування (auto-renewal off).</value>
+  </data>
+  <data name="NoRefundText" xml:space="preserve">
+    <value>Після оформлення платної підписки повернення коштів не передбачено, за винятком випадків, коли:</value>
+  </data>
+  <data name="NoRefundTitle" xml:space="preserve">
+    <value>Повернення коштів</value>
+  </data>
+  <data name="RefundContact" xml:space="preserve">
+    <value>У таких випадках зв’яжіться з нами протягом 7 днів на email:</value>
+  </data>
+  <data name="TitleRefund" xml:space="preserve">
+    <value>Політика повернення</value>
+  </data>
+  <data name="ContactInfoPrivate" xml:space="preserve">
+    <value>Якщо у вас є запитання щодо політики конфіденційності, звертайтеся:</value>
+  </data>
+  <data name="ContactTitlePrivate" xml:space="preserve">
+    <value>Контактна інформація</value>
+  </data>
+  <data name="CookiesList1Private" xml:space="preserve">
+    <value>автентифікації користувачів</value>
+  </data>
+  <data name="CookiesList2Private" xml:space="preserve">
+    <value>збереження налаштувань мови</value>
+  </data>
+  <data name="CookiesList3Private" xml:space="preserve">
+    <value>відображення релевантного інтерфейсу</value>
+  </data>
+  <data name="CookiesPurposePrivate" xml:space="preserve">
+    <value>Ми використовуємо cookies, які потрібні для:</value>
+  </data>
+  <data name="UseTheServiceAndUserObligations" xml:space="preserve">
+    <value>Використання сервісу та обов’язки користувача</value>
+  </data>
+  <data name="DataSharingNoteImportantPrivate" xml:space="preserve">
+    <value>не передаємо ваші персональні дані</value>
+  </data>
+  <data name="DataSharingNotePrivate" xml:space="preserve">
+    <value>дані третім особам, за винятком інтеграцій із вищевказаними сторонніми сервісами, які діють як окремі контролери або обробники даних.</value>
+  </data>
+  <data name="DataSharingTitlePrivate" xml:space="preserve">
+    <value>Передача даних третім сторонам</value>
+  </data>
+  <data name="ExtraInfoPrivate" xml:space="preserve">
+    <value>Додатково ми зберігаємо:</value>
+  </data>
+  <data name="ExtraList1Private" xml:space="preserve">
+    <value>Ідентифікатор Telegram-чату, якщо ви підписалися на сповіщення</value>
+  </data>
+  <data name="ExtraList2Private" xml:space="preserve">
+    <value>Код організації та мовну локалізацію (через cookies)</value>
+  </data>
+  <data name="InfoList1Private" xml:space="preserve">
+    <value>Ім’я та прізвище власника облікового запису</value>
+  </data>
+  <data name="InfoList2Private" xml:space="preserve">
+    <value>Назву організації</value>
+  </data>
+  <data name="InfoList3Private" xml:space="preserve">
+    <value>Електронну пошту (використовується як логін)</value>
+  </data>
+  <data name="InfoList4Private" xml:space="preserve">
+    <value>Пароль (у зашифрованому вигляді)</value>
+  </data>
+  <data name="InfoParagraph1Private" xml:space="preserve">
+    <value>При реєстрації в Taskject ми можемо збирати наступну інформацію:</value>
+  </data>
+  <data name="InfoTitlePrivate" xml:space="preserve">
+    <value>Яку інформацію ми збираємо</value>
+  </data>
+  <data name="IntroPrivate" xml:space="preserve">
+    <value>Ми поважаємо вашу конфіденційність і прагнемо захищати персональні дані, які ви нам надаєте. Ця Політика конфіденційності пояснює, які дані ми збираємо, як їх використовуємо та які права ви маєте.</value>
+  </data>
+  <data name="IntroPrivateStart" xml:space="preserve">
+    <value>Вітаємо у</value>
+  </data>
+  <data name="InviteInfoPrivate" xml:space="preserve">
+    <value>Якщо ви запрошуєте інших користувачів до своєї організації, ми також зберігаємо:</value>
+  </data>
+  <data name="InviteList1Private" xml:space="preserve">
+    <value>Ім’я, прізвище та email запрошених користувачів</value>
+  </data>
+  <data name="RightsList1Private" xml:space="preserve">
+    <value>переглядати або змінювати свою особисту інформацію</value>
+  </data>
+  <data name="RightsList2Private" xml:space="preserve">
+    <value>відкликати згоду на обробку (наприклад, відписка від Telegram)</value>
+  </data>
+  <data name="RightsList3Private" xml:space="preserve">
+    <value>звернутися з питаннями або запитом на видалення даних</value>
+  </data>
+  <data name="RightsNotePrivate" xml:space="preserve">
+    <value>Ви маєте право:</value>
+  </data>
+  <data name="RightsTitlePrivate" xml:space="preserve">
+    <value>Ваші права</value>
+  </data>
+  <data name="SecurityNote1Private" xml:space="preserve">
+    <value>Ми використовуємо ASP.NET Core Identity з хешуванням паролів та інші сучасні методи захисту даних. Доступ до облікових записів контролюється автентифікацією та ролями.</value>
+  </data>
+  <data name="SecurityNote2Private" xml:space="preserve">
+    <value>IP-адреса користувача не зберігається нами явно, але може логуватись інфраструктурою Azure з технічною метою (без доступу з нашого боку).</value>
+  </data>
+  <data name="SecurityTitlePrivate" xml:space="preserve">
+    <value>Безпека</value>
+  </data>
+  <data name="ThirdList2Private" xml:space="preserve">
+    <value>GitHub — для оптимізації процесу розробки</value>
+  </data>
+  <data name="ThirdList3Private" xml:space="preserve">
+    <value>Telegram — для надсилання сповіщень, якщо ви явно підписалися</value>
+  </data>
+  <data name="ThirdNotePrivate" xml:space="preserve">
+    <value>Ці сервіси можуть збирати власні технічні дані відповідно до своїх політик.</value>
+  </data>
+  <data name="ThirdPartyIntroPrivate" xml:space="preserve">
+    <value>Ми інтегруємо такі сторонні сервіси:</value>
+  </data>
+  <data name="ThirdPartyTitlePrivate" xml:space="preserve">
+    <value>Сторонні сервіси</value>
+  </data>
+  <data name="TitlePrivatePolicy" xml:space="preserve">
+    <value>Політика конфіденційності</value>
+  </data>
+  <data name="UsageList1Private" xml:space="preserve">
+    <value>Для реєстрації та ідентифікації користувача</value>
+  </data>
+  <data name="UsageList2Private" xml:space="preserve">
+    <value>Для забезпечення роботи функціоналу сервісу (керування задачами, проектами)</value>
+  </data>
+  <data name="UsageList3Private" xml:space="preserve">
+    <value>Для надсилання транзакційних повідомлень (електронна пошта або Telegram)</value>
+  </data>
+  <data name="UsageList4Private" xml:space="preserve">
+    <value>Для обробки оплат і доступу до тарифів</value>
+  </data>
+  <data name="UsageTitlePrivate" xml:space="preserve">
+    <value>Як ми використовуємо вашу інформацію</value>
+  </data>
+  <data name="We" xml:space="preserve">
+    <value>Ми</value>
+  </data>
+  <data name="Statuses" xml:space="preserve">
+    <value>Статуси</value>
+  </data>
+  <data name="CreatedDate" xml:space="preserve">
+    <value>Дата створення</value>
+  </data>
+  <data name="Creator" xml:space="preserve">
+    <value>Творець</value>
+  </data>
+  <data name="ProtectionAgainstCSRFAttacksASP" xml:space="preserve">
+    <value>Захист від CSRF атак у ASP.NET Core.</value>
+  </data>
+  <data name="ASPNETCoreIdentityAuthenticationCookie" xml:space="preserve">
+    <value>Кука аутентифікації ASP.NET Core Identity.</value>
+  </data>
+  <data name="StoresUserCookiePreferences" xml:space="preserve">
+    <value>Зберігає налаштування користувача щодо куків.</value>
+  </data>
+  <data name="SavesUsersLanguage" xml:space="preserve">
+    <value>Зберігає мову користувача.</value>
+  </data>
+  <data name="months6" xml:space="preserve">
+    <value>6 місяців</value>
+  </data>
+  <data name="year1" xml:space="preserve">
+    <value>1 рік</value>
+  </data>
+  <data name="DescriptionUnavailable" xml:space="preserve">
+    <value>Опис недоступний</value>
+  </data>
+  <data name="Unknown" xml:space="preserve">
+    <value>Невідомо</value>
+  </data>
+  <data name="Duration" xml:space="preserve">
+    <value>Тривалість</value>
+  </data>
+  <data name="CustomiseConsentPreferences" xml:space="preserve">
+    <value>Налаштування параметрів згоди</value>
+  </data>
+  <data name="Necessary" xml:space="preserve">
+    <value>Необхідно</value>
+  </data>
+  <data name="AlwaysActive" xml:space="preserve">
+    <value>Завжди активний</value>
+  </data>
+  <data name="Functional" xml:space="preserve">
+    <value>Функціональний</value>
+  </data>
+  <data name="RejectAll" xml:space="preserve">
+    <value>Відхилити все</value>
+  </data>
+  <data name="SaveMyPreferences" xml:space="preserve">
+    <value>Зберегти мої налаштування</value>
+  </data>
+  <data name="AcceptAll" xml:space="preserve">
+    <value>Прийняти все</value>
+  </data>
+  <data name="Customise" xml:space="preserve">
+    <value>Налаштувати</value>
+  </data>
+  <data name="WeUseCookiesHelpYouNavigateEfficiently" xml:space="preserve">
+    <value>Ми використовуємо файли cookie, щоб допомогти вам ефективно навігувати та виконувати певні функції. Ви знайдете детальну інформацію про всі файли cookie в кожній категорії згоди нижче.</value>
+  </data>
+  <data name="TheCookiesThatCategorisedNecessary" xml:space="preserve">
+    <value>Файли cookie, які відносяться до категорії «Необхідні», зберігаються у вашому браузері, оскільки вони необхідні для забезпечення основних функцій сайту.</value>
+  </data>
+  <data name="YouCanChooseEnableDisableSome" xml:space="preserve">
+    <value>Ви можете ввімкнути або вимкнути деякі або всі ці файли cookie, але вимкнення деяких із них може вплинути на ваш досвід перегляду веб-сторінок.</value>
+  </data>
+  <data name="WeUseCookiesEnhanceBrowsingExperience" xml:space="preserve">
+    <value>Ми використовуємо файли cookie для покращення вашого досвіду перегляду, показу персоналізованої реклами або контенту, а також аналізу нашого трафіку. Натискаючи кнопку «Прийняти все», ви погоджуєтеся на використання нами файлів cookie.</value>
+  </data>
+  <data name="CookiePolicy" xml:space="preserve">
+    <value>Політика щодо файлів cookie</value>
+  </data>
+  <data name="WeValueYourPrivacy" xml:space="preserve">
+    <value>Ми цінуємо вашу конфіденційність</value>
+  </data>
+  <data name="TopTen" xml:space="preserve">
+    <value>Топ 10</value>
+  </data>
+  <data name="Expert" xml:space="preserve">
+    <value>Експерт</value>
+  </data>
+  <data name="UsersAnalytics" xml:space="preserve">
+    <value>Аналітика користувачів</value>
+  </data>
+  <data name="OverviewPermissionsUsers" xml:space="preserve">
+    <value>Перегляд Дозволів Користувачі</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>Зберегти зміни</value>
+  </data>
+  <data name="CanCreate" xml:space="preserve">
+    <value>Може створювати</value>
+  </data>
+  <data name="CanEdit" xml:space="preserve">
+    <value>Можна редагувати</value>
+  </data>
+  <data name="CanDelete" xml:space="preserve">
+    <value>Можна видалити</value>
+  </data>
+  <data name="CanAssign" xml:space="preserve">
+    <value>Можна призначити</value>
+  </data>
+  <data name="UserPermissions" xml:space="preserve">
+    <value>Дозволи користувачів </value>
+  </data>
+  <data name="NotAccessThisPage" xml:space="preserve">
+    <value>Упс 😥, У вас немає доступу до цієї сторінки.</value>
+  </data>
+  <data name="ReturnToProfileUpperCase" xml:space="preserve">
+    <value>ПОВЕРНУТИСЬ ДО ПРОФІЛЮ</value>
+  </data>
+  <data name="SorryYouDoNotHaveSufficientPermissions" xml:space="preserve">
+    <value>Вибачте, але ви не маєте достатньо прав для перегляду цієї сторінки. Якщо ви вважаєте, що це помилка — зверніться до адміністратора.</value>
+  </data>
+  <data name="ADSFree" xml:space="preserve">
+    <value>Без реклами</value>
+  </data>
+  <data name="Free" xml:space="preserve">
+    <value>Безкоштовно</value>
+  </data>
+  <data name="PriceMonthlyAnnually" xml:space="preserve">
+    <value>Ціна (Місячна/Річна)</value>
+  </data>
+  <data name="Subscribe" xml:space="preserve">
+    <value>Підписатись</value>
+  </data>
+  <data name="TelegramIntegration" xml:space="preserve">
+    <value>Інтеграція з Telegram</value>
+  </data>
+  <data name="ProjectAccessLevels" xml:space="preserve">
+    <value>Рівні доступу до проєкту</value>
+  </data>
+  <data name="AcceptedYourRequestToUse" xml:space="preserve">
+    <value>Шановний користувачу, команда ByteBusters прийняла ваш запит на обробку</value>
+  </data>
+  <data name="AccountAuthenticationDetails" xml:space="preserve">
+    <value>Дані автентифікації облікового запису</value>
+  </data>
+  <data name="HereYourAccountAuthenticationDetails" xml:space="preserve">
+    <value>Ось дані для автентифікації вашого облікового запису</value>
+  </data>
+  <data name="IfYouHaveQuestionsContactUs" xml:space="preserve">
+    <value>Якщо у вас виникнуть будь-які запитання, звертайтеся до нашої служби підтримки support@taskject.com</value>
+  </data>
+  <data name="InformationConfidential" xml:space="preserve">
+    <value>Будь ласка, зберігайте цю інформацію конфіденційною</value>
+  </data>
+  <data name="YourAccountAuthenticationDetails" xml:space="preserve">
+    <value>Дані аутентифікації вашого облікового запису</value>
+  </data>
+  <data name="Adress" xml:space="preserve">
+    <value>Адреса</value>
+  </data>
+  <data name="BazhanaAvenue10AKyiv" xml:space="preserve">
+    <value>проспект Бажана 10А, Київ</value>
+  </data>
+  <data name="SocialNetwork" xml:space="preserve">
+    <value>Соціальна мережа</value>
+  </data>
+  <data name="ContactUs" xml:space="preserve">
+    <value>Зв'яжіться з нами</value>
+  </data>
+  <data name="PrivacyPolicy" xml:space="preserve">
+    <value>Політика конфіденційності</value>
+  </data>
+  <data name="RefundPolicy" xml:space="preserve">
+    <value>Політика повернення коштів</value>
+  </data>
+  <data name="Policy" xml:space="preserve">
+    <value>Політика</value>
+  </data>
+  <data name="SeoTitle" xml:space="preserve">
+    <value>TaskJect — Управління задачами, проектами</value>
+  </data>
+  <data name="SeoDescription" xml:space="preserve">
+    <value>TaskJect — це сучасна платформа для управління задачами, проєктами та командною роботою. Візуальна аналітика, контроль дедлайнів, зручний інтерфейс. Український хмарний сервіс.</value>
+  </data>
+  <data name="SeoKeywords" xml:space="preserve">
+    <value>управління задачами, проектний менеджмент, аналітика задач, SaaS Україна, TaskJect, командна робота, трекер завдань, облік задач</value>
+  </data>
+  <data name="Files" xml:space="preserve">
+    <value>Файли</value>
+  </data>
+  <data name="DefinitelyWantDeleteFile" xml:space="preserve">
+    <value>Однозначно хочу видалити файл</value>
+  </data>
+  <data name="Attachments" xml:space="preserve">
+    <value>Вкладення</value>
+  </data>
+  <data name="ProjectDocuments" xml:space="preserve">
+    <value>Проектні документи</value>
+  </data>
+  <data name="Download" xml:space="preserve">
+    <value>Завантажити</value>
+  </data>
+  <data name="TotalFileSizeNotExceed30MB" xml:space="preserve">
+    <value>Загальний розмір файлів не повинен перевищувати 30 МБ</value>
+  </data>
+  <data name="FilePond_LabelIdle" xml:space="preserve">
+    <value>Перетягніть файли або &lt;span class="filepond--label-action"&gt;оберіть&lt;/span&gt;</value>
+  </data>
+  <data name="FilePond_LabelInvalidField" xml:space="preserve">
+    <value>Поле містить некоректні файли</value>
+  </data>
+  <data name="FilePond_LabelFileWaitingForSize" xml:space="preserve">
+    <value>Очікування розміру</value>
+  </data>
+  <data name="FilePond_LabelFileSizeNotAvailable" xml:space="preserve">
+    <value>Розмір недоступний</value>
+  </data>
+  <data name="FilePond_LabelFileLoading" xml:space="preserve">
+    <value>Завантаження</value>
+  </data>
+  <data name="FilePond_LabelFileLoadError" xml:space="preserve">
+    <value>Помилка під час завантаження</value>
+  </data>
+  <data name="FilePond_LabelFileProcessing" xml:space="preserve">
+    <value>Йде завантаження</value>
+  </data>
+  <data name="FilePond_LabelFileProcessingComplete" xml:space="preserve">
+    <value>Завантажено</value>
+  </data>
+  <data name="FilePond_LabelFileProcessingAborted" xml:space="preserve">
+    <value>Завантаження скасовано</value>
+  </data>
+  <data name="FilePond_LabelFileProcessingError" xml:space="preserve">
+    <value>Помилка завантаження</value>
+  </data>
+  <data name="FilePond_LabelTapToCancel" xml:space="preserve">
+    <value>Натисніть для скасування</value>
+  </data>
+  <data name="FilePond_LabelTapToRetry" xml:space="preserve">
+    <value>Натисніть для повтору</value>
+  </data>
+  <data name="FilePond_LabelTapToUndo" xml:space="preserve">
+    <value>Натисніть для скасування</value>
+  </data>
+  <data name="FilePond_LabelButtonRemoveItem" xml:space="preserve">
+    <value>Видалити</value>
+  </data>
+  <data name="FilePond_LabelButtonAbortItemLoad" xml:space="preserve">
+    <value>Скасувати</value>
+  </data>
+  <data name="FilePond_LabelButtonRetryItemLoad" xml:space="preserve">
+    <value>Повторити</value>
+  </data>
+  <data name="FilePond_LabelButtonUndoItemProcessing" xml:space="preserve">
+    <value>Повернути</value>
+  </data>
+  <data name="FilePond_LabelButtonProcessItem" xml:space="preserve">
+    <value>Завантажити</value>
+  </data>
+  <data name="FilePond_LabelMaxFileSizeExceeded" xml:space="preserve">
+    <value>Файл завеликий</value>
+  </data>
+  <data name="FilePond_LabelMaxFileSize" xml:space="preserve">
+    <value>Максимальний розмір файлу: {filesize}</value>
+  </data>
+  <data name="DownloadFile" xml:space="preserve">
+    <value>Завантажити файл</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Додати</value>
+  </data>
+  <data name="AddFiles" xml:space="preserve">
+    <value>Додати файли</value>
+  </data>
+  <data name="FileUploadError" xml:space="preserve">
+    <value>Сталася помилка при завантаженні файлу.</value>
+  </data>
+  <data name="Months" xml:space="preserve">
+    <value>Місяців</value>
+  </data>
+  <data name="IfYouDidNotRequestPasswordReset" xml:space="preserve">
+    <value>Якщо ви не надсилали запит на скидання пароля,</value>
+  </data>
+  <data name="NoFurtherActionRequired" xml:space="preserve">
+    <value>ніяких подальших дій не потрібно.</value>
+  </data>
+  <data name="PleaseConfirmEmailClickingHere" xml:space="preserve">
+    <value>Будь ласка, підтвердіть свою електронну пошту, натиснувши тут</value>
+  </data>
+  <data name="ConfirmEmail" xml:space="preserve">
+    <value>Підтвердити електронну пошту</value>
+  </data>
+  <data name="RegistrationConfirmTitle" xml:space="preserve">
+    <value>Реєстрація успішна</value>
+  </data>
+  <data name="RegistrationConfirmMessage" xml:space="preserve">
+    <value>Щоб увійти в систему, підтвердьте вашу електронну пошту. Ми надіслали вам лист із посиланням для підтвердження.</value>
+  </data>
+  <data name="DontHaveAccount" xml:space="preserve">
+    <value>Немає облікового запису?</value>
+  </data>
+  <data name="AlreadyHaveAccount" xml:space="preserve">
+    <value>Вже маєте обліковий запис?</value>
+  </data>
+  <data name="ProjectList" xml:space="preserve">
+    <value>Список проектів</value>
+  </data>
+  <data name="Start" xml:space="preserve">
+    <value>Розпочати</value>
+  </data>
+  <data name="FeelFreeReachOutUs" xml:space="preserve">
+    <value>Звертайтеся до нас</value>
+  </data>
+  <data name="ViaTheFormBelow" xml:space="preserve">
+    <value>Через форму нижче</value>
+  </data>
+  <data name="FAQ" xml:space="preserve">
+    <value>Часті запитання</value>
+  </data>
+  <data name="NewTask" xml:space="preserve">
+    <value>Нове завдання</value>
+  </data>
+  <data name="LastUpdate" xml:space="preserve">
+    <value>Останнє оновлення</value>
+  </data>
+  <data name="NewCreatedAt" xml:space="preserve">
+    <value>Дата створення (найновіші)</value>
+  </data>
+  <data name="NewUpdatedAt" xml:space="preserve">
+    <value>Останні зміни (найновіші)</value>
+  </data>
+  <data name="OldCreatedAt" xml:space="preserve">
+    <value>Дата створення (найстаріші)</value>
+  </data>
+  <data name="OldUpdatedAt" xml:space="preserve">
+    <value>Останні зміни (найстаріші)</value>
+  </data>
+  <data name="DefinitelyDeleteTodoTask" xml:space="preserve">
+    <value>Однозначно хочу видалити завдання</value>
+  </data>
+  <data name="DefinitelyDeleteTodo" xml:space="preserve">
+    <value>Однозначно хочу видалити завдання</value>
+  </data>
+  <data name="DeleteTodo" xml:space="preserve">
+    <value>Видалити завдання</value>
+  </data>
+  <data name="DeleteTodoTask" xml:space="preserve">
+    <value>Видалити завдання</value>
+  </data>
+  <data name="DefinitelyDeleteNote" xml:space="preserve">
+    <value>Однозначно хочу видалити нотатку</value>
+  </data>
+  <data name="DeleteNote" xml:space="preserve">
+    <value>Видалити нотатку</value>
+  </data>
+  <data name="NewNoteTitle" xml:space="preserve">
+    <value>Нова заголовок нотатку</value>
+  </data>
+  <data name="NewNoteText" xml:space="preserve">
+    <value>Новий текст нотатки</value>
+  </data>
+  <data name="NewNote" xml:space="preserve">
+    <value>Нова нотатка</value>
+  </data>
+  <data name="NoteList" xml:space="preserve">
+    <value>Список нотаток</value>
+  </data>
+  <data name="TermsOfServices" xml:space="preserve">
+    <value>Умови надання послуг</value>
+  </data>
+  <data name="EffectiveDate" xml:space="preserve">
+    <value>Дата набрання чинності</value>
+  </data>
+  <data name="Operator" xml:space="preserve">
+    <value>Оператор</value>
+  </data>
+  <data name="GeneralProvisions" xml:space="preserve">
+    <value>Загальні положення</value>
+  </data>
+  <data name="TheseTermsOfService" xml:space="preserve">
+    <value>Ці Умови використання (далі – «Умови») регулюють користування вебсервісом</value>
+  </data>
+  <data name="ByAccessingOrUsingThePlatform" xml:space="preserve">
+    <value>(далі – «Платформа» або «сервіс»). Користуючись Платформою, ви підтверджуєте, що ознайомилися з цими Умовами та погоджуєтеся дотримуватися їх. Якщо ви не згодні з будь-яким пунктом Умов, будь ласка, припиніть користування сервісом.</value>
+  </data>
+  <data name="AcceptanceTerms" xml:space="preserve">
+    <value>Прийняття Умов</value>
+  </data>
+  <data name="YouAgreeToUseThePlatformOnlyForLawfulPurposes" xml:space="preserve">
+    <value> Ви зобов’язані використовувати Платформу лише в законних цілях та згідно з цими Умовами. Забороняється використовувати сервіс для розміщення або генерування контенту, який є незаконним, образливим, наклепницьким, порнографічним, насильницьким або таким, що порушує права інших осіб. Ви не повинні здійснювати дії, які можуть зашкодити працездатності сервісу (наприклад, спроби злому, запуск шкідливого коду, DoS-атаки тощо) або перешкоджати іншим користувачам користуватися Платформою.
+</value>
+  </data>
+  <data name="Eligibility" xml:space="preserve">
+    <value>Хто може користуватися сервісом</value>
+  </data>
+  <data name="AllFunctionalitySoftwareDesignElementsLogosTrademarks" xml:space="preserve">
+    <value>Весь функціонал сервісу, програмне забезпечення, дизайн, логотип, товарні знаки та інший контент на ефілоусеюсщь (за винятком контенту користувачів) є власністю власника Платформи або використовуються на законних підставах. Вони охороняються законами про авторське право, торговельні марки та іншими законами. Користувач не отримує жодних майнових прав на такі об’єкти інтелектуальної власності. </value>
+  </data>
+  <data name="YearsOld16" xml:space="preserve">
+    <value>16 років</value>
+  </data>
+  <data name="ToUseTaskJect" xml:space="preserve">
+    <value>використовувати TaskJect</value>
+  </data>
+  <data name="OneAccountPerEmailAddress" xml:space="preserve">
+    <value>Один обліковий запис на одну електронну адресу.</value>
+  </data>
+  <data name="PrivacyAndPersonalData" xml:space="preserve">
+    <value>Конфіденційність та персональні дані</value>
+  </data>
+  <data name="ByUsingTheServiceYouEntrustUsWithCertainPersonalData" xml:space="preserve">
+    <value>Користуючись сервісом, ви довіряєте нам деякі свої персональні дані (наприклад, ім’я, електронну адресу, особисту інформацію, контент тощо). Ми дуже серйозно ставимося до захисту приватності користувачів. Умови використання включають положення про обробку персональних даних, але детальний опис того, які дані збираються, як вони використовуються, зберігаються та захищаються, а також ваші права щодо цих даних, наведено в окремому документі – нашій Політиці конфіденційності. </value>
+  </data>
+  <data name="ByAgreeingToTheseTerms" xml:space="preserve">
+    <value>Будь ласка, ознайомтеся з нею, оскільки, погоджуючись з цими Умовами, ви також погоджуєтеся з умовами обробки ваших даних, викладеними в Політиці конфіденційності. Щоб дізнатися більше, перегляньте нашу Політику конфіденційності.
+</value>
+  </data>
+  <data name="AndAllDataAssociatedYourAccount" xml:space="preserve">
+    <value>усі дані будуть видалені.</value>
+  </data>
+  <data name="LiabilityAndDisclaimerOfWarranties" xml:space="preserve">
+    <value>Відповідальність сторін та обмеження гарантій</value>
+  </data>
+  <data name="DisclaimerOfWarranties" xml:space="preserve">
+    <value>Відмова від гарантій.</value>
+  </data>
+  <data name="ThePlatformIsProvidedOnAn" xml:space="preserve">
+    <value>Платформа надається користувачам «як є» («as is»). Адміністрація не надає гарантій щодо безпомилкової та безперебійної роботи сервісу, відповідності його конкретним цілям чи очікуванням користувача. </value>
+  </data>
+  <data name="LimitationOfLiability" xml:space="preserve">
+    <value>Обмеження відповідальності.</value>
+  </data>
+  <data name="ToTheMaximumExtentPermittedByApplicableLaw" xml:space="preserve">
+    <value> У межах, дозволених чинним законодавством, власник Платформи не несе відповідальності за будь-які прямі або непрямі збитки, втрату прибутку, втрату даних, шкоду честі, гідності або діловій репутації, які виникли внаслідок використання або неможливості використання сервісу. </value>
+  </data>
+  <data name="UnauthorizedAccessToYourAccount" xml:space="preserve">
+    <value>несанкціонований доступ третіх осіб до вашого облікового запису або даних при недотриманні вами заходів безпеки.</value>
+  </data>
+  <data name="WeDo" xml:space="preserve">
+    <value>Ми</value>
+  </data>
+  <data name="SuspensionAndTermination" xml:space="preserve">
+    <value>Припинення доступу</value>
+  </data>
+  <data name="TaskJectOffersFreePaidPlans" xml:space="preserve">
+    <value>Доступні тарифи: </value>
+  </data>
+  <data name="WeReserveTheRightToSuspend" xml:space="preserve">
+    <value>Ми залишаємо за собою право призупинити або припинити ваш доступ до сервісу в будь-який момент на власний розсуд, особливо у випадках порушення цих Умов або за законною вимогою. Як правило, у разі незначного порушення ми можемо спочатку надіслати попередження та запит на усунення порушення. Однак за серйозні чи повторні порушення обліковий запис може бути заблокований або видалений без попередження. </value>
+  </data>
+  <data name="AllPaymentsNonRefundable" xml:space="preserve">
+    <value>Повернення коштів не передбачено </value>
+  </data>
+  <data name="IntellectualProperty" xml:space="preserve">
+    <value>Інтелектуальна власність</value>
+  </data>
+  <data name="AllRightsTitlesInterestsTaskJect" xml:space="preserve">
+    <value>Усі права на код, дизайн, контент та торговельні знаки належать</value>
+  </data>
+  <data name="YouMayNot" xml:space="preserve">
+    <value>Заборонено:</value>
+  </data>
+  <data name="CopyModifyRedistributeSoftwareContent" xml:space="preserve">
+    <value>Копіювати, модифікувати чи розповсюджувати наш софт або контент.</value>
+  </data>
+  <data name="ReverseEngineerAttemptExtract" xml:space="preserve">
+    <value>Виконувати reverse engineering чи намагатися отримати вихідний код.</value>
+  </data>
+  <data name="ProhibitedActions" xml:space="preserve">
+    <value>Заборонені дії</value>
+  </data>
+  <data name="IfYouHaveAnyQuestionsOrSuggestions" xml:space="preserve">
+    <value>Якщо у вас виникли питання або пропозиції щодо цих Умов використання, ви можете зв’язатися з власником Платформи за електронною адресою:</value>
+  </data>
+  <data name="WeStriveToRespondPromptly" xml:space="preserve">
+    <value> Ми прагнемо оперативно реагувати на звернення користувачів і вирішувати будь-які питання щодо роботи сервісу.
+</value>
+  </data>
+  <data name="TerminationService" xml:space="preserve">
+    <value>Блокування доступу</value>
+  </data>
+  <data name="GoverningLaw" xml:space="preserve">
+    <value>Юрисдикція</value>
+  </data>
+  <data name="Ukraine" xml:space="preserve">
+    <value>України</value>
+  </data>
+  <data name="ChangesTerms" xml:space="preserve">
+    <value>Зміни до Умов</value>
+  </data>
+  <data name="IdealToTryOutTaskJect" xml:space="preserve">
+    <value>Ідеально спробувати TaskJect</value>
+  </data>
+  <data name="AllCoreToolsNeededManageYourTeam" xml:space="preserve">
+    <value>Усі основні інструменти, необхідні для управління вашою командою</value>
+  </data>
+  <data name="AdvancedChoiceProfessionalManagement" xml:space="preserve">
+    <value>Розширений вибір для професійного управління</value>
+  </data>
+  <data name="Annually" xml:space="preserve">
+    <value>Щорічно</value>
+  </data>
+  <data name="CustomPermissions" xml:space="preserve">
+    <value>Користувацькі дозволи</value>
+  </data>
+  <data name="Unsubscribe" xml:space="preserve">
+    <value>Скасувати підписку</value>
+  </data>
+  <data name="AdvancedFeaturesForGrowing" xml:space="preserve">
+    <value>Розширені можливості для команд, що зростають</value>
+  </data>
+  <data name="Business" xml:space="preserve">
+    <value>Бізнес</value>
+  </data>
+  <data name="ChangePlanInfo" xml:space="preserve">
+    <value>Якщо ви переходите на дорожчий тарифний план зміни будуть застосовані відразу, без збереження поточного стану, якщо ви переходите на дешевший тарифний план - він почне діяти з наступного платіжного циклу</value>
+  </data>
+  <data name="CompleteSolutionForLargeScale" xml:space="preserve">
+    <value>Комплексне рішення для великих команд</value>
+  </data>
+  <data name="Enterprise" xml:space="preserve">
+    <value>Підприємець</value>
+  </data>
+  <data name="EssentialToolsToKickstart" xml:space="preserve">
+    <value>Необхідні інструменти для старту вашої команди</value>
+  </data>
+  <data name="FullControlForManagers" xml:space="preserve">
+    <value>Повний контроль та ефективність для керівників</value>
+  </data>
+  <data name="PriorityRequests" xml:space="preserve">
+    <value>Пріоритетна обробка звернень</value>
+  </data>
+  <data name="Starter" xml:space="preserve">
+    <value>Початківець</value>
+  </data>
+  <data name="PriceMonthly" xml:space="preserve">
+    <value>Місячна ціна</value>
+  </data>
+  <data name="ChangingPlan" xml:space="preserve">
+    <value>Зміна плану</value>
+  </data>
+  <data name="DefinitelyWantDeleteMyAccount" xml:space="preserve">
+    <value>Однозначно хочу видалити власний обліковий запис</value>
+  </data>
+  <data name="SelectUser" xml:space="preserve">
+    <value>Виберіть користувача</value>
+  </data>
+  <data name="SwitchUserNewRoleTeamLeadHeader" xml:space="preserve">
+    <value>Ви впевнені, що хочете передати роль тімліда іншому користувачу та видалити свій акаунт</value>
+  </data>
+  <data name="DeleteLastUserOrganizationHeader" xml:space="preserve">
+    <value>Ви впевнені, що видалення вашого акаунта призведе до видалення всієї організації</value>
+  </data>
+  <data name="Notebook" xml:space="preserve">
+    <value>Блокнот</value>
+  </data>
+  <data name="Notes" xml:space="preserve">
+    <value>Нотатки</value>
+  </data>
+  <data name="Todos" xml:space="preserve">
+    <value>Список справ</value>
+  </data>
+  <data name="NewList" xml:space="preserve">
+    <value>Новий список</value>
+  </data>
+  <data name="Notifications" xml:space="preserve">
+    <value>Сповіщення</value>
+  </data>
+  <data name="NoNewNotifications" xml:space="preserve">
+    <value>Немає нових сповіщень</value>
+  </data>
+  <data name="Unread" xml:space="preserve">
+    <value>Непрочитане</value>
+  </data>
+  <data name="SystemTitleNewUpdate" xml:space="preserve">
+    <value>Оновлення системи</value>
+  </data>
+  <data name="NewSystemUpdateMessage" xml:space="preserve">
+    <value>Випущено нове оновлення системи.</value>
+  </data>
+  <data name="TaskTitleAssigneeChanged" xml:space="preserve">
+    <value>Змінено виконавця завдання</value>
+  </data>
+  <data name="TaskTitleDedlineChanged" xml:space="preserve">
+    <value>Змінено термін виконання завдання</value>
+  </data>
+  <data name="TaskTitleDedlineSet" xml:space="preserve">
+    <value>Встановлено термін виконання завдання</value>
+  </data>
+  <data name="TaskTitleStatusOnReview" xml:space="preserve">
+    <value>Завдання відправлено на перевірку</value>
+  </data>
+  <data name="TaskTitleStatusCompleted" xml:space="preserve">
+    <value>Завдання виконано</value>
+  </data>
+  <data name="TaskTitleCreated" xml:space="preserve">
+    <value>Створено завдання</value>
+  </data>
+  <data name="TaskTitleUpdated" xml:space="preserve">
+    <value>Оновлено завдання</value>
+  </data>
+  <data name="IfYouChangeRepositoryAllTasksUunlinked" xml:space="preserve">
+    <value>Якщо ви зміните репозиторій, усі завдання, пов’язані з поточним репозиторієм, будуть від’єднані</value>
+  </data>
+  <data name="ThisActionCannotUndone" xml:space="preserve">
+    <value>Цю дію не можна скасувати</value>
+  </data>
+  <data name="IfYouUnlinkGitHub" xml:space="preserve">
+    <value>Якщо ви від’єднаєте GitHub</value>
+  </data>
+  <data name="allProjectsAndTasks" xml:space="preserve">
+    <value>всі проекти та завдання</value>
+  </data>
+  <data name="inThisOrganizationLoseGitHubIntegration" xml:space="preserve">
+    <value>у цій організації втратять свою інтеграцію з GitHub</value>
+  </data>
+  <data name="Unlink" xml:space="preserve">
+    <value>Від’єднати</value>
+  </data>
+  <data name="ConfirmUnlinkGitHub" xml:space="preserve">
+    <value>Підтвердити від’єднання GitHub</value>
+  </data>
+  <data name="ConfirmRepositoryChange" xml:space="preserve">
+    <value>Підтвердити зміну репозиторію</value>
+  </data>
+  <data name="GitHubSelectRepository" xml:space="preserve">
+    <value>Вибір репозиторію GitHub</value>
+  </data>
+  <data name="WithoutRepository" xml:space="preserve">
+    <value>Без репозиторію</value>
+  </data>
+  <data name="Change" xml:space="preserve">
+    <value>Змінити</value>
+  </data>
+  <data name="UnlinkGitHub" xml:space="preserve">
+    <value>Від’єднати GitHub</value>
+  </data>
+  <data name="LinkToGitHub" xml:space="preserve">
+    <value>Посилання на GitHub</value>
+  </data>
+  <data name="RepositoryBindingSuccessful" xml:space="preserve">
+    <value>Привязка репозитрія успішна</value>
+  </data>
+  <data name="RepositoryUnbindingSuccessful" xml:space="preserve">
+    <value>Відвязка репозиторія успішна</value>
+  </data>
+  <data name="ErrorLoadingRepository" xml:space="preserve">
+    <value>Помилка при завантаженні репозиторію</value>
+  </data>
+  <data name="LinkGit" xml:space="preserve">
+    <value>Прив'язати</value>
+  </data>
+  <data name="Issue" xml:space="preserve">
+    <value>Проблема</value>
+  </data>
+  <data name="CreateNew" xml:space="preserve">
+    <value>Створити нове</value>
+  </data>
+  <data name="LinkToExisting" xml:space="preserve">
+    <value>Посилання на існуюче</value>
+  </data>
+  <data name="EnterIssuesNumber" xml:space="preserve">
+    <value>Введіть номер випуску</value>
+  </data>
+  <data name="Branch" xml:space="preserve">
+    <value>Гілка</value>
+  </data>
+  <data name="LinkedToGitHub" xml:space="preserve">
+    <value>Пов'язано з GitHub</value>
+  </data>
+  <data name="NumberRegistration" xml:space="preserve">
+    <value>ІПН/ЄДРПОУ</value>
+  </data>
+  <data name="AddressRegistered" xml:space="preserve">
+    <value>Юридична адреса</value>
+  </data>
+  <data name="Integrations" xml:space="preserve">
+    <value>Інтеграції</value>
+  </data>
+  <data name="Count" xml:space="preserve">
+    <value>Кількість</value>
+  </data>
+  <data name="OrganizationRequestRecieved" xml:space="preserve">
+    <value>Прийшов запит від організації</value>
+  </data>
+  <data name="YouGotRequest" xml:space="preserve">
+    <value>Вам прийшов запит!</value>
+  </data>
+  <data name="Teams" xml:space="preserve">
+    <value>Команди</value>
+  </data>
+  <data name="ProjectOverview" xml:space="preserve">
+    <value>Огляд проекту</value>
+  </data>
+  <data name="PaymentWasSuccessful" xml:space="preserve">
+    <value>Оплата пройшла успішно!</value>
+  </data>
+  <data name="ThePaymentFailed" xml:space="preserve">
+    <value>Оплату не вдалося виконати.</value>
+  </data>
+  <data name="ForYear" xml:space="preserve">
+    <value>За рік</value>
+  </data>
+  <data name="ForMonth" xml:space="preserve">
+    <value>За місяць</value>
+  </data>
+  <data name="AnErrorOccurredWhileProcessing" xml:space="preserve">
+    <value>Під час обробки вашого запиту сталася помилка.</value>
+  </data>
+  <data name="Annual" xml:space="preserve">
+    <value>Річний</value>
+  </data>
+  <data name="GitHubIntegration" xml:space="preserve">
+    <value>Інтеграція з GitHub</value>
+  </data>
+  <data name="ExportError" xml:space="preserve">
+    <value>Помилка експорту</value>
+  </data>
+  <data name="Period" xml:space="preserve">
+    <value>Період</value>
+  </data>
+  <data name="SubscriptionCongratulationsTitle" xml:space="preserve">
+    <value>Вітаємо в TaskJect 👋</value>
+  </data>
+  <data name="SubscriptionCongratulationsMessage" xml:space="preserve">
+    <value> Ваш план {0} успішно активовано.
+ Усі можливості робочого простору вже доступні.
+ Підписка дійсна до {1}.
+ Організуйте роботу з TaskJect.</value>
+  </data>
+  <data name="CheckYourOptions" xml:space="preserve">
+    <value>Перевірте ваші можливості</value>
+  </data>
+  <data name="SubscriptionPaymentFailedTitle" xml:space="preserve">
+    <value>Не вдалося обробити платіж</value>
+  </data>
+  <data name="SubscriptionPaymentFailedMessage" xml:space="preserve">
+    <value>Ваша підписка тимчасово призупинена.
+ Оновіть платіжні дані, щоб зберегти доступ без обмежень.
+ Це займе менше хвилини.
+</value>
+  </data>
+  <data name="UpdatePaymentMethod" xml:space="preserve">
+    <value>Оновити спосіб оплати</value>
+  </data>
+  <data name="SubscriptionPaymentRefundedTitle" xml:space="preserve">
+    <value>Повернення коштів успішно виконано</value>
+  </data>
+  <data name="SubscriptionPaymentRefundedMessage" xml:space="preserve">
+    <value>Сума буде зарахована протягом зазначеного терміну.
+ Ви можете змінити або обрати новий план у будь-який момент.
+ Ми будемо раді бачити вас знову.
+</value>
+  </data>
+  <data name="ChangeYourPlan" xml:space="preserve">
+    <value>Змініть свій план</value>
+  </data>
+  <data name="SubscriptionExpiresInWeekTitle" xml:space="preserve">
+    <value>Ваша підписка TaskJect завершується через 7 днів</value>
+  </data>
+  <data name="SubscriptionExpiresInWeekMessage" xml:space="preserve">
+    <value>Продовжіть її, щоб зберегти доступ до проєктів і даних.
+Продовжуйте продуктивну роботу без змін.</value>
+  </data>
+  <data name="ContinueSubscription" xml:space="preserve">
+    <value>Продовжити підписку</value>
+  </data>
+  <data name="SubscriptionExpiresIn3DaysTitle" xml:space="preserve">
+    <value>Залишилось 3 дні до завершення підписки</value>
+  </data>
+  <data name="SubscriptionExpiresIn3DaysMessage" xml:space="preserve">
+    <value>Не втрачайте доступ до робочого простору та команди.
+ Продовжіть підписку та працюйте без пауз.</value>
+  </data>
+  <data name="SubscriptionExpiredTitle" xml:space="preserve">
+    <value>Ваша підписка TaskJect завершилась</value>
+  </data>
+  <data name="SubscriptionExpiredMessage" xml:space="preserve">
+    <value>Доступ до розширених можливостей обмежено.
+ Активуйте підписку, щоб повернутись до роботи.</value>
+  </data>
+  <data name="ReactivateSubscription" xml:space="preserve">
+    <value>Повторно активувати підписку</value>
+  </data>
+  <data name="TaskjectNotification" xml:space="preserve">
+    <value>Сповіщення Taskject</value>
+  </data>
+  <data name="SubscriptionFreemiumEndedTitle" xml:space="preserve">
+    <value>Доступ до преміум-функцій завершився</value>
+  </data>
+  <data name="SubscriptionFreemiumEndedMessage" xml:space="preserve">
+    <value>Кількість активних користувачів у вашому просторі тепер обмежена.
+    Сподіваємось, вам сподобались преміум-функції протягом цього періоду.
+    Підвищіть план, щоб зберегти доступ і запросити більше учасників.
+    </value>
+  </data>
+  <data name="UpgradePlan" xml:space="preserve">
+    <value>План оновлення</value>
+  </data>
+  <data name="NoCompletedTasksArchive" xml:space="preserve">
+    <value>Немає виконаних завдань для архівування</value>
+  </data>
+  <data name="ToArchive" xml:space="preserve">
+    <value>Архівувати</value>
+  </data>
+  <data name="ShowArchivedTasks" xml:space="preserve">
+    <value>Показати архівовані завдання</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>Ні</value>
+  </data>
+  <data name="TwoWeeks" xml:space="preserve">
+    <value>Два тижні</value>
+  </data>
+  <data name="ThreeMonths" xml:space="preserve">
+    <value>Три місяці</value>
+  </data>
+  <data name="SixMonths" xml:space="preserve">
+    <value>Шість місяців</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>Усі</value>
+  </data>
+  <data name="Новий список" xml:space="preserve">
+    <value>Новий список</value>
+  </data>
+  <data name="AddedFiles" xml:space="preserve">
+    <value>(Файли додано)</value>
+  </data>
+  <data name="NoFilesAttached" xml:space="preserve">
+    <value>(Файли не додано)</value>
+  </data>
+  <data name="FilesPartiallyAdded" xml:space="preserve">
+    <value>(Додано {0} з {1} файлів)</value>
+  </data>
+  <data name="ThePlatformIsIntendedForUseByIndividuals" xml:space="preserve">
+    <value>Платформа призначена для використання фізичними та юридичними особами, які перебувають на території України та держав-членів Європейського Союзу. Ми не гарантуємо доступність, придатність або відповідність Платформи вимогам законодавства інших юрисдикцій.</value>
+  </data>
+  <data name="ThereAreNoAgeRestrictionsForUsingThePlatform" xml:space="preserve">
+    <value>Вік користувачів Платформи не обмежується; однак, якщо вам ще немає 18 років, рекомендується використовувати сервіс за згодою батьків або опікунів. Продовжуючи використання сервісу, ви підтверджуєте, що маєте повну правоздатність для укладення цієї угоди (якщо вам не виповнилося 18, ви отримали дозвіл від батьків або опікунів на користування Платформою).</value>
+  </data>
+  <data name="WeReserveTheRightToAmendTheseTerms" xml:space="preserve">
+    <value>Ми залишаємо за собою право час від часу змінювати ці Умови. У разі внесення істотних змін ми можемо сповістити користувачів шляхом розміщення повідомлення на сайті або через електронну пошту. Продовження використання Платформи після внесення змін до Умов означає вашу згоду з оновленими правилами. Актуальна редакція Умов завжди доступна на цій сторінці, і ви зобов’язані періодично переглядати їх на предмет змін.
+</value>
+  </data>
+  <data name="AcceptableUse" xml:space="preserve">
+    <value>Правила користування.</value>
+  </data>
+  <data name="AccountRegistration" xml:space="preserve">
+    <value>Обліковий запис.</value>
+  </data>
+  <data name="CertainFeaturesOfTheServiceMayRequire" xml:space="preserve">
+    <value>Деякі функції сервісу можуть вимагати реєстрації облікового запису. Реєструючись, ви погоджуєтеся надати достовірну та актуальну інформацію (зокрема ваше ім’я та дійсну електронну адресу) і підтримувати її в актуальному стані. Ви несете відповідальність за збереження конфіденційності даних вашого облікового запису (логіну та пароля). Усі дії, здійснені з використанням вашого облікового запису, вважаються здійсненими вами.
+</value>
+  </data>
+  <data name="IfYouBecomeAwareOfOrSuspect" xml:space="preserve">
+    <value>Якщо ви виявили або підозрюєте несанкціоноване використання вашого облікового запису, негайно повідомте нас про це. Адміністрація сервісу не несе відповідальності за збитки чи втрати, спричинені несанкціонованим доступом, якщо це сталося з вини користувача (наприклад, через розголошення пароля).
+</value>
+  </data>
+  <data name="UserInformationAndContent" xml:space="preserve">
+    <value>Інформація та контент користувача.</value>
+  </data>
+  <data name="ThePlatformAllowsYouToStoreInformationAndContent" xml:space="preserve">
+    <value>Платформа дозволяє вам зберігати інформацію та контент.  Ви розумієте, що вся інформація, яку ви зберігаєте на платформі, є вашою відповідальністю. Ви гарантуєте, що володієте необхідними правами на введену інформацію та контент і що вони не порушують прав третіх осіб і чинного законодавства. Введення будь-якої персональної інформації третіх осіб без їх згоди заборонено.</value>
+  </data>
+  <data name="WeReserveTheRightToRemoveOrRestrictAccess" xml:space="preserve">
+    <value>Ми залишаємо за собою право видалити або заблокувати будь-який контент, який порушує ці Умови або законодавство.
+</value>
+  </data>
+  <data name="PlatformRights" xml:space="preserve">
+    <value>Права Платформи.</value>
+  </data>
+  <data name="YouMayNotCopyReproduceModifyDistributeOtherwise" xml:space="preserve">
+    <value>Забороняється копіювати, відтворювати, модифікувати, поширювати або іншим чином використовувати елементи сайту чи коду без нашого попереднього письмового дозволу.</value>
+  </data>
+  <data name="InParticularWeAreNotLiableFor" xml:space="preserve">
+    <value>Зокрема, ми не несемо відповідальності за: </value>
+  </data>
+  <data name="AnyConsequencesOfDecisionsOrActions" xml:space="preserve">
+    <value>будь-які наслідки рішень або дій, вчинених вами на основі даних, отриманих на платформі;</value>
+  </data>
+  <data name="ServiceInterruptionsOrUnavailability" xml:space="preserve">
+    <value>збій у роботі або недоступність сервісу з причин, що не залежать від нас (технічні неполадки, проблеми з інтернет-з’єднанням, дія непереборної сили тощо);</value>
+  </data>
+  <data name="YouAgreeThatTheTotalAggregateLiability" xml:space="preserve">
+    <value>Ви погоджуєтесь, що максимальна сукупна відповідальність власника Платформи перед вами за будь-якими претензіями або позовами, пов’язаними з використанням сервісу, обмежується сумою, яку ви сплатили (якщо сплачували) за користування сервісом, або 0 гривень/євро/доларів США, якщо послуги надавалися безкоштовно.
+</value>
+  </data>
+  <data name="UserLiabilityAndIndemnification" xml:space="preserve">
+    <value>Відповідальність користувача.</value>
+  </data>
+  <data name="YouAreSolelyResponsibleForYourActionsThePlatform" xml:space="preserve">
+    <value>Ви несете відповідальність за власні дії на Платформі та за дотримання цих Умов. У разі порушення вами Умов або вимог законодавства, ви зобов’язані відшкодувати нам збитки, завдані таким порушенням (включаючи витрати на юридичний захист, якщо це буде потрібно). </value>
+  </data>
+  <data name="YouAgreeToIndemnifyAndHoldHarmless" xml:space="preserve">
+    <value>Користувач погоджується звільнити власника Платформи та його представників від відповідальності за претензіями третіх сторін, що виникли внаслідок контенту, введеного користувачем, або використання сервісу користувачем з порушенням цих Умов чи прав третіх осіб.</value>
+  </data>
+  <data name="YouMayTerminateYourUseOfTheService" xml:space="preserve">
+    <value>Також ви маєте право в будь-який момент припинити користування сервісом та видалити свій обліковий запис (через відповідний інтерфейс, якщо доступний, або звернувшись до підтримки).
+</value>
+  </data>
+  <data name="ProvisionsOfTheseTerms" xml:space="preserve">
+    <value>Положення Умов, які за своєю суттю мають продовжувати дію після припинення користування (такі як розділи про інтелектуальну власність, відмову від гарантій, обмеження відповідальності, вирішення спорів тощо), залишаються чинними і після деактивації облікового запису чи припинення доступу.
+</value>
+  </data>
+  <data name="GoverningLawAndDisputeResolution" xml:space="preserve">
+    <value>Застосовне право та вирішення спорів</value>
+  </data>
+  <data name="TheseTermsAreGovernedByTheLawsOfUkraine" xml:space="preserve">
+    <value>Ці Умови регулюються чинним законодавством України. Усі питання, не    врегульовані цими Умовами, підпадають під дію норм законів України. Якщо якесь із положень цих Умов буде визнано незаконним або недійсним згідно з рішенням суду, це не впливає на дійсність інших положень, які залишаються в силі.
+</value>
+  </data>
+  <data name="AnyDisputesOrDisagreementsArisingBetween" xml:space="preserve">
+    <value>Виникнення будь-яких спорів чи розбіжностей між вами та власником Платформи, пов’язаних з цими Умовами або користуванням сервісом, вирішується шляхом переговорів. Якщо спір не вдається вирішити мирним шляхом, він підлягає розгляду в порядку, встановленому законодавством України, у компетентному суді за місцезнаходженням власника Платформи (якщо інше не передбачено законом).
+</value>
+  </data>
+  <data name="DisclaimerLimitationLiability" xml:space="preserve">
+    <value>Відмова від відповідальності</value>
+  </data>
+  <data name="CookiesTitlePrivate" xml:space="preserve">
+    <value>Cookies та технології відстеження</value>
+  </data>
+</root>

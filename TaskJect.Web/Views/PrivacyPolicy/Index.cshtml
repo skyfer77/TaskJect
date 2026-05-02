@@ -1,0 +1,113 @@
+﻿@using TaskJect.Web.Resources
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<SharedResources> Localizer
+@{
+    Layout = "~/Views/Shared/_SecondLayout.cshtml";
+}
+@section HeadArea
+{
+    <link rel="stylesheet" href="~/css/NewStyles.css">
+}
+<section class="section section-bg pb-0 section-body" style="min-height: calc(100vh - 14rem);">
+    <!-- Start::row-1 -->
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-xl-8">
+                <div class="card custom-card">
+                    <div class="card-body p-0">
+                        <div class="p-3 d-flex align-items-center text-fixed-white bg-primary h5 fw-semibold mb-0 top-radius">
+                            <span class="avatar avatar-md me-3">
+                                <img src="~/images/brand-logos/toggle-white.png" alt="logo" class="toggle-logo">
+                            </span> @Localizer["TitlePrivatePolicy"]
+                        </div>
+                        <div class="p-4 text-muted">
+                            <div class="mb-5" id="privacy">
+                                <p class="mb-3 op-7">
+                                    @Localizer["IntroPrivateStart"] <strong>Taskject</strong>. @Localizer["IntroPrivate"]
+                                </p>
+                            </div>
+
+                            <h6 class="fw-bold text-default op-7">1. @Localizer["InfoTitlePrivate"]</h6>
+                            <div class="mb-4">
+                                <p class="op-7 mb-2">@Localizer["InfoParagraph1Private"]</p>
+                                <ul class="op-7">
+                                    <li>@Localizer["InfoList1Private"]</li>
+                                    <li>@Localizer["InfoList2Private"]</li>
+                                    <li>@Localizer["InfoList3Private"]</li>
+                                    <li>@Localizer["InfoList4Private"]</li>
+                                </ul>
+                                <p class="op-7 mb-2">@Localizer["InviteInfoPrivate"]</p>
+                                <ul class="op-7">
+                                    <li>@Localizer["InviteList1Private"]</li>
+                                </ul>
+                                <p class="op-7 mb-2">@Localizer["ExtraInfoPrivate"]</p>
+                                <ul class="op-7">
+                                    <li>@Localizer["ExtraList1Private"]</li>
+                                    <li>@Localizer["ExtraList2Private"]</li>
+                                </ul>
+                            </div>
+
+                            <h6 class="fw-bold text-default op-7">2. @Localizer["CookiesTitlePrivate"]</h6>
+                            <div class="mb-4">
+                                <p class="op-7 mb-2">@Localizer["CookiesPurposePrivate"]</p>
+                                <ul class="op-7">
+                                    <li>@Localizer["CookiesList1Private"]</li>
+                                    <li>@Localizer["CookiesList2Private"]</li>
+                                    <li>@Localizer["CookiesList3Private"]</li>
+                                </ul>
+                            </div>
+
+                            <h6 class="fw-bold text-default op-7">3. @Localizer["ThirdPartyTitlePrivate"]</h6>
+                            <div class="mb-4">
+                                <p class="op-7">@Localizer["ThirdPartyIntroPrivate"]</p>
+                                <ul class="op-7">
+                                    <li>@Localizer["ThirdList2Private"]</li>
+                                    <li>@Localizer["ThirdList3Private"]</li>
+                                </ul>
+                                <p class="op-7">@Localizer["ThirdNotePrivate"]</p>
+                            </div>
+
+                            <h6 class="fw-bold text-default op-7">4. @Localizer["UsageTitlePrivate"]</h6>
+                            <div class="mb-4">
+                                <ul class="op-7">
+                                    <li>@Localizer["UsageList1Private"]</li>
+                                    <li>@Localizer["UsageList2Private"]</li>
+                                    <li>@Localizer["UsageList3Private"]</li>
+                                    <li>@Localizer["UsageList4Private"]</li>
+                                </ul>
+                            </div>
+
+                            <h6 class="fw-bold text-default op-7">5. @Localizer["DataSharingTitlePrivate"]</h6>
+                            <div class="mb-4">
+                                <p class="op-7">@Localizer["We"] <strong>@Localizer["DataSharingNoteImportantPrivate"]</strong> @Localizer["DataSharingNotePrivate"]</p>
+                            </div>
+
+                            <h6 class="fw-bold text-default op-7">6. @Localizer["SecurityTitlePrivate"]</h6>
+                            <div class="mb-4">
+                                <p class="op-7">@Localizer["SecurityNote1Private"]</p>
+                                <p class="op-7">@Localizer["SecurityNote2Private"]</p>
+                            </div>
+
+                            <h6 class="fw-bold text-default op-7">7. @Localizer["RightsTitlePrivate"]</h6>
+                            <div class="mb-4">
+                                <p class="op-7">@Localizer["RightsNotePrivate"]</p>
+                                <ul class="op-7">
+                                    <li>@Localizer["RightsList1Private"]</li>
+                                    <li>@Localizer["RightsList2Private"]</li>
+                                    <li>@Localizer["RightsList3Private"]</li>
+                                </ul>
+                            </div>
+
+                            <h6 class="fw-bold text-default op-7">8. @Localizer["ContactTitlePrivate"]</h6>
+                            <div class="mb-0">
+                                <p class="op-7">@Localizer["ContactInfoPrivate"]</p>
+                                <p class="op-7"><a href="mailto:support@taskject.com">support@taskject.com</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--End::row-1 -->
+</section>

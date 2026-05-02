@@ -1,0 +1,18 @@
+﻿@using TaskJect.Web.Resources
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<SharedResources> Localizer
+<div class="modal fade" id="confirmed" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content custom-alert1 alert-secondary">
+            <button type="button" class="btn-close  ms-auto" data-bs-dismiss="modal" aria-label="Close"></button>
+            <div class="text-center px-5 pb-0">
+                <svg class="custom-alert-icon svg-secondary" xmlns="http://www.w3.org/2000/svg" height="1.5rem" viewBox="0 0 24 24" width="1.5rem" fill="#000000"><path d="M0 0h24v24H0z" fill="none" /><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" /></svg>
+                <h5>@Localizer["Confirmed"]</h5>
+                <h6 id="responseTextCon" class="" style="margin-block-end: 2.5rem;color: var(--text-muted);"></h6>
+                <div>
+                    <button type="button" class="btn btn-secondary m-1" data-bs-dismiss="modal" aria-label="Close">@Localizer["Close"]</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

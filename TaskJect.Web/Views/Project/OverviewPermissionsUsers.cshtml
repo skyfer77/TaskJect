@@ -1,0 +1,76 @@
+﻿@using TaskJect.Web.Services
+@using TaskJect.Web.Resources
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<SharedResources> Localizer
+@model OverviewPermissionsUsersModel
+@{
+    ViewBag.Title = "Overview permissions";
+
+    var canEdit = ViewBag.HasProjectAccessControl && (User.IsInRole("Moderator") || User.IsInRole("Admin") || User.IsInRole("God")
+                  || User.IsInRole("TeamLead") || ViewBag.IsProjectManager);
+}
+@section HeadArea {
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.3.0/css/responsive.bootstrap.min.css">
+}
+<!-- Page Header -->
+<div class="d-md-flex d-block align-items-center justify-content-between my-4 page-header-breadcrumb">
+    <h1 class="page-title fw-semibold fs-18 mb-0">@Localizer["OverviewPermissionsUsers"]</h1>
+    <div class="ms-md-1 ms-0">
+        <nav>
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item"><a asp-controller="Project" asp-action="Overview" asp-route-id="@Model.Project.ID">@Localizer["Project"]</a></li>
+                <li class="breadcrumb-item active" aria-current="page">@Localizer["OverviewPermissionsUsers"]</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+<!-- Page Header Close -->
+<!-- Start::row-1 -->
+<div class="row">
+    <div class="col-xl-12">
+        <div class="card custom-card">
+            <div class="card-body ">
+                <div class="d-md-flex d-block flex-wrap align-items-center justify-content-start">
+                    <div class="card-title fw-semibold fs-18 mb-0">@Model.Project.Title</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-12">
+        @using (Html.BeginForm("UpdatePermissions", "Project", FormMethod.Post, new { id = "UpdatePermissions" }))
+        {
+            <div class="card custom-card">
+                <input type="hidden" id="TeamId" value="@Model.Project.TeamId" />
+                <input type="hidden" id="ProjectId" value="@Model.Project.ID" />
+                <div class="card-body" id="permissionsContainer">
+                    @await Html.PartialAsync("_TableProjectUserPermission", Model.PermissionsUsers)
+                </div>
+                @if (canEdit)
+                {
+                    <div class="card-footer">
+                        <button type="button" onclick="UpdatePermissions()" class="btn btn-primary-light btn-wave ms-auto float-end">
+                            <i class="fe fe-save me-1"></i> @Localizer["SaveChanges"]
+                        </button>
+                    </div>
+                }
+            </div>
+        }
+    </div>
+</div>
+
+<style>
+    .form-control {
+        padding: .5rem .75rem !important
+    }
+</style>
+<!--End::row-1 -->
+@section Scripts {
+    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
+
+    <script src="~/js/custom_js/utils/dataTableLocalization.js"></script>
+    <script src="~/js/custom_js/utils/formatString.js"></script>
+
+    <script src="~/js/custom_js/Project/tablePermissionsUser.js"></script>
+}  

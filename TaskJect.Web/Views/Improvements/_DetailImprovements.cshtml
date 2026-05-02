@@ -1,0 +1,50 @@
+﻿@using TaskJect.Web.Enums
+@using TaskJect.Web.Services
+@using System.Text.RegularExpressions
+@using TaskJect.Web.Resources
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<SharedResources> Localizer
+@model OrganizationAppealViewModel
+@{
+    string cleanDescription = Regex.Replace(Model.Description ?? "", "<.*?>", "").Trim();
+}
+<div class="modal fade" id="detail-appeal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-md" style="max-width: 40%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="create-teamLabel">@Model.Title</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="text-muted task-description">
+                            @if (string.IsNullOrEmpty(cleanDescription))
+                            {
+                                <h6>@Localizer["ThereNoDescription"]</h6>
+                            }
+                            else
+                            {
+                                <h6>@Localizer["Description"]:</h6>
+                                @Html.Raw(System.Net.WebUtility.HtmlDecode(Model.Description))
+                            }
+                        </div>
+                    </div>
+                </div>  
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal">
+                    @Localizer["Close"]
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    .task-description img {
+        max-width: 95%;
+        height: auto; 
+        display: block;
+        margin: 0 auto; 
+    }
+</style>

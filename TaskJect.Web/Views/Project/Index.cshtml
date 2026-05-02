@@ -1,0 +1,279 @@
+﻿@using System.Globalization
+@using TaskJect.Web.Enums
+@using TaskJect.Web.Resources
+@using TaskJect.Web.Services
+@using Domain.Database
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<SharedResources> Localizer
+@model IEnumerable<ProjectDto>
+@{
+    ViewBag.Title = "Project";
+}
+@section HeadArea {
+    <link href="~/css/NewStyles.css" rel="stylesheet">
+    <!-- Prism CSS -->
+    <link rel="stylesheet" href="~/lib/prismjs/themes/prism-coy.min.css">
+
+    <link rel="stylesheet" href="~/lib/filepond/filepond.min.css">
+    <link rel="stylesheet" href="~/lib/filepond-plugin-image-preview/filepond-plugin-image-preview.min.css">
+    <link rel="stylesheet" href="~/lib/filepond-plugin-image-edit/filepond-plugin-image-edit.min.css">
+    <link rel="stylesheet" href="~/lib/filepond-plugin-get-file/filepond-plugin-get-file.min.css">
+
+    <link rel="stylesheet" href="~/lib/quill/quill.snow.css">
+
+    <!--Permissions table-->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.3.0/css/responsive.bootstrap.min.css">
+    @* <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet"> *@
+}
+<!-- Page Header -->
+<div class="d-md-flex d-block align-items-center justify-content-between my-4 page-header-breadcrumb">
+    <h1 class="page-title fw-semibold fs-18 mb-0">@Localizer["ProjectList"]</h1>
+</div>
+<!-- Page Header Close -->
+
+<!-- Start::row-1 -->
+<div class="row">
+    <div class="col-xl-12">
+        <div class="card custom-card">
+            <div class="card-body p-3">
+                <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
+                    <div class="d-flex flex-wrap gap-1 project-list-main">
+                        <a asp-controller="Project" asp-action="Create" class="btn btn-primary me-2"><i class="ri-add-line me-1 fw-semibold align-middle"></i>@Localizer["NewProject"]</a>
+                        <select class="form-control" data-trigger name="choices-single-default" id="choices-single-default" data-type="select-one"  onchange="sortProjects()">
+                            <option value="">@Localizer["SortBy"]</option>
+                            <option value="Newest">@Localizer["Newest"]</option>
+                            <option value="Date Added">@Localizer["DateAdded"]</option>
+                            <option value="A - Z">@Localizer["AtoZ"]</option>
+                        </select>
+                    </div>
+                    <div class="d-flex" role="search">
+                        <input class="form-control me-2" id="Search" type="search" placeholder="@Localizer["SearchProject"]" aria-label="Search" data-search>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End::row-1 -->
+
+<!-- Start::row-2 -->
+<div class="row" id="projectList">
+    @foreach (var project in Model)
+    {
+        <div class="col-xxl-3" data-project-container>
+            <input type="hidden" start-date value="@String.Format($"{project.StartDate:yyyy-MM-ddTHH:mm:ss}")" />
+            <div class="card custom-card">
+                <div class="card-header align-items-center">
+                    <div class="flex-fill">
+                        <a asp-controller="Project" asp-action="Overview" asp-route-id="@project.ID" class="fw-semibold fs-14 d-block text-truncate project-list-title" data-title>@project.Title</a>
+                        <span class="text-muted d-block fs-12"><strong class="text-default">@project.TaskCompleted/@project.TaskTotal</strong> @Localizer["TasksCompleted"]</span>
+                    </div>
+                    <div class="dropdown">
+                        <a aria-label="anchor" href="javascript:void(0);" class="btn btn-icon btn-sm btn-light" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fe fe-more-vertical"></i>
+                        </a>
+                        <ul class="dropdown-menu">@{var id = project.ID;}
+                            <li><a class="dropdown-item" asp-controller="Project" asp-action="Overview" asp-route-id="@project.ID"><i class="ri-eye-line align-middle me-1 d-inline-block"></i>@Localizer["View"]</a></li>
+                            @*<li><a class="dropdown-item" asp-controller="Project" asp-action="Analytics" asp-route-id="@project.ID"><i class="ri-bar-chart-fill align-middle me-1 d-inline-block"></i>Analysis</a></li>*@
+                            <li><a class="dropdown-item" asp-controller="Task" asp-action="Index" asp-route-id="@project.ID"><i class="bi bi-kanban align-middle me-1 d-inline-block"></i>@Localizer["KanbanBoard"]</a></li>
+                            <li><a class="dropdown-item" asp-controller="Task" asp-action="TaskListView" asp-route-id="@project.ID"><i class="ri-clipboard-line align-middle me-1 d-inline-block"></i>@Localizer["TaskList"]</a></li>
+                            @if (this.User.IsInRole("Moderator") || this.User.IsInRole("TeamLead") 
+                           || this.User.IsInRole("Admin") || this.User.IsInRole("God"))
+                            {
+                                <li><a class="dropdown-item" href="javascript:void(0);" onclick="Edit('@id')"><i class="ri-edit-line align-middle me-1 d-inline-block"></i>@Localizer["Edit"]</a></li>
+                                <li>
+                                    <a class="dropdown-item" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#delete-project"
+                                    data-todo='{"idProject":"@project.ID","titleProject":"@project.Title"}'><i class="ri-delete-bin-line me-1 align-middle d-inline-block"></i>@Localizer["Delete"]</a>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="d-flex align-items-center justify-content-between mb-3">
+                        <div>
+                            <div class="fw-semibold mb-1">@Localizer["Team"]: @project.Team.Name</div>
+                        </div>
+                        <div class="text-end">
+                            <div class="fw-semibold mb-1">@Localizer["Priority"]: <span class="badge" name="@project.Priority">
+                                    @EnumHelper.GetEnumDisplayName((PriorityView)project.Priority)
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    @if(project.Client != null)
+                    {
+                        <div class="fw-semibold mb-3">@Localizer["Client"]: @project.Client</div>
+                    }
+                    <div class="fw-semibold mb-1">
+                        @Localizer["Status"]:
+                        <span class="badge" name="@project.Status">@EnumHelper.GetEnumDisplayName((TaskJect.Web.Enums.TaskStatusView)project.Status)</span>
+                    </div>
+                    <div>
+                        <div></div>
+                        <div class="progress progress-xs progress-animate" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100">
+                            <div class="progress-bar bg-primary" style="width: @project.StatusCompleted%"></div>
+                        </div>
+                        <div class="mt-1"><span class="text-primary fw-semibold">@project.StatusCompleted%</span> @Localizer["Completed"]</div>
+                    </div>
+                </div>
+                <div class="card-footer d-flex align-items-center justify-content-between">
+                    <div>
+                        <span class="text-muted fs-11 d-block">@Localizer["AssignedDate"]:</span>
+                        <span class="fw-semibold d-block">
+                            @(project.StartDate.HasValue
+                                    ? project.StartDate.Value.ToString("dd MMMM yyyy", System.Globalization.CultureInfo.CurrentCulture)
+                                    : "")
+                        </span>
+                    </div>
+                    <div class="text-end">
+                        <span class="text-muted fs-11 d-block">@Localizer["DueDate"]:</span>
+                        <span class="fw-semibold d-block">
+                            @(project.EndDate.HasValue
+                                    ? project.EndDate.Value.ToString("dd MMMM yyyy", System.Globalization.CultureInfo.CurrentCulture)
+                                    : "")
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<!--End::row-2 -->
+
+<!-- Start::project modal -->
+<div id="modal-window"></div>
+<!-- End::project modal -->
+<!-- Start::delete project modal -->
+<partial name="_DeleteProject" />
+<!-- End::delete project modal -->
+<style>
+    .hide {
+        display: none;
+    }
+    .form-control.is-invalid, .was-validated .form-control:invalid {
+        background-image: none;
+        border-color: var(--input-border);
+    }
+
+    .form-control.is-invalid, .was-validated .form-control:invalid:focus {
+        background-image: none;
+        border-color: var(--input-border);
+        box-shadow: none;
+    }
+
+    .form-control.is-valid, .was-validated .form-control:valid {
+        background-image: none;
+        border-color: var(--input-border);
+    }
+
+    .form-control.is-valid, .was-validated .form-control:valid:focus {
+        background-image: none;
+        border-color: var(--input-border);
+    }
+
+    .form-select.is-valid, .was-validated .form-select:valid {
+        background-image: none;
+        border-color: var(--input-border);
+    }
+
+    .form-select.is-valid, .was-validated .form-select:valid:focus {
+        background-image: none;
+        border-color: var(--input-border);
+        box-shadow: none;
+    }
+
+    .form-check-input:valid ~ .form-check-label {
+        color: var(--default-text-color) !important;
+    }
+
+    .form-check-input:valid:checked {
+        background-color: var(--primary-color) !important;
+        border-color: var(--primary-color) !important;
+    }
+
+    .form-check-input:valid {
+        border-color: var(--default-text-color) !important;
+    }
+
+    .team-member-item {
+        flex: 1 1 45%;
+        padding: 8px;
+        margin-right: 10px;
+        box-sizing: border-box;
+    }
+
+    .avatar-sm {
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+    }
+</style>
+<script>
+    window.currentCulture = "@CultureInfo.CurrentCulture.Name";
+</script>
+@section Scripts{
+    <!-- Quill Editor JS -->
+    <script src="~/lib/quill/quill.min.js"></script>
+
+    <!-- Filepond JS -->
+    <script src="~/lib/filepond/filepond.min.js"></script>
+    <script src="~/lib/filepond-plugin-image-preview/filepond-plugin-image-preview.min.js"></script>
+    <script src="~/lib/filepond-plugin-image-exif-orientation/filepond-plugin-image-exif-orientation.min.js"></script>
+    <script src="~/lib/filepond-plugin-file-validate-size/filepond-plugin-file-validate-size.min.js"></script>
+    <script src="~/lib/filepond-plugin-file-encode/filepond-plugin-file-encode.min.js"></script>
+    <script src="~/lib/filepond-plugin-image-edit/filepond-plugin-image-edit.min.js"></script>
+    <script src="~/lib/filepond-plugin-file-validate-type/filepond-plugin-file-validate-type.min.js"></script>
+    <script src="~/lib/filepond-plugin-file-validate-type/filepond-plugin-file-validate-type.min.js"></script>
+    <script src="~/lib/filepond-plugin-image-crop/filepond-plugin-image-crop.min.js"></script>
+    <script src="~/lib/filepond-plugin-image-resize/filepond-plugin-image-resize.min.js"></script>
+    <script src="~/lib/filepond-plugin-image-transform/filepond-plugin-image-transform.min.js"></script>
+    <script src="~/lib/filepond-plugin-get-file/filepond-plugin-get-file.min.js"></script>
+
+    <!-- Fileupload JS -->
+    <script src="~/js/custom_js/utils/fileUpload.js"></script>
+
+    <!-- GitHub JS -->
+    <script src="~/js/custom_js/GitHub/selectRepo.js"></script>
+
+    <!-- Flat Picker JS -->
+    <script src="~/lib/flatpickr/flatpickr.min.js"></script>
+    <script src="~/lib/flatpickr/l10n/uk.js"></script>
+
+    <!-- Form Validation JS -->
+    <script src="~/js/validation.js"></script>
+
+    <script src="~/js/custom_js/utils/valideteFormElement.js"></script>
+
+    <!-- Prism JS -->
+    <script src="~/lib/prismjs/prism.js"></script>
+    <script src="~/js/prism-custom.js"></script>
+    <!-- Select2 Cdn -->
+    @*  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script> *@
+
+    <!-- Internal Select-2.js -->
+    @* <script src="~/js/select2.js"></script> *@
+
+    @if (ViewBag.HasProjectAccessControl)
+    {
+        <!--Permissions table-->
+        <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
+
+        <script src="~/js/custom_js/utils/dataTableLocalization.js"></script>
+        <script src="~/js/custom_js/utils/formatString.js"></script>
+
+        <script src="~/js/custom_js/Project/tablePermissionsUser.js"></script>
+    }
+    
+    <script src="~/js/custom_js/utils/modalWindowLoad.js"></script>
+    <!-- Main js -->
+    <script src="~/js/custom_js/Project/project.js"></script>
+
+    <!-- Edit Project -->
+    <script src="~/js/custom_js/Project/editProject.js"></script>
+
+    <script src="~/js/default-avatar.js"></script>
+    <script src="~/js/sortBy.js"></script>
+}     

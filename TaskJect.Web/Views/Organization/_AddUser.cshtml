@@ -1,0 +1,46 @@
+﻿@using TaskJect.Web.Resources
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<SharedResources> Localizer
+<div class="modal fade" id="add-user" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            @using (Html.BeginForm("AddUser", "Organization", FormMethod.Post, new { id = "AddUser", @class = "was-validated" }))
+            {
+                <div class="modal-header">
+                    <h6 class="modal-title">@Localizer["AddUser"]</h6>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body px-4">
+                    <div class="row gy-3">
+                        <div class="col-xl-12">
+                            <label for="team-email" class="form-label">@Localizer["EmailUser"]</label>
+                            <input type="text" class="form-control" id="AddUserEmail" name="Email" placeholder="@Localizer["EnterEmail"]" required>
+                        </div>
+                        <div class="invalid-feedback" id="error-email">
+                            @Localizer["PleaseEnterEmail"].
+                        </div>
+                        <div class="col-xl-12">
+                            <label for="team-firstName" class="form-label">@Localizer["FirstNameUser"]</label>
+                            <input type="text" class="form-control" id="AddFirstName" name="FirstName" placeholder="@Localizer["EnterFirstName"]" required>
+                        </div>
+                        <div class="invalid-feedback" id="error-firstName">
+                            @Localizer["PleaseEnterFirstName"].
+                        </div>
+                        <div class="col-xl-12">
+                            <label for="team-surname" class="form-label">@Localizer["SurnameUser"]</label>
+                            <input type="text" class="form-control" id="AddSurname" name="Surname" placeholder="@Localizer["EnterSurname"]" required>
+                        </div>
+                        <div class="invalid-feedback" id="error-surname">
+                            @Localizer["PleaseEnterSurname"].
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">@Localizer["Cancel"]</button>
+                    <button type="button" class="btn btn-primary" onclick="AddUser()">@Localizer["Create"]</button>
+                </div>
+            }
+        </div>
+    </div>
+</div> 

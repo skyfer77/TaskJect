@@ -1,0 +1,47 @@
+﻿@using TaskJect.Web.Resources
+@using Microsoft.Extensions.Localization
+@using Domain.Database
+@inject IStringLocalizer<SharedResources> Localizer
+@model OrganizationDto
+
+<div class="modal fade" id="contact-form" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            @using (Html.BeginForm("SendToUs", "Orgnization", FormMethod.Post, new { id = "SendToUs", @class = "was-validated" }))
+            {
+            <div class="modal-header">
+                    <h6 class="modal-title">@Localizer["SendRequest"]</h6>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+            <div class="modal-body px-4">
+                <div class="row gy-2">
+                    <input type="hidden" id="OrganizationID" name="OrganizationCode" value="@Model.OrganizationId" />
+                    <div class="col-xl-12">
+                        <label for="Title" class="form-label">@Localizer["Title"]</label>
+                        <input type="text" name="Title" class="form-control" id="Title" placeholder="@Localizer["Title"]" required />
+                        <div class="invalid-feedback" id="error-title">
+                            
+                        </div>
+                    </div>
+                    <div class="col-xl-12">
+                        <label for="text-area" class="form-label">@Localizer["Description"]</label>
+                        <div>
+                            <input type="hidden" id="descriptionSendToUs" name="Description" value="" />
+                            <div id="organization-contact-descriptioin">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light"
+                    data-bs-dismiss="modal">
+                    @Localizer["Cancel"]
+                </button>
+                <button type="button" class="btn btn-primary" id="sendContactForm" onclick="sendToUs()">@Localizer["Send"]</button>
+            </div>
+            }
+        </div>
+    </div>
+</div>

@@ -1,0 +1,145 @@
+﻿@model TaskJect.Web.Models.Finance.CreateCost
+
+<div class="modal fade" id="create-cost" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            @using (Html.BeginForm("CreateCost", "Finance", FormMethod.Post, new { id = "CreateCost" }))
+            {
+                <div class="modal-header">
+                    <h6 class="modal-title">Create Cost</h6>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <input type="hidden" id="CostDate" name="CostDate" value="@DateTime.Now" />
+                <div class="modal-body px-4">
+                    <div class="row gy-2">
+                        <div class="col-xl-12">
+                            <label class="form-label">Project</label>
+                            <select class="form-control" name="ProjectId" id="choices-multiple-cost-button1">
+                                <option value="">Select project</option>
+                                @foreach (var project in Model.Projects)
+                                {
+                                    <option value="@project.Id"> @project.Name </option>
+                                }
+                            </select>
+                        </div>
+                        <div class="col-xl-12">
+                            <label class="form-label">Users</label>
+                            <select class="form-control" name="UserId" id="choices-multiple-cost-button2">
+                                <option value="">Select user</option>
+                                @foreach (var user in Model.Users)
+                                {
+                                    <option value="@user.UserId"> @user.UserName @user.UserSurname </option>
+                                }
+                            </select>
+                        </div>
+                        <div class="col-xl-6">
+                            <label class="form-label">Cost Target</label>
+                            <select class="form-control" name="CostTargetType" id="choices-multiple-remove-button5" asp-items="Html.GetEnumSelectList<TaskJect.Web.Enums.CostTargetType>()">
+                            </select>
+                        </div>
+                        <div class="col-xl-6">
+                            <label class="form-label">Priority</label>
+                            <select class="form-control" name="PeriodType" id="choices-multiple-remove-button6" asp-items="Html.GetEnumSelectList<TaskJect.Web.Enums.PeriodType>()">
+                            </select>
+                        </div>
+                        <div class="col-xl-6">
+                            <label for="Amount" class="form-label">Amount</label>
+                            <input type="text" name="sum" class="form-control" id="AmountCost" placeholder="Amount" />
+                            <div class="invalid-feedback" id="error-amount-cost">
+                                Please enter a amount.
+                            </div>
+                        </div>
+                        <div class="col-xl-6">
+                            <label class="form-label">End Date</label>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-text text-muted"> <i class="ri-calendar-line"></i> </div>
+                                    <input type="text" name="EndDate" class="form-control" id="targetDate4" placeholder="Choose date and time">
+                                </div>
+                            </div>
+                            <div class="invalid-feedback" id="error-endDate-cost">
+                                Please enter a end date.
+                            </div>
+                        </div>
+
+                        <div class="col-xl-12">
+                            <label class="form-label">Short Note</label>
+                            <textarea class="form-control" name="Note" placeholder="Short Note here" id="floatingTextareaCost"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light"
+                        data-bs-dismiss="modal">
+                        Cancel
+                    </button>
+                    <button type="button" class="btn btn-primary" onclick="createCost()">Add Cost</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<script>
+    /* multi select with remove button */
+    const multipleCancelButtonCost = new Choices(
+        '#choices-multiple-cost-button1',
+        {
+            allowHTML: true,
+            removeItemButton: true,
+        }
+    );
+    const multipleCancelButtonCost1 = new Choices(
+        '#choices-multiple-cost-button2',
+        {
+            allowHTML: true,
+            removeItemButton: true,
+        }
+    );
+    const multipleCancelButton5 = new Choices(
+        '#choices-multiple-remove-button5',
+        {
+            allowHTML: true,
+        }
+    );
+    const multipleCancelButton6 = new Choices(
+        '#choices-multiple-remove-button6',
+        {
+            allowHTML: true,
+        }
+    );
+
+    function createCostDate(){
+        var dateCost = '@String.Format($"{DateTime.Now:yyyy-MM-dd HH:mm}")';
+        var periodTCost = document.getElementById('choices-multiple-remove-button6');
+        if (periodTCost.value === '0') {
+            $("#targetDate4").val(dateCost)
+        }
+        else {
+            $("#targetDate4").val('')
+        }
+        periodTCost.addEventListener("change", e => {
+            if (periodTCost.value === '0') {
+                $("#targetDate4").val(dateCost)
+            }
+            else {
+                $("#targetDate4").val('')
+            }
+        })
+    }
+
+    $(document).ready(function () {
+        //Date picker
+        flatpickr("#targetDate4", {
+            enableTime: true,
+            dateFormat: "Y-m-d H:i",
+            time_24hr: true,
+        });
+        createCostDate()
+
+    });
+
+</script>
+
+

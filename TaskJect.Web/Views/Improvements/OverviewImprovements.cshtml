@@ -1,0 +1,160 @@
+﻿@using TaskJect.Web.Services
+@using System.Globalization
+@using TaskJect.Web.Resources
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<SharedResources> Localizer
+@model IEnumerable<OrganizationAppealViewModel>
+@{
+    Guid organizationCode = ViewBag.OrganizationCode;
+}
+@section HeadArea {
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.3.0/css/responsive.bootstrap.min.css">
+}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="card custom-card">
+                <div class="card-body ">
+                    <div class="d-md-flex d-block flex-wrap align-items-center justify-content-between">
+                        <div class="card-title fw-semibold fs-18 mb-0">@Localizer["Improvements"]</div>
+                        <div class="d-sm-flex">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-12">
+            <div class="card custom-card">
+                <div class="card-header">
+                    <ul class="nav nav-tabs nav-justified nav-style-1 w-100 d-flex" role="tablist">
+                        <li class="nav-item flex-fill" role="presentation">
+                            <a class="nav-link active" data-bs-toggle="tab" role="tab" href="#my-requests" aria-selected="true">@Localizer["MyRequests"]</a>
+                        </li>
+                        <li class="nav-item flex-fill" role="presentation">
+                            <a class="nav-link" data-bs-toggle="tab" role="tab" href="#in-progress-requests" aria-selected="false" tabindex="-1">@Localizer["InProgress"]</a>
+                        </li>
+                        <li class="nav-item flex-fill" role="presentation">
+                            <a class="nav-link" data-bs-toggle="tab" role="tab" href="#done-requests" aria-selected="false" tabindex="-1">@Localizer["Done"]</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="card-body p-0">
+                    <div class="tab-content">
+                        <div class="table-responsive tab-pane fade show active text-muted" id="my-requests" role="tabpanel" style="border: none !important;">
+                            <table class="table text-nowrap table-bordered" id="datatable-basic">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">@Localizer["Title"]</th>
+                                        <th scope="col">@Localizer["Date"]</th>
+                                        <th scope="col">@Localizer["Status"]</th>
+                                        <th scope="col">@Localizer["Actions"]</th>
+                                    </tr>
+                                </thead>
+                                <tbody style="text-align:center">
+                                    @foreach (var appeal in Model.Where(m => m.OrganizationId == organizationCode))
+                                    {
+                                        var appealId = appeal.Id;
+                                        var organizationId = appeal.OrganizationId;
+                                        <tr>
+                                            <td></td>
+                                            <td>
+                                                <span class="fw-semibold table-word-wrap-column">@appeal.Title</span>
+                                            </td>
+                                            <td>
+                                                @appeal?.Date.ToString("dd MMMM yyyy", System.Globalization.CultureInfo.CurrentCulture)
+                                            </td>
+                                            <td>
+                                                <span class="badge" name="@appeal.Status">@EnumHelper.GetEnumDisplayName((TaskJect.Web.Enums.AppealStatusView)appeal.Status)</span>
+                                            </td>
+                                            <td>
+                                                <button type="button" class="btn btn-primary-light btn-icon btn-sm" onclick="loadOverviewModal('@appeal.Id')" data-bs-title="Details appeal" title="@Localizer["AppealDetails"]"><i class="ri-eye-line"></i></button>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="table-responsive tab-pane fade text-muted" id="in-progress-requests" role="tabpanel" style="border: none !important;">
+                            <table class="table text-nowrap table-bordered" id="datatable-basic">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">@Localizer["Title"]</th>
+                                        <th scope="col">@Localizer["Date"]</th>
+                                        <th scope="col">@Localizer["Actions"]</th>
+                                    </tr>
+                                </thead>
+                                <tbody style="text-align:center">
+                                    @foreach (var appeal in Model.Where(m => m.Status == TaskJect.Web.Enums.AppealStatusView.TakenToWork))
+                                    {
+                                        var appealId = appeal.Id;
+                                        var organizationId = appeal.OrganizationId;
+                                        <tr>
+                                            <td></td>
+                                            <td>
+                                                <span class="fw-semibold table-word-wrap-column">@appeal.Title</span>
+                                            </td>
+                                            <td>@appeal?.Date.ToString("dd MMMM yyyy", System.Globalization.CultureInfo.CurrentCulture)</td>
+                                            <td>
+                                                <button type="button" class="btn btn-primary-light btn-icon btn-sm" onclick="loadOverviewModal('@appeal.Id')" data-bs-title="Details appeal" title="@Localizer["AppealDetails"]"><i class="ri-eye-line"></i></button>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="table-responsive tab-pane fade text-muted" id="done-requests" role="tabpanel" style="border: none !important;">
+                            <table class="table text-nowrap table-bordered" id="datatable-basic">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">@Localizer["Title"]</th>
+                                        <th scope="col">@Localizer["Date"]</th>
+                                        <th scope="col">@Localizer["Actions"]</th>
+                                    </tr>
+                                </thead>
+                                <tbody style="text-align:center">
+                                    @foreach (var appeal in Model.Where(m => m.Status == TaskJect.Web.Enums.AppealStatusView.Done))
+                                    {
+                                        var appealId = appeal.Id;
+                                        var organizationId = appeal.OrganizationId;
+                                        <tr>
+                                            <td></td>
+                                            <td>
+                                                <span class="fw-semibold table-word-wrap-column">@appeal.Title</span>
+                                            </td>
+                                            <td>@appeal?.Date.ToString("dd MMMM yyyy", System.Globalization.CultureInfo.CurrentCulture)</td>
+                                            <td>
+                                                <button type="button" class="btn btn-primary-light btn-icon btn-sm" onclick="loadOverviewModal('@appeal.Id')" data-bs-title="Details appeal" title="@Localizer["AppealDetails"]"><i class="ri-eye-line"></i></button>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="modal-container"></div>
+<script>
+    window.currentCulture = "@CultureInfo.CurrentCulture.Name";
+</script>
+@section Scripts {
+    <!-- Quill Editor JS -->
+    <script src="~/lib/quill/quill.min.js"></script>
+    <!-- Datatables Cdn -->
+    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
+
+    <script src="~/js/custom_js/utils/dataTableLocalization.js"></script>
+    <script src="~/js/custom_js/utils/formatString.js"></script>
+
+    <script src="~/js/custom_js/Improvements/improvements.js"></script>
+}

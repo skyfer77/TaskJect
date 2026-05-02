@@ -1,0 +1,83 @@
+﻿@model TaskJect.Web.Models.Finance.IncomeDetailsModel
+
+@section HeadArea {
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.3.0/css/responsive.bootstrap.min.css">
+
+}
+<div class="container-fluid">
+    <!-- Start:: row-2 -->
+    @{
+        string title = "";
+        var incom = Model.IncomeDetail[0];
+        if (Model.Projects != null && incom.Income.ProjectId != null)
+        {
+            var nameProject = Model.Projects.FirstOrDefault(x => x.Id == incom.Income.ProjectId);
+            title = nameProject.Name;
+        }
+    }
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="card custom-card">
+                <div class="card-header justify-content-between">
+                    <div class="card-title">
+                        Incomes (Source income: @incom.Income.IncomeSourceType, Period: @incom.Income.PeriodType @(title != "" ? ", Project:" + title : ""))
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive" id="income-table">
+                        <table class="table text-nowrap table-bordered" id="datatable-basic">
+                            <thead>
+                                <tr>
+                                    <th scope="col">S.No</th>
+                                    <th scope="col">Create date</th>
+                                    <th scope="col">Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    var i = 1;
+                                    foreach (var income in Model.IncomeDetail)
+                                    {
+                                        <tr>
+                                            @if(income.Income != null){
+                                                <td>@i</td>
+                                                <td>@income.CreatedDate</td>
+                                                <td>@income.Income.Amount</td>
+                                            }
+                                            else{
+                                                <td>@i</td>
+                                                <td>@income.CreatedDate</td>
+                                                <td>@string.Empty</td>
+                                            }
+                                        </tr>
+                                        i++;
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        // basic datatable
+        $('#datatable-basic').DataTable({
+            language: {
+                searchPlaceholder: 'Search...',
+                sSearch: '',
+            },
+            info: false,
+            paging: false,
+        });
+    });
+</script>
+
+@section Scripts{
+    <!-- Datatables Cdn -->
+    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
+}  

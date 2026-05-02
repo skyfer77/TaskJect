@@ -1,0 +1,64 @@
+﻿@using TaskJect.Web.Resources
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<SharedResources> Localizer
+<div class="modal fade" id="create-organization" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            @using (Html.BeginForm("CreateOrganization", "Moderator", FormMethod.Post, new { id = "CreateOrganization", @class = "was-validated" }))
+            {
+                <div class="modal-header">
+                    <h6 class="modal-title">@Localizer["CreateOrganization"]</h6>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body px-4">
+                    <div class="row gy-3">
+                        <div class="col-xl-12">
+                            <label for="team-name" class="form-label">@Localizer["OrganizationName"]</label>
+                            <input type="text" class="form-control" id="CreateOrganizationName" name="Name" placeholder="@Localizer["EnterName"]" required>
+                        </div>
+                        <div class="invalid-feedback" id="error-name">
+                            Please enter a name organization.
+                        </div>
+                        <div class="col-xl-12">
+                            <label for="team-email" class="form-label">@Localizer["EmailTeamLeadOrganization"]</label>
+                            <input type="text" class="form-control" id="CreateTeamLeadEmail" name="Email" placeholder="@Localizer["EnterEmail"]" required>
+                        </div>
+                        <div class="invalid-feedback" id="error-email">
+                            @Localizer["PleaseEnterEmail"].
+                        </div>
+                        <div class="col-xl-12">
+                            <label for="team-firstName" class="form-label">@Localizer["FirstNameTeamLead"]</label>
+                            <input type="text" class="form-control" id="CreateFirstName" name="FirstName" placeholder="@Localizer["EnterFirstName"]" required>
+                        </div>
+                        <div class="invalid-feedback" id="error-firstName">
+                            @Localizer["PleaseEnterFirstName"].
+                        </div>
+                        <div class="col-xl-12">
+                            <label for="team-surname" class="form-label">@Localizer["SurnameTeamLead"]</label>
+                            <input type="text" class="form-control" id="CreateSurname" name="Surname" placeholder="@Localizer["EnterSurname"]" required>
+                        </div>
+                        <div class="invalid-feedback" id="error-surname">
+                            @Localizer["PleaseEnterSurname"].
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">@Localizer["Cancel"]</button>
+                    <button type="button" class="btn btn-primary" onclick="CreateOrganization()">@Localizer["Create"]</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+<style>
+    .was-validated .form-control:valid {
+        border-color: var(--input-border);
+        background-image: none;
+    }
+
+    .was-validated .form-control:valid:focus {
+        border-color: var(--input-border);
+        background-image: none;
+    }
+</style>

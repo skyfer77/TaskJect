@@ -1,0 +1,85 @@
+﻿.flatpickr-day.today {
+    border-color: rgb(var(--success-rgb)) !important;
+    background-color: rgb(var(--success-rgb)) !important;
+    color: #fff !important;
+}
+.flatpickr-day.today:hover {
+    background-color: rgb(var(--success-rgb)) !important;
+    border-color: rgb(var(--success-rgb)) !important;
+    color: #fff !important;
+}
+.flatpickr-day.today.inRange {
+    color: rgb(var(--success-rgb)) !important;
+}
+.task-description img {
+    width: 100%;
+    height: auto;
+}
+
+#organization-storege {
+    .apexcharts-canvas, 
+    .apexcharts-svg
+    {
+        width: auto !important;
+    }
+}
+#organization-storege circle {
+    fill: transparent;
+}
+#crm-main circle {
+    fill: transparent;
+}
+
+#organization-storege .apexcharts-datalabels-group text {
+    fill: rgba(255, 255, 255, 0.9);
+}
+
+#organization-storege #apexcharts-radialbarTrack-0 {
+    stroke: rgba(0, 0, 0, 0.2);
+}
+.crm-main-content {
+    position: absolute;
+    bottom: 20px;
+}
+.birthdays-profile {
+    background-image: url(../images/profile/balloon.jpg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+    z-index: 9;
+}
+.birthdays-profile:before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(96, 99,54, .6);
+    inset-inline-start: 0;
+    inset-inline-end: 0;
+    inset-block-start: 0;
+    inset-block-end: 0;
+}
+.table-word-wrap-column {
+    white-space: break-spaces;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    text-overflow: ellipsis;
+}
+.sticky-filter {
+    position: sticky;
+    top: 60px;
+    z-index: 10;
+}
+.card-title.no-before::before {
+    content: none;
+}
+@media (min-width: 992px) {
+    .section-body {
+        margin-top: 3.375rem;
+    }
+}
+.break-word-normal {
+    word-break: break-word;
+    white-space: normal;
+}

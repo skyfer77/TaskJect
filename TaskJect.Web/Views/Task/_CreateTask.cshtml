@@ -1,0 +1,103 @@
+﻿﻿@using TaskJect.Web.Resources
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<SharedResources> Localizer
+@model CreateTaskModel
+@{
+    var integGitHub = Model.GitHubViewModel.IsGitHubIntegration;
+}
+<div class="modal fade" id="add-task" tabindex="-1" aria-hidden="true" style="--bs-modal-width: 880px;">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            @using (Html.BeginForm("Create", "Task", FormMethod.Post, new { id = "CreateTask", @class = "was-validated" }))
+            {
+                <div class="modal-header">
+                    <h6 class="modal-title">@Localizer["AddTask"]</h6>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body row p-0">
+                    <div class="col-xxl-9" style="border-right: solid 1px var(--default-border); padding: 1rem 1.5rem !important; padding-right: 1rem !important;">
+                        <div class="row gy-2">
+                            <input type="hidden" id="Status" name="Status" value="@Model.Status" />
+                            <input type="hidden" id="ProjectID" name="ProjectID" value="@Model.ProjectId" />
+                            <input type="hidden" id="CreatedByUserId" name="CreatedByUserId" value="@Model.CreatedByUserId" />
+                            <input type="hidden" id="DateAdd" name="DateAdd" value="@Model.CreatedDate" />
+                            <div class="col-xl-12">
+                                <label for="Title" class="form-label">@Localizer["TaskName"]</label>
+                                <input type="text" name="Title" class="form-control" id="title" placeholder="@Localizer["TaskName"]" required />
+                                <div class="invalid-feedback" id="error-title">
+                                </div>
+                            </div>
+                            <div class="col-xl-12">
+                                <label for="text-area" class="form-label">@Localizer["TaskDescription"]</label>
+                                <div>
+                                    <input type="hidden" id="Description" name="Description" value="" />
+                                    <div id="task-descriptioin-editor-create">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-12">
+                                <label for="text-area" class="form-label">@Localizer["Files"]</label>
+                                <div class="card-body">
+                                    <input type="file" class="multiple-filepond" name="files" multiple data-allow-reorder="true" data-max-file-size="30MB">
+                                </div>
+                                <div class="invalid-feedback" id="error-files">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xxl-3" style="padding-left: 1rem !important; padding: 1rem 1.5rem;">
+                        <div class="col-xl-12 mb-2">
+                            <label class="form-label">@Localizer["AssignedTo"]</label>
+                            <select class="form-control" name="AssigneeID" id="choices-remove-button-member" data-type="select-one">
+                                <option value="">@Localizer["SelectMember"]</option>
+                                @foreach (var user in Model.Users)
+                                {
+                                    <option value="@user.Id"> @(user.Name) @(user.Surname) </option>
+                                }
+                            </select>
+                        </div>
+                        <div class="col-xl-12 mb-2">
+                            <label class="form-label">@Localizer["Deadline"]</label>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <input type="text" name="EndDate" class="form-control" id="targetDateTarget" placeholder="@Localizer["ChooseDate"]">
+                                    <div class="input-group-text text-muted"> <i class="ri-calendar-line"></i> </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-12 mb-2">
+                            <label class="form-label">@Localizer["Priority"]</label>
+                            <select class="form-control" name="Priority" id="choices-remove-button-priority" asp-items="Html.GetEnumSelectList<TaskJect.Web.Enums.PriorityView>()" data-type="select-one">
+                                <option value="">@Localizer["SelectPriority"]</option>
+                            </select>
+                        </div>
+                        <div class="col-xl-12 mb-2">
+                            <label for="task-id" class="form-label">@Localizer["Complexity"]</label>
+                            <input type="text" name="Complexity" class="form-control" id="input-complexity" placeholder="@Localizer["EnterComplexity"]" autocomplete="off" style="line-height: 2;" />
+                            <div class="invalid-feedback" id="error-complexity"></div>
+                        </div>
+                        <div class="col-xl-12 mb-2">
+                            <label for="task-id" class="form-label">@Localizer["Creator"]</label>
+                            <span class="d-block fs-14 fw-semibold badge bg-light text-default">@Model.Creator</span>
+                        </div>
+
+                        <div class="col-xl-12 @(integGitHub ? "mb-2" : "")">
+                            <label for="task-id" class="form-label">@Localizer["CreatedDate"]</label>
+                            <span class="d-block fs-14 fw-semibold badge bg-light text-default">@Model.CreatedDate.Date.ToString("dd MMMM yyyy", System.Globalization.CultureInfo.CurrentCulture)</span>
+                        </div>
+                        @if (integGitHub && ViewBag.HasGitHubIntegration)
+                        {
+                            <partial name="_GitHubFormElement" model="@Model.GitHubViewModel" />
+                        }
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">
+                        @Localizer["Cancel"]
+                    </button>
+                    <button type="button" class="btn btn-primary" onclick="createTask()">@Localizer["AddTask"]</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>

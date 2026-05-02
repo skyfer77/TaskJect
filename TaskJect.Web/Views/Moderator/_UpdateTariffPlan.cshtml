@@ -1,0 +1,54 @@
+﻿@using TaskJect.Web.Resources
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<SharedResources> Localizer
+<div class="modal fade" id="tariff-modal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            @using (Html.BeginForm("UpdateTariffForm", "Moderator", FormMethod.Post, new { id = "UpdateTariffForm" }))
+            {
+                <div class="modal-header">
+                    <h6 class="modal-title">@Localizer["UpdateTariff"]</h6>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body px-4">
+                    <div class="row gy-3">
+                        <div class="col-xl-12">
+                            <label for="tariffSelect" class="form-label">@Localizer["TariffPlan"]</label>
+                           <select class="choices-multiple-remove-button4" id="tariffSelect" name="TariffName" onchange="changeDatePicker()">
+                                @foreach (var plan in ViewBag.TariffPlans.Keys)
+                                {
+                                    if (plan.ToString() == ViewBag.CurrentTariff)
+                                    {
+                                        <option value="@plan.ToString()" selected>@Localizer[plan]</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@plan.ToString()">@Localizer[plan]</option>
+                                    }
+
+                                }
+                            </select>
+                        </div>
+                        <div class="col-xl-12">
+                            <label for="tariffDateToOrganization" class="form-label">@Localizer["ExpirationDate"]</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="tariffDateToOrganization" name="TariffDateTo" placeholder="@Localizer["SelectDate"]">
+                                <input type="hidden" id="hiddenTariffDateTo" name="TariffDateTo">
+                                <div class="input-group-text text-muted">
+                                    <i class="ri-calendar-line"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <input type="hidden" id="organizationCode" name="OrganizationId" value="@ViewBag.OrganizationCode" />
+                        <input type="hidden" id="dateToTariff" name="DateToTariff" value="@ViewBag.DateTo" />
+                        <input type="hidden" id="currentTariff" name="CurrentTariff" value="@ViewBag.CurrentTariff" />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">@Localizer["Cancel"]</button>
+                    <button type="button" class="btn btn-primary" onclick="editTariffDate()">@Localizer["Save"]</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>

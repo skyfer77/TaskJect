@@ -1,0 +1,339 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="allFeaturesIncluded" xml:space="preserve">
+    <value>all the features are included</value>
+  </data>
+  <data name="AllToolAdvancedTeamwork" xml:space="preserve">
+    <value>All-in-one tool for advanced teamwork</value>
+  </data>
+  <data name="AnalyzeMetricsMake" xml:space="preserve">
+    <value>Analyze all the metrics to make data-driven decisions</value>
+  </data>
+  <data name="AssignTrack" xml:space="preserve">
+    <value>Assign, track, and complete tasks efficiently</value>
+  </data>
+  <data name="AtTheMoment" xml:space="preserve">
+    <value>At the moment, we don't have any integrations with other services (for example, Jira, Trello, Notion).</value>
+  </data>
+  <data name="AtTheMomentSuchCases" xml:space="preserve">
+    <value>At the moment, such cases are considered individually.</value>
+  </data>
+  <data name="BlockingUserOnlyRestricts" xml:space="preserve">
+    <value>Blocking a user only restricts the participant's access to the service, and deleting it will lead to the loss of information about the task performer.</value>
+  </data>
+  <data name="BuildByDevelopersForDevelopers" xml:space="preserve">
+    <value>Build by developers for developers</value>
+  </data>
+  <data name="CanIntegrateTasksFrom" xml:space="preserve">
+    <value>Can I integrate my tasks from other task accounting services into yours</value>
+  </data>
+  <data name="CanOneUserWith" xml:space="preserve">
+    <value>Can one user with one account be a member of several organizations</value>
+  </data>
+  <data name="CollaborateSeamlessly" xml:space="preserve">
+    <value>Collaborate seamlessly and streamline teamwork</value>
+  </data>
+  <data name="ContactFindMostSuitablePackage" xml:space="preserve">
+    <value>to find out the most suitable package for your team</value>
+  </data>
+  <data name="CustomizeProfile" xml:space="preserve">
+    <value>Customize your profile for the best experiences</value>
+  </data>
+  <data name="DesignedPrecision" xml:space="preserve">
+    <value>Designed with precision</value>
+  </data>
+  <data name="DoesEveryMember" xml:space="preserve">
+    <value>Does every member of my team have to submit such an application</value>
+  </data>
+  <data name="FeaturesUsedTaskJect" xml:space="preserve">
+    <value>Features Used in TaskJect</value>
+  </data>
+  <data name="FeedbackBodyForRequest" xml:space="preserve">
+    <value>&lt;p&gt;Thank you for your interest in our service. We will process your request shortly and provide feedback.&lt;/p&gt;&lt;p&gt;Best regards,&lt;/p&gt;&lt;p&gt;The TaskJect Team&lt;/p&gt;</value>
+  </data>
+  <data name="FeedbackSubjectForRequest" xml:space="preserve">
+    <value>We’ve Received Your Request</value>
+  </data>
+  <data name="forFreeSimplify" xml:space="preserve">
+    <value>for free and simplify your workflow!</value>
+  </data>
+  <data name="FrequentlyAskedQuestions" xml:space="preserve">
+    <value>Frequently asked questions</value>
+  </data>
+  <data name="FromSmallTeamsToGrowingBusinesses" xml:space="preserve">
+    <value>From small teams to growing businesses, here’s what people say about working with TaskJect.</value>
+  </data>
+  <data name="GainInsightsDetailed" xml:space="preserve">
+    <value>Gain insights with detailed performance reports</value>
+  </data>
+  <data name="HowCreatePersonalAccount" xml:space="preserve">
+    <value>How do I create a personal account</value>
+  </data>
+  <data name="HowDoAddNewUser" xml:space="preserve">
+    <value>How do I add a new user</value>
+  </data>
+  <data name="HowRolesOrganizationTeam" xml:space="preserve">
+    <value>How do the roles in the organization and team work</value>
+  </data>
+  <data name="IfIDontUseYourService" xml:space="preserve">
+    <value>If I don't use your service for a while, what happens to my account</value>
+  </data>
+  <data name="IfTheDiskSpaceLimitExceeded" xml:space="preserve">
+    <value>If the disk space limit is exceeded, creating and editing projects and tasks will become unavailable until you return to the limit.</value>
+  </data>
+  <data name="IfThePlanRenewedWithin" xml:space="preserve">
+    <value>*If the plan is not renewed within 3 months, all blocked users will be deleted, as well as some old tasks to free up space.</value>
+  </data>
+  <data name="IfYouExceedUserLimit" xml:space="preserve">
+    <value>If you exceed the user limit, newly registered users will be blocked.</value>
+  </data>
+  <data name="IfYouHaventExceeded" xml:space="preserve">
+    <value>If you haven't exceeded the user and disk space limits for your basic plan, there will be no changes.</value>
+  </data>
+  <data name="IfYouLeaveYourProfileInactive" xml:space="preserve">
+    <value>If you leave your profile inactive, we will contact you to clarify your intentions for using the application. We will keep your data for a year so that you do not lose important information.</value>
+  </data>
+  <data name="integrationWithTelegram" xml:space="preserve">
+    <value>Telegram Integration</value>
+  </data>
+  <data name="InTheSection" xml:space="preserve">
+    <value>In the section “My organization” -&gt; “Upgrade Request”</value>
+  </data>
+  <data name="IsPossibleChangeTariff" xml:space="preserve">
+    <value>Is it possible to change the tariff plan</value>
+  </data>
+  <data name="IsPossibleEnterVia" xml:space="preserve">
+    <value>Is it possible to enter via Google/Microsoft</value>
+  </data>
+  <data name="IsPossibleTrack" xml:space="preserve">
+    <value>Is it possible to track the time spent on tasks</value>
+  </data>
+  <data name="OnlyTheTeamLeader" xml:space="preserve">
+    <value>Only the team leader submits the application. After approval by our moderators, the team leader will be able to invite members to join their team in their profile under the organization tab</value>
+  </data>
+  <data name="OptimizeProcessesEnsure" xml:space="preserve">
+    <value>Optimize your processes to ensure convenient work</value>
+  </data>
+  <data name="OrganizeProjectsWorkflows" xml:space="preserve">
+    <value>Organize projects with clear workflows and real-time updates</value>
+  </data>
+  <data name="OurMissionConsistsSteps" xml:space="preserve">
+    <value>Our mission consists of 4 major steps</value>
+  </data>
+  <data name="OurMissionMakeWebDesign" xml:space="preserve">
+    <value>Our mission is to make web design easy, so you can focus on building your brand</value>
+  </data>
+  <data name="OurPlansAffordableMainlyPlaced" xml:space="preserve">
+    <value>Our plans are very affordable and are suited for teams of various sizes. Even a basic plan makes a difference.</value>
+  </data>
+  <data name="PriceForEntireOrganization" xml:space="preserve">
+    <value>Price for the entire organization</value>
+  </data>
+  <data name="ProvenTrackRecordWorldwideTrust" xml:space="preserve">
+    <value>Proven track record. Worldwide trust.</value>
+  </data>
+  <data name="SetGoalsDeadlines" xml:space="preserve">
+    <value>Set goals and meet deadlines</value>
+  </data>
+  <data name="SimpleTaskTrackingNotManaging" xml:space="preserve">
+    <value>Simple task tracking that lets you focus on shipping, not managing</value>
+  </data>
+  <data name="SomeReviewsClientsWhich" xml:space="preserve">
+    <value>Some of the reviews our clients gave which brings motivation to work for future projects</value>
+  </data>
+  <data name="SoundsLikeGoodFit" xml:space="preserve">
+    <value>Sounds like a good fit? Reach out to us</value>
+  </data>
+  <data name="submitApplication" xml:space="preserve">
+    <value>submit an application</value>
+  </data>
+  <data name="TaskJectComesAffordablePricing" xml:space="preserve">
+    <value>TaskJect comes with most affordable pricing range</value>
+  </data>
+  <data name="taskjectMultipleCustomization" xml:space="preserve">
+    <value>Taskject comes with multiple customization options that are very easy to implement.</value>
+  </data>
+  <data name="FeedbackUpperCase" xml:space="preserve">
+    <value>FEEDBACK</value>
+  </data>
+  <data name="TheHeadOfTheOrganizationInvites" xml:space="preserve">
+    <value>The head of the organization invites a new member to the available slots on the Teams tab, and the invited user will receive a corresponding email</value>
+  </data>
+  <data name="ThereMainRolesOrganization" xml:space="preserve">
+    <value>There are 2 main roles in an organization: a team leader and a team member. Unlike a member, a team leader can invite and remove users, as well as manage the plan.</value>
+  </data>
+  <data name="ThereMainRolesTeam" xml:space="preserve">
+    <value>There are 2 main roles in the team. Project manager (assigned to a project) and other members. The project manager can edit tasks and manage the tasks of others, as well as grant similar rights to other members.</value>
+  </data>
+  <data name="TheSystemOperatesClosedFormat" xml:space="preserve">
+    <value>The system operates in a closed format, and to receive an invitation to use the service, </value>
+  </data>
+  <data name="TheTaskPerformerIndicate" xml:space="preserve">
+    <value>The task performer can indicate the time spent in 2 formats: either add the time spent on the Kanban board or indicate the total number of hours when viewing the task in detail.</value>
+  </data>
+  <data name="TheTeamLeaderChanges" xml:space="preserve">
+    <value>The team leader changes/project manager changes. How and where to set up these changes in your account</value>
+  </data>
+  <data name="ThisOptionCurrentlyNotAvailable" xml:space="preserve">
+    <value>This option is currently not available.</value>
+  </data>
+  <data name="ToChangeProjectManager" xml:space="preserve">
+    <value>To change the Project manager, click the Edit button on the Project tab, after which you can change the Project manager. However, at the moment, it is not possible to automatically change the head of the organization.</value>
+  </data>
+  <data name="WeHaveSharedSomeMostFrequently" xml:space="preserve">
+    <value>We have shared some of the most frequently asked questions to help you out</value>
+  </data>
+  <data name="WeWantMakeServiceConvenient" xml:space="preserve">
+    <value>We want to make the service as convenient as possible for you, so you have the opportunity to influence our development. These are requests to implement or improve the functions of our service. They are absolutely free. You can suggest new functionality or improve the current one, and we will process your request and give you feedback.</value>
+  </data>
+  <data name="WhatAreTheRequestsTariffPlan" xml:space="preserve">
+    <value>What are the requests in the tariff plan</value>
+  </data>
+  <data name="WhatDifferenceBetweenDeleting" xml:space="preserve">
+    <value>What is the difference between deleting a user and blocking access</value>
+  </data>
+  <data name="WhatHappensCancelSubscription" xml:space="preserve">
+    <value>What happens if I cancel my subscription to a paid plan</value>
+  </data>
+  <data name="WhatShouldlostAccess" xml:space="preserve">
+    <value>What should I do if I lost access to the mail to which my account is linked</value>
+  </data>
+  <data name="WhereCanTrackStatusRequests" xml:space="preserve">
+    <value>Where can I track the status of my requests</value>
+  </data>
+  <data name="YesYouCanSwitchPlan" xml:space="preserve">
+    <value>Yes, you can switch to another plan at any time through your organization's settings.</value>
+  </data>
+  <data name="YouCanContactAnytime" xml:space="preserve">
+    <value>You can contact us anytime regarding any queries or deals,dont hesitate to clear your doubts before trying our product.</value>
+  </data>
+  <data name="YouCanUseGoogleOrMicrosoftEmail" xml:space="preserve">
+    <value>You can use Google/Microsoft email or another provider to register, but you cannot log in through your account/profile</value>
+  </data>
+  <data name="YouHaveOpportunitySendRequests" xml:space="preserve">
+    <value>You have the opportunity to send requests/suggestions regarding the functionality of the application that you would like to have.</value>
+  </data>
+  <data name="CheckOutTaskJectsFeaturesShortDemo" xml:space="preserve">
+    <value>Check out TaskJect’s features in our short demo</value>
+  </data>
+  <data name="TeamWorkEasyText" xml:space="preserve">
+    <value>Our mission is to make teamwork easy. You can focus on your tasks, not the management.</value>
+  </data>
+</root>

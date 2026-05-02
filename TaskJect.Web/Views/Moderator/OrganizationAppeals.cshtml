@@ -1,0 +1,101 @@
+﻿@using TaskJect.Web.Services
+@using System.Globalization
+@using TaskJect.Web.Resources
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<SharedResources> Localizer
+@model IEnumerable<OrganizationAppealViewModel>
+@{
+    ViewBag.Title = "Organization Appeals";
+}
+@section HeadArea {
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.3.0/css/responsive.bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/NewStyles.css">
+    <link rel="stylesheet" href="~/lib/quill/quill.snow.css">
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="card custom-card">
+                <div class="card-body ">
+                    <div class="d-md-flex d-block flex-wrap align-items-center justify-content-between">
+                        <div class="card-title fw-semibold fs-18 mb-0">@Localizer["OrganizationAppeals"]</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-12">
+            <div class="card custom-card">
+                <div class="card-body">
+                    <div class="table-responsive" id="organization-appeal-table">
+                        <table class="table text-nowrap table-bordered" id="datatable-basic">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">@Localizer["Organization"]</th>
+                                    <th scope="col">@Localizer["Title"]</th>
+                                    <th scope="col">@Localizer["Date"]</th>
+                                    <th scope="col">@Localizer["Status"]</th>
+                                    <th scope="col">@Localizer["Actions"]</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var appeal in Model)
+                                {
+                                    var appealId = appeal.Id;
+                                    var organizationId = appeal.OrganizationId;
+                                    <tr>
+                                        <td></td>
+                                        <td class="break-word-normal">@appeal.OrganizationName</td>
+                                        <td class="break-word-normal">
+                                            <span class="fw-semibold table-word-wrap-column">@appeal.Title</span>
+                                        </td>
+                                        <td>@appeal?.Date.ToString("dd MMMM yyyy", System.Globalization.CultureInfo.CurrentCulture)</td>
+                                        <td>
+                                            <span class="badge" name="@appeal.Status">@EnumHelper.GetEnumDisplayName((TaskJect.Web.Enums.AppealStatusView)appeal.Status)</span>
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-primary-light btn-icon btn-sm" onclick="Edit('@appealId','@organizationId')" data-bs-title="Edit appeal"><i class="ri-eye-line"></i></button>
+                                            <a class="btn btn-sm btn-danger-light btn-icon" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#delete-appeal-row"
+                                           data-todo='{"id":"@appealId", "name": "@appeal.Title"}'>
+                                                <i class="ri-delete-bin-6-line mb-1 align-middle"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    .break-word-normal {
+        word-break: break-word;
+        white-space: normal;
+        max-width: 300px;
+    }
+</style>
+<!-- Start::appeal modal -->
+<div id="modal-window"></div>
+<partial name="_DeleteAppeal" />
+<!-- End::applea modal -->
+<script>
+    window.currentCulture = "@CultureInfo.CurrentCulture.Name";
+</script>
+@section Scripts{
+    <!-- Quill Editor JS -->
+    <script src="~/lib/quill/quill.min.js"></script>
+    <!-- Datatables Cdn -->
+    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
+
+    <script src="~/js/custom_js/utils/dataTableLocalization.js"></script>
+    <script src="~/js/custom_js/utils/formatString.js"></script>
+    <script src="~/js/custom_js/utils/modalWindowLoad.js"></script>
+    <script src="~/js/custom_js/utils/initializerOrganAppealModal.js"></script>
+    <script src="~/js/custom_js/Moderator/organizationAppeal.js"></script>
+}

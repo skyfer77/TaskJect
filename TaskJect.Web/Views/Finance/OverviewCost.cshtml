@@ -1,0 +1,101 @@
+﻿@model TaskJect.Web.Models.Finance.CostDetailsModel
+
+@section HeadArea {
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.3.0/css/responsive.bootstrap.min.css">
+
+}
+<div class="container-fluid">
+    <!-- Start:: row-2 -->
+    @{
+        string title = "";
+        string userName = "";
+        var cost0 = Model.CostDetail[0];
+        if (Model.Projects != null && cost0.Cost != null)
+        {
+            if (cost0.Cost.ProjectId != null)
+            {
+                var nameProject = Model.Projects.FirstOrDefault(x => x.Id == cost0.Cost.ProjectId);
+                title = nameProject.Name;
+            }
+        }
+        if (Model.Users.Count != 0 && cost0.Cost != null)
+        {
+            if (cost0.Cost.UserId != null)
+            {
+                var nameUser = Model.Users.FirstOrDefault(x => x.UserId == cost0.Cost.UserId);
+                userName = nameUser.UserName + " " + nameUser.UserSurname;
+            }
+        }
+    }
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="card custom-card">
+                <div class="card-header justify-content-between">
+                    <div class="card-title">
+                        Incomes (Cost target: @cost0.Cost.CostTargetType, Period: @cost0.Cost.PeriodType @(title != "" ? ", Project: " + title : "") @(userName != "" ? ", User: " + userName : ""))
+                    </div>
+                    <div class="d-sm-flex">
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive" id="income-table">
+                        <table class="table text-nowrap table-bordered" id="datatable-basic">
+                            <thead>
+                                <tr>
+                                    <th scope="col">S.No</th>
+                                    <th scope="col">Create date</th>
+                                    <th scope="col">Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    var i = 1;
+                                    @foreach (var cost in Model.CostDetail)
+                                    {
+                                        if (cost.Cost != null)
+                                        {
+                                            <tr>
+                                                <td>@i</td>
+                                                <td>@cost.CreatedDate</td>
+                                                <td>@cost.Amount</td>
+                                            </tr>
+                                        }
+                                        else
+                                        {
+                                            <tr>
+                                                <td>@i</td>
+                                                <td>@string.Empty</td>
+                                                <td>@string.Empty</td>
+                                            </tr>
+                                        }
+                                        i++;
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        // basic datatable
+        $('#datatable-basic').DataTable({
+            language: {
+                searchPlaceholder: 'Search...',
+                sSearch: '',
+            },
+            info: false,
+            paging: false,
+        });
+    });
+</script>
+
+@section Scripts{
+    <!-- Datatables Cdn -->
+    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
+}  

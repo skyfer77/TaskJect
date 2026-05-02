@@ -1,0 +1,153 @@
+﻿@using System.Globalization
+@using TaskJect.Web.Resources
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<SharedResources> Localizer
+@model UsersInTheOrganizationModel
+@{
+    ViewBag.Title = "Users the organization";
+}
+@section HeadArea {
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.3.0/css/responsive.bootstrap.min.css">
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="card custom-card">
+                <div class="card-body ">
+                    <div class="d-md-flex d-block flex-wrap align-items-center justify-content-between">
+                        <div class="card-title fw-semibold fs-18 mb-0">@Localizer["UsersInThe"] @Model.Organization.Name</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-12">
+            <div class="card custom-card">
+                <div class="card-body">
+                    <div class="table-responsive overflow-visible" id="users-table">
+                        <table class="table text-nowrap table-bordered" id="datatable-basic">
+                            <thead>
+                                <tr>
+                                    <th scope="col">S.No</th>
+                                    <th scope="col">@Localizer["Name"]</th>
+                                    <th scope="col">@Localizer["Surname"]</th>
+                                    <th scope="col">@Localizer["Email"]</th>
+                                    <th scope="col">@Localizer["RegistrationDate"]</th>
+                                    <th scope="col">@Localizer["Role"]</th>
+                                    <th scope="col">@Localizer["Actions"]</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.Users)
+                                {
+                                    var tl = string.IsNullOrEmpty(item?.Role) ? "" : (item.Role.Equals("TeamLead") ? "tdTL" : "");
+                                    <tr>
+                                        <td class="@tl"></td>
+                                        <td class="@tl break-word-normal">@item?.Name</td>
+                                        <td class="@tl break-word-normal">@item?.Surname</td>
+                                        <td class="@tl">@item?.Email</td>
+                                        <td class="@tl">
+                                            @(item.RegistrationDate.HasValue
+                                                ? item?.RegistrationDate.Value.ToString("dd MMMM yyyy", System.Globalization.CultureInfo.CurrentCulture)
+                                                : "")
+                                        </td>
+                                        <td class="@tl">
+                                            @if (item.Role == "TeamLead")
+                                            {
+                                                 <span class="form-control-plaintext">TeamLead</span>
+                                            }
+                                            else
+                                            {
+                                            <select class="form-control role-select">
+                                                <option value="">@Localizer["SelectRole"]</option>
+                                                @{
+                                                  bool hasTeamLead = Model.Users.Any(u => u.Role == "TeamLead");
+                                                  }
+                                                @foreach (var role in Model.Roles)
+                                                {
+                                                    if (role.Name == "TeamLead" && hasTeamLead)
+                                                        {
+                                                            continue;
+                                                        }
+                                                    if (item.Role == role.Name)
+                                                    {                                                 
+                                                        <option value="@role.Id" selected>@role.Name</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="@role.Id">@role.Name</option>
+                                                    }
+                                                }
+                                            </select>
+                                            }
+                                        </td>
+                                        <td class="@tl">
+                                            @if (item.LockoutEnd != null)
+                                            {
+                                                <a class="btn btn-sm btn-success-light btn-icon" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#unlockout-user-row"
+                                                   data-todo='{"id":"@item.Id", "name": "@item.Name", "surname": "@item.Surname"}'
+                                                   title="@Localizer["UnblockUser"]">
+                                                    <i class="ri-lock-unlock-line mb-1 align-middle"></i>
+                                                </a>
+                                            }
+                                            else
+                                            {
+                                                <a class="btn btn-sm btn-danger-light btn-icon" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#lockout-user-row"
+                                                   data-todo='{"id":"@item.Id", "name": "@item.Name", "surname": "@item.Surname"}'
+                                                   title="@Localizer["BlockUser"]">
+                                                    <i class="ri-lock-line mb-1 align-middle"></i>
+                                                </a>
+                                            }
+                                            @if (item.Role != "TeamLead")
+                                            {
+                                                <a class="btn btn-sm btn-danger-light btn-icon" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#delete-user-row"
+                                                data-todo='{"id":"@item.Id", "name": "@item.Name", "surname": "@item.Surname"}'>
+                                                    <i class="ri-delete-bin-6-line mb-1 align-middle"></i>
+                                                </a>
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<partial name="_LockoutUser" />
+<partial name="_UnLockUser" />
+<partial name="_DeleteUser" />
+
+<style>
+    .tdTL{
+        background: rgba(255, 255, 0, 0.1) !important;
+    }
+
+    .break-word-normal {
+        word-break: break-word;
+        white-space: normal;
+    }
+
+    .btn.btn-danger-light {
+        background-color: rgba(var(--danger-rgb), 0.25);
+    }
+
+    .btn.btn-success-light{
+        background-color: rgba(var(--success-rgb), 0.25); 
+    }
+</style>
+<script>
+    window.currentCulture = "@CultureInfo.CurrentCulture.Name";
+</script>
+@section Scripts{
+    <!-- Datatables Cdn -->
+    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
+
+    <script src="~/js/custom_js/utils/dataTableLocalization.js"></script>
+    <script src="~/js/custom_js/utils/formatString.js"></script>
+    <script src="~/js/custom_js/Moderator/usersManager.js"></script>
+}

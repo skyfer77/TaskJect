@@ -1,0 +1,43 @@
+﻿@using TaskJect.Web.Resources
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<SharedResources> Localizer
+<!-- Start::header-element -->
+<div class="header-element notifications-dropdown">
+    <!-- Start::header-link|dropdown-toggle -->
+    <a href="javascript:void(0);" class="header-link dropdown-toggle" data-bs-toggle="dropdown" data-bs-auto-close="outside" id="messageDropdown" aria-expanded="false">
+        <i class="bx bx-bell header-link-icon"></i>
+        <span class="badge bg-secondary rounded-pill header-icon-badge pulse pulse-secondary d-none" id="notification-icon-badge">0</span>
+    </a>
+    <!-- End::header-link|dropdown-toggle -->
+    <!-- Start::main-header-dropdown -->
+    <div class="main-header-dropdown dropdown-menu dropdown-menu-end" data-popper-placement="none">
+        <div class="p-3">
+            <div class="d-flex align-items-center justify-content-between">
+                <p class="mb-0 fs-17 fw-semibold" id="notifiation-data">@Localizer["Notifications"]</p>
+                <div class="position-relative" id="container-btn-reviewed">
+                    <button class="btn-nostyle" id="reviewed-all-btn" onclick="reviewedAll()">
+                        <i class="bi bi-envelope-open header-link-icon"></i>
+                        <span class="custom-tooltip bg-outline-dark" id="reviewed-tooltip">
+                            <span class="tooltip-text">0 @Localizer["Unread"]</span>
+                            <span class="tooltip-arrow-notify "></span>
+                        </span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="dropdown-divider"></div>
+        <ul class="list-unstyled mb-0" id="header-notification-scroll" data-simplebar>
+
+        </ul>
+        <div class="p-5 empty-item">
+            <div class="text-center">
+                <span class="avatar avatar-xl avatar-rounded bg-secondary-transparent">
+                    <i class="ri-notification-off-line fs-2"></i>
+                </span>
+                <h6 class="fw-semibold mt-3">@Localizer["NoNewNotifications"]</h6>
+            </div>
+        </div>
+    </div>
+    <!-- End::main-header-dropdown -->
+</div>
+<!-- End::header-element -->

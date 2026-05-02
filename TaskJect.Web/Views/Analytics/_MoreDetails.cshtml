@@ -1,0 +1,136 @@
+﻿@model AnalysisOverviewUserModel
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasExample"
+     aria-labelledby="offcanvasExample">
+        <div class="offcanvas-body p-0">
+            <div class="d-sm-flex align-items-top p-4 border-bottom border-block-end-dashed main-profile-cover">
+                <div>
+                    <span class="avatar avatar-xxl avatar-rounded me-3 bg-light-transparent p-2">
+                        <img src="~/images/company-logos/12.png" alt="">
+                    </span>
+                </div>
+                <div class="flex-fill main-profile-info">
+                    <div class="d-flex align-items-center justify-content-between">
+                    <h6 class="fw-semibold mb-1 text-fixed-white">@Model.User.Name @Model.User.Surname</h6>
+                        <button type="button" class="btn-close crm-contact-close-btn" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                    </div>
+                    <p class="mb-1 text-muted text-fixed-white op-7">Telecommunications</p>
+                    <div class="d-flex mb-0">
+                        <div class="me-4">
+                            <p class="fw-bold fs-20 text-fixed-white text-shadow mb-0">
+                                @Model.TaskCount
+                            </p>
+                            <p class="mb-0 fs-11 op-5 text-fixed-white">Tasks</p>
+                        </div>
+                        <div class="me-4">
+                            <p class="fw-bold fs-20 text-fixed-white text-shadow mb-0">
+                                @Model.PointSum
+                            </p>
+                            <p class="mb-0 fs-11 op-5 text-fixed-white">Points</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="p-4 border-bottom border-block-end-dashed">
+                <p class="fs-14 mb-2 me-4 fw-semibold">Contact Information :</p>
+                <div class="">
+                    <div class="d-flex align-items-center mb-2">
+                        <div class="me-2">
+                            <span class="avatar avatar-sm avatar-rounded bg-light text-muted">
+                                <i class="ri-mail-line align-middle fs-14"></i>
+                            </span>
+                        </div>
+                        <div>
+                            @Model.User.Email
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center mb-2">
+                        <div class="me-2">
+                            <span class="avatar avatar-sm avatar-rounded bg-light text-muted">
+                                <i class="ri-phone-line align-middle fs-14"></i>
+                            </span>
+                        </div>
+                        <div>
+                            @Model.User.PhoneNumber
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center mb-2">
+                        <div class="me-2">
+                            <span class="avatar avatar-sm avatar-rounded bg-light text-muted">
+                                <i class="ri-telegram-line align-middle fs-14"></i>
+                            </span>
+                        </div>
+                        <div>
+                        <a href="https://t.me/@Model.User.TelegramUserName">@Model.User.TelegramUserName</a>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center mb-2">
+                        <div class="me-2">
+                            <span class="avatar avatar-sm avatar-rounded bg-light text-muted">
+                                <i class="las la-birthday-cake align-middle fs-14"></i>
+                            </span>
+                        </div>
+                        <div>
+                            @{var birthday = Model.User.Birthday.HasValue ? @String.Format($"{Model.User.Birthday.Value.Date:dd,MMMM yyyy}") : string.Empty;}
+                            @birthday
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center mb-0">
+                        <div class="me-2">
+                            <span class="avatar avatar-sm avatar-rounded bg-light text-muted">
+                                <i class="ri-bank-card-line align-middle fs-14"></i>
+                            </span>
+                        </div>
+                        <div>
+                            @if (Model.User.CardNumber != null)
+                            {
+                                @System.Text.RegularExpressions.Regex.Replace(Model.User.CardNumber, @"(\w{4})(\w{4})(\w{4})(\w{4})", @"$1 $2 $3 $4")
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="p-4 border-bottom border-block-end-dashed">
+                @if (Model.CountTaskOverdue < 2)
+                {
+                    <p class="fs-14 mb-0 me-4 fw-semibold">Task overdue: @Model.CountTaskOverdue </p>
+                }
+                else
+                {
+                    <p class="fs-14 mb-0 me-4 fw-semibold">Tasks overdue: @Model.CountTaskOverdue </p>
+                }
+            </div>
+            <div class="border-bottom border-block-end-dashed">
+            <div class="pt-4 px-4 justify-content-between d-sm-flex d-flex card-header">
+                <div class="fs-14 fw-semibold">Stats task: 
+                    @if (Model.DateTo != null)
+                    {
+                        @Model.DateTo
+                    }
+                    else
+                    {
+                        @Model.QuickFilter
+                    }
+                    </div>
+                </div>
+                <div class="card-body py-4 px-0">
+                    <div id="task-summary-@Model.User.Id"></div>
+                </div>
+            </div>
+        </div>
+    </div> 
+    <script>
+        $(document).ready(function () {
+            var quickFilter = '@Html.Raw(Json.Serialize(Model.QuickFilter))';
+            var tasksArray = '@Html.Raw(Json.Serialize(Model.Tasks))';
+            var pointsArray = '@Html.Raw(Json.Serialize(Model.Points))';
+            var period = '@Html.Raw(Json.Serialize(Model.TasksPeriod))';
+            var dateTo = '@Html.Raw(Json.Serialize(Model.DateTo))';
+            console.log(dateTo)
+            getValuePieChart(tasksArray, pointsArray, period, quickFilter, dateTo);
+        });
+    </script>
+    <style>
+    .apexcharts-pie text {
+        fill: #495057;
+    }
+    </style>

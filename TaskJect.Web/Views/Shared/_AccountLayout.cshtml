@@ -1,0 +1,165 @@
+﻿@using TaskJect.Web.Resources
+@using TaskJect.Web.Services
+@using System.Text.Json
+@using TaskJect.Web.Enums
+@using Microsoft.Extensions.Localization
+@using System.Globalization
+@inject IStringLocalizer<SharedResources> Localizer
+@inject IStringLocalizer<LandingResources> LocalizerLanding
+@inject ILocalizationProvider LocalizationProvider
+@{
+    var translations = LocalizationProvider.GetAllTranslations();
+    var json = JsonSerializer.Serialize(translations);
+
+    var consent = Context.Request.Cookies["cookieConsent"];
+    var showBanner = string.IsNullOrEmpty(consent)
+        || (int.TryParse(consent, out int consentInt) && (CookieConsentType)consentInt == CookieConsentType.NecessaryOnly);
+
+    ViewData["Title"] = "Home";
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="@CultureInfo.CurrentUICulture.TwoLetterISOLanguageName">
+<head>
+    <!-- Meta Data -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
+
+    <title>@Localizer["SeoTitle"]</title>
+    <meta name="description" content="@Localizer["SeoDescription"]" />
+    <meta name="keywords" content="@Localizer["SeoKeywords"]" />
+
+    <meta property="og:title" content="@Localizer["SeoTitle"]">
+    <meta property="og:description" content="@Localizer["SeoDescription"]">
+    <meta property="og:image" content="~/images/brand-logos/desktop-logo.png">
+    <meta property="og:url" content="https://taskject.com/">
+    <meta property="og:type" content="website">
+
+    <link rel="alternate" hreflang="en" href="https://taskject.com/" />
+    <link rel="alternate" hreflang="uk" href="https://taskject.com/?culture=uk" />
+
+    <!-- Favicon -->
+    <link rel="icon" href="~/images/brand-logos/favicon.ico" type="image/x-icon">
+
+    <!-- Main Theme Js -->
+    <script src="~/js/authentication-main.js"></script>
+
+    <!-- Bootstrap Css -->
+    <link id="style" rel="stylesheet" href="~/lib/bootstrap/css/bootstrap.min.css">
+
+    <!-- Style Css -->
+    <link rel="stylesheet" href="~/css/styles.min.css">
+
+    <!-- Icons Css -->
+    <link rel="stylesheet" href="~/css/icons.min.css">
+
+    <!-- Swiper Css -->
+    <link rel="stylesheet" href="~/lib/swiper/swiper-bundle.min.css">
+</head>
+<body>
+    <div class="row authentication mx-0 min-vh-100">
+        <div class="col-xxl-7 col-xl-7 col-lg-12">
+            <div class="mt-3 ms-3 text-end" style="position:absolute; top:0; left:0;">
+                <partial name="_SelectLanguage" />
+            </div>
+            <div class="row justify-content-center align-items-center h-100">
+                <div class="col-xxl-6 col-xl-7 col-lg-7 col-md-7 col-sm-8 col-12">
+                    <div class="p-5">
+                        <div class="mb-4">
+                            <a asp-controller="Home" asp-action="Index" class="header-logo">
+                                <img src="~/images/brand-logos/desktop-logo.png" alt="logo" class="authentication-brand desktop-logo">
+                                <img src="~/images/brand-logos/desktop-dark.png" alt="logo" class="authentication-brand desktop-dark">
+                            </a>
+                        </div>
+                        @RenderBody()
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xxl-5 col-xl-5 col-lg-5 d-xl-block d-none px-0">
+            <div class="authentication-cover">
+                <div class="aunthentication-cover-content rounded">
+                    <div class="swiper keyboard-control">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide">
+                                <div class="text-fixed-white text-center p-5 d-flex align-items-center justify-content-center">
+                                    <div>
+                                        <div class="mb-5">
+                                            <img src="~/images/authentication/imgAuthorize1.jpg" class="authentication-image" alt="Efficiency Doing">
+                                        </div>
+                                        <h6 class="fw-semibold text-fixed-white"> @Localizer["EfficiencyDoingThingsRight"]</h6>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="text-fixed-white text-center p-5 d-flex align-items-center justify-content-center">
+                                    <div>
+                                        <div class="mb-5">
+                                            <img src="~/images/authentication/imgAuthorize2.jpg" class="authentication-image" alt="Great Teams Just Work">
+                                        </div>
+                                        <h6 class="fw-semibold text-fixed-white">@Localizer["GreatTeamsJustWorkTogether"]</h6>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="text-fixed-white text-center p-5 d-flex align-items-center justify-content-center">
+                                    <div>
+                                        <div class="mb-5">
+                                            <img src="~/images/authentication/imgAuthorize3.jpg" class="authentication-image" alt="Productivity Never Accident">
+                                        </div>
+                                        <h6 class="fw-semibold text-fixed-white">@Localizer["ProductivityNeverAccident"]</h6>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="text-fixed-white text-center p-5 d-flex align-items-center justify-content-center">
+                                    <div>
+                                        <div class="mb-5">
+                                            <img src="~/images/authentication/imgAuthorize4.jpg" class="authentication-image" alt="A Goal Without Plan">
+                                        </div>
+                                        <h6 class="fw-semibold text-fixed-white">@Localizer["AGoalWithoutPlan"]</h6>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="text-fixed-white text-center p-5 d-flex align-items-center justify-content-center">
+                                    <div>
+                                        <div class="mb-5">
+                                            <img src="~/images/authentication/imgAuthorize5.jpg" class="authentication-image" alt="Success Sum Small Efforts">
+                                        </div>
+                                        <h6 class="fw-semibold text-fixed-white">@Localizer["SuccessSumSmallEfforts"]</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-pagination"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        window.translations = @Html.Raw(json);
+    </script>
+
+    @if (showBanner)
+    {
+        <partial name="_CookieBanner" />
+    }
+
+    <script src="~/js/custom_js/utils/cookiesAccepted.js" charset="utf-8"></script>
+    <!-- Bootstrap JS -->
+    <script src="~/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Swiper JS -->
+    <script src="~/lib/swiper/swiper-bundle.min.js"></script>
+
+    <!-- Internal Sing-Up JS -->
+    <script src="~/js/authentication.js"></script>
+</body>
+
+</html>
